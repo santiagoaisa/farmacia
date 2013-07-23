@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window>
+        <grid>
+		<columns>
+			<column width="30%"  />
+			<column width="70%" />
+		</columns>
+		<rows>
+			<row>
+                            	<label value="Codigo:"/>
+                                <textbox />
+			</row>
+		</rows>
+	</grid>
+    </window>
+
+</zk>
