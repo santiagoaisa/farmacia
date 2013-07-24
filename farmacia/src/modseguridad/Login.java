@@ -1,5 +1,6 @@
 package modseguridad;
 
+import javax.naming.NamingException;
 import org.zkoss.zhtml.Form;
 import org.zkoss.zhtml.Input;
 import org.zkoss.zk.ui.Execution;
@@ -22,7 +23,17 @@ public class Login extends SelectorComposer {
     private Textbox txtClave;
     final Execution exec = Executions.getCurrent();
 
+     @Listen("onCreate=window#login")
+    public void onCreate() throws NamingException {
+         login.focus();
+     }
+    
     @Listen("onOK = textbox#txtUsuario")
+    public void onFocoClave(Event event) {
+        txtClave.focus();
+    }
+    
+    @Listen("onOK = textbox#txtClave")
     public void onLogin1(Event event) {
         validar();
     }

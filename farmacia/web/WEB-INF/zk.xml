@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- zk.xml
+	Purpose:
+		
+	Description:
+		
+	History:
+		Sun Mar 26 16:29:07     2006, Created by tomyeh
+
+Copyright (C) 2006 Potix Corporation. All Rights Reserved.
+-->
+
+<zk>
+    
+    <desktop-config>
+        <theme-uri>/tema.css</theme-uri>
+    </desktop-config>
+    
+    <library-property>
+        <name>org.zkoss.zul.Button.mold</name>
+        <value>trendy</value>
+    </library-property>
+	
+    <library-property>
+        <name>org.zkoss.theme.preferred</name>
+        <value>silvertail</value>
+    </library-property>
+	
+    <library-property>
+        <name>org.zkoss.pivot.pivotModel.columnOpenOnInit</name>
+        <value>true</value>
+    </library-property>
+    <library-property>
+        <name>org.zkoss.pivot.pivotModel.rowOpenOnInit</name>
+        <value>true</value>
+    </library-property>
+	
+	
+    <session-config>
+        <timeout-uri></timeout-uri>
+    </session-config>
+	
+</zk>
