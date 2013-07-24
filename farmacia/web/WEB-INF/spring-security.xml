@@ -1,0 +1,50 @@
+<!-- Spring namespace-based configuration -->
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <!-- ====================================================== -->
+    <!-- For catching the @Secured annotation methods -->
+    <!-- Tells the Spring Security engine that we will use Spring Security's -->
+    <!-- pre and post invocation Java annotations (@PreFilter, @PreAuthorize, -->
+    <!-- @PostFilter, -->
+    <!-- @PostAuthorize) to secure service layer methods.. -->
+    <!-- Look in GFCBaseCtrl.java onEvent() method. -->
+    <!-- ====================================================== -->
+
+    <!-- Enable the @Secured annotation to secure service layer methods -->
+    <global-method-security secured-annotations="enabled" />
+
+    <http auto-config="true">
+
+        <!-- ====================================================== -->
+        <!-- If we have our own LoginPage. So we must -->
+        <!-- tell Spring the name and the place. -->
+        <!-- In our case we take the same page -->
+        <!-- for a error message by a failure. -->
+        <!-- Further the page after a successfully login. -->
+        <!-- ====================================================== -->
+        <intercept-url pattern="/modulos/**" access="IS_AUTHENTICATED_REMEMBERED" />
+        <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <form-login login-page="/login.zul" authentication-failure-url="/loginfallido.zul?login_error=1"/>
+
+    </http>
+        
+   
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="datasource">
+            <password-encoder hash="md5" />
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="datasource" class="modseguridad.EntityManagerUserDetailsService" />
+
+</beans:beans>
+
+

@@ -19,11 +19,12 @@ public class RolServiceImpl implements RolService {
     @Autowired
     private RolDAO roldao;
 
-    @Transactional
+    @Transactional    
     public void registrar(Rol rol) {
         roldao.registrar(rol);        
     }
 
+    @Override
     public List<Rol> listaRoles() {
         return roldao.lista();
     }

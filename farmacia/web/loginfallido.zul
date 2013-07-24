@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    
+    <window id="loginfallido" apply="modseguridad.LoginFallido" title="Error en el Login..." 
+            mode="overlapped" width="250px"  border="0" position="center" >
+        <groupbox mold="3d" width="100%">	     
+            <hbox>
+                <vbox>
+                    <image src="/img/Bloque1.png" height="100px"/>
+                </vbox>
+                <vbox align="center" height="100%" heights="60%,30%,10%" >
+                    <label value="" height="100%"/>
+                    <label value="Acceso Denegado" height="100%" />
+                    <button id="btnRegresar" label="Regresar"/>
+                </vbox>
+            </hbox>
+        </groupbox>
+    </window>
+    
+    
+</zk>

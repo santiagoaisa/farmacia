@@ -31,10 +31,6 @@ public class Prueba extends SelectorComposer {
         for (Rol r : listaRol) {
             System.out.println(r);
         }
-        
-        Rol rol=new Rol();
-        rol.setCnomrol("ROL Spring");
-        rolService.registrar(rol);
 
     }
 }

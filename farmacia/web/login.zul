@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+
+    <window id="login" width="360px" title="Sistema Farmacia [Zarcillo Soluciones]"
+            apply="modseguridad.Login" mode="overlapped" border="0" position="center">
+
+        <hbox>
+            <image src="/img/login.png" height="60px" />
+            <image src="/img/logodim.jpg" height="40px"/>
+        </hbox>
+        <groupbox >
+            <caption>Inicio de Sesión...</caption>
+            
+            <grid style="border-style:none;">
+                <columns>
+                    <column width="30%"/>
+                    <column width="70%"/>
+                </columns>
+                <rows  >
+                    <row style="border-style:none;">
+                        <label value="Usuario" style="font-size:13px;"/>
+                        <textbox id="txtUsuario" style="font-size:13px;" width="95%" />
+                    </row>
+
+                    <row style="border-style:none;">
+                        <label value="Password:" style="font-size:13px;"/>
+                        <textbox id="txtClave"  type="password"  style="font-size:13px;" width="95%" />
+                    </row>
+
+                    <row style="border-style:none;">                        
+                        <button id="btnLogin" label="Login" />
+                        <button id="btnBorrar" label="Borrar" />
+                    </row>
+                    
+                     
+                </rows>
+            </grid>
+                       
+
+        </groupbox>
+    </window>
+    
+</zk>
