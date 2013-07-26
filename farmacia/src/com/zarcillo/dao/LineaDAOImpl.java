@@ -1,6 +1,6 @@
 package com.zarcillo.dao;
 
-import com.zarcillo.domain.Empresa;
+import com.zarcillo.domain.Linea;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -11,16 +11,14 @@ import org.springframework.stereotype.Repository;
  * @author saisa
  */
 @Repository
-public class EmpresaDAOImpl implements EmpresaDAO{
+public class LineaDAOImpl implements LineaDAO{
     
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     @Override
-    public Empresa busqueda(Integer idempresa) {
-        return (Empresa) em.createNamedQuery("Empresa.findByIdempresa").setParameter("idempresa", idempresa).getSingleResult();
+    public Linea busqueda(Integer idlinea) {
+        return (Linea) em.createNamedQuery("Linea.findByIdlinea").setParameter("idlinea", idlinea).getSingleResult();
     }
-    
-    
     
 }

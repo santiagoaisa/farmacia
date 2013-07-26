@@ -26,8 +26,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "almacen")
 @NamedQueries({
-    @NamedQuery(name = "Almacen.findAll", query = "SELECT a FROM Almacen a")})
+    @NamedQuery(name = "Almacen.findAll", query = "SELECT a FROM Almacen a"),
+    @NamedQuery(name = "Almacen.findByIdalmacen", query = "SELECT a FROM Almacen a WHERE a.idalmacen=:idalmacen ")})
 public class Almacen implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,8 +43,6 @@ public class Almacen implements Serializable {
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
-    
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
@@ -52,11 +52,11 @@ public class Almacen implements Serializable {
     @JoinColumn(name = "idubigeo", referencedColumnName = "idubigeo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Ubigeo idubigeo;
-     @Column(name = "bprincipal")
+    @Column(name = "bprincipal")
     private Boolean bprincipal;
 
     public Almacen() {
-        bprincipal=false;        
+        bprincipal = false;
     }
 
     public Almacen(Integer idalmacen) {
@@ -102,8 +102,6 @@ public class Almacen implements Serializable {
     public void setBprincipal(Boolean bprincipal) {
         this.bprincipal = bprincipal;
     }
-
-   
 
     public Usuario getIdusuario() {
         return idusuario;
@@ -153,5 +151,4 @@ public class Almacen implements Serializable {
     public String toString() {
         return cnomalmacen;
     }
-    
 }
