@@ -19,8 +19,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ubigeo")
 @NamedQueries({
-    @NamedQuery(name = "Ubigeo.findAll", query = "SELECT u FROM Ubigeo u")})
+    @NamedQuery(name = "Ubigeo.findAll", query = "SELECT u FROM Ubigeo u"),
+    @NamedQuery(name = "Ubigeo.findByCubigeo", query = "SELECT u FROM Ubigeo u WHERE u.cubigeo = :cubigeo"),
+    @NamedQuery(name = "Ubigeo.findByIdubigeo", query = "SELECT u FROM Ubigeo u WHERE u.idubigeo = :idubigeo"),
+    @NamedQuery(name = "Ubigeo.findByCdepartamento", query = "SELECT u FROM Ubigeo u WHERE u.cprovincia ='00' and u.cdistrito='00' "),
+    @NamedQuery(name = "Ubigeo.findByCprovincia", query = "SELECT u FROM Ubigeo u WHERE u.cdepartamento=:departamento and u.cprovincia<>'00' and u.cdistrito ='00' "),
+    @NamedQuery(name = "Ubigeo.findByCdistrito", query = "SELECT u FROM Ubigeo u WHERE u.cdepartamento=:departamento and u.cprovincia=:provincia and u.cdistrito<>'00' ORDER BY u.cubigeo "),
+    @NamedQuery(name = "Ubigeo.findByIddepartamento", query = "SELECT u FROM Ubigeo u WHERE u.cprovincia ='00' and u.cdistrito='00' and u.cdepartamento=:departamento  "),
+    @NamedQuery(name = "Ubigeo.findByIdprovincia", query = "SELECT u FROM Ubigeo u WHERE u.cdepartamento=:departamento and u.cprovincia=:provincia and u.cdistrito ='00' "),
+    @NamedQuery(name = "Ubigeo.findByProvincia", query = "SELECT u FROM Ubigeo u WHERE u.cprovincia<>'00' and u.cdistrito ='00' ORDER BY u.cubigeo ")
+})
 public class Ubigeo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -38,8 +48,6 @@ public class Ubigeo implements Serializable {
     private String cnomdepartamento;
     @Column(name = "cnomprovincia")
     private String cnomprovincia;
-    
-    
 
     public Ubigeo() {
     }
@@ -104,8 +112,6 @@ public class Ubigeo implements Serializable {
         this.cnomprovincia = cnomprovincia;
     }
 
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -130,5 +136,4 @@ public class Ubigeo implements Serializable {
     public String toString() {
         return cubigeo;
     }
-    
 }
