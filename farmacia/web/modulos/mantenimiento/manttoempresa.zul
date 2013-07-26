@@ -1,0 +1,49 @@
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winEmpresa" width="560px" title="Mantenimiento de Almacenes"
+        apply="modmantenimiento.ManttoEmpresa"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="13%"/>
+            <column width="20%"/>
+            <column width="13%"/>
+            <column width="20%"/>
+            <column width="13%"/>
+            <column width="20%"/>
+        </columns>
+        <rows  >
+            <row spans="1,5" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row spans="1,3,1,1" >
+                <label value="RUC:" />
+                <textbox id="txtRuc" width="95%" />
+                <label value="Fec.Inicio:" />
+                <datebox id="dfecha" format="yyyy/MM/dd" readonly="true" width="95%" constraint="no empty" />
+            </row>
+            <row spans="1,5" >
+                <label value="Direccion:" />
+                <textbox id="txtDireccion" width="95%" />
+            </row>
+            <row  >
+                <label value="Departamento:" />
+                <combobox id="cboDepartamento" width="95%" constraint="no empty:Debe Seleccionar Departamento"  readonly="true" autodrop="true" />
+                <label value="Provincia:" />
+                <combobox id="cboProvincia" width="95%" readonly="true" autodrop="true" />
+                <label value="Distrito:" />
+                <combobox id="cboDistrito" width="95%" readonly="true" autodrop="true" />
+            </row>  
+            <row  >
+                <label value="Telefono:" />
+                <textbox id="txtTelefono" width="95%" />
+                <label value="Fax:" />
+                <textbox id="txtFax" width="95%" />
+                <label value="Movil:" />
+                <textbox id="txtMovil" width="95%" />
+            </row>                   
+        </rows>
+    </grid>
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

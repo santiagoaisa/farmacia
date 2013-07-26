@@ -1,0 +1,39 @@
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winAlmacen" width="560px" title="Mantenimiento de Almacenes"
+        apply="modmantenimiento.ManttoAlmacen"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="13%"/>
+            <column width="20%"/>
+            <column width="13%"/>
+            <column width="20%"/>
+            <column width="13%"/>
+            <column width="20%"/>
+        </columns>
+        <rows  >
+            <row spans="1,1,4" >
+                <label value="Unidad Negocio:" />
+                <combobox id="cboUnidad" width="95%" constraint="no empty:Debe Seleccionar Unidad" readonly="true" autodrop="true" />
+                <label  />
+            </row>
+            <row spans="1,5" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row spans="1,5" >
+                <label value="Direccion:" />
+                <textbox id="txtDireccion" width="95%" />
+            </row>
+            <row  >
+                <label value="Departamento:" />
+                <combobox id="cboDepartamento" width="95%" constraint="no empty:Debe Seleccionar Departamento"  readonly="true" autodrop="true" />
+                <label value="Provincia:" />
+                <combobox id="cboProvincia" width="95%" readonly="true" autodrop="true" />
+                <label value="Distrito:" />
+                <combobox id="cboDistrito" width="95%" readonly="true" autodrop="true" />
+            </row>                     
+        </rows>
+    </grid>
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>
