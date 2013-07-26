@@ -1,8 +1,9 @@
 package com.zarcillo.service;
 
+import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.RolDAO;
 import com.zarcillo.domain.Rol;
-import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,14 +19,19 @@ public class RolServiceImpl implements RolService {
 
     @Autowired
     private RolDAO roldao;
+    @Autowired
+    private CrudDAO cruddao;
 
-    @Transactional    
+    @Override
+    @Transactional       
     public void registrar(Rol rol) {
-        roldao.registrar(rol);        
+        rol.setDfecreg(new Date());
+        cruddao.registrar(rol);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Rol> listaRoles() {
-        return roldao.lista();
+        return cruddao.listarTodos(Rol.class);
     }
 }

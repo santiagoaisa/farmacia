@@ -2,6 +2,7 @@ package com.zarcillo.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,33 +14,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author saisa
+ */
 @Entity
 @Table(name = "usuario")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByClogin", query = "SELECT u FROM Usuario u WHERE u.clogin=:clogin")        ,
-    @NamedQuery(name = "Usuario.findByCloginByCclave", query = "SELECT u FROM Usuario u where u.clogin=:clogin and u.cclave=:cclave") 
+    @NamedQuery(name = "Usuario.findByClogin", query = "SELECT u FROM Usuario u WHERE u.clogin=:clogin"),
+    @NamedQuery(name = "Usuario.findByCloginByCclave", query = "SELECT u FROM Usuario u where u.clogin=:clogin and u.cclave=:cclave")
 })
-
-@SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario", allocationSize = 1)
 public class Usuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    @Id    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idusuario")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
     private Integer idusuario;
     @Column(name = "cnomusuario")
     private String cnomusuario;
     @Column(name = "bactivo")
-    private boolean bactivo;
+    private Boolean bactivo;
     @Column(name = "clogin")
     private String clogin;
     @Column(name = "cclave")
@@ -50,14 +52,11 @@ public class Usuario implements Serializable {
     @Column(name = "dfecmod")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecmod;
-    
-     @JoinColumn(name = "idrol", referencedColumnName = "idrol")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "idrol", referencedColumnName = "idrol")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Rol idrol;
 
     public Usuario() {
-        clogin = "SIN_LOGIN";
-        cclave = "SIN_CLAVE";
     }
 
     public Usuario(Integer idusuario) {
@@ -80,15 +79,13 @@ public class Usuario implements Serializable {
         this.cnomusuario = cnomusuario;
     }
 
-    public boolean isBactivo() {
+    public Boolean getBactivo() {
         return bactivo;
     }
 
-    public void setBactivo(boolean bactivo) {
+    public void setBactivo(Boolean bactivo) {
         this.bactivo = bactivo;
     }
-
-    
 
     public String getClogin() {
         return clogin;
@@ -129,9 +126,6 @@ public class Usuario implements Serializable {
     public void setIdrol(Rol idrol) {
         this.idrol = idrol;
     }
-    
-    
-    
 
     @Override
     public int hashCode() {
@@ -157,5 +151,4 @@ public class Usuario implements Serializable {
     public String toString() {
         return cnomusuario;
     }
-    
 }

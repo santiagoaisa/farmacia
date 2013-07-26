@@ -31,6 +31,8 @@ public class Prueba extends SelectorComposer {
         for (Rol r : listaRol) {
             System.out.println(r);
         }
+        
+       
 
     }
 }
