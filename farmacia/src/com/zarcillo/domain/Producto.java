@@ -22,7 +22,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "producto")
 @NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p")})
+    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p ORDER BY p.cnomproducto"),
+    @NamedQuery(name = "Producto.findByIdproducto", query = "SELECT p FROM Producto p WHERE p.idproducto=:idproducto ")
+
+})
 public class Producto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

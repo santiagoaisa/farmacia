@@ -70,6 +70,5 @@ public class PeriodoServiceImpl implements PeriodoService{
     @Transactional(readOnly = true)
     public List<Periodo> listaGeneral() {
         return cruddao.listarTodos(Periodo.class);
-    }
-    
+    }    
 }
