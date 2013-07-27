@@ -1,7 +1,7 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBalmacen"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
 <window id="WinBalmacen" title="Buscando Conciliacion..." border="2" width="300px" position="center"
-        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.ManttoAlmacen" >
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaAlmacen" >
     <zscript>{
         void doCancel()
         {

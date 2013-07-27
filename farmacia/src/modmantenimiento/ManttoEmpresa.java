@@ -31,6 +31,7 @@ import org.zkoss.zul.Image;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
@@ -201,6 +202,9 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
         empresa.setCruc(txtRuc.getText().toUpperCase());
         empresa.setCdireccion(txtDireccion.getText().toUpperCase());  
         empresa.setCtelefono(txtTelefono.getText().toUpperCase());
+        empresa.setCfax(txtFax.getText().toUpperCase());
+        empresa.setCmovil(txtMovil.getText().toUpperCase());
+        empresa.setIdusuario(usuario);
     }
     
     private void verificarDocumento(){
@@ -231,6 +235,19 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
         quitarConstraint();
         txtNombre.setText(empresa.getCnomempresa());
         txtDireccion.setText(empresa.getCdireccion());
+        txtRuc.setText(empresa.getCruc());
+        txtTelefono.setText(empresa.getCtelefono());
+        txtFax.setText(empresa.getCfax());
+        txtMovil.setText(empresa.getCmovil());
+        if (empresa.getIdubigeo() != null) {
+            udepartamento = ubigeoService.buscarDepartamento(empresa.getIdubigeo().getCdepartamento());
+            uprovincia = ubigeoService.buscarProvincia(udepartamento.getCdepartamento(), empresa.getIdubigeo().getCprovincia());
+            cboProvincia.setText(empresa.getIdubigeo().getCnomprovincia());
+            cboDistrito.setText(empresa.getIdubigeo().getCubigeo());
+            cboDepartamento.setSelectedIndex(modeloDepartamento.indexOf(udepartamento));
+            modeloDistrito = new ListModelList(ubigeoService.listaDistrito(udepartamento.getCdepartamento(), uprovincia.getCprovincia()));
+            cboDistrito.setModel(modeloDistrito);
+        }
     }
 
     @Override
@@ -245,7 +262,7 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
         winbuscaprod.doModal();
         Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
         if (rest) {
-            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstempresa");
+            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstEmpresa");
             ListModel modelobuscado = lstproducto1.getModel();
             empresa =  (Empresa) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
             escribir();
@@ -258,14 +275,15 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
     }
 
     @Override
-    public void grabar() {
-        empresa.setIdusuario(usuario);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void grabar() {        
+        empresaService.registrar(empresa);
+        Messagebox.show("Registro Satisfactorio");
     }
 
     @Override
     public void actualizar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        empresaService.actualizar(empresa);
+        Messagebox.show("Registro Satisfactorio");
     }
 
     @Override

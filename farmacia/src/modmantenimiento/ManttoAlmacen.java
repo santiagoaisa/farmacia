@@ -187,7 +187,7 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
         cboUnidad.setSelectedIndex(modeloUnidad.indexOf(almacen.getIdunidad()));
         txtNombre.setText(almacen.getCnomalmacen());
         txtDireccion.setText(almacen.getCdireccion());
-        if (almacen.getIdubigeo() != null) {
+        if(almacen.getIdubigeo() != null) {
                 udepartamento = ubigeoService.buscarDepartamento(almacen.getIdubigeo().getCdepartamento());
                 uprovincia = ubigeoService.buscarProvincia(udepartamento.getCdepartamento(), almacen.getIdubigeo().getCprovincia());
                 

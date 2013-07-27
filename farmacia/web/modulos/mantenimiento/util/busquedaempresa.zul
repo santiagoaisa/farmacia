@@ -1,0 +1,34 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBempresa"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBempresa" title="Buscando Conciliacion..." border="2" width="300px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaEmpresa" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBempresa.setAttribute("REST",false);
+        WinBempresa.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstEmpresa" mold="paging"   pageSize="50" width="99%" height="150px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="60%" sort="auto(cnomempresa)"/>
+                        <listheader label="Ruc" width="40%" sort="auto(cruc)"/>
+                    </listhead>
+                    <listitem self="@{each=empresa}" onCancel="WinBempresa.limpiar()" onDoubleClick="WinBempresa.registrar()" onOK="WinBempresa.registrar()">
+                        <listcell label="@{empresa.cnomempresa}"/>
+                        <listcell label="@{empresa.cruc}"/>
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px"
+             style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="WinBempresa.registrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
+
