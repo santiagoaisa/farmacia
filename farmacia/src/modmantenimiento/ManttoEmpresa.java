@@ -99,7 +99,7 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
     
     
     
-    @Listen("onCreate=window#winAlmacen")
+    @Listen("onCreate=window#winEmpresa")
     public void onCreate() throws NamingException {
         HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winEmpresa/menuMantto");
          menuMantto =  (MenuMantenimiento) macro.getChildren().get(0);
@@ -159,7 +159,21 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
         cboProvincia.setModel(modeloProvincia);
         modeloDistrito=new ListModelList();
         cboDistrito.setModel(modeloDistrito);
-        dFecha.setValue(new Date());
+        dFecha.setValue(new Date());        
+        habilitarNuevo(true);
+    }
+    
+    private void habilitarNuevo(boolean enable){
+        txtNombre.setReadonly(enable);
+        txtRuc.setReadonly(enable);
+        txtDireccion.setReadonly(enable);
+        txtFax.setReadonly(enable);
+        txtMovil.setReadonly(enable);
+        txtTelefono.setReadonly(enable);
+        dFecha.setDisabled(enable);
+        cboDepartamento.setDisabled(enable);
+        cboProvincia.setDisabled(enable);
+        cboDistrito.setDisabled(enable);
     }
     
     private void eligeDepartamento() {
@@ -252,7 +266,20 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
 
     @Override
     public void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        quitarConstraint();
+        habilitarNuevo(false);
+        txtDireccion.setText("");
+        txtFax.setText("");
+        txtMovil.setText("");
+        txtNombre.setText("");
+        txtRuc.setText("");
+        txtTelefono.setText("");
+        cboDepartamento.setSelectedIndex(-1);
+        cboProvincia.setText("");
+        cboProvincia.setSelectedIndex(-1);
+        cboDistrito.setText("");
+        cboDistrito.setSelectedIndex(-1);        
+        agregarConstraint();
     }
 
     @Override
@@ -298,21 +325,40 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
 
     @Override
     public void habilitar(boolean enable) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        txtNombre.setReadonly(enable);
+        txtRuc.setReadonly(enable);
+        txtDireccion.setReadonly(enable);
+        txtFax.setReadonly(enable);
+        txtMovil.setReadonly(enable);
+        txtTelefono.setReadonly(enable);
+        dFecha.setDisabled(enable);
+        cboDepartamento.setDisabled(enable);
+        cboProvincia.setDisabled(enable);
+        cboDistrito.setDisabled(enable);
     }
 
     @Override
     public void validarDatos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cboDepartamento.getValue();
+        txtNombre.getValue();
     }
 
     @Override
     public void salir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        winEmpresa.onClose();
     }   
 
-    private void quitarConstraint() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void agregarConstraint() {
+        txtNombre.setConstraint(new ConstraintCamposObligatorios());
+        cboDepartamento.setConstraint(new ConstraintCamposObligatorios());
+
+    }
+
+    public void quitarConstraint() {
+        txtNombre.setConstraint("");
+        cboDepartamento.setConstraint("");
+        cboProvincia.setConstraint("");
+        cboDistrito.setConstraint("");
     }
    
 }

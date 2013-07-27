@@ -36,11 +36,11 @@
             </row>  
             <row  >
                 <label value="Telefono:" />
-                <textbox id="txtTelefono" width="95%" />
+                <textbox id="txtTelefono" width="90%" />
                 <label value="Fax:" />
-                <textbox id="txtFax" width="95%" />
+                <textbox id="txtFax" width="90%" />
                 <label value="Movil:" />
-                <textbox id="txtMovil" width="95%" />
+                <textbox id="txtMovil" width="90%" />
             </row>                   
         </rows>
     </grid>
