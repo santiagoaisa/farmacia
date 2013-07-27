@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author saisa
  */
-@Service("unidadService")
+@Service("unidadNegocioService")
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UnidadNegocioServiceImpl implements UnidadNegocioService {
 
