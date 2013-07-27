@@ -1,5 +1,5 @@
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
-<window id="winEmpresa" width="560px" title="Mantenimiento de Almacenes"
+<window id="winEmpresa" width="560px" title="Mantenimiento de Empresa"
         apply="modmantenimiento.ManttoEmpresa"  border="0" position="center">
     
     <grid >
@@ -20,7 +20,7 @@
                 <label value="RUC:" />
                 <textbox id="txtRuc" width="95%" />
                 <label value="Fec.Inicio:" />
-                <datebox id="dfecha" format="yyyy/MM/dd" readonly="true" width="95%" constraint="no empty" />
+                <datebox id="dFecha" format="yyyy/MM/dd" readonly="true" width="95%" constraint="no empty" />
             </row>
             <row spans="1,5" >
                 <label value="Direccion:" />
@@ -44,6 +44,7 @@
             </row>                   
         </rows>
     </grid>
+    <image id="logo"  width="50px"/>    
     
     <menu  id="menuMantto" width="100%"></menu>                  
 </window>

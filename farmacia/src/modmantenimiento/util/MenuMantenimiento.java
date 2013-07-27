@@ -1,8 +1,5 @@
 package modmantenimiento.util;
 
-import javax.naming.NamingException;
-import org.zkoss.zk.ui.select.annotation.Listen;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
@@ -10,43 +7,47 @@ import org.zkoss.zul.Window;
 public class MenuMantenimiento extends Window {
 
     private String accion = new String();
-    
-    @Wire
-    private Window winMantenimiento;
-    @Wire
-    private Toolbarbutton btnNuevo;    
-    @Wire
-    private Toolbarbutton btnGrabar;
-    @Wire
-    private Toolbarbutton btnModificar;
-    @Wire
-    private Toolbarbutton btnEliminar;
-    @Wire
-    private Toolbarbutton btnBuscar;
-    @Wire
-    private Toolbarbutton btnIgnorar;
-    @Wire
-    private Toolbarbutton btnImprimir;
-    @Wire
-    private Toolbarbutton btnSalir;
-    
+    Toolbarbutton btnNuevo;
+    Toolbarbutton btnGrabar;
+    Toolbarbutton btnModificar;
+    Toolbarbutton btnEliminar;
+    Toolbarbutton btnBuscar;
+    Toolbarbutton btnIgnorar;
+    Toolbarbutton btnImprimir;
+    Toolbarbutton btnSalir;
     CrudListener crudlistener;
 
-    @Listen("onCreate=window#winMantenimiento")
-    public void onCreate() throws NamingException {
-         btnBuscar.focus();
-     }
-    
-    public void Nuevo(){
+    public void onCreate() {
+        initcomponentes();
+    }
+
+    public void focoBuscar(){
+        btnBuscar.focus();
+    }
+
+
+    void initcomponentes() {
+        btnNuevo = (Toolbarbutton) getFellow("btnNuevo");
+        btnGrabar = (Toolbarbutton) getFellow("btnGrabar");
+        btnModificar = (Toolbarbutton) getFellow("btnModificar");
+        btnEliminar = (Toolbarbutton) getFellow("btnEliminar");
+        btnBuscar = (Toolbarbutton) getFellow("btnBuscar");
+        btnIgnorar = (Toolbarbutton) getFellow("btnIgnorar");
+        btnImprimir = (Toolbarbutton) getFellow("btnImprimir");
+        btnSalir = (Toolbarbutton) getFellow("btnSalir");
+    }
+
+    public void Nuevo()  {
         crudlistener.limpiar();
         habilitar(false);
         accion = "N";
     }
-    public void Modificar(){
+
+    public void Modificar()  {
         crudlistener.modificar();
         accion = "M";
-        habilitar(false);      
-        
+        habilitar(false);
+
     }
 
     private void habilitar(boolean enable) {
@@ -61,36 +62,37 @@ public class MenuMantenimiento extends Window {
         crudlistener.habilitar(enable);
     }
 
-    public void Grabar() {
+    public void Grabar()  {
         crudlistener.validarDatos();
 
         int resp = Messagebox.show("Esta Seguro de Grabar El Registro", "Mantenimiento", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
-        if (resp == Messagebox.OK)
-        {
-        crudlistener.leer();
-        
-        if (accion.equals("N")) {
-            crudlistener.grabar();
-        } else {
-            crudlistener.actualizar();
-        }
+        if (resp == Messagebox.OK) {
+            crudlistener.leer();
 
-        crudlistener.escribir();
-        habilitar(true);
-        }
-        else
+            if (accion.equals("N")) {
+                crudlistener.grabar();
+            } else {
+                crudlistener.actualizar();
+            }
+
+            crudlistener.escribir();
+            habilitar(true);
+        } else {
             return;
+        }
     }
 
-    public void Eliminar(){
+    public void Eliminar() throws InterruptedException {
         crudlistener.eliminar();
         crudlistener.escribir();
+        crudlistener.habilitar(true);
+
     }
 
     public void Buscar() {
+        crudlistener.limpiar();
+        crudlistener.buscar();
         crudlistener.habilitar(true);
-        crudlistener.buscar();  
-        
     }
 
     public void encuentra() {
