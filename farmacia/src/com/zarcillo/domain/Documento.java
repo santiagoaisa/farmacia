@@ -26,8 +26,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "documento")
 @NamedQueries({
-    @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d")})
+    @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d ORDER BY d.cnomdocumento "),
+    @NamedQuery(name = "Documento.findByIddocumento", query = "SELECT d FROM Documento d WHERE d.iddocumento=:iddocumento")
+})
 public class Documento implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,29 +43,26 @@ public class Documento implements Serializable {
     private Boolean bcompra;
     @Column(name = "bventa")
     private Boolean bventa;
-      @Column(name = "bpago")
+    @Column(name = "bpago")
     private Boolean bpago;
-      
     @Column(name = "ccodigosunat")
     private String ccodigosunat;
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
-  
     @Column(name = "cabrev")
     private String cabrev;
     @Column(name = "nitems")
     private Integer nitems;
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
 
     public Documento() {
-        bcompra=false;
-        bpago=false;
-        bventa=false;
-        nitems=0;
+        bcompra = false;
+        bpago = false;
+        bventa = false;
+        nitems = 0;
     }
 
     public Documento(Integer iddocumento) {
@@ -141,8 +141,6 @@ public class Documento implements Serializable {
         this.nitems = nitems;
     }
 
-    
-
     public Usuario getIdusuario() {
         return idusuario;
     }
@@ -175,5 +173,4 @@ public class Documento implements Serializable {
     public String toString() {
         return cnomdocumento;
     }
-    
 }

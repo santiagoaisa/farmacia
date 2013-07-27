@@ -26,8 +26,14 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "cliente")
 @NamedQueries({
-    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")})
+    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
+    @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente=:idcliente"),
+    @NamedQuery(name = "Cliente.findByIdunidadByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idunidad.idunidad=:idunidad and c.idcliente=:idcliente"),
+    @NamedQuery(name = "Cliente.findByIdunidad", query = "SELECT c FROM Cliente c WHERE c.idunidad.idunidad=:idunidad "),
+    @NamedQuery(name = "Cliente.findByIdunidadByCnomcli", query = "SELECT c FROM Cliente c WHERE c.idunidad.idunidad=:idunidad and c.cnomcli LIKE :cnomcli ORBER BY c.cnomcli ")
+})
 public class Cliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,7 +67,6 @@ public class Cliente implements Serializable {
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
@@ -76,8 +81,8 @@ public class Cliente implements Serializable {
     private TipoPersona idtipo;
 
     public Cliente() {
-        bagenteretencion=false;
-        bbloqueado=false;
+        bagenteretencion = false;
+        bbloqueado = false;
     }
 
     public Cliente(Integer idcliente) {
@@ -196,8 +201,6 @@ public class Cliente implements Serializable {
         this.dfecreg = dfecreg;
     }
 
-    
-
     public Usuario getIdusuario() {
         return idusuario;
     }
@@ -254,5 +257,4 @@ public class Cliente implements Serializable {
     public String toString() {
         return cnomcli;
     }
-    
 }

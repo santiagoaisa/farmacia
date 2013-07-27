@@ -95,7 +95,7 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
     
     @Listen("onOK = #txtDireccion")
     public void onFocoDepartamento(Event event) {
-        cboDepartamento.focus();
+        cboDepartamento.focus();        
     }
     
     @Listen("onOK = #cboDepartamento")

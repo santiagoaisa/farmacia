@@ -26,8 +26,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "banco")
 @NamedQueries({
-    @NamedQuery(name = "Banco.findAll", query = "SELECT b FROM Banco b")})
+    @NamedQuery(name = "Banco.findAll", query = "SELECT b FROM Banco b"),
+    @NamedQuery(name = "Banco.findByIdbanco", query = "SELECT b FROM Banco b WHERE b.idbanco=:idbanco")})
 public class Banco implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +43,6 @@ public class Banco implements Serializable {
     private Date dfecreg;
     @Column(name = "ccodigosunat")
     private String ccodigosunat;
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
@@ -88,8 +89,6 @@ public class Banco implements Serializable {
         this.ccodigosunat = ccodigosunat;
     }
 
-   
-
     public Usuario getIdusuario() {
         return idusuario;
     }
@@ -130,5 +129,4 @@ public class Banco implements Serializable {
     public String toString() {
         return cnombanco;
     }
-    
 }

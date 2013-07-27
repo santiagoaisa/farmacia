@@ -27,6 +27,7 @@ public class Prueba extends SelectorComposer {
     public void onCreate() throws NamingException {
         txtprueba.setText("PRUEBA");
         List<Rol> listaRol = rolService.listaRoles();
+        
 
         for (Rol r : listaRol) {
             System.out.println(r);
