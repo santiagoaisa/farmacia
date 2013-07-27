@@ -26,8 +26,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "proveedor")
 @NamedQueries({
-    @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p")})
+    @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
+    @NamedQuery(name = "Proveedor.findByIdproveedor", query = "SELECT p FROM Proveedor p WHERE p.idproveedor=:idproveedor ")})
 public class Proveedor implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,19 +59,15 @@ public class Proveedor implements Serializable {
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
-    
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
-    
     @JoinColumn(name = "idubigeo", referencedColumnName = "idubigeo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Ubigeo idubigeo;
-    
 
     public Proveedor() {
-        bretencion=false;        
+        bretencion = false;
     }
 
     public Proveedor(Integer idproveedor) {
@@ -172,8 +170,6 @@ public class Proveedor implements Serializable {
         this.dfecreg = dfecreg;
     }
 
-   
-
     public Usuario getIdusuario() {
         return idusuario;
     }
@@ -189,8 +185,6 @@ public class Proveedor implements Serializable {
     public void setIdubigeo(Ubigeo idubigeo) {
         this.idubigeo = idubigeo;
     }
-
-  
 
     @Override
     public int hashCode() {
@@ -216,5 +210,4 @@ public class Proveedor implements Serializable {
     public String toString() {
         return cnomprovee;
     }
-    
 }

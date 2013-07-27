@@ -1,0 +1,7 @@
+.z-textbox-focus { 
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
+    color : #000000 !important;
+    background-repeat : no-repeat;
+}

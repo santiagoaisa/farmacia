@@ -13,9 +13,9 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
 
 <zk>
     
-    <desktop-config>
-        <theme-uri>/tema.css</theme-uri>
-    </desktop-config>
+    <language-config>
+        <addon-uri>/ZkThema.xml</addon-uri>
+    </language-config>
     
     <library-property>
         <name>org.zkoss.zul.Button.mold</name>

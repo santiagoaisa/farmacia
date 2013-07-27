@@ -1,0 +1,75 @@
+package com.zarcillo.service;
+
+import com.zarcillo.dao.CrudDAO;
+import com.zarcillo.dao.ProveedorDAO;
+import com.zarcillo.domain.Proveedor;
+import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ *
+ * @author saisa
+ */
+@Service("proveedorService")
+@Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class ProveedorServiceImpl implements ProveedorService{
+    
+      @Autowired
+    private CrudDAO cruddao;
+    @Autowired
+    private ProveedorDAO proveedordao;
+
+    @Override
+     @Transactional
+    public Proveedor registrar(Proveedor proveedor) {
+         try {
+            proveedor.setDfecreg(new Date());
+            cruddao.registrar(proveedor);
+        } catch (Exception e) {
+            throw new ExceptionZarcillo("Error al crear un Proveedor");
+        }
+        return proveedor;
+    }
+
+    @Override
+     @Transactional
+    public Proveedor actualizar(Proveedor proveedor) {
+         try {
+            cruddao.actualizar(proveedor);
+        } catch (Exception e) {
+            throw new ExceptionZarcillo("Error al actualizar un Proveedor");
+        }
+        return proveedor;
+    }
+
+    @Override
+     @Transactional
+    public void eliminar(Proveedor proveedor) {
+       try {
+            cruddao.eliminar(proveedor);
+        } catch (Exception e) {
+            throw new ExceptionZarcillo("Error al eliminar el Proveedor");
+        }
+    }
+
+    @Override
+    public Proveedor buscar(Integer idproveedor) {
+           try {
+            return proveedordao.busqueda(idproveedor);
+        } catch (Exception e) {
+            throw new ExceptionZarcillo("No exite el proveedor con id:" + idproveedor);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Proveedor> listaGeneral() {
+         return cruddao.listarTodos(Proveedor.class);
+    }
+    
+}
