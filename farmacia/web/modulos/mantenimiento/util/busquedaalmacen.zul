@@ -1,5 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBalmacen"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBalmacen" title="Buscando Conciliacion..." border="2" width="300px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.ManttoAlmacen" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBalmacen.setAttribute("REST",false);
+        WinBalmacen.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstAlmacen" mold="paging"   pageSize="50" width="99%" height="150px"  >
+                    <listhead>
+                        <listheader label="Almacen" width="60%" sort="auto(coperacion)"/>
+                        <listheader label="U.Negocio" width="40%" sort="auto(nmonto)"/>
+                    </listhead>
+                    <listitem self="@{each=almacen}" onCancel="WinBalmacen.limpiar()" onDoubleClick="WinBalmacen.registrar()" onOK="WinBalmacen.registrar()">
+                        <listcell label="@{almacen.cnomalmacen}"/>
+                        <listcell label="@{almacen.idunidad.cnomunidad}"/>
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px"
+             style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="WinBalmacen.registrar()" />
 
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>

@@ -1,0 +1,7 @@
+<window id="menuresultado" use="modmantenimiento.util.MenuResultado" >
+     <hbox align="center">
+               	<image id="imagen" src="/img/Search.png" />
+                <separator/>
+            	<label id="resultado"/>
+    </hbox>
+</window>
