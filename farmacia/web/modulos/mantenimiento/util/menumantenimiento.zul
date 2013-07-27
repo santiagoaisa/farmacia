@@ -1,4 +1,4 @@
-<window id="winMantenimiento" use="modmantenimiento.util.MenuMantenimiento">
+<window id="menumantto" use="modmantenimiento.util.MenuMantenimiento">
 
     <toolbar id="tb"  height="25px" style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
         <toolbarbutton id="btnNuevo" image="/img/File.png" label="Nuevo" onClick="menumantto.Nuevo()"  />

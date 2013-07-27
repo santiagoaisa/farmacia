@@ -21,10 +21,6 @@
                 <label value="Nombre:" />
                 <textbox id="txtNombre" width="95%" constraint="no empty" />
             </row>
-            <row spans="1,5" >
-                <label value="Direccion:" />
-                <textbox id="txtDireccion" width="95%" />
-            </row>
             <row  >
                 <label value="Departamento:" />
                 <combobox id="cboDepartamento" width="95%" constraint="no empty:Debe Seleccionar Departamento"  readonly="true" autodrop="true" />
@@ -32,7 +28,12 @@
                 <combobox id="cboProvincia" width="95%" readonly="true" autodrop="true" />
                 <label value="Distrito:" />
                 <combobox id="cboDistrito" width="95%" readonly="true" autodrop="true" />
-            </row>                     
+            </row>
+            <row spans="1,5" >
+                <label value="Direccion:" />
+                <textbox id="txtDireccion" width="95%" />
+            </row>
+                                 
         </rows>
     </grid>
     <menu  id="menuMantto" width="100%"></menu>                  

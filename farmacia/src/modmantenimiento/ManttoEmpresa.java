@@ -1,12 +1,9 @@
 package modmantenimiento;
 
-import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Empresa;
 import com.zarcillo.domain.Ubigeo;
-import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.EmpresaService;
-import com.zarcillo.service.UnidadNegocioService;
 import com.zarcillo.service.UsuarioService;
 import javax.naming.NamingException;
 import modmantenimiento.util.CrudListener;

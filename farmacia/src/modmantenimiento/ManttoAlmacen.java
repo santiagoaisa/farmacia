@@ -16,6 +16,7 @@ import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
@@ -25,7 +26,7 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-
+@VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class ManttoAlmacen extends SelectorComposer implements CrudListener{
     
     private Almacen almacen=new Almacen();
@@ -64,6 +65,9 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
     
     @WireVariable
     UnidadNegocioService unidadService;
+    
+    @WireVariable
+    
     
     private String user_login;
     final Execution exec= Executions.getCurrent();
