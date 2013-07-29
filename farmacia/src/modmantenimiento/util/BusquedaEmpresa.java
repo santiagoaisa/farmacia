@@ -1,10 +1,10 @@
 package modmantenimiento.util;
 
-import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.EmpresaService;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.Path;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -24,18 +24,20 @@ public class BusquedaEmpresa extends SelectorComposer {
     @Wire
     private Listbox lstEmpresa;
     
+    
     @WireVariable
     EmpresaService empresaService;
     
     private MenuResultado menuresultado;
     private ListModelList modeloEmpresa;
     
-    @Listen("onCreate=window#WinBalmacen")
+    @Listen("onCreate=window#WinBempresa")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBalmacen/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBempresa/mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }
+    
     
     public void initComponets(){
         modeloEmpresa=new ListModelList(empresaService.listaGeneral());
@@ -45,7 +47,7 @@ public class BusquedaEmpresa extends SelectorComposer {
     }  
     
     public void registrar(){
-        WinBempresa.setAttribute("REST",false);
+        WinBempresa.setAttribute("REST",true);
         WinBempresa.onClose();                
     }
 }
