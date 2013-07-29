@@ -39,10 +39,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.spring-security-core-3.1.4.RELEASE.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.spring-security-crypto-3.1.4.RELEASE.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -63,15 +59,19 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+                    <file>${file.reference.spring-security-core-3.1.4.RELEASE.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
                     <file>${file.reference.spring-security-web-3.1.4.RELEASE.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.zkspring-security.jar}</file>
+                    <file>${file.reference.silvertail.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.silvertail.jar}</file>
+                    <file>${file.reference.zkspring-security.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

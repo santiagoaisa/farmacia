@@ -13,32 +13,90 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
 
 <zk>
     
+    <!-- ====================================================== -->
+    <!--          Path to the character set and sizes           -->
+    <!--                Zkoss configuration file                -->
+    <!--         Custom components are declared here            -->
+    <!-- ====================================================== -->
     <language-config>
         <addon-uri>/ZkThema.xml</addon-uri>
     </language-config>
     
     <library-property>
-        <name>org.zkoss.zul.Button.mold</name>
-        <value>trendy</value>
-    </library-property>
-	
-    <library-property>
         <name>org.zkoss.theme.preferred</name>
         <value>silvertail</value>
     </library-property>
-	
-    <library-property>
-        <name>org.zkoss.pivot.pivotModel.columnOpenOnInit</name>
-        <value>true</value>
-    </library-property>
-    <library-property>
-        <name>org.zkoss.pivot.pivotModel.rowOpenOnInit</name>
-        <value>true</value>
-    </library-property>
-	
-	
+    
+    <!-- ====================================================== -->
+    <!--   Maximal count of desktops which a session can hold   -->
+    <!-- ====================================================== -->
     <session-config>
-        <timeout-uri></timeout-uri>
+        <max-desktops-per-session>10</max-desktops-per-session>
+        <timer-keep-alive>true</timer-keep-alive>
     </session-config>
-	
+
+    <!-- ========================================================== -->
+    <!--            Enable event thread for modal windows           -->
+    <!-- ========================================================== -->
+    <system-config>
+        <disable-event-thread>false</disable-event-thread>
+    </system-config>
+    
+    <!-- ====================================================== -->
+    <!--          running a zk application in a CLUSTER         -->
+    <!-- ====================================================== -->
+    <system-config>
+        <ui-factory-class>
+            org.zkoss.zk.ui.http.SerializableUiFactory
+        </ui-factory-class>
+    </system-config>
+
+    <!-- ====================================================== -->
+    <!--         Listener to make sure servlet thread           -->
+    <!--            and ZK event thread got the same            -->
+    <!--                  ThreadLocal values.                   -->
+    <!-- ====================================================== -->
+    <listener>
+        <description>ThreadLocal Synchronization Listener
+        </description>
+        <listener-class>org.zkoss.zkplus.util.ThreadLocalListener
+        </listener-class>
+    </listener>
+
+    <!-- ====================================================== -->
+    <!--         Besides that, you have to specify what         -->
+    <!--         ThreadLocal variables you want to sync.        -->
+    <!--   1. Spring  RequestContextHolder                      -->
+    <!--   2. Spring  ThreadLocalSecurityContextHolderStrategy  -->
+    <!-- ====================================================== -->
+    <preference>
+        <name>ThreadLocal</name>
+        <value>
+            org.springframework.security.core.context.ThreadLocalSecurityContextHolderStrategy=contextHolder;
+            org.springframework.web.context.request.RequestContextHolder=requestAttributesHolder,inheritableRequestAttributesHolder;
+        </value>
+    </preference>
+    
+    <!-- ====================================================== -->
+    <!--   Displays the wait indicator on every user action     -->
+    <!--                  and sets the position                 -->
+    <!-- ====================================================== -->
+    <library-property>
+        <name>org.zkoss.zul.progressbox.position</name>
+        <value>center</value>
+    </library-property>
+    <client-config>
+        <processing-prompt-delay>1</processing-prompt-delay>
+    </client-config>
+
+    <!--
+            Turn on if you want to ignore the consecutive click events, if it
+            happens too close to the previous one, or the server is still serving
+            the previous click.
+    -->
+    <client-config>
+        <click-filter-delay>390</click-filter-delay>
+    </client-config>
+
+        
 </zk>
