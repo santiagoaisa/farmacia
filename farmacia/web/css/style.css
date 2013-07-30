@@ -1,3 +1,5 @@
+/* ------------------- TEXTBOX -------------------- */
+/*FOCO DEL TEXTBOX*/
 .z-textbox-focus { 
     border-style: solid;
     border-width: 1px;
@@ -6,11 +8,35 @@
     background-repeat : no-repeat;
 }
 
-.z-toolbar{
- background:#cdcdcd repeat-x 0 0;
- padding-top:7px;
+/* Textbox: Disabled / readonly background color */
+.z-textbox-readonly,.z-textbox-text-disd {
+    background: #ECEAE4;
+}
+
+/* ------------------- DECIMALBOX -------------------- */
+.z-decimalbox-focus { 
+    border-style: solid;
+    border-width: 1px;
+    border-color: #000000;
+    color : #000000 !important;
+    background-repeat : no-repeat;
 }
 
 .z-decimalbox {
     text-align:right;
 }
+
+/* Decimalbox: Disabled / readonly background color */
+.z-decimalbox-readonly,.z-decimalbox-text-disd {
+    background: #ECEAE4;
+}
+
+/* ------------------- TOOLBAR -------------------- */
+
+.z-toolbar{
+    background:#cdcdcd repeat-x 0 0;
+    padding-top:7px;
+}
+
+/* ------------------- WINDOW -------------------- */
+
