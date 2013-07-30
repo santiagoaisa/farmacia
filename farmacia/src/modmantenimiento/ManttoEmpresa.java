@@ -316,7 +316,16 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
 
     @Override
     public void eliminar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (empresa.getIdempresa()== null) {
+            throw new ExceptionZarcillo("Debe Buscar Empresa...");
+        }
+
+        int resp = Messagebox.show("Esta Seguro de eliminar el actual Registro", "Mantenimiento...", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
+        if (resp == Messagebox.OK) {
+            empresaService.eliminar(empresa);
+            empresa = new Empresa();
+            Messagebox.show("La Empresa Fue Eliminada", "Proveedor", Messagebox.OK, Messagebox.INFORMATION);
+        }
     }
 
     @Override

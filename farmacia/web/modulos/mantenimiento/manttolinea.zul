@@ -1,5 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winLinea" width="600px" title="Mantenimiento de Lineas"
+        apply="modmantenimiento.ManttoLinea"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="30%"/>
+            <column width="35%"/>
+            <column width="35%"/>
+        </columns>
+        <rows  >
+            <row spans="1,2" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row  >
+                <label value="Incremento:" />
+                <decimalbox id="nIncremento" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+                <checkbox id="bActivo"  label="Activo" disabled="true" />
+            </row>             
+                  
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

@@ -1,0 +1,38 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBmoneda"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBmoneda" title="Buscando Moneda..." border="2" width="300px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaMoneda" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBmoneda.setAttribute("REST",false);
+        WinBmoneda.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBmoneda.setAttribute("REST",true);
+        WinBmoneda.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstMoneda" mold="paging"   pageSize="50" width="99%" height="150px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="70%" sort="auto(cnomempresa)"/>
+                        <listheader label="Abrev" width="30%" sort="auto(cruc)"/>
+                    </listhead>
+                    <listitem self="@{each=moneda}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{moneda.cnommoneda}"/>
+                        <listcell label="@{moneda.cabrev}"/>
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px"
+             style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
