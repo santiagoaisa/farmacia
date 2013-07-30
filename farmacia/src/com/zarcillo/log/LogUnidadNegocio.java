@@ -1,31 +1,32 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.zarcillo.log;
 
+import com.zarcillo.domain.UnidadNegocio;
+import com.zarcillo.domain.Usuario;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 /**
  *
  * @author saisa
  */
 @Entity
-@Table(name = "log_unidad_negocio")
+@Table(name = "log.log_unidad_negocio")
 @NamedQueries({
-    @NamedQuery(name = "LogUnidadNegocio.findAll", query = "SELECT l FROM LogUnidadNegocio l")})
+    @NamedQuery(name = "LogUnidadNegocio.findAll", query = "SELECT l FROM LogUnidadNegocio l")
+})
 public class LogUnidadNegocio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,14 +35,20 @@ public class LogUnidadNegocio implements Serializable {
     @Column(name = "idlog")
     private Integer idlog;
     @Basic(optional = false)
-    @Column(name = "idunidad")
-    private int idunidad;
+    
+      @JoinColumn(name = "idunidad", referencedColumnName = "idunidad")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private UnidadNegocio idunidad;
+    
     @Column(name = "cmotivo")
     private String cmotivo;
     @Column(name = "cobservacion")
     private String cobservacion;
-    @Column(name = "idusuario")
-    private Integer idusuario;
+    
+    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Usuario idusuario;
+    
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
@@ -53,10 +60,6 @@ public class LogUnidadNegocio implements Serializable {
         this.idlog = idlog;
     }
 
-    public LogUnidadNegocio(Integer idlog, int idunidad) {
-        this.idlog = idlog;
-        this.idunidad = idunidad;
-    }
 
     public Integer getIdlog() {
         return idlog;
@@ -66,13 +69,6 @@ public class LogUnidadNegocio implements Serializable {
         this.idlog = idlog;
     }
 
-    public int getIdunidad() {
-        return idunidad;
-    }
-
-    public void setIdunidad(int idunidad) {
-        this.idunidad = idunidad;
-    }
 
     public String getCmotivo() {
         return cmotivo;
@@ -90,13 +86,23 @@ public class LogUnidadNegocio implements Serializable {
         this.cobservacion = cobservacion;
     }
 
-    public Integer getIdusuario() {
+    public UnidadNegocio getIdunidad() {
+        return idunidad;
+    }
+
+    public void setIdunidad(UnidadNegocio idunidad) {
+        this.idunidad = idunidad;
+    }
+
+    public Usuario getIdusuario() {
         return idusuario;
     }
 
-    public void setIdusuario(Integer idusuario) {
+    public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
+
+    
 
     public Date getDfecreg() {
         return dfecreg;

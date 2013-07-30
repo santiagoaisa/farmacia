@@ -26,8 +26,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "sublinea")
 @NamedQueries({
-    @NamedQuery(name = "Sublinea.findAll", query = "SELECT s FROM Sublinea s")})
+    @NamedQuery(name = "Sublinea.findAll", query = "SELECT s FROM Sublinea s"),
+    @NamedQuery(name = "Sublinea.findByIdsublinea", query = "SELECT s FROM Sublinea s WHERE s.idsublinea=:idsublinea")
+})
 public class Sublinea implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,9 +48,8 @@ public class Sublinea implements Serializable {
     @JoinColumn(name = "idlinea", referencedColumnName = "idlinea")
     @ManyToOne(fetch = FetchType.EAGER)
     private Linea idlinea;
-   
 
-    public Sublinea() {        
+    public Sublinea() {
     }
 
     public Sublinea(Integer idsublinea) {
@@ -94,8 +96,6 @@ public class Sublinea implements Serializable {
         this.idlinea = idlinea;
     }
 
- 
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -120,5 +120,4 @@ public class Sublinea implements Serializable {
     public String toString() {
         return cnomsublinea;
     }
-    
 }

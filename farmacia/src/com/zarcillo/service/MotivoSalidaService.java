@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface MotivoSalidaService {
     
-     public MotivoSalida registrar(MotivoSalida motivo);
+    public MotivoSalida registrar(MotivoSalida motivo);
     public MotivoSalida actualizar(MotivoSalida motivo);
     public void eliminar(MotivoSalida motivo);
     public MotivoSalida buscar(Integer idmotivo);

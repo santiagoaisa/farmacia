@@ -1,17 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.zarcillo.log;
 
+import com.zarcillo.domain.TipoPersona;
+import com.zarcillo.domain.Usuario;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,9 +24,11 @@ import javax.persistence.TemporalType;
  * @author saisa
  */
 @Entity
-@Table(name = "log_tipo_persona")
+@Table(name = "log.log_tipo_persona")
 @NamedQueries({
-    @NamedQuery(name = "LogTipoPersona.findAll", query = "SELECT l FROM LogTipoPersona l")})
+    @NamedQuery(name = "LogTipoPersona.findAll", query = "SELECT l FROM LogTipoPersona l"),
+    @NamedQuery(name = "LogTipoPersona.findByIdtipo", query = "SELECT l FROM LogTipoPersona l WHERE l.idtipo=:idtipo ")
+})
 public class LogTipoPersona implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,15 +36,20 @@ public class LogTipoPersona implements Serializable {
     @Basic(optional = false)
     @Column(name = "idlog")
     private Integer idlog;
-    @Basic(optional = false)
-    @Column(name = "idtipo")
-    private int idtipo;
+    
+    @JoinColumn(name = "idtipo", referencedColumnName = "idtipo")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private TipoPersona idtipo;
+    
     @Column(name = "cmotivo")
     private String cmotivo;
     @Column(name = "cobservacion")
     private String cobservacion;
-    @Column(name = "idusuario")
-    private Integer idusuario;
+    
+    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Usuario idusuario;
+    
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
@@ -53,10 +61,7 @@ public class LogTipoPersona implements Serializable {
         this.idlog = idlog;
     }
 
-    public LogTipoPersona(Integer idlog, int idtipo) {
-        this.idlog = idlog;
-        this.idtipo = idtipo;
-    }
+    
 
     public Integer getIdlog() {
         return idlog;
@@ -66,13 +71,7 @@ public class LogTipoPersona implements Serializable {
         this.idlog = idlog;
     }
 
-    public int getIdtipo() {
-        return idtipo;
-    }
 
-    public void setIdtipo(int idtipo) {
-        this.idtipo = idtipo;
-    }
 
     public String getCmotivo() {
         return cmotivo;
@@ -90,14 +89,22 @@ public class LogTipoPersona implements Serializable {
         this.cobservacion = cobservacion;
     }
 
-    public Integer getIdusuario() {
+    public TipoPersona getIdtipo() {
+        return idtipo;
+    }
+
+    public void setIdtipo(TipoPersona idtipo) {
+        this.idtipo = idtipo;
+    }
+
+    public Usuario getIdusuario() {
         return idusuario;
     }
 
-    public void setIdusuario(Integer idusuario) {
+    public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
-
+    
     public Date getDfecreg() {
         return dfecreg;
     }

@@ -24,10 +24,13 @@ import javax.persistence.TemporalType;
  * @author saisa
  */
 @Entity
-@Table(name = "vendedor")
+@Table(name = "log.vendedor")
 @NamedQueries({
-    @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v")})
+    @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v"),
+    @NamedQuery(name = "Vendedor.findByIdvendedor", query = "SELECT v FROM Vendedor v WHERE v.idvendedor=:idvendedor")
+})
 public class Vendedor implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +41,9 @@ public class Vendedor implements Serializable {
     private String cnomvendedor;
     @Column(name = "cabrev")
     private String cabrev;
-    @Column(name = "idubigeo")
-    private String idubigeo;
+    @JoinColumn(name = "idubigeo", referencedColumnName = "idubigeo")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Ubigeo idubigeo;
     @Column(name = "cdireccion")
     private String cdireccion;
     @Column(name = "ctelefono")
@@ -54,11 +58,10 @@ public class Vendedor implements Serializable {
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
-    
 
     public Vendedor() {
-        bactivo=false;
-        
+        bactivo = false;
+
     }
 
     public Vendedor(Integer idvendedor) {
@@ -89,11 +92,11 @@ public class Vendedor implements Serializable {
         this.cabrev = cabrev;
     }
 
-    public String getIdubigeo() {
+    public Ubigeo getIdubigeo() {
         return idubigeo;
     }
 
-    public void setIdubigeo(String idubigeo) {
+    public void setIdubigeo(Ubigeo idubigeo) {
         this.idubigeo = idubigeo;
     }
 
@@ -145,8 +148,6 @@ public class Vendedor implements Serializable {
         this.idusuario = idusuario;
     }
 
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -171,5 +172,4 @@ public class Vendedor implements Serializable {
     public String toString() {
         return cnomvendedor;
     }
-    
 }

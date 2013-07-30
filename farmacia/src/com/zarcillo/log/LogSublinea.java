@@ -1,17 +1,18 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.zarcillo.log;
 
+import com.zarcillo.domain.Sublinea;
+import com.zarcillo.domain.Usuario;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,7 +24,7 @@ import javax.persistence.TemporalType;
  * @author saisa
  */
 @Entity
-@Table(name = "log_sublinea")
+@Table(name = "log.log_sublinea")
 @NamedQueries({
     @NamedQuery(name = "LogSublinea.findAll", query = "SELECT l FROM LogSublinea l")})
 public class LogSublinea implements Serializable {
@@ -33,15 +34,20 @@ public class LogSublinea implements Serializable {
     @Basic(optional = false)
     @Column(name = "idlog")
     private Integer idlog;
-    @Basic(optional = false)
-    @Column(name = "idsublinea")
-    private int idsublinea;
+    
+    @JoinColumn(name = "idsublinea", referencedColumnName = "idsublinea")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Sublinea idsublinea;
+    
     @Column(name = "cmotivo")
     private String cmotivo;
     @Column(name = "cobservacion")
     private String cobservacion;
-    @Column(name = "idusuario")
-    private Integer idusuario;
+    
+    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Usuario idusuario;
+    
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
@@ -53,10 +59,7 @@ public class LogSublinea implements Serializable {
         this.idlog = idlog;
     }
 
-    public LogSublinea(Integer idlog, int idsublinea) {
-        this.idlog = idlog;
-        this.idsublinea = idsublinea;
-    }
+  
 
     public Integer getIdlog() {
         return idlog;
@@ -65,15 +68,7 @@ public class LogSublinea implements Serializable {
     public void setIdlog(Integer idlog) {
         this.idlog = idlog;
     }
-
-    public int getIdsublinea() {
-        return idsublinea;
-    }
-
-    public void setIdsublinea(int idsublinea) {
-        this.idsublinea = idsublinea;
-    }
-
+  
     public String getCmotivo() {
         return cmotivo;
     }
@@ -90,13 +85,23 @@ public class LogSublinea implements Serializable {
         this.cobservacion = cobservacion;
     }
 
-    public Integer getIdusuario() {
+    public Sublinea getIdsublinea() {
+        return idsublinea;
+    }
+
+    public void setIdsublinea(Sublinea idsublinea) {
+        this.idsublinea = idsublinea;
+    }
+
+    public Usuario getIdusuario() {
         return idusuario;
     }
 
-    public void setIdusuario(Integer idusuario) {
+    public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
+
+  
 
     public Date getDfecreg() {
         return dfecreg;

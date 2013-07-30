@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.UnidadNegocioDAO;
 import com.zarcillo.domain.UnidadNegocio;
+import com.zarcillo.estado.MotivoLog;
+import com.zarcillo.log.LogUnidadNegocio;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class UnidadNegocioServiceImpl implements UnidadNegocioService {
         try {
             unidad.setDfecreg(new Date());
             cruddao.registrar(unidad);
+            ////LOG
+            registrarLog(MotivoLog.REGISTRO.toString(), unidad);
+            ////LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear una Unidad de Negocio");
         }
@@ -41,6 +46,9 @@ public class UnidadNegocioServiceImpl implements UnidadNegocioService {
     public UnidadNegocio actualizar(UnidadNegocio unidad) {
         try {
             cruddao.actualizar(unidad);
+            ////LOG
+            registrarLog(MotivoLog.ACTUALIZACION.toString(), unidad);
+            ////LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al actualizar una Unidad de Negocio");
         }
@@ -70,5 +78,17 @@ public class UnidadNegocioServiceImpl implements UnidadNegocioService {
     @Transactional(readOnly = true)
     public List<UnidadNegocio> listaGeneral() {
         return cruddao.listarTodos(UnidadNegocio.class);
+    }
+
+    private void registrarLog(String cmotivo, UnidadNegocio unidad) {
+        ////LOG
+        LogUnidadNegocio logunidad = new LogUnidadNegocio();
+        logunidad.setCmotivo(cmotivo);
+        logunidad.setCobservacion(LogZarcillo.log(unidad));
+        logunidad.setIdunidad(unidad);;
+        logunidad.setIdusuario(unidad.getIdusuario());
+        logunidad.setDfecreg(new Date());
+        cruddao.registrar(logunidad);
+        ////LOG
     }
 }
