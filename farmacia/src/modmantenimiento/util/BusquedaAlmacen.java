@@ -11,17 +11,12 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Window;
-
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class BusquedaAlmacen extends SelectorComposer {
     
     @Wire
-    private Window WinBalmacen;
-    
-    @Wire
-    private Listbox lstAlmacen;
+    private Listbox lstAlmacen;    
     
     @WireVariable
     AlmacenService almacenService;
@@ -36,16 +31,11 @@ public class BusquedaAlmacen extends SelectorComposer {
         initComponets();
      }
     
+    
     public void initComponets(){
         modeloAlmacen=new ListModelList(almacenService.listaGeneral());
         lstAlmacen.setModel(modeloAlmacen);
         lstAlmacen.onInitRender();
         menuresultado.setSize(modeloAlmacen.getSize());
-    }  
-    
-    public void registrar(){
-        WinBalmacen.setAttribute("REST",false);
-        WinBalmacen.onClose();                
-    }
-    
+    } 
 }

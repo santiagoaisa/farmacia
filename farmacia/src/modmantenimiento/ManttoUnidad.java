@@ -2,12 +2,13 @@ package modmantenimiento;
 
 import com.zarcillo.domain.Empresa;
 import com.zarcillo.domain.Ubigeo;
+import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.EmpresaService;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.UbigeoService;
+import com.zarcillo.service.UnidadNegocioService;
 import com.zarcillo.service.UsuarioService;
-import java.util.Date;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
 import modmantenimiento.util.CrudListener;
@@ -23,8 +24,6 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Image;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -33,9 +32,9 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class ManttoEmpresa extends SelectorComposer implements CrudListener{
+public class ManttoUnidad extends SelectorComposer implements CrudListener{
     
-    private Empresa empresa=new Empresa();
+    private UnidadNegocio unidad=new UnidadNegocio();    
     private Usuario usuario;    
     private Ubigeo ubigeo;
     private Ubigeo udepartamento;
@@ -45,21 +44,22 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
     private ListModelList modeloDepartamento;
     private ListModelList modeloProvincia;
     private ListModelList modeloDistrito;
+    private ListModelList modeloEmpresa;
     
     @Wire
-    private Window winEmpresa;
+    private Window winUnidad;
     
     @Wire
     private Textbox txtNombre;
     
     @Wire
+    private Textbox txtAbrev;
+    
+    @Wire
     private Textbox txtDireccion;
     
     @Wire
-    private Textbox txtRuc;
-    
-    @Wire
-    private Datebox dFecha;
+    private Combobox cboEmpresa;
     
     @Wire
     private Combobox cboDepartamento;
@@ -70,20 +70,12 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
     @Wire
     private Combobox cboDistrito;
     
-    @Wire
-    private Textbox txtTelefono;
-    
-    @Wire
-    private Textbox txtFax;
-    
-    @Wire
-    private Textbox txtMovil;
-    
-    @Wire
-    private Image logo;
-    
+      
     @WireVariable
     UsuarioService usuarioService;
+    
+    @WireVariable
+    UnidadNegocioService unidadNegocioService;
     
     @WireVariable
     EmpresaService empresaService;
@@ -96,29 +88,20 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
     
     
     
-    @Listen("onCreate=window#winEmpresa")
+    @Listen("onCreate=window#winUnidad")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winEmpresa/menuMantto");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winUnidad/menuMantto");
          menuMantto =  (MenuMantenimiento) macro.getChildren().get(0);
          menuMantto.setCrudlistener(this);
          initComponets();
      }
      
     @Listen("onOK = #txtNombre")
-    public void onFocoRuc(Event event) {
-        txtRuc.select();
-    }
-    
-    @Listen("onOK = #txtRuc")
-    public void onFocoFecha(Event event) {
-        dFecha.focus();
-    }
-     
-    @Listen("onOK = #txtNombre")
     public void onFocoDireccion(Event event) {
         txtDireccion.select();
     }
     
+       
     @Listen("onOK = #txtDireccion")
     public void onFocoDepartamento(Event event) {
         cboDepartamento.focus();
@@ -156,22 +139,15 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
         cboProvincia.setModel(modeloProvincia);
         modeloDistrito=new ListModelList();
         cboDistrito.setModel(modeloDistrito);
-        dFecha.setValue(new Date());        
-        habilitarNuevo(true);
-    }
-    
-    private void habilitarNuevo(boolean enable){
-        txtNombre.setReadonly(enable);
-        txtRuc.setReadonly(enable);
-        txtDireccion.setReadonly(enable);
-        txtFax.setReadonly(enable);
-        txtMovil.setReadonly(enable);
-        txtTelefono.setReadonly(enable);
-        dFecha.setDisabled(enable);
-        cboDepartamento.setDisabled(enable);
-        cboProvincia.setDisabled(enable);
-        cboDistrito.setDisabled(enable);
-    }
+        modeloEmpresa=new ListModelList(empresaService.listaGeneral());
+        cboEmpresa.setModel(modeloEmpresa);
+        if(modeloEmpresa.getSize()>0){
+            cboEmpresa.onInitRender(new Event("", cboEmpresa));
+            cboEmpresa.setSelectedIndex(0);
+            cboEmpresa.close();
+        }
+        habilitar(true);
+    }   
     
     private void eligeDepartamento() {
         /////// quito contraint combos
@@ -206,72 +182,48 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
 
     @Override
     public void leer() {     
-        verificarDocumento();
         ubigeo=(Ubigeo) modeloDistrito.getElementAt(cboDistrito.getSelectedIndex());
-        empresa.setIdubigeo(ubigeo);
-        empresa.setCnomempresa(txtNombre.getText().toUpperCase());
-        empresa.setCruc(txtRuc.getText().toUpperCase());
-        empresa.setCdireccion(txtDireccion.getText().toUpperCase());  
-        empresa.setCtelefono(txtTelefono.getText().toUpperCase());
-        empresa.setCfax(txtFax.getText().toUpperCase());
-        empresa.setCmovil(txtMovil.getText().toUpperCase());
-        empresa.setIdusuario(usuario);
+        Empresa empresa=(Empresa) modeloEmpresa.getElementAt(cboEmpresa.getSelectedIndex());
+        unidad.setIdubigeo(ubigeo);
+        unidad.setIdempresa(empresa);
+        unidad.setCabrev(txtAbrev.getText());
+        unidad.setCnomunidad(txtNombre.getText().toUpperCase());
+        unidad.setCdireccion(txtDireccion.getText().toUpperCase()); 
+        unidad.setIdusuario(usuario);
     }
     
-    private void verificarDocumento(){
-        if(!txtRuc.getText().trim().isEmpty()){
-            if(txtRuc.getText().trim().length()!=11||!isNumberFloat(txtRuc.getText().trim())){
-                throw new ExceptionZarcillo("RUC Incorrecto");
-            }
-        }
-    }
-    
-    public static boolean isNumberFloat(String cadena) {
-        try {
-            Float.parseFloat(cadena);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
-
     @Override
     public void escribir() {
-        if (empresa.getIdempresa() == null) {
+        if (unidad.getIdunidad() == null) {
             limpiar();
             return;
         }
 
         menuMantto.encuentra();
         quitarConstraint();
-        txtNombre.setText(empresa.getCnomempresa());
-        txtDireccion.setText(empresa.getCdireccion());
-        txtRuc.setText(empresa.getCruc());
-        txtTelefono.setText(empresa.getCtelefono());
-        txtFax.setText(empresa.getCfax());
-        txtMovil.setText(empresa.getCmovil());
-        if (empresa.getIdubigeo() != null) {
-            udepartamento = ubigeoService.buscarDepartamento(empresa.getIdubigeo().getCdepartamento());
-            uprovincia = ubigeoService.buscarProvincia(udepartamento.getCdepartamento(), empresa.getIdubigeo().getCprovincia());
-            cboProvincia.setText(empresa.getIdubigeo().getCnomprovincia());
-            cboDistrito.setText(empresa.getIdubigeo().getCubigeo());
+        txtAbrev.setText(unidad.getCabrev());
+        txtNombre.setText(unidad.getCnomunidad());
+        txtDireccion.setText(unidad.getCdireccion());
+        if (unidad.getIdubigeo() != null) {
+            udepartamento = ubigeoService.buscarDepartamento(unidad.getIdubigeo().getCdepartamento());
+            uprovincia = ubigeoService.buscarProvincia(udepartamento.getCdepartamento(), unidad.getIdubigeo().getCprovincia());
+            cboProvincia.setText(unidad.getIdubigeo().getCnomprovincia());
+            cboDistrito.setText(unidad.getIdubigeo().getCubigeo());
             cboDepartamento.setSelectedIndex(modeloDepartamento.indexOf(udepartamento));
             modeloDistrito = new ListModelList(ubigeoService.listaDistrito(udepartamento.getCdepartamento(), uprovincia.getCprovincia()));
             cboDistrito.setModel(modeloDistrito);
         }
+        cboEmpresa.setSelectedIndex(modeloEmpresa.indexOf(unidad.getIdempresa()));
     }
 
     @Override
     public void limpiar() {
         quitarConstraint();
-        habilitarNuevo(false);
-        empresa=new Empresa();
+        habilitar(false);
+        unidad=new UnidadNegocio();
         txtDireccion.setText("");
-        txtFax.setText("");
-        txtMovil.setText("");
         txtNombre.setText("");
-        txtRuc.setText("");
-        txtTelefono.setText("");
+        txtAbrev.setText("");
         cboDepartamento.setSelectedIndex(-1);
         cboProvincia.setText("");
         cboProvincia.setSelectedIndex(-1);
@@ -282,14 +234,14 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
 
     @Override
     public void buscar() {
-        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaempresa.zul", null, null);
+        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaunidad.zul", null, null);
         winbuscaprod.setAttribute("REST", true);
         winbuscaprod.doModal();
         Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
         if (rest) {
-            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstEmpresa");
-            ListModel modelobuscado = lstproducto1.getModel();
-            empresa =  (Empresa) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
+            Listbox lstbusqueda = (Listbox) winbuscaprod.getFellow("lstUnidad");
+            ListModel modelobuscado = lstbusqueda.getModel();
+            unidad =   (UnidadNegocio) modelobuscado.getElementAt(lstbusqueda.getSelectedIndex());
             escribir();
         }
     }
@@ -297,26 +249,35 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
     @Override
     public void modificar() {
         agregarConstraint();
-        if (empresa.getIdempresa() == null) {
-            throw new ExceptionZarcillo("Debe Buscar Empresa...");
+        if (unidad.getIdunidad() == null) {
+            throw new ExceptionZarcillo("Debe Buscar Unidad...");
         }
     }
 
     @Override
     public void grabar() {        
-        empresaService.registrar(empresa);
+        unidadNegocioService.registrar(unidad);
         Messagebox.show("Registro Satisfactorio");
     }
 
     @Override
     public void actualizar() {
-        empresaService.actualizar(empresa);
-        Messagebox.show("Registro Satisfactorio");
+        unidadNegocioService.actualizar(unidad);
+        Messagebox.show("Actualizacion Satisfactoria");
     }
 
     @Override
     public void eliminar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (unidad.getIdunidad() == null) {
+            throw new ExceptionZarcillo("Debe Buscar Unidad Negocio...");
+        }
+
+        int resp = Messagebox.show("Esta Seguro de eliminar el actual Registro", "Mantenimiento...", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
+        if (resp == Messagebox.OK) {
+            unidadNegocioService.eliminar(unidad);
+            unidad = new UnidadNegocio();
+            Messagebox.show("La Unidad de Negocio Fue Eliminada", "Unidad Negocio", Messagebox.OK, Messagebox.INFORMATION);
+        }
     }
 
     @Override
@@ -326,13 +287,10 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
 
     @Override
     public void habilitar(boolean enable) {
+        txtAbrev.setReadonly(enable);
         txtNombre.setReadonly(enable);
-        txtRuc.setReadonly(enable);
         txtDireccion.setReadonly(enable);
-        txtFax.setReadonly(enable);
-        txtMovil.setReadonly(enable);
-        txtTelefono.setReadonly(enable);
-        dFecha.setDisabled(enable);
+        cboEmpresa.setDisabled(enable);
         cboDepartamento.setDisabled(enable);
         cboProvincia.setDisabled(enable);
         cboDistrito.setDisabled(enable);
@@ -340,19 +298,20 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
 
     @Override
     public void validarDatos() {
+        cboEmpresa.getValue();
         cboDepartamento.getValue();
         txtNombre.getValue();
     }
 
     @Override
     public void salir() {
-        winEmpresa.onClose();
+        winUnidad.onClose();
     }   
 
     public void agregarConstraint() {
         txtNombre.setConstraint(new ConstraintCamposObligatorios());
         cboDepartamento.setConstraint(new ConstraintCamposObligatorios());
-
+        cboEmpresa.setConstraint(new ConstraintCamposObligatorios());
     }
 
     public void quitarConstraint() {
@@ -360,7 +319,6 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
         cboDepartamento.setConstraint("");
         cboProvincia.setConstraint("");
         cboDistrito.setConstraint("");
-    }
-   
+        cboEmpresa.setConstraint("");
+    }   
 }
-

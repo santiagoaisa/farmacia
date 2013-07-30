@@ -1,6 +1,6 @@
 package modmantenimiento.util;
 
-import com.zarcillo.service.EmpresaService;
+import com.zarcillo.service.UnidadNegocioService;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.Path;
@@ -14,30 +14,30 @@ import org.zkoss.zul.Listbox;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class BusquedaEmpresa extends SelectorComposer {
+public class BusquedaUnidad extends SelectorComposer {
        
     @Wire
-    private Listbox lstEmpresa;
-    
+    private Listbox lstUnidad;   
     
     @WireVariable
-    EmpresaService empresaService;
+    UnidadNegocioService unidadNegocioService;
     
     private MenuResultado menuresultado;
-    private ListModelList modeloEmpresa;
+    private ListModelList modeloUnidad;
     
-    @Listen("onCreate=window#WinBempresa")
+    @Listen("onCreate=window#WinBunidad")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBempresa/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBunidad/mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }
     
     
     public void initComponets(){
-        modeloEmpresa=new ListModelList(empresaService.listaGeneral());
-        lstEmpresa.setModel(modeloEmpresa);
-        lstEmpresa.onInitRender();
-        menuresultado.setSize(modeloEmpresa.getSize());
+        modeloUnidad=new ListModelList(unidadNegocioService.listaGeneral());
+        lstUnidad.setModel(modeloUnidad);
+        lstUnidad.onInitRender();
+        menuresultado.setSize(modeloUnidad.getSize());
     }      
 }
+

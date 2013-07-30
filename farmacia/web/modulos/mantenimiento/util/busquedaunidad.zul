@@ -1,29 +1,29 @@
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBalmacen"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBunidad"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="WinBalmacen" title="Buscando Almacen..." border="2" width="400px" position="center"
-        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaAlmacen" >
+<window id="WinBunidad" title="Buscando Unidad Negocio..." border="2" width="400px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaUnidad" >
     <zscript>{
         void doCancel()
         {
-        WinBalmacen.setAttribute("REST",false);
-        WinBalmacen.onClose();
+        WinBunidad.setAttribute("REST",false);
+        WinBunidad.onClose();
         }
         void doRegistrar()
         {
-        WinBalmacen.setAttribute("REST",true);
-        WinBalmacen.onClose();
+        WinBunidad.setAttribute("REST",true);
+        WinBunidad.onClose();
         }
         }
     </zscript>
     
-    <listbox id="lstAlmacen" mold="paging"   pageSize="50" width="99%" height="150px"  >
+    <listbox id="lstUnidad" mold="paging"   pageSize="50" width="99%" height="150px"  >
                     <listhead>
                         <listheader label="Nombre" width="60%" sort="auto(cnomempresa)"/>
-                        <listheader label="Uni.Negocio" width="40%" sort="auto(cruc)"/>
+                        <listheader label="Empresa" width="40%" sort="auto(cruc)"/>
                     </listhead>
-                    <listitem self="@{each=almacen}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
-                        <listcell label="@{almacen.cnomalmacen}"/>
-                        <listcell label="@{almacen.idunineg.cnomunidad}"/>
+                    <listitem self="@{each=unidad}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{unidad.cnomunidad}"/>
+                        <listcell label="@{unidad.idempresa.cnomempresa}"/>
                     </listitem>
                 </listbox>
     <menu id="mresultado" width="100%"></menu>

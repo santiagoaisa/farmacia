@@ -5,11 +5,10 @@ import com.zarcillo.domain.Ubigeo;
 import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.AlmacenService;
+import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.UbigeoService;
 import com.zarcillo.service.UnidadNegocioService;
 import com.zarcillo.service.UsuarioService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
 import modmantenimiento.util.CrudListener;
@@ -24,6 +23,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
@@ -35,28 +35,32 @@ import org.zkoss.zul.Window;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class ManttoAlmacen extends SelectorComposer implements CrudListener{
     
-    private Almacen almacen=new Almacen();
+    private Almacen almacen=new Almacen();    
     private Usuario usuario;    
+    private Ubigeo ubigeo;
     private Ubigeo udepartamento;
     private Ubigeo uprovincia;
     private MenuMantenimiento menuMantto;   
     
-    private ListModelList modeloUnidad;
     private ListModelList modeloDepartamento;
     private ListModelList modeloProvincia;
     private ListModelList modeloDistrito;
+    private ListModelList modeloUnidad;
     
     @Wire
     private Window winAlmacen;
     
     @Wire
-    private Combobox cboUnidad;
-    
-    @Wire
     private Textbox txtNombre;
     
     @Wire
+    private Checkbox bPrincipal;
+    
+    @Wire
     private Textbox txtDireccion;
+    
+    @Wire
+    private Combobox cboUnidad;
     
     @Wire
     private Combobox cboDepartamento;
@@ -67,6 +71,7 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
     @Wire
     private Combobox cboDistrito;
     
+      
     @WireVariable
     UsuarioService usuarioService;
     
@@ -74,11 +79,10 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
     UnidadNegocioService unidadNegocioService;
     
     @WireVariable
-    UbigeoService ubigeoService;
-    
-    @WireVariable
     AlmacenService almacenService;
     
+    @WireVariable
+    UbigeoService ubigeoService;
     
     private String user_login;
     final Execution exec= Executions.getCurrent();
@@ -87,52 +91,59 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
     
     @Listen("onCreate=window#winAlmacen")
     public void onCreate() throws NamingException {
-         HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winAlmacen/menuMantto");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winAlmacen/menuMantto");
          menuMantto =  (MenuMantenimiento) macro.getChildren().get(0);
          menuMantto.setCrudlistener(this);
          initComponets();
-         cboUnidad.focus();
      }
-     
-    @Listen("onOK = #cboUnidad")
-    public void onFocoNombre(Event event) {
-        txtNombre.select();
-    }
      
     @Listen("onOK = #txtNombre")
     public void onFocoDireccion(Event event) {
         txtDireccion.select();
     }
     
+       
     @Listen("onOK = #txtDireccion")
     public void onFocoDepartamento(Event event) {
-        cboDepartamento.focus();        
+        cboDepartamento.focus();
+    }
+    
+    @Listen("onOK = #cboDepartamento")
+    public void onFocoProvincia(Event event) {
+        cboProvincia.focus();
+    }
+    
+    @Listen("onOK = #cboProvincia")
+    public void onFocoDistrito(Event event) {
+        cboDistrito.focus();
     }
     
     @Listen("onChange = #cboDepartamento")
-    public void onFocoProvincia(Event event) {
+    public void onEventoProvincia(Event event) {
         eligeDepartamento();
         cboProvincia.focus();
     }
     
     @Listen("onChange= #cboProvincia")
-    public void onFocoDistrito(Event event) {
+    public void onEventoDistrito(Event event) {
         eligeProvincia();
         cboDistrito.focus();
     }
     
+       
     public void initComponets(){
         user_login = exec.getUserPrincipal().getName();
         usuario=usuarioService.buscarPorLogin(user_login);
-        modeloUnidad=new ListModelList(unidadNegocioService.listaGeneral());
-        cboUnidad.setModel(modeloUnidad);
         modeloDepartamento=new ListModelList(ubigeoService.listaDepartamento());
         cboDepartamento.setModel(modeloDepartamento);
         modeloProvincia=new ListModelList();
         cboProvincia.setModel(modeloProvincia);
         modeloDistrito=new ListModelList();
         cboDistrito.setModel(modeloDistrito);
-    }
+        modeloUnidad=new ListModelList(unidadNegocioService.listaGeneral());
+        cboUnidad.setModel(modeloUnidad);
+        habilitar(true);
+    }   
     
     private void eligeDepartamento() {
         /////// quito contraint combos
@@ -166,15 +177,17 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
     }
 
     @Override
-    public void leer() {
+    public void leer() {     
+        ubigeo=(Ubigeo) modeloDistrito.getElementAt(cboDistrito.getSelectedIndex());
         UnidadNegocio unidad=(UnidadNegocio) modeloUnidad.getElementAt(cboUnidad.getSelectedIndex());
-        Ubigeo ubigeo=(Ubigeo) modeloDistrito.getElementAt(cboDistrito.getSelectedIndex());
-        almacen.setIdunidad(unidad);
         almacen.setIdubigeo(ubigeo);
+        almacen.setIdunidad(unidad);
+        almacen.setBprincipal(bPrincipal.isChecked());
         almacen.setCnomalmacen(txtNombre.getText().toUpperCase());
-        almacen.setCdireccion(txtDireccion.getText().toUpperCase());  
+        almacen.setCdireccion(txtDireccion.getText().toUpperCase()); 
+        almacen.setIdusuario(usuario);
     }
-
+    
     @Override
     public void escribir() {
         if (almacen.getIdalmacen() == null) {
@@ -184,25 +197,35 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
 
         menuMantto.encuentra();
         quitarConstraint();
-        cboUnidad.setSelectedIndex(modeloUnidad.indexOf(almacen.getIdunidad()));
+        bPrincipal.setChecked(almacen.getBprincipal());
         txtNombre.setText(almacen.getCnomalmacen());
         txtDireccion.setText(almacen.getCdireccion());
-        if(almacen.getIdubigeo() != null) {
-                udepartamento = ubigeoService.buscarDepartamento(almacen.getIdubigeo().getCdepartamento());
-                uprovincia = ubigeoService.buscarProvincia(udepartamento.getCdepartamento(), almacen.getIdubigeo().getCprovincia());
-                
-                cboProvincia.setText(almacen.getIdubigeo().getCnomprovincia());
-                cboDistrito.setText(almacen.getIdubigeo().getCubigeo());
-                cboDepartamento.setSelectedIndex(modeloDepartamento.indexOf(udepartamento));
-
-                modeloDistrito = new ListModelList(ubigeoService.listaDistrito(udepartamento.getCdepartamento(), uprovincia.getCprovincia()));
-                cboDistrito.setModel(modeloDistrito);
-            }
+        if (almacen.getIdubigeo() != null) {
+            udepartamento = ubigeoService.buscarDepartamento(almacen.getIdubigeo().getCdepartamento());
+            uprovincia = ubigeoService.buscarProvincia(udepartamento.getCdepartamento(), almacen.getIdubigeo().getCprovincia());
+            cboProvincia.setText(almacen.getIdubigeo().getCnomprovincia());
+            cboDistrito.setText(almacen.getIdubigeo().getCubigeo());
+            cboDepartamento.setSelectedIndex(modeloDepartamento.indexOf(udepartamento));
+            modeloDistrito = new ListModelList(ubigeoService.listaDistrito(udepartamento.getCdepartamento(), uprovincia.getCprovincia()));
+            cboDistrito.setModel(modeloDistrito);
+        }
+        cboUnidad.setSelectedIndex(modeloUnidad.indexOf(almacen.getIdunidad()));
     }
 
     @Override
     public void limpiar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        quitarConstraint();
+        habilitar(false);
+        almacen=new Almacen();
+        txtDireccion.setText("");
+        txtNombre.setText("");
+        bPrincipal.setChecked(false);
+        cboDepartamento.setSelectedIndex(-1);
+        cboProvincia.setText("");
+        cboProvincia.setSelectedIndex(-1);
+        cboDistrito.setText("");
+        cboDistrito.setSelectedIndex(-1);        
+        agregarConstraint();
     }
 
     @Override
@@ -212,46 +235,44 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
         winbuscaprod.doModal();
         Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
         if (rest) {
-            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstAlmacen");
-            ListModel modelobuscado = lstproducto1.getModel();
-            almacen = (Almacen) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
+            Listbox lstbusqueda = (Listbox) winbuscaprod.getFellow("lstAlmacen");
+            ListModel modelobuscado = lstbusqueda.getModel();
+            almacen =    (Almacen) modelobuscado.getElementAt(lstbusqueda.getSelectedIndex());
             escribir();
         }
     }
 
     @Override
     public void modificar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        agregarConstraint();
+        if (almacen.getIdalmacen() == null) {
+            throw new ExceptionZarcillo("Debe Buscar Almacen...");
+        }
     }
 
     @Override
-    public void grabar() {
-        almacen.setIdusuario(usuario);
+    public void grabar() {    
         almacenService.registrar(almacen);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Messagebox.show("Registro Satisfactorio");
     }
 
     @Override
     public void actualizar() {
-        almacen.setIdusuario(usuario);
-        almacenService.actualizar(almacen);        
+        almacenService.actualizar(almacen);
+        Messagebox.show("Actualizacion Satisfactoria");
     }
 
     @Override
     public void eliminar() {
         if (almacen.getIdalmacen() == null) {
-            try {
-                throw new Exception("Debe Buscar Un Cliente...");
-            } catch (Exception ex) {
-                Logger.getLogger(ManttoAlmacen.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            throw new ExceptionZarcillo("Debe Buscar Almacen...");
         }
 
         int resp = Messagebox.show("Esta Seguro de eliminar el actual Registro", "Mantenimiento...", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
         if (resp == Messagebox.OK) {
             almacenService.eliminar(almacen);
             almacen = new Almacen();
-            Messagebox.show("El Almacen fue eliminado", "Almacenes", Messagebox.OK, Messagebox.INFORMATION);
+            Messagebox.show("El almacen fue eliminado", "Almacen", Messagebox.OK, Messagebox.INFORMATION);
         }
     }
 
@@ -262,18 +283,20 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
 
     @Override
     public void habilitar(boolean enable) {
+        bPrincipal.setDisabled(enable);
+        txtNombre.setReadonly(enable);
+        txtDireccion.setReadonly(enable);
         cboUnidad.setDisabled(enable);
         cboDepartamento.setDisabled(enable);
         cboProvincia.setDisabled(enable);
         cboDistrito.setDisabled(enable);
-        txtNombre.setReadonly(enable);
-        txtDireccion.setReadonly(enable);
     }
 
     @Override
     public void validarDatos() {
         cboUnidad.getValue();
-        cboDistrito.getValue();
+        cboDepartamento.getValue();
+        txtNombre.getValue();
     }
 
     @Override
@@ -281,19 +304,17 @@ public class ManttoAlmacen extends SelectorComposer implements CrudListener{
         winAlmacen.onClose();
     }   
 
-     public void agregarConstraint() {
+    public void agregarConstraint() {
         txtNombre.setConstraint(new ConstraintCamposObligatorios());
-        cboUnidad.setConstraint(new ConstraintCamposObligatorios());
         cboDepartamento.setConstraint(new ConstraintCamposObligatorios());
-
+        cboUnidad.setConstraint(new ConstraintCamposObligatorios());
     }
 
     public void quitarConstraint() {
         txtNombre.setConstraint("");
-        cboUnidad.setConstraint("");
         cboDepartamento.setConstraint("");
         cboProvincia.setConstraint("");
         cboDistrito.setConstraint("");
-    }
-   
+        cboUnidad.setConstraint("");
+    }   
 }
