@@ -1,5 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winSublinea" width="300px" title="Mantenimiento de Sublinea"
+        apply="modmantenimiento.ManttoSubLinea"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="35%"/>
+            <column width="65%"/>
+        </columns>
+        <rows  >
+            <row  >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row  >
+                <label value="Linea:" />
+                <combobox id="cboLinea" width="95%" constraint="no empty:Debe Seleccionar Moneda" readonly="true" autodrop="true" />
+                
+            </row>            
+                  
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

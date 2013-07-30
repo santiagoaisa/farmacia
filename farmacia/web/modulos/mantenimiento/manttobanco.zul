@@ -1,5 +1,5 @@
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
-<window id="winBanco" width="450px" title="Mantenimiento de Banco"
+<window id="winBanco" width="350px" title="Mantenimiento de Banco"
         apply="modmantenimiento.ManttoBanco"  border="0" position="center">
     
     <grid >
@@ -10,7 +10,7 @@
             <column width="30%"/>
         </columns>
         <rows  >
-            <row spans="1,2" >
+            <row spans="1,3" >
                 <label value="Nombre:" />
                 <textbox id="txtNombre" width="95%" constraint="no empty" />
             </row>
