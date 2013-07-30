@@ -18,8 +18,8 @@
     
     <listbox id="lstMoneda" mold="paging"   pageSize="50" width="99%" height="150px"  >
                     <listhead>
-                        <listheader label="Nombre" width="70%" sort="auto(cnomempresa)"/>
-                        <listheader label="Abrev" width="30%" sort="auto(cruc)"/>
+                        <listheader label="Nombre" width="70%" sort="auto(cnommoneda)"/>
+                        <listheader label="Abrev" width="30%" sort="auto(cabrev)"/>
                     </listhead>
                     <listitem self="@{each=moneda}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
                         <listcell label="@{moneda.cnommoneda}"/>
@@ -28,7 +28,7 @@
                 </listbox>
     <menu id="mresultado" width="100%"></menu>
     <toolbar id="tb"  height="25px"
-             style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
+              align="end">
         <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
                        onClick="doRegistrar()" />
 

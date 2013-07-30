@@ -5,3 +5,12 @@
     color : #000000 !important;
     background-repeat : no-repeat;
 }
+
+.z-toolbar{
+ background:#cdcdcd repeat-x 0 0;
+ padding-top:7px;
+}
+
+.z-decimalbox {
+    text-align:right;
+}

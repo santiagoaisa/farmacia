@@ -1,5 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winBanco" width="450px" title="Mantenimiento de Banco"
+        apply="modmantenimiento.ManttoBanco"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="25%"/>
+            <column width="25%"/>
+            <column width="20%"/>
+            <column width="30%"/>
+        </columns>
+        <rows  >
+            <row spans="1,2" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row  >
+                <label value="Cod.Sunat:" />
+                <textbox id="txtSunat" width="95%"  />
+                <label value="Moneda:" />
+                <combobox id="cboMoneda" width="95%" constraint="no empty:Debe Seleccionar Moneda" readonly="true" autodrop="true" />
+                
+            </row>            
+                  
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>
