@@ -99,4 +99,8 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
     </client-config>
 
         
+    <library-property>
+        <name>org.zkoss.web.preferred.locale</name>
+        <value>es_MX</value>
+    </library-property>
 </zk>
