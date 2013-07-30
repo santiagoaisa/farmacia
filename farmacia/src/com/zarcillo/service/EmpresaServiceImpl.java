@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.EmpresaDAO;
 import com.zarcillo.domain.Empresa;
+import com.zarcillo.estado.MotivoLog;
+import com.zarcillo.log.LogEmpresa;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +29,11 @@ public class EmpresaServiceImpl implements EmpresaService {
         try {
             empresa.setDfecreg(new Date());
             cruddao.registrar(empresa);
+             ////LOG
+            registrarLog(MotivoLog.REGISTRO.toString(), empresa);
+            ////LOG
+
+
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear una Empresa");
         }
@@ -38,6 +45,9 @@ public class EmpresaServiceImpl implements EmpresaService {
     public Empresa actualizar(Empresa empresa) {
         try {
             cruddao.actualizar(empresa);
+            ////LOG
+            registrarLog(MotivoLog.ACTUALIZACION.toString(), empresa);
+            ////LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al actualizar una Empresa");
         }
@@ -56,16 +66,28 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Override
     public Empresa buscar(Integer idempresa) {
-        try {         
+        try {
             return empresadao.busqueda(idempresa);
         } catch (Exception e) {
-            throw new ExceptionZarcillo("No exite la empresa con id:"+idempresa);
+            throw new ExceptionZarcillo("No exite la empresa con id:" + idempresa);
         }
     }
 
     @Override
-     @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<Empresa> listaGeneral() {
         return cruddao.listarTodos(Empresa.class);
+    }
+
+    private void registrarLog(String cmotivo,Empresa empresa) {
+        ////LOG
+        LogEmpresa logempresa = new LogEmpresa();
+        logempresa.setCmotivo(cmotivo);
+        logempresa.setCobservacion(LogZarcillo.log(empresa));
+        logempresa.setIdempresa(empresa);
+        logempresa.setIdusuario(empresa.getIdusuario());
+        logempresa.setDfecreg(new Date());
+        cruddao.registrar(logempresa);
+        ////LOG
     }
 }

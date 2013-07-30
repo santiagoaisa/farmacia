@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.LineaDAO;
 import com.zarcillo.domain.Linea;
+import com.zarcillo.estado.MotivoLog;
+import com.zarcillo.log.LogLinea;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class LineaServiceImpl implements LineaService {
         try {
             linea.setDfecreg(new Date());
             cruddao.registrar(linea);
+            //LOG
+            registrarLog(MotivoLog.REGISTRO.toString(), linea);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear una Linea");
         }
@@ -41,6 +46,9 @@ public class LineaServiceImpl implements LineaService {
     public Linea actualizar(Linea linea) {
         try {
             cruddao.actualizar(linea);
+            //LOG
+            registrarLog(MotivoLog.ACTUALIZACION.toString(), linea);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al actualizar una Linea");
         }
@@ -70,5 +78,15 @@ public class LineaServiceImpl implements LineaService {
     @Transactional(readOnly = true)
     public List<Linea> listaGeneral() {
         return cruddao.listarTodos(Linea.class);
+    }
+
+    private void registrarLog(String cmotivo, Linea linea) {
+        LogLinea loglinea = new LogLinea();
+        loglinea.setCmotivo(cmotivo);
+        loglinea.setCobservacion(LogZarcillo.log(linea));
+        loglinea.setIdlinea(linea);
+        loglinea.setIdusuario(linea.getIdusuario());
+        loglinea.setDfecreg(new Date());
+        cruddao.registrar(loglinea);
     }
 }

@@ -26,7 +26,7 @@ public class Prueba extends SelectorComposer {
     @Listen("onCreate=window#prueba")
     public void onCreate() throws NamingException {
         txtprueba.setText("PRUEBA");
-        List<Rol> listaRol = rolService.listaRoles();
+        List<Rol> listaRol = rolService.listaGeneral();
         
 
         for (Rol r : listaRol) {

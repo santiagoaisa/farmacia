@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.MonedaDAO;
 import com.zarcillo.domain.Moneda;
+import com.zarcillo.estado.MotivoLog;
+import com.zarcillo.log.LogMoneda;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class MonedaServiceImpl implements MonedaService {
         try {
             moneda.setDfecreg(new Date());
             cruddao.registrar(moneda);
+            //LOG
+            registrarLog(MotivoLog.REGISTRO.toString(), moneda);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear una Moneda");
         }
@@ -41,6 +46,9 @@ public class MonedaServiceImpl implements MonedaService {
     public Moneda actualizar(Moneda moneda) {
         try {
             cruddao.actualizar(moneda);
+            //LOG
+            registrarLog(MotivoLog.ACTUALIZACION.toString(), moneda);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al actualizar una Moneda");
         }
@@ -70,5 +78,15 @@ public class MonedaServiceImpl implements MonedaService {
     @Transactional(readOnly = true)
     public List<Moneda> listaGeneral() {
         return cruddao.listarTodos(Moneda.class);
+    }
+    
+     private void registrarLog(String cmotivo, Moneda moneda) {
+         LogMoneda logmoneda = new LogMoneda();
+        logmoneda.setCmotivo(cmotivo);
+        logmoneda.setCobservacion(LogZarcillo.log(moneda));
+        logmoneda.setIdmoneda(moneda);
+        logmoneda.setIdusuario(moneda.getIdusuario());
+        logmoneda.setDfecreg(new Date());
+        cruddao.registrar(logmoneda);
     }
 }

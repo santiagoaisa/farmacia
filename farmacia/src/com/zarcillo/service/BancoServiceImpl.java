@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.BancoDAO;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.domain.Banco;
+import com.zarcillo.estado.MotivoLog;
+import com.zarcillo.log.LogBanco;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class BancoServiceImpl implements BancoService {
         try {
             banco.setDfecreg(new Date());
             cruddao.registrar(banco);
+            ////LOG
+            registrarLog(MotivoLog.REGISTRO.toString(), banco);
+            ////LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear un Banco");
         }
@@ -41,6 +46,9 @@ public class BancoServiceImpl implements BancoService {
     public Banco actualizar(Banco banco) {
         try {
             cruddao.actualizar(banco);
+            ////LOG
+            registrarLog(MotivoLog.ACTUALIZACION.toString(), banco);
+            ////LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al actualizar un Banco");
         }
@@ -70,5 +78,15 @@ public class BancoServiceImpl implements BancoService {
     @Transactional(readOnly = true)
     public List<Banco> listaGeneral() {
         return cruddao.listarTodos(Banco.class);
+    }
+
+    private void registrarLog(String cmotivo, Banco banco) {
+        LogBanco logbanco = new LogBanco();
+        logbanco.setCmotivo(cmotivo);
+        logbanco.setCobservacion(LogZarcillo.log(banco));
+        logbanco.setIdbanco(banco);
+        logbanco.setIdusuario(banco.getIdusuario());
+        logbanco.setDfecreg(new Date());
+        cruddao.registrar(logbanco);
     }
 }

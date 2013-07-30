@@ -24,7 +24,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "rol")
 @NamedQueries({
-    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r")})
+    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
+    @NamedQuery(name = "Rol.findByIdrol", query = "SELECT r FROM Rol r WHERE r.idrol=:idrol")
+
+})
 public class Rol implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

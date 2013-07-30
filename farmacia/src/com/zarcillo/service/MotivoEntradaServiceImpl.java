@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.MotivoEntradaDAO;
 import com.zarcillo.domain.MotivoEntrada;
+import com.zarcillo.estado.MotivoLog;
+import com.zarcillo.log.LogMotivoEntrada;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class MotivoEntradaServiceImpl implements MotivoEntradaService{
         try {
             motivo.setDfecreg(new Date());
             cruddao.registrar(motivo);
+              //LOG
+            registrarLog(MotivoLog.REGISTRO.toString(), motivo);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear una MotivoEntrada");
         }
@@ -41,6 +46,9 @@ public class MotivoEntradaServiceImpl implements MotivoEntradaService{
     public MotivoEntrada actualizar(MotivoEntrada motivo) {
         try {
             cruddao.actualizar(motivo);
+              //LOG
+            registrarLog(MotivoLog.ACTUALIZACION.toString(), motivo);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al actualizar una MotivoEntrada");
         }
@@ -70,5 +78,15 @@ public class MotivoEntradaServiceImpl implements MotivoEntradaService{
     @Transactional(readOnly = true)
     public List<MotivoEntrada> listaGeneral() {
         return cruddao.listarTodos(MotivoEntrada.class);
+    }
+    
+     private void registrarLog(String cmotivo, MotivoEntrada motivo) {
+         LogMotivoEntrada logmotivo = new LogMotivoEntrada();
+        logmotivo.setCmotivo(cmotivo);
+        logmotivo.setCobservacion(LogZarcillo.log(motivo));
+        logmotivo.setIdmotivo(motivo);
+        logmotivo.setIdusuario(motivo.getIdusuario());
+        logmotivo.setDfecreg(new Date());
+        cruddao.registrar(logmotivo);
     }
 }

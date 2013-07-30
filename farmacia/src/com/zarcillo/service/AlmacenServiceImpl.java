@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.AlmacenDAO;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.domain.Almacen;
+import com.zarcillo.estado.MotivoLog;
+import com.zarcillo.log.LogAlmacen;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +19,23 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("almacenService")
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class AlmacenServiceImpl implements AlmacenService{
-    
-     @Autowired
+public class AlmacenServiceImpl implements AlmacenService {
+
+    @Autowired
     private CrudDAO cruddao;
     @Autowired
     private AlmacenDAO almacendao;
 
     @Override
-     @Transactional
+    @Transactional
     public Almacen registrar(Almacen almacen) {
-          try {
+        try {
             almacen.setDfecreg(new Date());
             cruddao.registrar(almacen);
+            //LOG
+            registrarLog(MotivoLog.REGISTRO.toString(), almacen);
+            //LOG
+
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear un Almacen");
         }
@@ -37,10 +43,13 @@ public class AlmacenServiceImpl implements AlmacenService{
     }
 
     @Override
-     @Transactional
+    @Transactional
     public Almacen actualizar(Almacen almacen) {
-         try {
+        try {
             cruddao.actualizar(almacen);
+            ////LOG
+            registrarLog(MotivoLog.ACTUALIZACION.toString(), almacen);
+            ////LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al actualizar un Almacen");
         }
@@ -48,9 +57,9 @@ public class AlmacenServiceImpl implements AlmacenService{
     }
 
     @Override
-     @Transactional
+    @Transactional
     public void eliminar(Almacen almacen) {
-         try {
+        try {
             cruddao.eliminar(almacen);
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al eliminar un Almacen");
@@ -59,22 +68,26 @@ public class AlmacenServiceImpl implements AlmacenService{
 
     @Override
     public Almacen buscar(Integer idalmacen) {
-         try {         
+        try {
             return almacendao.busqueda(idalmacen);
         } catch (Exception e) {
-            throw new ExceptionZarcillo("No exite el almacen con id:"+idalmacen);
+            throw new ExceptionZarcillo("No exite el almacen con id:" + idalmacen);
         }
     }
 
     @Override
-      @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<Almacen> listaGeneral() {
         return cruddao.listarTodos(Almacen.class);
     }
 
-    
-    
-    
-    
-    
+    private void registrarLog(String cmotivo, Almacen almacen) {        
+        LogAlmacen logalmacen = new LogAlmacen();
+        logalmacen.setCmotivo(cmotivo);
+        logalmacen.setCobservacion(LogZarcillo.log(almacen));
+        logalmacen.setIdalmacen(almacen);
+        logalmacen.setIdusuario(almacen.getIdusuario());
+        logalmacen.setDfecreg(new Date());
+        cruddao.registrar(logalmacen);        
+    }
 }

@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.DocumentoDAO;
 import com.zarcillo.domain.Documento;
+import com.zarcillo.estado.MotivoLog;
+import com.zarcillo.log.LogDocumento;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class DocumentoServiceImpl implements DocumentoService {
         try {
             documento.setDfecreg(new Date());
             cruddao.registrar(documento);
+            //LOG
+            registrarLog(MotivoLog.REGISTRO.toString(), documento);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear un Documento");
         }
@@ -41,6 +46,9 @@ public class DocumentoServiceImpl implements DocumentoService {
     public Documento actualizar(Documento documento) {
         try {
             cruddao.actualizar(documento);
+            //LOG
+            registrarLog(MotivoLog.ACTUALIZACION.toString(), documento);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al actualizar un Documento");
         }
@@ -70,5 +78,15 @@ public class DocumentoServiceImpl implements DocumentoService {
     @Transactional(readOnly = true)
     public List<Documento> listaGeneral() {
         return cruddao.listarTodos(Documento.class);
+    }
+
+    private void registrarLog(String cmotivo, Documento documento) {
+        LogDocumento logdocumento = new LogDocumento();
+        logdocumento.setCmotivo(cmotivo);
+        logdocumento.setCobservacion(LogZarcillo.log(documento));
+        logdocumento.setIddocumento(documento);
+        logdocumento.setIdusuario(documento.getIdusuario());
+        logdocumento.setDfecreg(new Date());
+        cruddao.registrar(logdocumento);
     }
 }

@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CondicionVentaDAO;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.domain.CondicionVenta;
+import com.zarcillo.estado.MotivoLog;
+import com.zarcillo.log.LogCondicionVenta;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class CondicionVentaServiceImpl implements CondicionVentaService {
         try {
             condicion.setDfecreg(new Date());
             cruddao.registrar(condicion);
+             //LOG
+            registrarLog(MotivoLog.REGISTRO.toString(), condicion);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear una Condicion de Venta");
         }
@@ -39,6 +44,9 @@ public class CondicionVentaServiceImpl implements CondicionVentaService {
     public CondicionVenta actualizar(CondicionVenta condicion) {
         try {
             cruddao.actualizar(condicion);
+            //LOG
+            registrarLog(MotivoLog.ACTUALIZACION.toString(), condicion);
+            //LOG
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al actualizar una Condicion de Venta");
         }
@@ -68,4 +76,15 @@ public class CondicionVentaServiceImpl implements CondicionVentaService {
     public List<CondicionVenta> listaGeneral() {
         return cruddao.listarTodos(CondicionVenta.class);
     }
+    
+    private void registrarLog(String cmotivo, CondicionVenta condicion) {
+        LogCondicionVenta logcondicion = new LogCondicionVenta();
+        logcondicion.setCmotivo(cmotivo);
+        logcondicion.setCobservacion(LogZarcillo.log(condicion));
+        logcondicion.setIdcondicion(condicion);
+        logcondicion.setIdusuario(condicion.getIdusuario());
+        logcondicion.setDfecreg(new Date());
+        cruddao.registrar(logcondicion);
+    }
+    
 }

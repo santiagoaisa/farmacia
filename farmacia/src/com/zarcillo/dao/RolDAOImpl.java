@@ -13,5 +13,10 @@ public class RolDAOImpl implements RolDAO {
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
+    @Override
+    public Rol busqueda(Integer idrol) {
+         return (Rol) em.createNamedQuery("Rol.findByIdrol").setParameter("idrol", idrol).getSingleResult();
+    }
+
     
 }
