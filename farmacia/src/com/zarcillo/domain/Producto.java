@@ -23,10 +23,13 @@ import javax.persistence.TemporalType;
 @Table(name = "producto")
 @NamedQueries({
     @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p ORDER BY p.cnomproducto"),
-    @NamedQuery(name = "Producto.findByIdproducto", query = "SELECT p FROM Producto p WHERE p.idproducto=:idproducto ")
-
+    @NamedQuery(name = "Producto.findByIdproducto", query = "SELECT p FROM Producto p WHERE p.idproducto=:idproducto "),
+    @NamedQuery(name = "Producto.findByCnomproducto", query = "SELECT p FROM Producto p WHERE p.cnomproducto LIKE :ccriterio ORDER BY p.cnomproducto "),
+    @NamedQuery(name = "Producto.findByCcodigobarra", query = "SELECT p FROM Producto p WHERE p.ccodigobarra= :ccodigobarra ")
+    
 })
 public class Producto implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -157,5 +160,4 @@ public class Producto implements Serializable {
     public String toString() {
         return cnomproducto;
     }
-    
 }

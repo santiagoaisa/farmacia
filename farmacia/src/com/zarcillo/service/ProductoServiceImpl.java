@@ -82,6 +82,21 @@ public class ProductoServiceImpl implements ProductoService {
         return cruddao.listarTodos(Producto.class);
     }
 
+    @Override
+    public Producto busquedaPorCcodigobarra(String ccodigobarra) {
+        try {
+            return productodao.busquedaPorCcodigobarra(ccodigobarra);
+        } catch (Exception e) {
+            throw new ExceptionZarcillo("No exite el producto con codigo de barra:" + ccodigobarra);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> busquedaListaPorDescripcion(String ccriterio) {
+        return productodao.busquedaListaPorDescripcion(ccriterio);
+    }
+
     private void registrarLog(String cmotivo, Producto producto) {
         LogProducto logproducto = new LogProducto();
         logproducto.setCmotivo(cmotivo);

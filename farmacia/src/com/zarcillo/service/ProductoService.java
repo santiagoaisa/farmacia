@@ -13,4 +13,7 @@ public interface ProductoService {
     public void eliminar(Producto producto);
     public Producto buscar(String idproducto);
     public List<Producto> listaGeneral();   
+    
+   public Producto busquedaPorCcodigobarra(String ccodigobarra);      
+    public List<Producto> busquedaListaPorDescripcion(String ccriterio);  
 }
