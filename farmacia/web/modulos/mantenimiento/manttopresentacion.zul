@@ -1,5 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winPresentacion" width="400px" title="Mantenimiento Presentacion"
+        apply="modmantenimiento.ManttoPresentacion"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="30%"/>
+            <column width="35%"/>
+            <column width="35%"/>
+        </columns>
+        <rows  >
+            <row  spans="1,2"  >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row  >
+                
+                <label value="Abrev:" />
+                <textbox id="txtAbrev" width="95%"  />
+                <checkbox id="bActivo"  label="Activo" disabled="true" />
+            </row>             
+                  
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>
 
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
