@@ -1,6 +1,6 @@
 package modmantenimiento.util;
 
-import com.zarcillo.service.BancoService;
+import com.zarcillo.service.CondicionVentaService;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.Path;
@@ -13,30 +13,30 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class BusquedaBanco extends SelectorComposer {
+public class BusquedaCondicion extends SelectorComposer {
        
     @Wire
-    private Listbox lstBanco;
-    
+    private Listbox lstCondicion;    
     
     @WireVariable
-    BancoService bancoService;
+    CondicionVentaService condicionVentaService;
     
     private MenuResultado menuresultado;
-    private ListModelList modeloBanco;
+    private ListModelList modeloCondicion;
     
-    @Listen("onCreate=window#WinBbanco")
+    @Listen("onCreate=window#WinBcondicion")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBbanco/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBcondicion/mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }
     
     
     public void initComponets(){
-        modeloBanco=new ListModelList(bancoService.listaGeneral());
-        lstBanco.setModel(modeloBanco);
-        lstBanco.onInitRender();
-        menuresultado.setSize(modeloBanco.getSize());
+        modeloCondicion=new ListModelList(condicionVentaService.listaGeneral());
+        lstCondicion.setModel(modeloCondicion);
+        lstCondicion.onInitRender();
+        menuresultado.setSize(modeloCondicion.getSize());
     }      
 }
+

@@ -1,5 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBdocumento"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBdocumento" title="Buscando Documento..." border="2" width="400px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaDocumento" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBdocumento.setAttribute("REST",false);
+        WinBdocumento.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBdocumento.setAttribute("REST",true);
+        WinBdocumento.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstDocumento" mold="paging"   pageSize="50" width="99%" height="150px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="70%" sort="auto(cnomdocumento)"/>
+                        <listheader label="Abrev" width="30%" sort="auto(cabrev)"/>
+                    </listhead>
+                    <listitem self="@{each=documento}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{documento.cnomdocumento}"/>
+                        <listcell label="@{documento.cabrev}"/>
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px"
+             style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
 
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>

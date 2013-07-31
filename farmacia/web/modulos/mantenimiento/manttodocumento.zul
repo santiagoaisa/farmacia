@@ -1,5 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winDocumento" width="600px" title="Mantenimiento de Documentos"
+        apply="modmantenimiento.ManttoDocumento"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="14%"/>
+            <column width="20%"/>
+            <column width="13%"/>
+            <column width="20%"/>
+            <column width="13%"/>
+            <column width="20%"/>
+        </columns>
+        <rows  >
+            <row spans="1,5" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row >
+                <label value="Cod.Sunat:" />
+                <textbox id="txtSunat" width="95%"  />
+                <label value="Abrev:" />
+                <textbox id="txtAbrev" width="95%"  />
+                <label value="Items:" />
+                <intbox id="nItems" value="0" width="95%"  />
+            </row>
+            <row spans="2,2,2"  >
+                <checkbox id="bCompra"  label="Compra" disabled="true" />
+                <checkbox id="bVenta"  label="Venta" disabled="true" />
+                <checkbox id="bPago"  label="Pago" disabled="true" />
+            </row>                               
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

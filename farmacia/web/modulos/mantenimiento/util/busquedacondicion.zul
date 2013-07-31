@@ -1,0 +1,41 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBcondicion"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBcondicion" title="Buscando Condicion..." border="2" width="300px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaCondicion" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBcondicion.setAttribute("REST",false);
+        WinBcondicion.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBcondicion.setAttribute("REST",true);
+        WinBcondicion.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstCondicion" mold="paging"   pageSize="50" width="99%" height="150px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="70%" sort="auto(cnomcondicion)"/>
+                        <listheader label="Plazo" width="15%"  align="right"  sort="auto(nplazo)"/>
+                        <listheader label="Descuento" width="15%"  align="right"  sort="auto(ndescuento)"/>
+                    </listhead>
+                    <listitem self="@{each=condicion}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{condicion.cnomcondicion}"/>
+                        <listcell label="@{condicion.nplazo}"/>
+                        <listcell decimal="@{condicion.ndescuento}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px"
+             align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
+

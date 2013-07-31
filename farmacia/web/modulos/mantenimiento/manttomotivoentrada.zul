@@ -1,5 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winMotivoEntrada" width="600px" title="Mantenimiento Motivo Entrada"
+        apply="modmantenimiento.ManttoMotivoEntrada"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="30%"/>
+            <column width="70%"/>
+        </columns>
+        <rows  >
+            <row  >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row  >
+                <checkbox id="bCosteo"  label="Costeo" disabled="true" />
+                <label  />
+            </row>             
+                  
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

@@ -1,0 +1,30 @@
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winCondicion" width="600px" title="Mantenimiento de Condicion Venta"
+        apply="modmantenimiento.ManttoCondicionVenta"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="20%"/>
+            <column width="20%"/>
+            <column width="20%"/>
+            <column width="20%"/>
+            <column width="20%"/>
+        </columns>
+        <rows  >
+            <row spans="1,4" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row  >
+                <label value="Plazo:" />
+                <intbox id="nPlazo" value="0" width="95%" readonly="true"  />
+                <label value="Descuento:" />
+                <decimalbox id="nDescuento" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+                <checkbox id="bContado"  label="Contado" disabled="true" />
+            </row>             
+                  
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

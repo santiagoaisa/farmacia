@@ -1,12 +1,11 @@
 package modmantenimiento;
 
-import com.zarcillo.domain.Linea;
-import com.zarcillo.domain.Sublinea;
+import com.zarcillo.domain.CondicionVenta;
 import com.zarcillo.domain.Usuario;
+import com.zarcillo.service.CondicionVentaService;
 import com.zarcillo.service.ExceptionZarcillo;
-import com.zarcillo.service.LineaService;
-import com.zarcillo.service.SublineaService;
 import com.zarcillo.service.UsuarioService;
+import java.math.BigDecimal;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
 import modmantenimiento.util.CrudListener;
@@ -21,42 +20,43 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Decimalbox;
+import org.zkoss.zul.Intbox;
 import org.zkoss.zul.ListModel;
-import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class ManttoSubLinea extends SelectorComposer implements CrudListener{
+public class ManttoCondicionVenta extends SelectorComposer implements CrudListener{
     
-    private Sublinea sublinea=new Sublinea();
+    private CondicionVenta condicion=new CondicionVenta();
     private Usuario usuario;  
-    private MenuMantenimiento menuMantto;  
-    
-    private ListModelList modeloLinea;
+    private MenuMantenimiento menuMantto;   
     
     
     @Wire
-    private Window winSublinea;
+    private Window winCondicion;
     
     @Wire
     private Textbox txtNombre;
           
     @Wire
-    private Combobox cboLinea;
+    private Checkbox bContado;
     
+    @Wire
+    private Decimalbox nDescuento;
+    
+    @Wire
+    private Intbox nPlazo;
     
     @WireVariable
     UsuarioService usuarioService;
     
     @WireVariable
-    LineaService lineaService;
-    
-    @WireVariable
-    SublineaService sublineaService;
+    CondicionVentaService condicionVentaService;
     
         
     private String user_login;
@@ -64,70 +64,77 @@ public class ManttoSubLinea extends SelectorComposer implements CrudListener{
     
     
     
-    @Listen("onCreate=window#winSublinea")
+    @Listen("onCreate=window#winCondicion")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winSublinea/menuMantto");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winCondicion/menuMantto");
          menuMantto =  (MenuMantenimiento) macro.getChildren().get(0);
          menuMantto.setCrudlistener(this);
          initComponets();
      }
      
     @Listen("onOK = #txtNombre")
-    public void onFocoRuc(Event event) {
-        cboLinea.select();
+    public void onFocoPlazo(Event event) {
+        nPlazo.select();
+    }
+    
+    @Listen("onOK = #nPlazo")
+    public void onFocoDescuento(Event event) {
+        nPlazo.select();
     }
     
     public void initComponets(){
         user_login = exec.getUserPrincipal().getName();
         usuario=usuarioService.buscarPorLogin(user_login);        
-        modeloLinea=new ListModelList(lineaService.listaGeneral());
-        cboLinea.setModel(modeloLinea);
         habilitar(true);
     }    
        
     @Override
     public void leer() {     
-        Linea linea =(Linea) modeloLinea.getElementAt(cboLinea.getSelectedIndex());
-        sublinea.setCnomsublinea(txtNombre.getText().toUpperCase());
-        sublinea.setIdusuario(usuario);
-        sublinea.setIdlinea(linea);
+        condicion.setCnomcondicion(txtNombre.getText().toUpperCase());
+        condicion.setNplazo(nPlazo.getValue());
+        condicion.setNdescuento(nDescuento.getValue());
+        condicion.setIdusuario(usuario);
+        condicion.setBcontado(bContado.isChecked());
     }
     
     
     @Override
     public void escribir() {
-        if (sublinea.getIdsublinea()== null) {
+        if (condicion.getIdcondicion()== null) {
             limpiar();
             return;
         }
 
         menuMantto.encuentra();
         quitarConstraint();
-        txtNombre.setText(sublinea.getCnomsublinea());      
-        cboLinea.setSelectedIndex(modeloLinea.indexOf(sublinea.getIdlinea()));
+        txtNombre.setText(condicion.getCnomcondicion());
+        nPlazo.setValue(condicion.getNplazo());        
+        nDescuento.setValue(condicion.getNdescuento());
+        bContado.setChecked(condicion.getBcontado());
     }
 
     @Override
     public void limpiar() {
         quitarConstraint();
         habilitar(false);
-        sublinea=new Sublinea();
+        condicion=new CondicionVenta();
         txtNombre.setText("");
-        cboLinea.setSelectedIndex(-1);
-        cboLinea.setText("");
+        nDescuento.setValue(BigDecimal.ZERO);
+        nPlazo.setValue(0);
+        bContado.setChecked(false);
         agregarConstraint();
     }
 
     @Override
     public void buscar() {
-        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedasublinea.zul", null, null);
+        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedacondicion.zul", null, null);
         winbuscaprod.setAttribute("REST", true);
         winbuscaprod.doModal();
         Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
         if (rest) {
-            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstSublinea");
+            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstCondicion");
             ListModel modelobuscado = lstproducto1.getModel();
-            sublinea=  (Sublinea) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
+            condicion =  (CondicionVenta) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
             escribir();
         }
     }
@@ -135,34 +142,34 @@ public class ManttoSubLinea extends SelectorComposer implements CrudListener{
     @Override
     public void modificar() {
         agregarConstraint();
-        if (sublinea.getIdsublinea() == null) {
-            throw new ExceptionZarcillo("Debe Buscar Sublinea...");
+        if (condicion.getIdcondicion() == null) {
+            throw new ExceptionZarcillo("Debe Buscar Condicion...");
         }
     }
 
     @Override
     public void grabar() {        
-        sublineaService.registrar(sublinea);
+        condicionVentaService.registrar(condicion);
         Messagebox.show("Registro Satisfactorio");
     }
 
     @Override
     public void actualizar() {
-        sublineaService.actualizar(sublinea);
+        condicionVentaService.actualizar(condicion);
         Messagebox.show("Registro Satisfactorio");
     }
 
     @Override
     public void eliminar() {
-        if (sublinea.getIdsublinea() == null) {
-            throw new ExceptionZarcillo("Debe Buscar Sublinea...");
+        if (condicion.getIdcondicion() == null) {
+            throw new ExceptionZarcillo("Debe Buscar Condicion...");
         }
 
         int resp = Messagebox.show("Esta Seguro de eliminar el actual Registro", "Mantenimiento...", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
         if (resp == Messagebox.OK) {
-            sublineaService.eliminar(sublinea);
-            sublinea = new Sublinea();
-            Messagebox.show("La Sublinea Fue Eliminada", "Sublinea", Messagebox.OK, Messagebox.INFORMATION);
+            condicionVentaService.eliminar(condicion);
+            condicion = new CondicionVenta();
+            Messagebox.show("La Condicion Fue Eliminada", "Condicion", Messagebox.OK, Messagebox.INFORMATION);
         }
     }
 
@@ -174,27 +181,26 @@ public class ManttoSubLinea extends SelectorComposer implements CrudListener{
     @Override
     public void habilitar(boolean enable) {
         txtNombre.setReadonly(enable);
-        cboLinea.setDisabled(enable);
+        nPlazo.setReadonly(enable);
+        nDescuento.setReadonly(enable);
+        bContado.setDisabled(enable);
     }
 
     @Override
     public void validarDatos() {
-        cboLinea.getValue();
         txtNombre.getValue();
     }
 
     @Override
     public void salir() {
-        winSublinea.onClose();
+        winCondicion.onClose();
     }   
 
     public void agregarConstraint() {
-        cboLinea.setConstraint(new ConstraintCamposObligatorios());
         txtNombre.setConstraint(new ConstraintCamposObligatorios());
     }
 
     public void quitarConstraint() {
-        cboLinea.setConstraint("");
         txtNombre.setConstraint("");
     }   
 }

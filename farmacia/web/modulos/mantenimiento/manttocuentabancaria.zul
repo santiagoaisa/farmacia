@@ -1,5 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winCuentaBancaria" width="250px" title="Mantenimiento de CuentaBancaria"
+        apply="modmantenimiento.ManttoCuentaBancaria"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="35%"/>
+            <column width="65%"/>
+        </columns>
+        <rows  >
+            <row  >
+                <label value="Proveedor:" />
+                <combobox id="cboProveedor" width="95%" constraint="no empty:Debe Seleccionar Moneda" readonly="true" autodrop="true" />
+                
+            </row>
+            <row  >
+                <label value="Banco:" />
+                <combobox id="cboBanco" width="95%" constraint="no empty:Debe Seleccionar Moneda" readonly="true" autodrop="true" />
+                
+            </row>
+            <row  >
+                <label value="N° Cuenta:" />
+                <textbox id="txtCuenta" width="95%" constraint="no empty" />
+            </row>                 
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

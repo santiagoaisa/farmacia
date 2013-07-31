@@ -1,0 +1,40 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBmotivoentrada"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBmotivoentrada" title="Buscando Motivo Entrada..." border="2" width="250px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaMotivoEntrada" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBmotivoentrada.setAttribute("REST",false);
+        WinBmotivoentrada.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBmotivoentrada.setAttribute("REST",true);
+        WinBmotivoentrada.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstMotivo" mold="paging"   pageSize="50" width="99%" height="150px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="75%" sort="auto(cnommoneda)"/>
+                        <listheader label="Costeo" width="25%" />
+                    </listhead>
+                    <listitem self="@{each=motivo}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{motivo.cnommotivo}"/>
+                        <listcell >
+                            <checkbox checked="@{motivo.bcosteo}" disabled="true" />
+                        </listcell>
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px"
+              align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
