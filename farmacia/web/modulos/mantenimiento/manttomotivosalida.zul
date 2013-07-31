@@ -1,5 +1,5 @@
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
-<window id="winMotivoSalida" width="600px" title="Mantenimiento Motivo Salida"
+<window id="winMotivoSalida" width="400px" title="Mantenimiento Motivo Salida"
         apply="modmantenimiento.ManttoMotivoSalida"  border="0" position="center">
     
     <grid >

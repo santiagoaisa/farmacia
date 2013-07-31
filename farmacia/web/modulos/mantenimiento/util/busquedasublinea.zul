@@ -1,5 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBsublinea"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBsublinea" title="Buscando SubLinea..." border="2" width="300px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaSublinea" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBsublinea.setAttribute("REST",false);
+        WinBsublinea.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBsublinea.setAttribute("REST",true);
+        WinBsublinea.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstSublinea" mold="paging"   pageSize="50" width="99%" height="150px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="50%" sort="auto(cnomsublinea)"/>
+                        <listheader label="Linea" width="50%" sort="auto(idlinea.cnomlinea)"/>
+                        
+                    </listhead>
+                    <listitem self="@{each=sublinea}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{sublinea.cnomsublinea}"/>
+                        <listcell label="@{sublinea.idlinea.cnomlinea}"/>
+                        
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
 
-<zk xmlns="http://www.zkoss.org/2005/zul">
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
 
-</zk>

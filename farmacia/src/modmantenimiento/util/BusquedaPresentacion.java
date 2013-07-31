@@ -1,6 +1,6 @@
 package modmantenimiento.util;
 
-import com.zarcillo.service.DocumentoService;
+import com.zarcillo.service.PresentacionService;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.Path;
@@ -13,31 +13,30 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class BusquedaDocumento extends SelectorComposer {
-       
-    @Wire
-    private Listbox lstDocumento;
+public class BusquedaPresentacion extends SelectorComposer {
     
+    @Wire
+    private Listbox lstPresentacion;
     
     @WireVariable
-    DocumentoService documentoService;
+    PresentacionService presentacionService;
     
     private MenuResultado menuresultado;
-    private ListModelList modeloDocumento;
+    private ListModelList modeloPresentacion;
     
-    @Listen("onCreate=window#WinBdocumento")
+    @Listen("onCreate=window#WinBpresentacion")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBdocumento/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBpresentacion/mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }
     
     
     public void initComponets(){
-        modeloDocumento=new ListModelList(documentoService.listaGeneral());
-        lstDocumento.setModel(modeloDocumento);
-        lstDocumento.onInitRender();
-        menuresultado.setSize(modeloDocumento.getSize());
+        modeloPresentacion=new ListModelList(presentacionService.listaGeneral());
+        lstPresentacion.setModel(modeloPresentacion);
+        lstPresentacion.onInitRender();
+        menuresultado.setSize(modeloPresentacion.getSize());
     }      
 }
 

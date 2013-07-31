@@ -1,6 +1,6 @@
 package modmantenimiento.util;
 
-import com.zarcillo.service.DocumentoService;
+import com.zarcillo.service.SublineaService;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.Path;
@@ -13,31 +13,30 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class BusquedaDocumento extends SelectorComposer {
+public class BusquedaSublinea extends SelectorComposer {
        
     @Wire
-    private Listbox lstDocumento;
+    private Listbox lstSublinea;
     
     
     @WireVariable
-    DocumentoService documentoService;
+    SublineaService sublineaService;
     
     private MenuResultado menuresultado;
-    private ListModelList modeloDocumento;
+    private ListModelList modeloSublinea;
     
-    @Listen("onCreate=window#WinBdocumento")
+    @Listen("onCreate=window#WinBsublinea")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBdocumento/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBsublinea/mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }
     
     
     public void initComponets(){
-        modeloDocumento=new ListModelList(documentoService.listaGeneral());
-        lstDocumento.setModel(modeloDocumento);
-        lstDocumento.onInitRender();
-        menuresultado.setSize(modeloDocumento.getSize());
+        modeloSublinea=new ListModelList(sublineaService.listaGeneral());
+        lstSublinea.setModel(modeloSublinea);
+        lstSublinea.onInitRender();
+        menuresultado.setSize(modeloSublinea.getSize());
     }      
 }
-

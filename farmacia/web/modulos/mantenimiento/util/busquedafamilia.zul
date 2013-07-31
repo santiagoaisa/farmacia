@@ -1,0 +1,40 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBfamilia"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBfamilia" title="Buscando Familia..." border="2" width="250px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaFamilia" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBfamilia.setAttribute("REST",false);
+        WinBfamilia.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBfamilia.setAttribute("REST",true);
+        WinBfamilia.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstFamilia" mold="paging"   pageSize="50" width="99%" height="150px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="75%" sort="auto(cnomfamilia)"/>
+                        <listheader label="Activo" width="25%" />
+                    </listhead>
+                    <listitem self="@{each=familia}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{familia.cnomfamilia}"/>
+                        <listcell >
+                            <checkbox checked="@{familia.bactivo}" disabled="true" />
+                        </listcell>
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
+

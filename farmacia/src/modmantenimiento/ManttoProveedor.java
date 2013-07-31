@@ -291,7 +291,7 @@ public class ManttoProveedor extends SelectorComposer implements CrudListener{
     public void modificar() {
         agregarConstraint();
         if (proveedor.getIdproveedor() == null) {
-            throw new ExceptionZarcillo("Debe Buscar Empresa...");
+            throw new ExceptionZarcillo("Debe Buscar Proveedor...");
         }
     }
 
