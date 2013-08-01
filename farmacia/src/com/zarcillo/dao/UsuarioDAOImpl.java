@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Usuario;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -13,24 +14,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     private EntityManager em;
 
     @Override
-    public void registrar(Usuario usuario) {
-        em.persist(usuario);
+    public Usuario busqueda(Integer idusuario) {
+        return (Usuario) em.createNamedQuery("Usuario.findByIdusuario").setParameter("idusuario",idusuario).getSingleResult();        
     }
 
-    @Override
-    public void actualizar(Usuario usuario) {
-        em.merge(usuario);
-    }
-
-    @Override
-    public void eliminar(Usuario usuario) {
-        em.remove(em.merge(usuario));
-    }
+   
 
     @Override
     public Usuario buscarPorLoginPorClave(String clogin, String clave) {
-        Usuario usuario = (Usuario) em.createNamedQuery("Usuario.findByCloginByCclave").setParameter("clogin", clogin).setParameter("cclave", clave).getSingleResult();
-        return usuario;
+        return (Usuario) em.createNamedQuery("Usuario.findByCloginByCclave").setParameter("clogin", clogin).setParameter("cclave", clave).getSingleResult();        
     }
 
     @Override
@@ -43,4 +35,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         }
         return usuario;
     }
+
+    @Override
+    public List<Usuario> listaPorIdrol(Integer idrol) {
+        return em.createNamedQuery("Usuario.findByIdrol").setParameter("idrol",idrol).getResultList();
+    }
+    
+    
+    
 }

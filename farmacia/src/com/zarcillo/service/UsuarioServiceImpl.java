@@ -1,11 +1,13 @@
 package com.zarcillo.service;
 
 import com.zarcillo.dao.CrudDAO;
+import com.zarcillo.dao.DetalleAutorizacionDAO;
 import com.zarcillo.dao.UsuarioDAO;
+import com.zarcillo.domain.DetalleAutorizacion;
 import com.zarcillo.domain.Usuario;
-import com.zarcillo.estado.MotivoLog;
-import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -20,6 +22,33 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioDAO usuariodao;
     @Autowired
     private CrudDAO cruddao;
+     @Autowired
+    private DetalleAutorizacionDAO detalleautorizaciondao;
+
+    @Override
+    public Usuario registrar(Usuario usuario) {
+         try {
+             String claveEncriptada = encriptar(usuario.getCclave());
+            usuario.setCclave(claveEncriptada);
+            usuario.setDfecreg(new Date());
+            cruddao.registrar(usuario);
+            
+            
+             List<DetalleAutorizacion> listaAutorizacion = usuario.getDetalleAutorizacionCollection();
+
+            DetalleAutorizacion detalle;
+            for (DetalleAutorizacion da : listaAutorizacion) {
+                detalle = new DetalleAutorizacion();
+                detalle.setIdautorizacion(da.getIdautorizacion());
+                detalle.setIdusuario(usuario);
+                cruddao.registrar(detalle);
+            }
+            
+        } catch (Exception e) {
+            throw new ExceptionZarcillo("Error al crear un Usuario");
+        }
+        return usuario;
+    }
 
     @Override
     @Transactional
@@ -27,6 +56,25 @@ public class UsuarioServiceImpl implements UsuarioService {
         try {
             String claveEncriptada = encriptar(usuario.getCclave());
             usuario.setCclave(claveEncriptada);
+            
+             //Se eliminan los detalles
+            List<DetalleAutorizacion> listaAutorizacion = detalleautorizaciondao.listaPorIdusuario(usuario.getIdusuario());
+            for (DetalleAutorizacion d : listaAutorizacion) {
+                cruddao.eliminar(d);
+            }
+            
+            List<DetalleAutorizacion> listaAutorizacionUsuario = usuario.getDetalleAutorizacionCollection();
+
+            for (DetalleAutorizacion detalle : listaAutorizacionUsuario) {
+                detalle.setIdusuario(usuario);
+
+                if (detalle.getIddetalle() == null) {                    
+                    cruddao.registrar(detalle);
+                } else {
+                    cruddao.actualizar(detalle);
+                }
+            }
+            
             cruddao.actualizar(usuario);
 
 
@@ -62,7 +110,40 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    public void eliminar(Usuario usuario) {
+        try {
+            cruddao.eliminar(usuario);
+        } catch (Exception e) {
+            throw new ExceptionZarcillo("Error al eliminar un Usuario");
+        }
+    }
+
+    @Override
+    public Usuario buscar(Integer idusuario) {
+        try {
+            return usuariodao.busqueda(idusuario);
+        } catch (Exception e) {
+            throw new ExceptionZarcillo("No exite el usuario con id:" + idusuario);
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Usuario> listaPorIdrol(Integer idrol) {
+        return usuariodao.listaPorIdrol(idrol);
+    }
+    
+    @Override
     public Usuario buscarPorLogin(String clogin) {
         return usuariodao.buscarPorLogin(clogin);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DetalleAutorizacion> listaDetalleAutorizacionPorIdusuario(Integer idusuario) {
+        return detalleautorizaciondao.listaPorIdusuario(idusuario);
+    }
+    
+    
+    
 }

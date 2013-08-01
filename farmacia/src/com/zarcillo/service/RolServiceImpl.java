@@ -2,6 +2,7 @@ package com.zarcillo.service;
 
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.RolDAO;
+import com.zarcillo.domain.DetalleAutorizacion;
 import com.zarcillo.domain.Rol;
 import com.zarcillo.estado.MotivoLog;
 import com.zarcillo.log.LogRol;
@@ -33,6 +34,9 @@ public class RolServiceImpl implements RolService {
             //LOG
             registrarLog(MotivoLog.REGISTRO.toString(), rol);
             //LOG
+            
+           
+            
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear un Rol");
         }

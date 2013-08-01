@@ -1,6 +1,7 @@
 package com.zarcillo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.zkoss.util.CollectionsX;
 
 /**
  *
@@ -27,6 +29,8 @@ import javax.persistence.TemporalType;
 @Table(name = "usuario")
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.findByIdrol", query = "SELECT u FROM Usuario u WHERE u.idrol.idrol=:idrol ORDER BY u.cnomusuario"),
+    @NamedQuery(name = "Usuario.findByIdusuario", query = "SELECT u FROM Usuario u WHERE u.idusuario=:idusuario"),
     @NamedQuery(name = "Usuario.findByClogin", query = "SELECT u FROM Usuario u WHERE u.clogin=:clogin"),
     @NamedQuery(name = "Usuario.findByCloginByCclave", query = "SELECT u FROM Usuario u where u.clogin=:clogin and u.cclave=:cclave")
 })
@@ -55,8 +59,12 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "idrol", referencedColumnName = "idrol")
     @ManyToOne(fetch = FetchType.EAGER)
     private Rol idrol;
+    
+    @OneToMany(mappedBy = "idusuario", fetch = FetchType.LAZY)
+    private List<DetalleAutorizacion> detalleAutorizacionCollection;
 
     public Usuario() {
+        detalleAutorizacionCollection=new ArrayList<DetalleAutorizacion>();
     }
 
     public Usuario(Integer idusuario) {
@@ -127,6 +135,17 @@ public class Usuario implements Serializable {
         this.idrol = idrol;
     }
 
+    public List<DetalleAutorizacion> getDetalleAutorizacionCollection() {
+        return detalleAutorizacionCollection;
+    }
+
+    public void setDetalleAutorizacionCollection(List<DetalleAutorizacion> detalleAutorizacionCollection) {
+        this.detalleAutorizacionCollection = detalleAutorizacionCollection;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

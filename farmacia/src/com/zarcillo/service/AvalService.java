@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface AvalService {
     
-         public Aval registrar(Aval aval);
+    public Aval registrar(Aval aval);
     public Aval actualizar(Aval aval);
     public void eliminar(Aval aval);
     public Aval buscar(Integer idaval);

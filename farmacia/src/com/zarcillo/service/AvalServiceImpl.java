@@ -65,8 +65,7 @@ public class AvalServiceImpl implements AvalService {
         }
     }
 
-    @Override
-    @Transactional(readOnly = true)
+    @Override  
     public Aval buscar(Integer idaval) {
         try {
             return avaldao.busqueda(idaval);
@@ -76,6 +75,7 @@ public class AvalServiceImpl implements AvalService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Aval> listaPorIdcliente(Integer idcliente) {
         return avaldao.listaPorIdcliente(idcliente);
     }

@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,63 +23,47 @@ import javax.persistence.TemporalType;
  * @author saisa
  */
 @Entity
-@Table(name = "motivo_entrada")
+@Table(name = "autorizacion")
 @NamedQueries({
-    @NamedQuery(name = "MotivoEntrada.findAll", query = "SELECT m FROM MotivoEntrada m ORDER BY m.cnommotivo"),
-    @NamedQuery(name = "MotivoEntrada.findByIdmotivo", query = "SELECT m FROM MotivoEntrada m WHERE m.idmotivo=:idmotivo")
+    @NamedQuery(name = "Autorizacion.findAll", query = "SELECT a FROM Autorizacion a ORDER BY a.cnomautorizacion"),
+    @NamedQuery(name = "Autorizacion.findByIdautorizacion", query = "SELECT a FROM Autorizacion a WHERE a.idautorizacion=:idautorizacion")    
 })
-public class MotivoEntrada implements Serializable {
+public class Autorizacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idmotivo")
-    private Integer idmotivo;
-    @Column(name = "cnommotivo")
-    private String cnommotivo;
-    @Column(name = "bcosteo")
-    private Boolean bcosteo;
+    @Column(name = "idautorizacion")
+    private Integer idautorizacion;
+    @Column(name = "cnomautorizacion")
+    private String cnomautorizacion;
+    
+     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Usuario idusuario;
+    
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
     
-    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Usuario idusuario;
 
-    public MotivoEntrada() {
-        bcosteo=false;        
+    public Autorizacion() {
     }
 
-    public MotivoEntrada(Integer idmotivo) {
-        this.idmotivo = idmotivo;
+    public Autorizacion(Integer idautorizacion) {
+        this.idautorizacion = idautorizacion;
     }
 
-    public Integer getIdmotivo() {
-        return idmotivo;
+    public Integer getIdautorizacion() {
+        return idautorizacion;
     }
 
-    public void setIdmotivo(Integer idmotivo) {
-        this.idmotivo = idmotivo;
+    public void setIdautorizacion(Integer idautorizacion) {
+        this.idautorizacion = idautorizacion;
     }
 
-    public String getCnommotivo() {
-        return cnommotivo;
-    }
-
-    public void setCnommotivo(String cnommotivo) {
-        this.cnommotivo = cnommotivo;
-    }
-
+ 
     
-
-    public Boolean getBcosteo() {
-        return bcosteo;
-    }
-
-    public void setBcosteo(Boolean bcosteo) {
-        this.bcosteo = bcosteo;
-    }
 
     public Date getDfecreg() {
         return dfecreg;
@@ -90,7 +73,13 @@ public class MotivoEntrada implements Serializable {
         this.dfecreg = dfecreg;
     }
 
-   
+    public String getCnomautorizacion() {
+        return cnomautorizacion;
+    }
+
+    public void setCnomautorizacion(String cnomautorizacion) {
+        this.cnomautorizacion = cnomautorizacion;
+    }
 
     public Usuario getIdusuario() {
         return idusuario;
@@ -100,21 +89,22 @@ public class MotivoEntrada implements Serializable {
         this.idusuario = idusuario;
     }
 
+  
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idmotivo != null ? idmotivo.hashCode() : 0);
+        hash += (idautorizacion != null ? idautorizacion.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MotivoEntrada)) {
+        if (!(object instanceof Autorizacion)) {
             return false;
         }
-        MotivoEntrada other = (MotivoEntrada) object;
-        if ((this.idmotivo == null && other.idmotivo != null) || (this.idmotivo != null && !this.idmotivo.equals(other.idmotivo))) {
+        Autorizacion other = (Autorizacion) object;
+        if ((this.idautorizacion == null && other.idautorizacion != null) || (this.idautorizacion != null && !this.idautorizacion.equals(other.idautorizacion))) {
             return false;
         }
         return true;
@@ -122,7 +112,7 @@ public class MotivoEntrada implements Serializable {
 
     @Override
     public String toString() {
-        return cnommotivo;
+        return cnomautorizacion;
     }
     
 }
