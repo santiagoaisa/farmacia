@@ -1,10 +1,10 @@
 package com.zarcillo.service;
 
 import com.zarcillo.dao.CrudDAO;
-import com.zarcillo.dao.MotivoEntradaDAO;
-import com.zarcillo.domain.MotivoEntrada;
+import com.zarcillo.dao.MotivoNotaboClienteDAO;
+import com.zarcillo.domain.MotivoNotaboCliente;
 import com.zarcillo.estado.MotivoLog;
-import com.zarcillo.log.LogMotivoEntrada;
+import com.zarcillo.log.LogMotivoNotaboCliente;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,56 +17,56 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author saisa
  */
-@Service("motivoEntradaService")
+@Service("motivoNotaboClienteService")
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class MotivoEntradaServiceImpl implements MotivoEntradaService{
+public class MotivoNotaboClienteServiceImpl implements MotivoNotaboClienteService {
 
     @Autowired
     private CrudDAO cruddao;
     @Autowired
-    private MotivoEntradaDAO motivodao;
-    
+    private MotivoNotaboClienteDAO motivodao;
+
     @Override
     @Transactional
-    public MotivoEntrada registrar(MotivoEntrada motivo) {
+    public MotivoNotaboCliente registrar(MotivoNotaboCliente motivo) {
         try {
             motivo.setDfecreg(new Date());
             cruddao.registrar(motivo);
-              //LOG
+            //LOG
             registrarLog(MotivoLog.REGISTRO.toString(), motivo);
             //LOG
         } catch (Exception e) {
-            throw new ExceptionZarcillo("Error al crear una MotivoEntrada");
+            throw new ExceptionZarcillo("Error al crear una Motivo");
         }
         return motivo;
     }
 
     @Override
     @Transactional
-    public MotivoEntrada actualizar(MotivoEntrada motivo) {
+    public MotivoNotaboCliente actualizar(MotivoNotaboCliente motivo) {
         try {
             cruddao.actualizar(motivo);
-              //LOG
+            //LOG
             registrarLog(MotivoLog.ACTUALIZACION.toString(), motivo);
             //LOG
         } catch (Exception e) {
-            throw new ExceptionZarcillo("Error al actualizar una MotivoEntrada");
+            throw new ExceptionZarcillo("Error al actualizar una Motivo");
         }
         return motivo;
     }
 
     @Override
     @Transactional
-    public void eliminar(MotivoEntrada motivo) {
+    public void eliminar(MotivoNotaboCliente motivo) {
         try {
             cruddao.eliminar(motivo);
         } catch (Exception e) {
-            throw new ExceptionZarcillo("Error al eliminar una MotivoEntrada");
+            throw new ExceptionZarcillo("Error al eliminar una Motivo");
         }
     }
 
     @Override
-    public MotivoEntrada buscar(Integer idmotivo) {
+    public MotivoNotaboCliente buscar(Integer idmotivo) {
         try {
             return motivodao.busqueda(idmotivo);
         } catch (Exception e) {
@@ -76,12 +76,12 @@ public class MotivoEntradaServiceImpl implements MotivoEntradaService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<MotivoEntrada> listaGeneral() {
-        return cruddao.listarTodos(MotivoEntrada.class);
+    public List<MotivoNotaboCliente> listaGeneral() {
+        return cruddao.listarTodos(MotivoNotaboCliente.class);
     }
-    
-     private void registrarLog(String cmotivo, MotivoEntrada motivo) {
-         LogMotivoEntrada logmotivo = new LogMotivoEntrada();
+
+    private void registrarLog(String cmotivo, MotivoNotaboCliente motivo) {
+        LogMotivoNotaboCliente logmotivo = new LogMotivoNotaboCliente();
         logmotivo.setCmotivo(cmotivo);
         logmotivo.setCobservacion(LogZarcillo.log(motivo));
         logmotivo.setIdmotivo(motivo);

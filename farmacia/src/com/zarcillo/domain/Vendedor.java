@@ -3,6 +3,7 @@ package com.zarcillo.domain;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ import javax.persistence.TemporalType;
  * @author saisa
  */
 @Entity
-@Table(name = "log.vendedor")
+@Table(name = "vendedor")
 @NamedQueries({
     @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v"),
     @NamedQuery(name = "Vendedor.findByIdvendedor", query = "SELECT v FROM Vendedor v WHERE v.idvendedor=:idvendedor")
@@ -61,11 +62,6 @@ public class Vendedor implements Serializable {
 
     public Vendedor() {
         bactivo = false;
-
-    }
-
-    public Vendedor(Integer idvendedor) {
-        this.idvendedor = idvendedor;
     }
 
     public Integer getIdvendedor() {
@@ -150,19 +146,21 @@ public class Vendedor implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (idvendedor != null ? idvendedor.hashCode() : 0);
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.idvendedor);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Vendedor)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Vendedor other = (Vendedor) object;
-        if ((this.idvendedor == null && other.idvendedor != null) || (this.idvendedor != null && !this.idvendedor.equals(other.idvendedor))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Vendedor other = (Vendedor) obj;
+        if (!Objects.equals(this.idvendedor, other.idvendedor)) {
             return false;
         }
         return true;
@@ -172,4 +170,7 @@ public class Vendedor implements Serializable {
     public String toString() {
         return cnomvendedor;
     }
+    
+    
+    
 }
