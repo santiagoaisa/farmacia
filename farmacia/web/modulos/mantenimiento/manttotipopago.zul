@@ -1,0 +1,28 @@
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winTipopago" width="400px" title="Mantenimiento de Tipo de Pago"
+        apply="modmantenimiento.ManttoTipoPago"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="25%"/>
+            <column width="25%"/>
+            <column width="25%"/>
+            <column width="25%"/>
+        </columns>
+        <rows  >
+            <row spans="1,3" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row >
+                <label value="Cod.Sunat:" />
+                <textbox id="txtSunat" width="95%"  />
+                <checkbox id="bCobro"  label="Cobro" disabled="true" />
+                <checkbox id="bPago"  label="Pago" disabled="true" />
+            </row>                              
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>
+

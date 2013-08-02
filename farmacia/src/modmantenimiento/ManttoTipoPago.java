@@ -1,9 +1,11 @@
 package modmantenimiento;
 
 import com.zarcillo.domain.Documento;
+import com.zarcillo.domain.TipoPago;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.DocumentoService;
+import com.zarcillo.service.TipoPagoService;
 import com.zarcillo.service.UsuarioService;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
@@ -28,41 +30,32 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class ManttoDocumento extends SelectorComposer implements CrudListener{
+public class ManttoTipoPago extends SelectorComposer implements CrudListener{
     
-    private Documento documento=new Documento();
+    private TipoPago tpago=new TipoPago();
     private Usuario usuario;  
     private MenuMantenimiento menuMantto;   
     
     @Wire
-    private Window winDocumento;
+    private Window winTipopago;
     
     @Wire
     private Textbox txtNombre;
     
     @Wire
     private Textbox txtSunat;
-    
+              
     @Wire
-    private Textbox txtAbrev;
-          
-    @Wire
-    private Checkbox bCompra;
-    
-    @Wire
-    private Checkbox bVenta;
-    
+    private Checkbox bCobro;
+        
     @Wire
     private Checkbox bPago;
-    
-    @Wire
-    private Intbox nItems;
-    
+        
     @WireVariable
     UsuarioService usuarioService;
     
     @WireVariable
-    DocumentoService documentoService;
+    TipoPagoService tipoPagoService;
     
         
     private String user_login;
@@ -70,9 +63,9 @@ public class ManttoDocumento extends SelectorComposer implements CrudListener{
     
     
     
-    @Listen("onCreate=window#winDocumento")
+    @Listen("onCreate=window#winTipopago")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winDocumento/menuMantto");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winTipopago/menuMantto");
          menuMantto =  (MenuMantenimiento) macro.getChildren().get(0);
          menuMantto.setCrudlistener(this);
          initComponets();
@@ -83,16 +76,6 @@ public class ManttoDocumento extends SelectorComposer implements CrudListener{
         txtSunat.select();
     }
     
-    @Listen("onOK = #txtSunat")
-    public void onFocoAbrev(Event event) {
-        txtAbrev.select();
-    }
-    
-    @Listen("onOK = #txtAbrev")
-    public void onFocoItems(Event event) {
-        nItems.select();
-    }
-    
     public void initComponets(){
         user_login = exec.getUserPrincipal().getName();
         usuario=usuarioService.buscarPorLogin(user_login);        
@@ -101,60 +84,51 @@ public class ManttoDocumento extends SelectorComposer implements CrudListener{
        
     @Override
     public void leer() {     
-        documento.setCnomdocumento(txtNombre.getText().toUpperCase());
-        documento.setCcodigosunat(txtSunat.getText());
-        documento.setCabrev(txtAbrev.getText());
-        documento.setNitems(nItems.getValue());
-        documento.setBcompra(bCompra.isChecked());
-        documento.setBventa(bVenta.isChecked());
-        documento.setBpago(bPago.isChecked());
-        documento.setIdusuario(usuario);
+        tpago.setCnomtipo(txtNombre.getText().toUpperCase());
+        tpago.setCcodigosunat(txtSunat.getText());
+        tpago.setBcobro(bCobro.isChecked());
+        tpago.setBpago(bPago.isChecked());
+        tpago.setIdusuario(usuario);
     }
     
     
     @Override
     public void escribir() {
-        if (documento.getIddocumento()== null) {
+        if (tpago.getIdtipo()== null) {
             limpiar();
             return;
         }
 
         menuMantto.encuentra();
         quitarConstraint();
-        txtNombre.setText(documento.getCnomdocumento());
-        txtSunat.setText(documento.getCcodigosunat());
-        txtAbrev.setText(documento.getCabrev());
-        nItems.setValue(documento.getNitems());
-        bCompra.setChecked(documento.getBcompra());
-        bVenta.setChecked(documento.getBventa());
-        bPago.setChecked(documento.getBpago());
+        txtNombre.setText(tpago.getCnomtipo());
+        txtSunat.setText(tpago.getCcodigosunat());;
+        bCobro.setChecked(tpago.getBcobro());
+        bPago.setChecked(tpago.getBpago());
     }
 
     @Override
     public void limpiar() {
         quitarConstraint();
         habilitar(false);
-        documento=new Documento();
+        tpago=new TipoPago();
         txtNombre.setText("");
-        txtAbrev.setText("");
         txtSunat.setText("");
-        nItems.setValue(0);
-        bCompra.setChecked(false);
-        bVenta.setChecked(false);
+        bCobro.setChecked(false);
         bPago.setChecked(false);
         agregarConstraint();
     }
 
     @Override
     public void buscar() {
-        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedadocumento.zul", null, null);
+        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedatipopago.zul", null, null);
         winbuscaprod.setAttribute("REST", true);
         winbuscaprod.doModal();
         Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
         if (rest) {
-            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstDocumento");
+            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstTipopago");
             ListModel modelobuscado = lstproducto1.getModel();
-            documento =  (Documento) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
+            tpago =(TipoPago) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
             escribir();
         }
     }
@@ -162,34 +136,34 @@ public class ManttoDocumento extends SelectorComposer implements CrudListener{
     @Override
     public void modificar() {
         agregarConstraint();
-        if (documento.getIddocumento() == null) {
+        if (tpago.getIdtipo() == null) {
             throw new ExceptionZarcillo("Debe Buscar Documento...");
         }
     }
 
     @Override
     public void grabar() {        
-        documentoService.registrar(documento);
+        tipoPagoService.registrar(tpago);
         Messagebox.show("Registro Satisfactorio");
     }
 
     @Override
     public void actualizar() {
-        documentoService.actualizar(documento);
+        tipoPagoService.actualizar(tpago);
         Messagebox.show("Registro Satisfactorio");
     }
 
     @Override
     public void eliminar() {
-        if (documento.getIddocumento() == null) {
-            throw new ExceptionZarcillo("Debe Buscar Documento...");
+        if (tpago.getIdtipo() == null) {
+            throw new ExceptionZarcillo("Debe Buscar Tipo Pago...");
         }
 
         int resp = Messagebox.show("Esta Seguro de eliminar el actual Registro", "Mantenimiento...", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
         if (resp == Messagebox.OK) {
-            documentoService.eliminar(documento);
-            documento = new Documento();
-            Messagebox.show("El Documento Fue Eliminado", "Documento", Messagebox.OK, Messagebox.INFORMATION);
+            tipoPagoService.eliminar(tpago);
+            tpago=new TipoPago();
+            Messagebox.show("El Tipo Pago Fue Eliminado", "Tipo Pago", Messagebox.OK, Messagebox.INFORMATION);
         }
     }
 
@@ -201,11 +175,8 @@ public class ManttoDocumento extends SelectorComposer implements CrudListener{
     @Override
     public void habilitar(boolean enable) {
         txtNombre.setReadonly(enable);
-        txtAbrev.setReadonly(enable);
         txtSunat.setReadonly(enable);
-        nItems.setReadonly(enable);
-        bCompra.setDisabled(enable);
-        bVenta.setDisabled(enable);
+        bCobro.setDisabled(enable);
         bPago.setDisabled(enable);
     }
 
@@ -216,7 +187,7 @@ public class ManttoDocumento extends SelectorComposer implements CrudListener{
 
     @Override
     public void salir() {
-        winDocumento.onClose();
+        winTipopago.onClose();
     }   
 
     public void agregarConstraint() {

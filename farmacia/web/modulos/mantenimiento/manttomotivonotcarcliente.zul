@@ -1,0 +1,20 @@
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winMotivonotabo" width="600px" title="Mantenimiento de Motivo N/Debito Cliente"
+        apply="modmantenimiento.ManttoMotivoNotcarCliente"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="25%"/>
+            <column width="25%"/>
+            <column width="50%"/>
+        </columns>
+        <rows  >
+            <row spans="1,2" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>                
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

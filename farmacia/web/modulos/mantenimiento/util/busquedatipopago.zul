@@ -1,0 +1,43 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBtipopago"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBtipopago" title="Buscando Tipo Pago..." border="2" width="350px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaTipoPago" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBtipopago.setAttribute("REST",false);
+        WinBtipopago.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBtipopago.setAttribute("REST",true);
+        WinBtipopago.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstTipopago" mold="paging"   pageSize="50" width="99%" height="250px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="70%" sort="auto(cnomtipo)"/>
+                        <listheader label="Cobro" width="15%" />
+                        <listheader label="Pago" width="15%" />
+                    </listhead>
+                    <listitem self="@{each=tipopago}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{tipopago.cnomtipo}"/>
+                        <listcell >
+                <checkbox checked="@{tipopago.bcobro}" disabled="true" />
+            </listcell>
+            <listcell >
+                <checkbox checked="@{tipopago.bpago}" disabled="true" />
+            </listcell>
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
