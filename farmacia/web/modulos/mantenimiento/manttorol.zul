@@ -1,5 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winRol" width="350px" title="Mantenimiento de Rol"
+        apply="modmantenimiento.ManttoRol"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="30%"/>
+            <column width="70%"/>
+        </columns>
+        <rows  >
+            <row  >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>   
+                  
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

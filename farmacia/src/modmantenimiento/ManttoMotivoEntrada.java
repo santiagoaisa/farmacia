@@ -71,7 +71,7 @@ public class ManttoMotivoEntrada extends SelectorComposer implements CrudListene
        
     @Override
     public void leer() {     
-        mentrada.setCnomotivo(txtNombre.getText().toUpperCase());
+        mentrada.setCnommotivo(txtNombre.getText().toUpperCase());
         mentrada.setIdusuario(usuario);
         mentrada.setBcosteo(bCosteo.isChecked());
     }
@@ -86,7 +86,7 @@ public class ManttoMotivoEntrada extends SelectorComposer implements CrudListene
 
         menuMantto.encuentra();
         quitarConstraint();
-        txtNombre.setText(mentrada.getCnomotivo());     
+        txtNombre.setText(mentrada.getCnommotivo());     
         bCosteo.setChecked(mentrada.getBcosteo());
     }
 

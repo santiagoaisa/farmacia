@@ -1,12 +1,10 @@
 package modmantenimiento;
 
-import com.zarcillo.domain.Periodo;
+import com.zarcillo.domain.MotivoNotaboCliente;
 import com.zarcillo.domain.Usuario;
-import com.zarcillo.service.PeriodoService;
 import com.zarcillo.service.ExceptionZarcillo;
+import com.zarcillo.service.MotivoNotaboClienteService;
 import com.zarcillo.service.UsuarioService;
-import java.math.BigDecimal;
-import java.util.Date;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
 import modmantenimiento.util.CrudListener;
@@ -15,16 +13,12 @@ import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.Path;
-import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Checkbox;
-import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Decimalbox;
-import org.zkoss.zul.Intbox;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
@@ -32,36 +26,30 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class ManttoPeriodo extends SelectorComposer implements CrudListener{
+public class ManttoMotivoNotaboCliente extends SelectorComposer implements CrudListener{
     
-    private Periodo periodo=new Periodo();
+    private MotivoNotaboCliente motivo=new MotivoNotaboCliente();
     private Usuario usuario;  
-    private MenuMantenimiento menuMantto;   
-    
-    
-    @Wire
-    private Window winPeriodo;
+    private MenuMantenimiento menuMantto;       
     
     @Wire
-    private Intbox nAnio;
+    private Window winMotivonotabo;
     
     @Wire
-    private Intbox nMes;
-    
-    @Wire
-    private Datebox dFecini;
+    private Textbox txtNombre;
           
     @Wire
-    private Datebox dFecfin;
+    private Checkbox bDevolucion;
     
     @Wire
-    private Decimalbox nIgv;
+    private Checkbox bDescuento;
     
+        
     @WireVariable
     UsuarioService usuarioService;
     
     @WireVariable
-    PeriodoService periodoService;
+    MotivoNotaboClienteService motivoNotaboClienteService;
     
         
     private String user_login;
@@ -69,82 +57,64 @@ public class ManttoPeriodo extends SelectorComposer implements CrudListener{
     
     
     
-    @Listen("onCreate=window#winPeriodo")
+    @Listen("onCreate=window#winMotivonotabo")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winPeriodo/menuMantto");
+        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winMotivonotabo/menuMantto");
          menuMantto =  (MenuMantenimiento) macro.getChildren().get(0);
          menuMantto.setCrudlistener(this);
          initComponets();
      }
      
-    @Listen("onOK = #nAnio")
-    public void onMes(Event event) {
-        nMes.select();
-    }
-    
-    @Listen("onOK = #nMes")
-    public void onIgv(Event event) {
-        nIgv.select();
-    }
-    
     public void initComponets(){
         user_login = exec.getUserPrincipal().getName();
-        usuario=usuarioService.buscarPorLogin(user_login); 
-        dFecini.setValue(new Date());
-        dFecfin.setValue(new Date());
+        usuario=usuarioService.buscarPorLogin(user_login);        
         habilitar(true);
     }    
        
     @Override
     public void leer() {     
-        periodo.setNano(nAnio.getValue());
-        periodo.setNmes(nMes.getValue());
-        periodo.setNigv(nIgv.getValue());
-        periodo.setIdusuario(usuario);
-        periodo.setDfecinicio(dFecini.getValue());
-        periodo.setDfecfin(dFecfin.getValue());
+        motivo.setCnommotivo(txtNombre.getText().toUpperCase());
+        motivo.setIdusuario(usuario);
+        motivo.setBdescuento(bDescuento.isChecked());
+        motivo.setBdevolucion(bDevolucion.isChecked());
     }
     
     
     @Override
     public void escribir() {
-        if (periodo.getIdperiodo()== null) {
+        if (motivo.getIdmotivo()== null) {
             limpiar();
             return;
         }
 
         menuMantto.encuentra();
         quitarConstraint();
-        nAnio.setValue(periodo.getNano());
-        nMes.setValue(periodo.getNmes());
-        nIgv.setValue(periodo.getNigv());
-        dFecini.setValue(periodo.getDfecinicio());
-        dFecfin.setValue(periodo.getDfecfin());
+        txtNombre.setText(motivo.getCnommotivo());     
+        bDescuento.setChecked(motivo.getBdescuento());
+        bDevolucion.setChecked(motivo.getBdevolucion());
     }
 
     @Override
     public void limpiar() {
         quitarConstraint();
         habilitar(false);
-        periodo=new Periodo();
-        nIgv.setValue(BigDecimal.ZERO);
-        nAnio.setValue(0);
-        nMes.setValue(0);
-        dFecini.setValue(new Date());
-        dFecfin.setValue(new Date());
+        motivo=new MotivoNotaboCliente();
+        txtNombre.setText("");
+        bDescuento.setChecked(false);
+        bDevolucion.setChecked(false);
         agregarConstraint();
     }
 
     @Override
     public void buscar() {
-        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaperiodo.zul", null, null);
+        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedamotivonotabocliente.zul", null, null);
         winbuscaprod.setAttribute("REST", true);
         winbuscaprod.doModal();
         Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
         if (rest) {
-            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstPeriodo");
+            Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstMotivo");
             ListModel modelobuscado = lstproducto1.getModel();
-            periodo =  (Periodo) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
+            motivo = (MotivoNotaboCliente) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
             escribir();
         }
     }
@@ -152,34 +122,34 @@ public class ManttoPeriodo extends SelectorComposer implements CrudListener{
     @Override
     public void modificar() {
         agregarConstraint();
-        if (periodo.getIdperiodo() == null) {
-            throw new ExceptionZarcillo("Debe Buscar Periodo...");
+        if (motivo.getIdmotivo() == null) {
+            throw new ExceptionZarcillo("Debe Buscar Motivo...");
         }
     }
 
     @Override
     public void grabar() {        
-        periodoService.registrar(periodo);
+        motivoNotaboClienteService.registrar(motivo);
         Messagebox.show("Registro Satisfactorio");
     }
 
     @Override
     public void actualizar() {
-        periodoService.actualizar(periodo);
+        motivoNotaboClienteService.actualizar(motivo);
         Messagebox.show("Registro Satisfactorio");
     }
 
     @Override
     public void eliminar() {
-        if (periodo.getIdperiodo() == null) {
-            throw new ExceptionZarcillo("Debe Buscar Periodo...");
+        if (motivo.getIdmotivo() == null) {
+            throw new ExceptionZarcillo("Debe Buscar Motivo...");
         }
 
         int resp = Messagebox.show("Esta Seguro de eliminar el actual Registro", "Mantenimiento...", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
         if (resp == Messagebox.OK) {
-            periodoService.eliminar(periodo);
-            periodo = new Periodo();
-            Messagebox.show("La Periodo Fue Eliminada", "Periodo", Messagebox.OK, Messagebox.INFORMATION);
+            motivoNotaboClienteService.eliminar(motivo);
+            motivo=new MotivoNotaboCliente();
+            Messagebox.show("El Motivo Fue Eliminado", "Motivo N/C Cliente", Messagebox.OK, Messagebox.INFORMATION);
         }
     }
 
@@ -190,27 +160,28 @@ public class ManttoPeriodo extends SelectorComposer implements CrudListener{
 
     @Override
     public void habilitar(boolean enable) {
-        nAnio.setReadonly(enable);
-        nMes.setReadonly(enable);
-        nIgv.setReadonly(enable);
-        dFecini.setDisabled(enable);
-        dFecfin.setDisabled(enable);        
+        txtNombre.setReadonly(enable);
+        bDescuento.setDisabled(enable);
+        bDevolucion.setDisabled(enable);
     }
 
     @Override
     public void validarDatos() {
-        nAnio.getValue();
-        nMes.getValue();
+        txtNombre.getValue();
     }
 
     @Override
     public void salir() {
-        winPeriodo.onClose();
+        winMotivonotabo.onClose();
     }   
 
-    public void agregarConstraint() {        
+    public void agregarConstraint() {
+        txtNombre.setConstraint(new ConstraintCamposObligatorios());
     }
 
     public void quitarConstraint() {
+        txtNombre.setConstraint("");
     }   
 }
+
+

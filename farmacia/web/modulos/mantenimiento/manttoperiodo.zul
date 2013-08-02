@@ -1,5 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winPeriodo" width="350px" title="Mantenimiento de Periodo"
+        apply="modmantenimiento.ManttoPeriodo"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="20%"/>
+            <column width="30%"/>
+            <column width="20%"/>
+            <column width="30%"/>
+        </columns>
+        <rows  >
+            <row  >
+                <label value="Año:" />
+                <intbox id="nAnio" value="0" width="90%" readonly="true"  />
+                <label value="Mes:" />
+                <intbox id="nMes" value="0" width="90%" readonly="true"  />
+            </row>
+            <row  >
+                <label value="Fec.Inicio:" />
+                <datebox id="dFecini" format="yyyy/MM/dd" readonly="true" width="95%" constraint="no empty" />
+                <label value="Fec.Fin:" />
+                <datebox id="dFecfin" format="yyyy/MM/dd" readonly="true" width="95%" constraint="no empty" />
+            </row> 
+            <row spans="2,1,1" >
+                <label  />
+                <label value="IGV:" />                
+                <decimalbox id="nIgv" value="0"  width="90%" readonly="true" format="###,###,##0.00" /> 
+            </row>           
+                  
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

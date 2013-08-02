@@ -1,0 +1,36 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBrol"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBrol" title="Buscando Rol..." border="2" width="250px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaRol" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBrol.setAttribute("REST",false);
+        WinBrol.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBrol.setAttribute("REST",true);
+        WinBrol.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstRol" mold="paging"   pageSize="50" width="99%" height="250px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="100%" sort="auto(cnomrol)"/>
+                    </listhead>
+                    <listitem self="@{each=rol}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{rol.cnomrol}"/>
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
+

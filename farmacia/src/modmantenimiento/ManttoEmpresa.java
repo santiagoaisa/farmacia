@@ -157,22 +157,9 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
         modeloDistrito=new ListModelList();
         cboDistrito.setModel(modeloDistrito);
         dFecha.setValue(new Date());        
-        habilitarNuevo(true);
+        habilitar(true);
     }
-    
-    private void habilitarNuevo(boolean enable){
-        txtNombre.setReadonly(enable);
-        txtRuc.setReadonly(enable);
-        txtDireccion.setReadonly(enable);
-        txtFax.setReadonly(enable);
-        txtMovil.setReadonly(enable);
-        txtTelefono.setReadonly(enable);
-        dFecha.setDisabled(enable);
-        cboDepartamento.setDisabled(enable);
-        cboProvincia.setDisabled(enable);
-        cboDistrito.setDisabled(enable);
-    }
-    
+        
     private void eligeDepartamento() {
         /////// quito contraint combos
         cboProvincia.setConstraint("");
@@ -264,7 +251,7 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
     @Override
     public void limpiar() {
         quitarConstraint();
-        habilitarNuevo(false);
+        habilitar(false);
         empresa=new Empresa();
         txtDireccion.setText("");
         txtFax.setText("");
@@ -324,7 +311,7 @@ public class ManttoEmpresa extends SelectorComposer implements CrudListener{
         if (resp == Messagebox.OK) {
             empresaService.eliminar(empresa);
             empresa = new Empresa();
-            Messagebox.show("La Empresa Fue Eliminada", "Proveedor", Messagebox.OK, Messagebox.INFORMATION);
+            Messagebox.show("La Empresa Fue Eliminada", "Empresa", Messagebox.OK, Messagebox.INFORMATION);
         }
     }
 

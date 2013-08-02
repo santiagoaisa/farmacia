@@ -1,5 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winUsuario" width="400px" title="Mantenimiento de Usuarioes de Negocio"
+        apply="modmantenimiento.ManttoUsuario"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="25%"/>
+            <column width="25%"/>
+            <column width="25%"/>
+            <column width="25%"/>
+        </columns>
+        <rows  >
+            <row spans="1,3" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="95%" constraint="no empty" />
+            </row>
+            <row spans="1,2,1" >
+                <label value="Rol:" />
+                <combobox id="cboRol" width="95%" constraint="no empty:Debe Seleccionar Rol" readonly="true" autodrop="true" />
+                <checkbox id="bActivo"  label="Activo" disabled="true" />
+            </row>
+            
+            <row  >
+                <label value="Login:"/>
+                <textbox id="txtLogin" readonly="true"  width="90%"/>
+                <label value="Clave:"/>
+                <textbox id="txtClave" type="password" readonly="true"  width="90%"/>
+            </row>                                 
+        </rows>
+    </grid>
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

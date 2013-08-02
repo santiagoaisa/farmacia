@@ -1,0 +1,55 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBproducto"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBproducto" title="Buscando Producto..." border="2" width="500px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaProducto" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBproducto.setAttribute("REST",false);
+        WinBproducto.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBproducto.setAttribute("REST",true);
+        WinBproducto.onClose();
+        }
+        }
+    </zscript>
+    
+    <grid width="100%">
+        <columns>
+            <column width="15%"/>
+            <column width="85%"/>
+        </columns>
+        <rows>
+            <row>
+                    <label value="Filtro:" />
+                    <textbox id="txtCriterio" value="" focus="true" width="99%"  onCancel="doCancel()" />
+               
+            </row>
+        </rows>
+    </grid>
+    
+    <listbox id="lstProducto" mold="paging"   pageSize="50" width="99%" height="350px"  >
+        <listhead>
+            <listheader label="Cod" width="20%" sort="auto(idproducto)"/>
+            <listheader label="Nombre" width="50%" sort="auto(cnomproducto)"/>
+            <listheader label="Linea" width="30%" sort="auto(idsublinea.idlinea.cnomlinea)"/>
+            
+        </listhead>
+        <listitem self="@{each=producto}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+            <listcell label="@{producto.idproducto}"/>
+            <listcell label="@{producto.cnomproducto}"/>
+            <listcell label="@{producto.idsublinea.idlinea.cnomlinea}"/>
+         </listitem>
+    </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
+

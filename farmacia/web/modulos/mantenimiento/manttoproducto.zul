@@ -1,5 +1,5 @@
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
-<window id="winProducto" width="600px" title="Mantenimiento de Productoes"
+<window id="winProducto" width="600px" title="Mantenimiento de Productos"
         apply="modmantenimiento.ManttoProducto"  border="0" position="center">
     
     <grid >
@@ -12,7 +12,7 @@
         <rows  >
             <row spans="1,1,2" >
                 <label value="Producto:" />
-                <textbox id="txtCodigo" width="95%" constraint="no empty" />
+                <textbox id="txtCodigo" width="95%" />
                 <textbox id="txtNombre" width="95%" constraint="no empty" />
             </row>
             <row  >
@@ -22,7 +22,7 @@
                 <combobox id="cboFamilia" width="95%" constraint="no empty:Debe Seleccionar Familia" readonly="true"  />
             </row>
             <row  >
-                <label value="Sublinea:" />
+                <label value="Presentacion:" />
                 <combobox id="cboPresentacion" width="95%" constraint="no empty:Debe Seleccionar Sublinea"  readonly="true"  />
                 <label value="Cod.Barras:" />
                 <textbox id="txtBarras" width="95%" />

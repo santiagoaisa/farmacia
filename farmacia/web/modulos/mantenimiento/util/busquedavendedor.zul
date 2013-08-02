@@ -1,0 +1,42 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBvendedor"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBvendedor" title="Buscando Vendedor..." border="2" width="350px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaVendedor" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBvendedor.setAttribute("REST",false);
+        WinBvendedor.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBvendedor.setAttribute("REST",true);
+        WinBvendedor.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstVendedor" mold="paging"   pageSize="50" width="99%" height="150px"  >
+        <listhead>
+            <listheader label="Nombre" width="55%" sort="auto(cnomvendedor)"/>
+            <listheader label="Ciudad" width="35%" sort="auto(idubigeo.cnomprovincia)"/>
+            <listheader label="Activo" width="10%" />
+        </listhead>
+        <listitem self="@{each=vendedor}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+            <listcell label="@{vendedor.cnomvendedor}"/>
+            <listcell label="@{vendedor.idubigeo.cnomprovincia}"/>
+            <listcell >
+                <checkbox checked="@{vendedor.bactivo}" disabled="true" />
+            </listcell>
+        </listitem>
+    </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>
+

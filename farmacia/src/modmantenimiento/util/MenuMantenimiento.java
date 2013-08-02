@@ -91,8 +91,8 @@ public class MenuMantenimiento extends Window {
 
     public void Buscar() {
         crudlistener.limpiar();
-        crudlistener.buscar();
         crudlistener.habilitar(true);
+        crudlistener.buscar();        
     }
 
     public void encuentra() {

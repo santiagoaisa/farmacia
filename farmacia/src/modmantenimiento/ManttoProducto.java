@@ -4,14 +4,12 @@ import com.zarcillo.domain.Familia;
 import com.zarcillo.domain.Presentacion;
 import com.zarcillo.domain.Producto;
 import com.zarcillo.domain.Sublinea;
-import com.zarcillo.domain.Ubigeo;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.FamiliaService;
 import com.zarcillo.service.PresentacionService;
 import com.zarcillo.service.ProductoService;
 import com.zarcillo.service.SublineaService;
-import com.zarcillo.service.UbigeoService;
 import com.zarcillo.service.UsuarioService;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
@@ -102,7 +100,6 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
      
     @Listen("onOK = #txtCodigo")
     public void onFocoNombre(Event event) {
-        txtNombre.select();
         buscarProducto();
     }
     
@@ -126,6 +123,10 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     public void onFocoBarras(Event event) {
         txtBarras.focus();
     }
+    @Listen("onOK = #txtBarras")
+    public void onBuscaBarra(Event event) {
+        buscarCodigoBarras();
+    }
     
          
     public void initComponets(){
@@ -148,7 +149,7 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
                 winbuscaprod.doModal();
                 Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
                 if (rest) {
-                    Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstproducto");
+                    Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstProducto");
                     ListModel modelobuscado = lstproducto1.getModel();
                     producto = (Producto) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
 
@@ -158,14 +159,14 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
                 ex.printStackTrace();
             }
         } else {
-            //producto = productoService.buscarProducto(txtCodigo.getValue());
+            producto = productoService.buscar(txtCodigo.getValue());
             escribir();
         }
     }     
     
     public void buscarCodigoBarras(){
-        //producto = productoService.buscarCodigoBarra(txtBarras.getValue());
-            escribir();
+        producto = productoService.busquedaPorCcodigobarra(txtBarras.getValue());
+        escribir();
     }
 
     @Override
@@ -221,7 +222,8 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     @Override
     public void buscar() {
         limpiar();
-        txtCodigo.setDisabled(false);
+        txtCodigo.setReadonly(false);
+        txtBarras.setReadonly(false);
         txtCodigo.focus();
     }
 
@@ -290,7 +292,6 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     }   
 
     public void agregarConstraint() {
-        txtCodigo.setConstraint(new ConstraintCamposObligatorios());
         txtNombre.setConstraint(new ConstraintCamposObligatorios());
         cboPresentacion.setConstraint(new ConstraintCamposObligatorios());
         cboSublinea.setConstraint(new ConstraintCamposObligatorios());
@@ -298,7 +299,6 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     }
 
     public void quitarConstraint() {
-        txtCodigo.setConstraint("");
         txtNombre.setConstraint("");
         cboFamilia.setConstraint("");
         cboPresentacion.setConstraint("");
