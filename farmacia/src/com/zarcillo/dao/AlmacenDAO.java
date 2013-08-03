@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Almacen;
+import java.util.List;
 
 /**
  *
@@ -8,4 +9,5 @@ import com.zarcillo.domain.Almacen;
  */
 public interface AlmacenDAO {
     Almacen busqueda(Integer idalmacen);
+     List<Almacen> listaPorClogin(String clogin);
 }

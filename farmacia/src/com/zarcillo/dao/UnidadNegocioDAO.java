@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.UnidadNegocio;
+import java.util.List;
 
 /**
  *
@@ -8,4 +9,5 @@ import com.zarcillo.domain.UnidadNegocio;
  */
 public interface UnidadNegocioDAO {
      UnidadNegocio busqueda(Integer idunidad);
+     List<UnidadNegocio> listaPorClogin(String clogin);
 }

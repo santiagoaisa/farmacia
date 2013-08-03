@@ -15,5 +15,6 @@ public interface AlmacenService {
     public void eliminar(Almacen almacen);
     public Almacen buscar(Integer idalmacen);
     public List<Almacen> listaGeneral();
+    public List<Almacen> listaPorClogin(String clogin);
     
 }

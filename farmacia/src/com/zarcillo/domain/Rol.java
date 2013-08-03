@@ -41,6 +41,8 @@ public class Rol implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
     
+     @OneToMany(mappedBy = "idrol", fetch = FetchType.LAZY)
+    private List<Mapa> mapaCollection;
 
     public Rol() {       
     }
@@ -73,6 +75,15 @@ public class Rol implements Serializable {
         this.dfecreg = dfecreg;
     }
 
+    public List<Mapa> getMapaCollection() {
+        return mapaCollection;
+    }
+
+    public void setMapaCollection(List<Mapa> mapaCollection) {
+        this.mapaCollection = mapaCollection;
+    }
+
+    
    
 
     @Override

@@ -80,6 +80,15 @@ public class UnidadNegocioServiceImpl implements UnidadNegocioService {
         return cruddao.listarTodos(UnidadNegocio.class);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<UnidadNegocio> listaPorClogin(String clogin) {
+        return unidaddao.listaPorClogin(clogin);
+    }
+    
+    
+    
+
     private void registrarLog(String cmotivo, UnidadNegocio unidad) {
         ////LOG
         LogUnidadNegocio logunidad = new LogUnidadNegocio();

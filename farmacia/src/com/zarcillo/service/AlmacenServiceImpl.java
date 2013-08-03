@@ -81,6 +81,15 @@ public class AlmacenServiceImpl implements AlmacenService {
         return cruddao.listarTodos(Almacen.class);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Almacen> listaPorClogin(String clogin) {
+        return almacendao.listaPorClogin(clogin);
+    }
+    
+    
+    
+
     private void registrarLog(String cmotivo, Almacen almacen) {        
         LogAlmacen logalmacen = new LogAlmacen();
         logalmacen.setCmotivo(cmotivo);
