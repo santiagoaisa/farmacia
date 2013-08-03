@@ -2,6 +2,7 @@ package com.zarcillo.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -102,6 +103,9 @@ public class RegistroSalida implements Serializable {
     @JoinColumn(name = "idcondicion", referencedColumnName = "idcondicion")
     @ManyToOne(fetch = FetchType.EAGER)
     private CondicionVenta idcondicion;
+    
+    @OneToMany(mappedBy = "idregentrada", fetch = FetchType.LAZY)
+    private List<Movimiento> movimientoCollection;
 
     public RegistroSalida() {
         nafecto=new BigDecimal("0");
@@ -111,6 +115,7 @@ public class RegistroSalida implements Serializable {
         ninafecto=new BigDecimal("0");
         nplazo=0;
         nredondeo=new BigDecimal("0");
+        movimientoCollection=new ArrayList<Movimiento>();
         
     }
 
@@ -343,6 +348,17 @@ public class RegistroSalida implements Serializable {
     public void setIdcondicion(CondicionVenta idcondicion) {
         this.idcondicion = idcondicion;
     }
+
+    public List<Movimiento> getMovimientoCollection() {
+        return movimientoCollection;
+    }
+
+    public void setMovimientoCollection(List<Movimiento> movimientoCollection) {
+        this.movimientoCollection = movimientoCollection;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {

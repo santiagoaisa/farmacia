@@ -80,6 +80,14 @@ public class ProveedorServiceImpl implements ProveedorService {
         return cruddao.listarTodos(Proveedor.class);
     }
 
+    @Override
+    public List<Proveedor> busquedaListaPorCnomprovee(String ccriterio) {
+        return proveedordao.busquedaListaPorCnomprovee(ccriterio);
+    }
+    
+    
+    
+
     private void registrarLog(String cmotivo, Proveedor proveedor) {
         LogProveedor logproveedor = new LogProveedor();
         logproveedor.setCmotivo(cmotivo);

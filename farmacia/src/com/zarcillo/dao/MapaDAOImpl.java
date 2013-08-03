@@ -37,13 +37,13 @@ public class MapaDAOImpl implements MapaDAO {
     @Override
     public List<Mapa> listaMenu(Integer idrol, Mapa mapa) {
         String sql = "select  m.* from mapa m,menu mm where m.idmenu=mm.idmenu and m.idrol=:idrol and mm.nnivel1=:nnivel1 and mm.nnivel3=0 and mm.idmenu<>:idmenu and mm.idmodulo=:idmodulo order by mm.norden ";
-        return em.createNativeQuery(sql, Mapa.class).setParameter("idrol", idrol).setParameter("nnivel1", mapa.getIdmenu().getNnivel1()).setParameter("idmenu", mapa.getIdmenu()).setParameter("idmodulo", mapa.getIdmenu().getIdmodulo().getIdmodulo()).getResultList();
+        return em.createNativeQuery(sql, Mapa.class).setParameter("idrol", idrol).setParameter("nnivel1", mapa.getIdmenu().getNnivel1()).setParameter("idmenu", mapa.getIdmenu().getIdmenu()).setParameter("idmodulo", mapa.getIdmenu().getIdmodulo().getIdmodulo()).getResultList();
 
     }
 
     @Override
     public List<Mapa> listaSubmenu(Integer idrol, Mapa mapa) {
-        String sql = "select  m.* from mapa m,menu mm where m.idmenu=mm.idmenu and m.idrol=:idrol and mm.nnivel1=:nnivel1 and mm.cmenu3<>0 and mm.nnivel2=:nnivel2 and mm.idmodulo=:idmodulo order by mm.norden ";
-        return em.createNativeQuery(sql, Mapa.class).setParameter("idrol", idrol).setParameter("cmenu1", mapa.getIdmenu().getNnivel1()).setParameter("nnivel2", mapa.getIdmenu().getNnivel2()).setParameter("idmodulo", mapa.getIdmenu().getIdmodulo().getIdmodulo()).getResultList();
+        String sql = "select  m.* from mapa m,menu mm where m.idmenu=mm.idmenu and m.idrol=:idrol and mm.nnivel1=:nnivel1 and mm.nnivel3<>0 and mm.nnivel2=:nnivel2 and mm.idmodulo=:idmodulo order by mm.norden ";
+        return em.createNativeQuery(sql, Mapa.class).setParameter("idrol", idrol).setParameter("nnivel1", mapa.getIdmenu().getNnivel1()).setParameter("nnivel2", mapa.getIdmenu().getNnivel2()).setParameter("idmodulo", mapa.getIdmenu().getIdmodulo().getIdmodulo()).getResultList();
     }
 }

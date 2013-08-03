@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Proveedor;
+import java.util.List;
 
 /**
  *
@@ -8,4 +9,5 @@ import com.zarcillo.domain.Proveedor;
  */
 public interface ProveedorDAO {
       Proveedor busqueda(Integer idproveedor);
+      List<Proveedor> busquedaListaPorCnomprovee(String ccriterio);
 }

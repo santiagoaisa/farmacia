@@ -14,5 +14,8 @@ public interface DocumentoService {
     public void eliminar(Documento documento);
     public Documento buscar(Integer iddocumento);
     public List<Documento> listaGeneral();
+    public List<Documento> listaDocumentoVenta();
+    public List<Documento> listaDocumentoCompra();
+    public List<Documento> listaDocumentoPago();
     
 }

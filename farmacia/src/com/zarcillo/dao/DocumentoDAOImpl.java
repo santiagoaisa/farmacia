@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Documento;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -20,5 +21,23 @@ public class DocumentoDAOImpl implements DocumentoDAO{
     public Documento busqueda(Integer iddocumento) {
         return (Documento) em.createNamedQuery("Documento.findByIddocumento").setParameter("iddocumento", iddocumento).getSingleResult();
     }
+
+    @Override
+    public List<Documento> listaPorBcompra() {
+        return em.createNamedQuery("Documento.findByBcompra").getResultList();
+    }
+
+    @Override
+    public List<Documento> listaPorBventa() {
+        return em.createNamedQuery("Documento.findByBventa").getResultList();
+    }
+
+    @Override
+    public List<Documento> listaPorBpago() {
+        return em.createNamedQuery("Documento.findByBpago").getResultList();
+    }
+    
+    
+    
     
 }

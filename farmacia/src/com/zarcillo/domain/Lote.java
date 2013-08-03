@@ -25,8 +25,12 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "lote")
 @NamedQueries({
-    @NamedQuery(name = "Lote.findAll", query = "SELECT l FROM Lote l")})
+    @NamedQuery(name = "Lote.findAll", query = "SELECT l FROM Lote l"),
+    @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByClote", query = "SELECT l FROM Lote l WHERE  l.existencia.idalmacen.idalmacen=:idalmacen and l.existencia.idproducto.idproducto = :idproducto and l.clote=:clote and l.bbloqueado=false ")
+
+})
 public class Lote implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,9 +57,15 @@ public class Lote implements Serializable {
         @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")})
     @ManyToOne(fetch = FetchType.EAGER)
     private Existencia existencia;
+    @Column(name = "dfecha")
+    @Temporal(TemporalType.DATE)
+    private Date dfecha;
+    @Column(name = "bbloqueado")
+    private Boolean bbloqueado;
 
     public Lote() {
-        nstock=0;
+        nstock = 0;
+        bbloqueado = false;
     }
 
     public Lote(Integer idlote) {
@@ -126,6 +136,22 @@ public class Lote implements Serializable {
         this.existencia = existencia;
     }
 
+    public Date getDfecha() {
+        return dfecha;
+    }
+
+    public void setDfecha(Date dfecha) {
+        this.dfecha = dfecha;
+    }
+
+    public Boolean getBbloqueado() {
+        return bbloqueado;
+    }
+
+    public void setBbloqueado(Boolean bbloqueado) {
+        this.bbloqueado = bbloqueado;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -150,5 +176,4 @@ public class Lote implements Serializable {
     public String toString() {
         return clote;
     }
-    
 }

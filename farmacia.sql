@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Started on 2013-08-02 22:11:27
+-- Started on 2013-08-03 17:34:32
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -22,7 +22,7 @@ CREATE SCHEMA log;
 ALTER SCHEMA log OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 1019 (class 2612 OID 16386)
+-- TOC entry 1025 (class 2612 OID 16386)
 -- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: postgres
 --
 
@@ -47,7 +47,7 @@ CREATE SEQUENCE seq_log_almacen
 ALTER TABLE log.seq_log_almacen OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3165 (class 0 OID 0)
+-- TOC entry 3197 (class 0 OID 0)
 -- Dependencies: 141
 -- Name: seq_log_almacen; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -61,7 +61,7 @@ SET default_with_oids = false;
 
 --
 -- TOC entry 142 (class 1259 OID 52283)
--- Dependencies: 2350 2351 6
+-- Dependencies: 2356 2357 6
 -- Name: log_almacen; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -94,7 +94,7 @@ CREATE SEQUENCE seq_log_autorizacion
 ALTER TABLE log.seq_log_autorizacion OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3166 (class 0 OID 0)
+-- TOC entry 3198 (class 0 OID 0)
 -- Dependencies: 143
 -- Name: seq_log_autorizacion; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -104,7 +104,7 @@ SELECT pg_catalog.setval('seq_log_autorizacion', 1, false);
 
 --
 -- TOC entry 144 (class 1259 OID 52293)
--- Dependencies: 2352 2353 6
+-- Dependencies: 2358 2359 6
 -- Name: log_autorizacion; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -137,7 +137,7 @@ CREATE SEQUENCE seq_log_aval
 ALTER TABLE log.seq_log_aval OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3167 (class 0 OID 0)
+-- TOC entry 3199 (class 0 OID 0)
 -- Dependencies: 145
 -- Name: seq_log_aval; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -147,7 +147,7 @@ SELECT pg_catalog.setval('seq_log_aval', 1, false);
 
 --
 -- TOC entry 146 (class 1259 OID 52303)
--- Dependencies: 2354 2355 6
+-- Dependencies: 2360 2361 6
 -- Name: log_aval; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -180,7 +180,7 @@ CREATE SEQUENCE seq_log_banco
 ALTER TABLE log.seq_log_banco OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3168 (class 0 OID 0)
+-- TOC entry 3200 (class 0 OID 0)
 -- Dependencies: 147
 -- Name: seq_log_banco; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -190,7 +190,7 @@ SELECT pg_catalog.setval('seq_log_banco', 1, false);
 
 --
 -- TOC entry 148 (class 1259 OID 52313)
--- Dependencies: 2356 2357 6
+-- Dependencies: 2362 2363 6
 -- Name: log_banco; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -223,7 +223,7 @@ CREATE SEQUENCE seq_log_cheque_cliente
 ALTER TABLE log.seq_log_cheque_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3169 (class 0 OID 0)
+-- TOC entry 3201 (class 0 OID 0)
 -- Dependencies: 149
 -- Name: seq_log_cheque_cliente; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -233,7 +233,7 @@ SELECT pg_catalog.setval('seq_log_cheque_cliente', 1, false);
 
 --
 -- TOC entry 150 (class 1259 OID 52323)
--- Dependencies: 2358 2359 6
+-- Dependencies: 2364 2365 6
 -- Name: log_cheque_cliente; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -266,7 +266,7 @@ CREATE SEQUENCE seq_log_cliente
 ALTER TABLE log.seq_log_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3170 (class 0 OID 0)
+-- TOC entry 3202 (class 0 OID 0)
 -- Dependencies: 151
 -- Name: seq_log_cliente; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -276,7 +276,7 @@ SELECT pg_catalog.setval('seq_log_cliente', 1, false);
 
 --
 -- TOC entry 152 (class 1259 OID 52333)
--- Dependencies: 2360 2361 6
+-- Dependencies: 2366 2367 6
 -- Name: log_cliente; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -309,7 +309,7 @@ CREATE SEQUENCE seq_log_comprobante_emitido
 ALTER TABLE log.seq_log_comprobante_emitido OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3171 (class 0 OID 0)
+-- TOC entry 3203 (class 0 OID 0)
 -- Dependencies: 153
 -- Name: seq_log_comprobante_emitido; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -319,7 +319,7 @@ SELECT pg_catalog.setval('seq_log_comprobante_emitido', 1, false);
 
 --
 -- TOC entry 154 (class 1259 OID 52343)
--- Dependencies: 2362 2363 6
+-- Dependencies: 2368 2369 6
 -- Name: log_comprobante_emitido; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -352,7 +352,7 @@ CREATE SEQUENCE seq_log_condicion_venta
 ALTER TABLE log.seq_log_condicion_venta OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3172 (class 0 OID 0)
+-- TOC entry 3204 (class 0 OID 0)
 -- Dependencies: 155
 -- Name: seq_log_condicion_venta; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -362,7 +362,7 @@ SELECT pg_catalog.setval('seq_log_condicion_venta', 1, false);
 
 --
 -- TOC entry 156 (class 1259 OID 52353)
--- Dependencies: 2364 2365 6
+-- Dependencies: 2370 2371 6
 -- Name: log_condicion_venta; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -395,7 +395,7 @@ CREATE SEQUENCE seq_log_cuenta_bancaria
 ALTER TABLE log.seq_log_cuenta_bancaria OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3173 (class 0 OID 0)
+-- TOC entry 3205 (class 0 OID 0)
 -- Dependencies: 157
 -- Name: seq_log_cuenta_bancaria; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -405,7 +405,7 @@ SELECT pg_catalog.setval('seq_log_cuenta_bancaria', 1, false);
 
 --
 -- TOC entry 158 (class 1259 OID 52363)
--- Dependencies: 2366 2367 6
+-- Dependencies: 2372 2373 6
 -- Name: log_cuenta_bancaria; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -438,7 +438,7 @@ CREATE SEQUENCE seq_log_cuenta_pagar
 ALTER TABLE log.seq_log_cuenta_pagar OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3174 (class 0 OID 0)
+-- TOC entry 3206 (class 0 OID 0)
 -- Dependencies: 159
 -- Name: seq_log_cuenta_pagar; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -448,7 +448,7 @@ SELECT pg_catalog.setval('seq_log_cuenta_pagar', 1, false);
 
 --
 -- TOC entry 160 (class 1259 OID 52373)
--- Dependencies: 2368 2369 6
+-- Dependencies: 2374 2375 6
 -- Name: log_cuenta_pagar; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -481,7 +481,7 @@ CREATE SEQUENCE seq_log_deposito_cliente
 ALTER TABLE log.seq_log_deposito_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3175 (class 0 OID 0)
+-- TOC entry 3207 (class 0 OID 0)
 -- Dependencies: 161
 -- Name: seq_log_deposito_cliente; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -491,7 +491,7 @@ SELECT pg_catalog.setval('seq_log_deposito_cliente', 1, false);
 
 --
 -- TOC entry 162 (class 1259 OID 52383)
--- Dependencies: 2370 2371 6
+-- Dependencies: 2376 2377 6
 -- Name: log_deposito_cliente; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -524,7 +524,7 @@ CREATE SEQUENCE seq_log_detalle_autorizacion
 ALTER TABLE log.seq_log_detalle_autorizacion OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3176 (class 0 OID 0)
+-- TOC entry 3208 (class 0 OID 0)
 -- Dependencies: 163
 -- Name: seq_log_detalle_autorizacion; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -534,7 +534,7 @@ SELECT pg_catalog.setval('seq_log_detalle_autorizacion', 1, false);
 
 --
 -- TOC entry 164 (class 1259 OID 52393)
--- Dependencies: 2372 2373 6
+-- Dependencies: 2378 2379 6
 -- Name: log_detalle_autorizacion; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -567,7 +567,7 @@ CREATE SEQUENCE seq_log_documento
 ALTER TABLE log.seq_log_documento OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3177 (class 0 OID 0)
+-- TOC entry 3209 (class 0 OID 0)
 -- Dependencies: 165
 -- Name: seq_log_documento; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -577,7 +577,7 @@ SELECT pg_catalog.setval('seq_log_documento', 1, false);
 
 --
 -- TOC entry 166 (class 1259 OID 52403)
--- Dependencies: 2374 2375 6
+-- Dependencies: 2380 2381 6
 -- Name: log_documento; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -610,7 +610,7 @@ CREATE SEQUENCE seq_log_empresa
 ALTER TABLE log.seq_log_empresa OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3178 (class 0 OID 0)
+-- TOC entry 3210 (class 0 OID 0)
 -- Dependencies: 167
 -- Name: seq_log_empresa; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -620,7 +620,7 @@ SELECT pg_catalog.setval('seq_log_empresa', 9, true);
 
 --
 -- TOC entry 168 (class 1259 OID 52413)
--- Dependencies: 2376 2377 6
+-- Dependencies: 2382 2383 6
 -- Name: log_empresa; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -653,7 +653,7 @@ CREATE SEQUENCE seq_log_existencia
 ALTER TABLE log.seq_log_existencia OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3179 (class 0 OID 0)
+-- TOC entry 3211 (class 0 OID 0)
 -- Dependencies: 169
 -- Name: seq_log_existencia; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -663,7 +663,7 @@ SELECT pg_catalog.setval('seq_log_existencia', 1, false);
 
 --
 -- TOC entry 170 (class 1259 OID 52423)
--- Dependencies: 2378 2379 6
+-- Dependencies: 2384 2385 6
 -- Name: log_existencia; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -697,7 +697,7 @@ CREATE SEQUENCE seq_log_familia
 ALTER TABLE log.seq_log_familia OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3180 (class 0 OID 0)
+-- TOC entry 3212 (class 0 OID 0)
 -- Dependencies: 171
 -- Name: seq_log_familia; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -707,7 +707,7 @@ SELECT pg_catalog.setval('seq_log_familia', 1, false);
 
 --
 -- TOC entry 172 (class 1259 OID 52433)
--- Dependencies: 2380 2381 6
+-- Dependencies: 2386 2387 6
 -- Name: log_familia; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -740,7 +740,7 @@ CREATE SEQUENCE seq_log_letra_proveedor
 ALTER TABLE log.seq_log_letra_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3181 (class 0 OID 0)
+-- TOC entry 3213 (class 0 OID 0)
 -- Dependencies: 173
 -- Name: seq_log_letra_proveedor; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -750,7 +750,7 @@ SELECT pg_catalog.setval('seq_log_letra_proveedor', 1, false);
 
 --
 -- TOC entry 174 (class 1259 OID 52443)
--- Dependencies: 2382 2383 6
+-- Dependencies: 2388 2389 6
 -- Name: log_letra_proveedor; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -783,7 +783,7 @@ CREATE SEQUENCE seq_log_linea
 ALTER TABLE log.seq_log_linea OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3182 (class 0 OID 0)
+-- TOC entry 3214 (class 0 OID 0)
 -- Dependencies: 175
 -- Name: seq_log_linea; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -793,7 +793,7 @@ SELECT pg_catalog.setval('seq_log_linea', 1, true);
 
 --
 -- TOC entry 176 (class 1259 OID 52453)
--- Dependencies: 2384 2385 6
+-- Dependencies: 2390 2391 6
 -- Name: log_linea; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -826,7 +826,7 @@ CREATE SEQUENCE seq_log_lote
 ALTER TABLE log.seq_log_lote OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3183 (class 0 OID 0)
+-- TOC entry 3215 (class 0 OID 0)
 -- Dependencies: 177
 -- Name: seq_log_lote; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -836,7 +836,7 @@ SELECT pg_catalog.setval('seq_log_lote', 1, false);
 
 --
 -- TOC entry 178 (class 1259 OID 52463)
--- Dependencies: 2386 2387 6
+-- Dependencies: 2392 2393 6
 -- Name: log_lote; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -869,7 +869,7 @@ CREATE SEQUENCE seq_log_menu
 ALTER TABLE log.seq_log_menu OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3184 (class 0 OID 0)
+-- TOC entry 3216 (class 0 OID 0)
 -- Dependencies: 319
 -- Name: seq_log_menu; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -879,7 +879,7 @@ SELECT pg_catalog.setval('seq_log_menu', 1, false);
 
 --
 -- TOC entry 320 (class 1259 OID 54515)
--- Dependencies: 2657 2658 6
+-- Dependencies: 2668 2669 6
 -- Name: log_menu; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -912,7 +912,7 @@ CREATE SEQUENCE seq_log_modulo
 ALTER TABLE log.seq_log_modulo OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3185 (class 0 OID 0)
+-- TOC entry 3217 (class 0 OID 0)
 -- Dependencies: 317
 -- Name: seq_log_modulo; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -922,7 +922,7 @@ SELECT pg_catalog.setval('seq_log_modulo', 1, false);
 
 --
 -- TOC entry 318 (class 1259 OID 54488)
--- Dependencies: 2655 2656 6
+-- Dependencies: 2666 2667 6
 -- Name: log_modulo; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -955,7 +955,7 @@ CREATE SEQUENCE seq_log_moneda
 ALTER TABLE log.seq_log_moneda OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3186 (class 0 OID 0)
+-- TOC entry 3218 (class 0 OID 0)
 -- Dependencies: 179
 -- Name: seq_log_moneda; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -965,7 +965,7 @@ SELECT pg_catalog.setval('seq_log_moneda', 1, false);
 
 --
 -- TOC entry 180 (class 1259 OID 52473)
--- Dependencies: 2388 2389 6
+-- Dependencies: 2394 2395 6
 -- Name: log_moneda; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -998,7 +998,7 @@ CREATE SEQUENCE seq_log_motivo_entrada
 ALTER TABLE log.seq_log_motivo_entrada OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3187 (class 0 OID 0)
+-- TOC entry 3219 (class 0 OID 0)
 -- Dependencies: 181
 -- Name: seq_log_motivo_entrada; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1008,7 +1008,7 @@ SELECT pg_catalog.setval('seq_log_motivo_entrada', 1, false);
 
 --
 -- TOC entry 182 (class 1259 OID 52483)
--- Dependencies: 2390 2391 6
+-- Dependencies: 2396 2397 6
 -- Name: log_motivo_entrada; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1041,7 +1041,7 @@ CREATE SEQUENCE seq_log_motivo_notabo_cliente
 ALTER TABLE log.seq_log_motivo_notabo_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3188 (class 0 OID 0)
+-- TOC entry 3220 (class 0 OID 0)
 -- Dependencies: 183
 -- Name: seq_log_motivo_notabo_cliente; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1051,7 +1051,7 @@ SELECT pg_catalog.setval('seq_log_motivo_notabo_cliente', 1, false);
 
 --
 -- TOC entry 184 (class 1259 OID 52493)
--- Dependencies: 2392 2393 6
+-- Dependencies: 2398 2399 6
 -- Name: log_motivo_notabo_cliente; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1084,7 +1084,7 @@ CREATE SEQUENCE seq_log_motivo_notabo_proveedor
 ALTER TABLE log.seq_log_motivo_notabo_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3189 (class 0 OID 0)
+-- TOC entry 3221 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: seq_log_motivo_notabo_proveedor; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1094,7 +1094,7 @@ SELECT pg_catalog.setval('seq_log_motivo_notabo_proveedor', 1, false);
 
 --
 -- TOC entry 186 (class 1259 OID 52503)
--- Dependencies: 2394 2395 6
+-- Dependencies: 2400 2401 6
 -- Name: log_motivo_notabo_proveedor; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1127,7 +1127,7 @@ CREATE SEQUENCE seq_log_motivo_notcar_cliente
 ALTER TABLE log.seq_log_motivo_notcar_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3190 (class 0 OID 0)
+-- TOC entry 3222 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: seq_log_motivo_notcar_cliente; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1137,7 +1137,7 @@ SELECT pg_catalog.setval('seq_log_motivo_notcar_cliente', 1, false);
 
 --
 -- TOC entry 188 (class 1259 OID 52513)
--- Dependencies: 2396 2397 6
+-- Dependencies: 2402 2403 6
 -- Name: log_motivo_notcar_cliente; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1170,7 +1170,7 @@ CREATE SEQUENCE seq_log_motivo_notcar_proveedor
 ALTER TABLE log.seq_log_motivo_notcar_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3191 (class 0 OID 0)
+-- TOC entry 3223 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: seq_log_motivo_notcar_proveedor; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1180,7 +1180,7 @@ SELECT pg_catalog.setval('seq_log_motivo_notcar_proveedor', 1, false);
 
 --
 -- TOC entry 190 (class 1259 OID 52523)
--- Dependencies: 2398 2399 6
+-- Dependencies: 2404 2405 6
 -- Name: log_motivo_notcar_proveedor; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1213,7 +1213,7 @@ CREATE SEQUENCE seq_log_motivo_salida
 ALTER TABLE log.seq_log_motivo_salida OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3192 (class 0 OID 0)
+-- TOC entry 3224 (class 0 OID 0)
 -- Dependencies: 191
 -- Name: seq_log_motivo_salida; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1223,7 +1223,7 @@ SELECT pg_catalog.setval('seq_log_motivo_salida', 1, false);
 
 --
 -- TOC entry 192 (class 1259 OID 52533)
--- Dependencies: 2400 2401 6
+-- Dependencies: 2406 2407 6
 -- Name: log_motivo_salida; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1256,7 +1256,7 @@ CREATE SEQUENCE seq_log_periodo
 ALTER TABLE log.seq_log_periodo OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3193 (class 0 OID 0)
+-- TOC entry 3225 (class 0 OID 0)
 -- Dependencies: 193
 -- Name: seq_log_periodo; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1266,7 +1266,7 @@ SELECT pg_catalog.setval('seq_log_periodo', 1, false);
 
 --
 -- TOC entry 194 (class 1259 OID 52543)
--- Dependencies: 2402 2403 6
+-- Dependencies: 2408 2409 6
 -- Name: log_periodo; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1299,7 +1299,7 @@ CREATE SEQUENCE seq_log_presentacion
 ALTER TABLE log.seq_log_presentacion OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3194 (class 0 OID 0)
+-- TOC entry 3226 (class 0 OID 0)
 -- Dependencies: 195
 -- Name: seq_log_presentacion; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1309,7 +1309,7 @@ SELECT pg_catalog.setval('seq_log_presentacion', 1, false);
 
 --
 -- TOC entry 196 (class 1259 OID 52553)
--- Dependencies: 2404 2405 6
+-- Dependencies: 2410 2411 6
 -- Name: log_presentacion; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1342,7 +1342,7 @@ CREATE SEQUENCE seq_log_producto
 ALTER TABLE log.seq_log_producto OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3195 (class 0 OID 0)
+-- TOC entry 3227 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: seq_log_producto; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1352,7 +1352,7 @@ SELECT pg_catalog.setval('seq_log_producto', 1, false);
 
 --
 -- TOC entry 198 (class 1259 OID 52563)
--- Dependencies: 2406 2407 6
+-- Dependencies: 2412 2413 6
 -- Name: log_producto; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1385,7 +1385,7 @@ CREATE SEQUENCE seq_log_proveedor
 ALTER TABLE log.seq_log_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3196 (class 0 OID 0)
+-- TOC entry 3228 (class 0 OID 0)
 -- Dependencies: 199
 -- Name: seq_log_proveedor; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1395,7 +1395,7 @@ SELECT pg_catalog.setval('seq_log_proveedor', 1, false);
 
 --
 -- TOC entry 200 (class 1259 OID 52573)
--- Dependencies: 2408 2409 6
+-- Dependencies: 2414 2415 6
 -- Name: log_proveedor; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1428,7 +1428,7 @@ CREATE SEQUENCE seq_log_rol
 ALTER TABLE log.seq_log_rol OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3197 (class 0 OID 0)
+-- TOC entry 3229 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: seq_log_rol; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1438,7 +1438,7 @@ SELECT pg_catalog.setval('seq_log_rol', 1, false);
 
 --
 -- TOC entry 202 (class 1259 OID 52583)
--- Dependencies: 2410 2411 6
+-- Dependencies: 2416 2417 6
 -- Name: log_rol; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1471,7 +1471,7 @@ CREATE SEQUENCE seq_log_sublinea
 ALTER TABLE log.seq_log_sublinea OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3198 (class 0 OID 0)
+-- TOC entry 3230 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: seq_log_sublinea; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1481,7 +1481,7 @@ SELECT pg_catalog.setval('seq_log_sublinea', 1, false);
 
 --
 -- TOC entry 204 (class 1259 OID 52593)
--- Dependencies: 2412 2413 6
+-- Dependencies: 2418 2419 6
 -- Name: log_sublinea; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1514,7 +1514,7 @@ CREATE SEQUENCE seq_log_tipo_cuenta_bancaria
 ALTER TABLE log.seq_log_tipo_cuenta_bancaria OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3199 (class 0 OID 0)
+-- TOC entry 3231 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: seq_log_tipo_cuenta_bancaria; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1524,7 +1524,7 @@ SELECT pg_catalog.setval('seq_log_tipo_cuenta_bancaria', 1, false);
 
 --
 -- TOC entry 206 (class 1259 OID 52603)
--- Dependencies: 2414 2415 6
+-- Dependencies: 2420 2421 6
 -- Name: log_tipo_cuenta_bancaria; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1557,7 +1557,7 @@ CREATE SEQUENCE seq_log_tipo_pago
 ALTER TABLE log.seq_log_tipo_pago OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3200 (class 0 OID 0)
+-- TOC entry 3232 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: seq_log_tipo_pago; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1567,7 +1567,7 @@ SELECT pg_catalog.setval('seq_log_tipo_pago', 1, false);
 
 --
 -- TOC entry 208 (class 1259 OID 52613)
--- Dependencies: 2416 2417 6
+-- Dependencies: 2422 2423 6
 -- Name: log_tipo_pago; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1600,7 +1600,7 @@ CREATE SEQUENCE seq_log_tipo_persona
 ALTER TABLE log.seq_log_tipo_persona OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3201 (class 0 OID 0)
+-- TOC entry 3233 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: seq_log_tipo_persona; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1610,7 +1610,7 @@ SELECT pg_catalog.setval('seq_log_tipo_persona', 1, false);
 
 --
 -- TOC entry 210 (class 1259 OID 52623)
--- Dependencies: 2418 2419 6
+-- Dependencies: 2424 2425 6
 -- Name: log_tipo_persona; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1643,7 +1643,7 @@ CREATE SEQUENCE seq_log_unidad_negocio
 ALTER TABLE log.seq_log_unidad_negocio OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3202 (class 0 OID 0)
+-- TOC entry 3234 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: seq_log_unidad_negocio; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1653,7 +1653,7 @@ SELECT pg_catalog.setval('seq_log_unidad_negocio', 1, false);
 
 --
 -- TOC entry 212 (class 1259 OID 52633)
--- Dependencies: 2420 2421 6
+-- Dependencies: 2426 2427 6
 -- Name: log_unidad_negocio; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1686,7 +1686,7 @@ CREATE SEQUENCE seq_log_vendedor
 ALTER TABLE log.seq_log_vendedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3203 (class 0 OID 0)
+-- TOC entry 3235 (class 0 OID 0)
 -- Dependencies: 213
 -- Name: seq_log_vendedor; Type: SEQUENCE SET; Schema: log; Owner: agewunue_farmacia
 --
@@ -1696,7 +1696,7 @@ SELECT pg_catalog.setval('seq_log_vendedor', 1, false);
 
 --
 -- TOC entry 214 (class 1259 OID 52643)
--- Dependencies: 2422 2423 6
+-- Dependencies: 2428 2429 6
 -- Name: log_vendedor; Type: TABLE; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1731,7 +1731,7 @@ CREATE SEQUENCE seq_acceso
 ALTER TABLE public.seq_acceso OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3204 (class 0 OID 0)
+-- TOC entry 3236 (class 0 OID 0)
 -- Dependencies: 316
 -- Name: seq_acceso; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -1741,7 +1741,7 @@ SELECT pg_catalog.setval('seq_acceso', 1, false);
 
 --
 -- TOC entry 315 (class 1259 OID 54461)
--- Dependencies: 2653 2654 7
+-- Dependencies: 2664 2665 7
 -- Name: acceso; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1772,7 +1772,7 @@ CREATE SEQUENCE seq_almacen
 ALTER TABLE public.seq_almacen OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3205 (class 0 OID 0)
+-- TOC entry 3237 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: seq_almacen; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -1782,7 +1782,7 @@ SELECT pg_catalog.setval('seq_almacen', 1, false);
 
 --
 -- TOC entry 216 (class 1259 OID 52653)
--- Dependencies: 2424 2425 2426 7
+-- Dependencies: 2430 2431 2432 7
 -- Name: almacen; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1817,7 +1817,7 @@ CREATE SEQUENCE seq_amortizacion_cliente
 ALTER TABLE public.seq_amortizacion_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3207 (class 0 OID 0)
+-- TOC entry 3239 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: seq_amortizacion_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -1827,7 +1827,7 @@ SELECT pg_catalog.setval('seq_amortizacion_cliente', 1, false);
 
 --
 -- TOC entry 218 (class 1259 OID 52661)
--- Dependencies: 2427 2428 2429 2430 2431 2432 7
+-- Dependencies: 2433 2434 2435 2436 2437 2438 7
 -- Name: amortizacion_cliente; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1870,7 +1870,7 @@ CREATE SEQUENCE seq_amortizacion_proveedor
 ALTER TABLE public.seq_amortizacion_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3209 (class 0 OID 0)
+-- TOC entry 3241 (class 0 OID 0)
 -- Dependencies: 219
 -- Name: seq_amortizacion_proveedor; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -1880,7 +1880,7 @@ SELECT pg_catalog.setval('seq_amortizacion_proveedor', 1, false);
 
 --
 -- TOC entry 220 (class 1259 OID 52672)
--- Dependencies: 2433 2434 2435 2436 2437 7
+-- Dependencies: 2439 2440 2441 2442 2443 7
 -- Name: amortizacion_proveedor; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1922,7 +1922,7 @@ CREATE SEQUENCE seq_autorizacion
 ALTER TABLE public.seq_autorizacion OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3210 (class 0 OID 0)
+-- TOC entry 3242 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: seq_autorizacion; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -1932,7 +1932,7 @@ SELECT pg_catalog.setval('seq_autorizacion', 1, false);
 
 --
 -- TOC entry 222 (class 1259 OID 52682)
--- Dependencies: 2438 2439 7
+-- Dependencies: 2444 2445 7
 -- Name: autorizacion; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -1963,7 +1963,7 @@ CREATE SEQUENCE seq_aval
 ALTER TABLE public.seq_aval OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3211 (class 0 OID 0)
+-- TOC entry 3243 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: seq_aval; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -1973,7 +1973,7 @@ SELECT pg_catalog.setval('seq_aval', 1, false);
 
 --
 -- TOC entry 224 (class 1259 OID 52689)
--- Dependencies: 2440 2441 7
+-- Dependencies: 2446 2447 7
 -- Name: aval; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2007,7 +2007,7 @@ CREATE SEQUENCE seq_banco
 ALTER TABLE public.seq_banco OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3212 (class 0 OID 0)
+-- TOC entry 3244 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: seq_banco; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2017,7 +2017,7 @@ SELECT pg_catalog.setval('seq_banco', 1, false);
 
 --
 -- TOC entry 226 (class 1259 OID 52696)
--- Dependencies: 2442 2443 7
+-- Dependencies: 2448 2449 7
 -- Name: banco; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2050,7 +2050,7 @@ CREATE SEQUENCE seq_cheque_cliente
 ALTER TABLE public.seq_cheque_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3213 (class 0 OID 0)
+-- TOC entry 3245 (class 0 OID 0)
 -- Dependencies: 227
 -- Name: seq_cheque_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2060,7 +2060,7 @@ SELECT pg_catalog.setval('seq_cheque_cliente', 1, false);
 
 --
 -- TOC entry 228 (class 1259 OID 52703)
--- Dependencies: 2444 2445 2446 2447 2448 7
+-- Dependencies: 2450 2451 2452 2453 2454 7
 -- Name: cheque_cliente; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2100,7 +2100,7 @@ CREATE SEQUENCE seq_cliente
 ALTER TABLE public.seq_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3214 (class 0 OID 0)
+-- TOC entry 3246 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: seq_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2110,7 +2110,7 @@ SELECT pg_catalog.setval('seq_cliente', 1, false);
 
 --
 -- TOC entry 230 (class 1259 OID 52713)
--- Dependencies: 2449 2450 2451 2452 7
+-- Dependencies: 2455 2456 2457 2458 7
 -- Name: cliente; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2155,7 +2155,7 @@ CREATE SEQUENCE seq_comprobante_emitido
 ALTER TABLE public.seq_comprobante_emitido OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3215 (class 0 OID 0)
+-- TOC entry 3247 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: seq_comprobante_emitido; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2165,7 +2165,7 @@ SELECT pg_catalog.setval('seq_comprobante_emitido', 1, false);
 
 --
 -- TOC entry 232 (class 1259 OID 52722)
--- Dependencies: 2453 2454 2455 2456 2457 2458 2459 2460 2461 2462 2463 2464 2465 7
+-- Dependencies: 2459 2460 2461 2462 2463 2464 2465 2466 2467 2468 2469 2470 2471 7
 -- Name: comprobante_emitido; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2219,7 +2219,7 @@ CREATE SEQUENCE seq_condicion_venta
 ALTER TABLE public.seq_condicion_venta OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3216 (class 0 OID 0)
+-- TOC entry 3248 (class 0 OID 0)
 -- Dependencies: 233
 -- Name: seq_condicion_venta; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2229,7 +2229,7 @@ SELECT pg_catalog.setval('seq_condicion_venta', 1, false);
 
 --
 -- TOC entry 234 (class 1259 OID 52740)
--- Dependencies: 2466 2467 2468 2469 2470 7
+-- Dependencies: 2472 2473 2474 2475 2476 7
 -- Name: condicion_venta; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2263,7 +2263,7 @@ CREATE SEQUENCE seq_cuenta_bancaria
 ALTER TABLE public.seq_cuenta_bancaria OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3217 (class 0 OID 0)
+-- TOC entry 3249 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: seq_cuenta_bancaria; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2273,7 +2273,7 @@ SELECT pg_catalog.setval('seq_cuenta_bancaria', 1, false);
 
 --
 -- TOC entry 236 (class 1259 OID 52750)
--- Dependencies: 2471 2472 7
+-- Dependencies: 2477 2478 7
 -- Name: cuenta_bancaria; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2307,7 +2307,7 @@ CREATE SEQUENCE seq_cuenta_pagar
 ALTER TABLE public.seq_cuenta_pagar OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3218 (class 0 OID 0)
+-- TOC entry 3250 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: seq_cuenta_pagar; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2317,7 +2317,7 @@ SELECT pg_catalog.setval('seq_cuenta_pagar', 1, false);
 
 --
 -- TOC entry 238 (class 1259 OID 52757)
--- Dependencies: 2473 2474 2475 2476 2477 2478 2479 2480 2481 2482 2483 2484 2485 7
+-- Dependencies: 2479 2480 2481 2482 2483 2484 2485 2486 2487 2488 2489 2490 2491 2492 2493 2494 2495 7
 -- Name: cuenta_pagar; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2325,7 +2325,7 @@ CREATE TABLE cuenta_pagar (
     idcuenta integer DEFAULT nextval('seq_cuenta_pagar'::regclass) NOT NULL,
     idregentrada integer,
     idperiodo integer,
-    dfecha date,
+    dfecemi date,
     idproveedor integer,
     iddocumento integer,
     cserie character(4),
@@ -2348,7 +2348,11 @@ CREATE TABLE cuenta_pagar (
     ningreso numeric(10,2) DEFAULT 0,
     idusuario integer,
     dfecreg timestamp without time zone DEFAULT now(),
-    idunidad integer
+    idunidad integer,
+    npercepcion numeric(10,2) DEFAULT 0,
+    nreclamodevolucion numeric(10,2) DEFAULT 0,
+    nreclamoprecio numeric(10,2) DEFAULT 0,
+    ntotalreclamo numeric(10,2) DEFAULT 0
 );
 
 
@@ -2371,7 +2375,7 @@ CREATE SEQUENCE seq_deposito_cliente
 ALTER TABLE public.seq_deposito_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3219 (class 0 OID 0)
+-- TOC entry 3251 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: seq_deposito_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2381,7 +2385,7 @@ SELECT pg_catalog.setval('seq_deposito_cliente', 1, false);
 
 --
 -- TOC entry 240 (class 1259 OID 52775)
--- Dependencies: 2486 2487 2488 2489 7
+-- Dependencies: 2496 2497 2498 2499 7
 -- Name: deposito_cliente; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2421,7 +2425,7 @@ CREATE SEQUENCE seq_detalle_autorizacion
 ALTER TABLE public.seq_detalle_autorizacion OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3220 (class 0 OID 0)
+-- TOC entry 3252 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: seq_detalle_autorizacion; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2431,7 +2435,7 @@ SELECT pg_catalog.setval('seq_detalle_autorizacion', 1, false);
 
 --
 -- TOC entry 242 (class 1259 OID 52784)
--- Dependencies: 2490 2491 7
+-- Dependencies: 2500 2501 7
 -- Name: detalle_autorizacion; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2462,7 +2466,7 @@ CREATE SEQUENCE seq_documento
 ALTER TABLE public.seq_documento OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3221 (class 0 OID 0)
+-- TOC entry 3253 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: seq_documento; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2472,7 +2476,7 @@ SELECT pg_catalog.setval('seq_documento', 1, false);
 
 --
 -- TOC entry 244 (class 1259 OID 52791)
--- Dependencies: 2492 2493 2494 2495 2496 2497 7
+-- Dependencies: 2502 2503 2504 2505 2506 2507 7
 -- Name: documento; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2509,7 +2513,7 @@ CREATE SEQUENCE seq_empresa
 ALTER TABLE public.seq_empresa OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3222 (class 0 OID 0)
+-- TOC entry 3254 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: seq_empresa; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2519,7 +2523,7 @@ SELECT pg_catalog.setval('seq_empresa', 7, true);
 
 --
 -- TOC entry 246 (class 1259 OID 52802)
--- Dependencies: 2498 2499 7
+-- Dependencies: 2508 2509 7
 -- Name: empresa; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2542,7 +2546,7 @@ CREATE TABLE empresa (
 ALTER TABLE public.empresa OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3223 (class 0 OID 0)
+-- TOC entry 3255 (class 0 OID 0)
 -- Dependencies: 246
 -- Name: COLUMN empresa.cruta; Type: COMMENT; Schema: public; Owner: agewunue_farmacia
 --
@@ -2552,7 +2556,7 @@ COMMENT ON COLUMN empresa.cruta IS 'ruta del logo de la empresa';
 
 --
 -- TOC entry 247 (class 1259 OID 52807)
--- Dependencies: 2500 2501 2502 2503 2504 2505 2506 7
+-- Dependencies: 2510 2511 2512 2513 2514 2515 2516 7
 -- Name: existencia; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2566,7 +2570,8 @@ CREATE TABLE existencia (
     nincremento numeric(10,2) DEFAULT 0,
     bactivo boolean DEFAULT false,
     idusuario integer,
-    dfecreg timestamp without time zone DEFAULT now()
+    dfecreg timestamp without time zone DEFAULT now(),
+    cubicacion character varying(4)
 );
 
 
@@ -2589,7 +2594,7 @@ CREATE SEQUENCE seq_familia
 ALTER TABLE public.seq_familia OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3224 (class 0 OID 0)
+-- TOC entry 3256 (class 0 OID 0)
 -- Dependencies: 248
 -- Name: seq_familia; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2599,7 +2604,7 @@ SELECT pg_catalog.setval('seq_familia', 1, false);
 
 --
 -- TOC entry 249 (class 1259 OID 52819)
--- Dependencies: 2507 2508 2509 7
+-- Dependencies: 2517 2518 2519 7
 -- Name: familia; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2631,7 +2636,7 @@ CREATE SEQUENCE seq_letra_cliente
 ALTER TABLE public.seq_letra_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3225 (class 0 OID 0)
+-- TOC entry 3257 (class 0 OID 0)
 -- Dependencies: 250
 -- Name: seq_letra_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2641,7 +2646,7 @@ SELECT pg_catalog.setval('seq_letra_cliente', 1, false);
 
 --
 -- TOC entry 251 (class 1259 OID 52827)
--- Dependencies: 2510 2511 2512 2513 2514 2515 2516 2517 2518 7
+-- Dependencies: 2520 2521 2522 2523 2524 2525 2526 2527 2528 7
 -- Name: letra_cliente; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2689,7 +2694,7 @@ CREATE SEQUENCE seq_letra_proveedor
 ALTER TABLE public.seq_letra_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3226 (class 0 OID 0)
+-- TOC entry 3258 (class 0 OID 0)
 -- Dependencies: 252
 -- Name: seq_letra_proveedor; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2699,7 +2704,7 @@ SELECT pg_catalog.setval('seq_letra_proveedor', 1, false);
 
 --
 -- TOC entry 253 (class 1259 OID 52841)
--- Dependencies: 2519 2520 2521 2522 2523 2524 2525 2526 7
+-- Dependencies: 2529 2530 2531 2532 2533 2534 2535 2536 7
 -- Name: letra_proveedor; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2742,7 +2747,7 @@ CREATE SEQUENCE seq_linea
 ALTER TABLE public.seq_linea OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3227 (class 0 OID 0)
+-- TOC entry 3259 (class 0 OID 0)
 -- Dependencies: 254
 -- Name: seq_linea; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2752,7 +2757,7 @@ SELECT pg_catalog.setval('seq_linea', 1, true);
 
 --
 -- TOC entry 255 (class 1259 OID 52854)
--- Dependencies: 2527 2528 2529 2530 7
+-- Dependencies: 2537 2538 2539 2540 7
 -- Name: linea; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2769,7 +2774,7 @@ CREATE TABLE linea (
 ALTER TABLE public.linea OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3228 (class 0 OID 0)
+-- TOC entry 3260 (class 0 OID 0)
 -- Dependencies: 255
 -- Name: TABLE linea; Type: COMMENT; Schema: public; Owner: agewunue_farmacia
 --
@@ -2794,7 +2799,7 @@ CREATE SEQUENCE seq_lote
 ALTER TABLE public.seq_lote OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3229 (class 0 OID 0)
+-- TOC entry 3261 (class 0 OID 0)
 -- Dependencies: 256
 -- Name: seq_lote; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2804,7 +2809,7 @@ SELECT pg_catalog.setval('seq_lote', 1, false);
 
 --
 -- TOC entry 257 (class 1259 OID 52863)
--- Dependencies: 2531 2532 2533 7
+-- Dependencies: 2541 2542 2543 2544 7
 -- Name: lote; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2817,7 +2822,9 @@ CREATE TABLE lote (
     cfecven character(7),
     idmotivo integer,
     idusuario integer,
-    dfecreg timestamp without time zone DEFAULT now()
+    dfecreg timestamp without time zone DEFAULT now(),
+    dfecha date,
+    bbloqueado boolean DEFAULT false
 );
 
 
@@ -2840,17 +2847,17 @@ CREATE SEQUENCE seq_mapa
 ALTER TABLE public.seq_mapa OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3230 (class 0 OID 0)
+-- TOC entry 3262 (class 0 OID 0)
 -- Dependencies: 314
 -- Name: seq_mapa; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
 
-SELECT pg_catalog.setval('seq_mapa', 1, false);
+SELECT pg_catalog.setval('seq_mapa', 5, true);
 
 
 --
 -- TOC entry 313 (class 1259 OID 54431)
--- Dependencies: 2651 2652 7
+-- Dependencies: 2662 2663 7
 -- Name: mapa; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2882,17 +2889,17 @@ CREATE SEQUENCE seq_menu
 ALTER TABLE public.seq_menu OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3231 (class 0 OID 0)
+-- TOC entry 3263 (class 0 OID 0)
 -- Dependencies: 312
 -- Name: seq_menu; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
 
-SELECT pg_catalog.setval('seq_menu', 1, false);
+SELECT pg_catalog.setval('seq_menu', 6, true);
 
 
 --
 -- TOC entry 311 (class 1259 OID 54378)
--- Dependencies: 2643 2644 2645 2646 2647 2648 2649 2650 7
+-- Dependencies: 2654 2655 2656 2657 2658 2659 2660 2661 7
 -- Name: menu; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2930,17 +2937,17 @@ CREATE SEQUENCE seq_modulo
 ALTER TABLE public.seq_modulo OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3232 (class 0 OID 0)
+-- TOC entry 3264 (class 0 OID 0)
 -- Dependencies: 309
 -- Name: seq_modulo; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
 
-SELECT pg_catalog.setval('seq_modulo', 1, false);
+SELECT pg_catalog.setval('seq_modulo', 4, true);
 
 
 --
 -- TOC entry 310 (class 1259 OID 54365)
--- Dependencies: 2640 2641 2642 7
+-- Dependencies: 2651 2652 2653 7
 -- Name: modulo; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -2973,7 +2980,7 @@ CREATE SEQUENCE seq_moneda
 ALTER TABLE public.seq_moneda OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3233 (class 0 OID 0)
+-- TOC entry 3265 (class 0 OID 0)
 -- Dependencies: 258
 -- Name: seq_moneda; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -2983,7 +2990,7 @@ SELECT pg_catalog.setval('seq_moneda', 1, false);
 
 --
 -- TOC entry 259 (class 1259 OID 52871)
--- Dependencies: 2534 2535 2536 7
+-- Dependencies: 2545 2546 2547 7
 -- Name: moneda; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3016,7 +3023,7 @@ CREATE SEQUENCE seq_motivo_entrada
 ALTER TABLE public.seq_motivo_entrada OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3234 (class 0 OID 0)
+-- TOC entry 3266 (class 0 OID 0)
 -- Dependencies: 260
 -- Name: seq_motivo_entrada; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3026,7 +3033,7 @@ SELECT pg_catalog.setval('seq_motivo_entrada', 1, false);
 
 --
 -- TOC entry 261 (class 1259 OID 52879)
--- Dependencies: 2537 2538 2539 7
+-- Dependencies: 2548 2549 2550 7
 -- Name: motivo_entrada; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3058,7 +3065,7 @@ CREATE SEQUENCE seq_motivo_notabo_cliente
 ALTER TABLE public.seq_motivo_notabo_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3235 (class 0 OID 0)
+-- TOC entry 3267 (class 0 OID 0)
 -- Dependencies: 262
 -- Name: seq_motivo_notabo_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3068,7 +3075,7 @@ SELECT pg_catalog.setval('seq_motivo_notabo_cliente', 1, false);
 
 --
 -- TOC entry 263 (class 1259 OID 52887)
--- Dependencies: 2540 2541 2542 2543 7
+-- Dependencies: 2551 2552 2553 2554 7
 -- Name: motivo_notabo_cliente; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3101,7 +3108,7 @@ CREATE SEQUENCE seq_motivo_notabo_proveedor
 ALTER TABLE public.seq_motivo_notabo_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3236 (class 0 OID 0)
+-- TOC entry 3268 (class 0 OID 0)
 -- Dependencies: 264
 -- Name: seq_motivo_notabo_proveedor; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3111,7 +3118,7 @@ SELECT pg_catalog.setval('seq_motivo_notabo_proveedor', 1, false);
 
 --
 -- TOC entry 265 (class 1259 OID 52896)
--- Dependencies: 2544 2545 7
+-- Dependencies: 2555 2556 7
 -- Name: motivo_notabo_proveedor; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3142,7 +3149,7 @@ CREATE SEQUENCE seq_motivo_notcar_cliente
 ALTER TABLE public.seq_motivo_notcar_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3237 (class 0 OID 0)
+-- TOC entry 3269 (class 0 OID 0)
 -- Dependencies: 266
 -- Name: seq_motivo_notcar_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3152,7 +3159,7 @@ SELECT pg_catalog.setval('seq_motivo_notcar_cliente', 1, false);
 
 --
 -- TOC entry 267 (class 1259 OID 52903)
--- Dependencies: 2546 2547 7
+-- Dependencies: 2557 2558 7
 -- Name: motivo_notcar_cliente; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3183,7 +3190,7 @@ CREATE SEQUENCE seq_motivo_notcar_proveedor
 ALTER TABLE public.seq_motivo_notcar_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3238 (class 0 OID 0)
+-- TOC entry 3270 (class 0 OID 0)
 -- Dependencies: 268
 -- Name: seq_motivo_notcar_proveedor; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3193,7 +3200,7 @@ SELECT pg_catalog.setval('seq_motivo_notcar_proveedor', 1, false);
 
 --
 -- TOC entry 269 (class 1259 OID 52910)
--- Dependencies: 2548 7
+-- Dependencies: 2559 7
 -- Name: motivo_notcar_proveedor; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3224,7 +3231,7 @@ CREATE SEQUENCE seq_motivo_salida
 ALTER TABLE public.seq_motivo_salida OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3239 (class 0 OID 0)
+-- TOC entry 3271 (class 0 OID 0)
 -- Dependencies: 270
 -- Name: seq_motivo_salida; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3234,7 +3241,7 @@ SELECT pg_catalog.setval('seq_motivo_salida', 1, false);
 
 --
 -- TOC entry 271 (class 1259 OID 52916)
--- Dependencies: 2549 2550 2551 7
+-- Dependencies: 2560 2561 2562 7
 -- Name: motivo_salida; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3248,6 +3255,61 @@ CREATE TABLE motivo_salida (
 
 
 ALTER TABLE public.motivo_salida OWNER TO agewunue_farmacia;
+
+--
+-- TOC entry 322 (class 1259 OID 54538)
+-- Dependencies: 7
+-- Name: seq_movimiento; Type: SEQUENCE; Schema: public; Owner: agewunue_farmacia
+--
+
+CREATE SEQUENCE seq_movimiento
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seq_movimiento OWNER TO agewunue_farmacia;
+
+--
+-- TOC entry 3272 (class 0 OID 0)
+-- Dependencies: 322
+-- Name: seq_movimiento; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
+--
+
+SELECT pg_catalog.setval('seq_movimiento', 1, false);
+
+
+--
+-- TOC entry 321 (class 1259 OID 54535)
+-- Dependencies: 2670 2671 2672 2673 2674 2675 2676 2677 2678 2679 2680 7
+-- Name: movimiento; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
+--
+
+CREATE TABLE movimiento (
+    idmovimiento integer DEFAULT nextval('seq_movimiento'::regclass) NOT NULL,
+    idalmacen integer,
+    idproducto character(6),
+    ncantidad integer DEFAULT 0,
+    ncosuni numeric(10,4) DEFAULT 0,
+    ctipmov character(1),
+    nstock integer DEFAULT 0,
+    nvaluni numeric(10,2) DEFAULT 0,
+    ndesfin numeric(10,2) DEFAULT 0,
+    ndesbon numeric(10,2) DEFAULT 0,
+    ndeslab numeric(10,2) DEFAULT 0,
+    binafecto boolean DEFAULT false,
+    nsubtot numeric(10,2) DEFAULT 0,
+    cfecven character(7),
+    clote character varying(7),
+    idregsalida integer,
+    idregentrada integer,
+    norden integer DEFAULT 0
+);
+
+
+ALTER TABLE public.movimiento OWNER TO agewunue_farmacia;
 
 --
 -- TOC entry 272 (class 1259 OID 52922)
@@ -3266,7 +3328,7 @@ CREATE SEQUENCE seq_notabo_cliente
 ALTER TABLE public.seq_notabo_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3240 (class 0 OID 0)
+-- TOC entry 3273 (class 0 OID 0)
 -- Dependencies: 272
 -- Name: seq_notabo_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3276,7 +3338,7 @@ SELECT pg_catalog.setval('seq_notabo_cliente', 1, false);
 
 --
 -- TOC entry 273 (class 1259 OID 52924)
--- Dependencies: 2552 2553 2554 2555 2556 2557 2558 2559 2560 2561 7
+-- Dependencies: 2563 2564 2565 2566 2567 2568 2569 2570 2571 2572 7
 -- Name: notabo_cliente; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3322,7 +3384,7 @@ CREATE SEQUENCE seq_notabo_proveedor
 ALTER TABLE public.seq_notabo_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3241 (class 0 OID 0)
+-- TOC entry 3274 (class 0 OID 0)
 -- Dependencies: 274
 -- Name: seq_notabo_proveedor; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3332,7 +3394,7 @@ SELECT pg_catalog.setval('seq_notabo_proveedor', 1, false);
 
 --
 -- TOC entry 275 (class 1259 OID 52939)
--- Dependencies: 2562 2563 2564 2565 2566 2567 2568 2569 2570 7
+-- Dependencies: 2573 2574 2575 2576 2577 2578 2579 2580 2581 7
 -- Name: notabo_proveedor; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3377,7 +3439,7 @@ CREATE SEQUENCE seq_notcar_cliente
 ALTER TABLE public.seq_notcar_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3242 (class 0 OID 0)
+-- TOC entry 3275 (class 0 OID 0)
 -- Dependencies: 276
 -- Name: seq_notcar_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3387,7 +3449,7 @@ SELECT pg_catalog.setval('seq_notcar_cliente', 1, false);
 
 --
 -- TOC entry 277 (class 1259 OID 52953)
--- Dependencies: 2571 2572 2573 2574 2575 2576 2577 2578 2579 2580 7
+-- Dependencies: 2582 2583 2584 2585 2586 2587 2588 2589 2590 2591 7
 -- Name: notcar_cliente; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3433,7 +3495,7 @@ CREATE SEQUENCE seq_notcar_proveedor
 ALTER TABLE public.seq_notcar_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3243 (class 0 OID 0)
+-- TOC entry 3276 (class 0 OID 0)
 -- Dependencies: 278
 -- Name: seq_notcar_proveedor; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3443,7 +3505,7 @@ SELECT pg_catalog.setval('seq_notcar_proveedor', 1, false);
 
 --
 -- TOC entry 279 (class 1259 OID 52968)
--- Dependencies: 2581 2582 2583 2584 2585 2586 2587 2588 2589 7
+-- Dependencies: 2592 2593 2594 2595 2596 2597 2598 2599 2600 7
 -- Name: notcar_proveedor; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3488,7 +3550,7 @@ CREATE SEQUENCE seq_periodo
 ALTER TABLE public.seq_periodo OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3244 (class 0 OID 0)
+-- TOC entry 3277 (class 0 OID 0)
 -- Dependencies: 280
 -- Name: seq_periodo; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3498,7 +3560,7 @@ SELECT pg_catalog.setval('seq_periodo', 1, false);
 
 --
 -- TOC entry 281 (class 1259 OID 52982)
--- Dependencies: 2590 2591 2592 7
+-- Dependencies: 2601 2602 2603 7
 -- Name: periodo; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3533,7 +3595,7 @@ CREATE SEQUENCE seq_presentacion
 ALTER TABLE public.seq_presentacion OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3245 (class 0 OID 0)
+-- TOC entry 3278 (class 0 OID 0)
 -- Dependencies: 282
 -- Name: seq_presentacion; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3543,7 +3605,7 @@ SELECT pg_catalog.setval('seq_presentacion', 1, false);
 
 --
 -- TOC entry 283 (class 1259 OID 52990)
--- Dependencies: 2593 2594 2595 7
+-- Dependencies: 2604 2605 2606 7
 -- Name: presentacion; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3561,7 +3623,7 @@ ALTER TABLE public.presentacion OWNER TO agewunue_farmacia;
 
 --
 -- TOC entry 284 (class 1259 OID 52996)
--- Dependencies: 2596 2597 7
+-- Dependencies: 2607 2608 7
 -- Name: producto; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3597,7 +3659,7 @@ CREATE SEQUENCE seq_proveedor
 ALTER TABLE public.seq_proveedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3246 (class 0 OID 0)
+-- TOC entry 3279 (class 0 OID 0)
 -- Dependencies: 285
 -- Name: seq_proveedor; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3607,7 +3669,7 @@ SELECT pg_catalog.setval('seq_proveedor', 1, false);
 
 --
 -- TOC entry 286 (class 1259 OID 53003)
--- Dependencies: 2598 2599 2600 7
+-- Dependencies: 2609 2610 2611 7
 -- Name: proveedor; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3648,7 +3710,7 @@ CREATE SEQUENCE seq_registro_entrada
 ALTER TABLE public.seq_registro_entrada OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3247 (class 0 OID 0)
+-- TOC entry 3280 (class 0 OID 0)
 -- Dependencies: 287
 -- Name: seq_registro_entrada; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3658,7 +3720,7 @@ SELECT pg_catalog.setval('seq_registro_entrada', 1, false);
 
 --
 -- TOC entry 288 (class 1259 OID 53014)
--- Dependencies: 2601 2602 2603 2604 2605 2606 7
+-- Dependencies: 2612 2613 2614 2615 2616 2617 7
 -- Name: registro_entrada; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3700,7 +3762,7 @@ CREATE SEQUENCE seq_registro_salida
 ALTER TABLE public.seq_registro_salida OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3248 (class 0 OID 0)
+-- TOC entry 3281 (class 0 OID 0)
 -- Dependencies: 289
 -- Name: seq_registro_salida; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3710,7 +3772,7 @@ SELECT pg_catalog.setval('seq_registro_salida', 1, false);
 
 --
 -- TOC entry 290 (class 1259 OID 53025)
--- Dependencies: 2607 2608 2609 2610 2611 2612 2613 2614 2615 2616 2617 2618 7
+-- Dependencies: 2618 2619 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 7
 -- Name: registro_salida; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3765,17 +3827,17 @@ CREATE SEQUENCE seq_rol
 ALTER TABLE public.seq_rol OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3249 (class 0 OID 0)
+-- TOC entry 3282 (class 0 OID 0)
 -- Dependencies: 291
 -- Name: seq_rol; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
 
-SELECT pg_catalog.setval('seq_rol', 5, true);
+SELECT pg_catalog.setval('seq_rol', 1, true);
 
 
 --
 -- TOC entry 292 (class 1259 OID 53045)
--- Dependencies: 2619 2620 7
+-- Dependencies: 2630 2631 7
 -- Name: rol; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -3805,7 +3867,7 @@ CREATE SEQUENCE seq_sublinea
 ALTER TABLE public.seq_sublinea OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3250 (class 0 OID 0)
+-- TOC entry 3283 (class 0 OID 0)
 -- Dependencies: 293
 -- Name: seq_sublinea; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3830,7 +3892,7 @@ CREATE SEQUENCE seq_tipo_cuenta_bancaria
 ALTER TABLE public.seq_tipo_cuenta_bancaria OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3251 (class 0 OID 0)
+-- TOC entry 3284 (class 0 OID 0)
 -- Dependencies: 294
 -- Name: seq_tipo_cuenta_bancaria; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3855,7 +3917,7 @@ CREATE SEQUENCE seq_tipo_pago
 ALTER TABLE public.seq_tipo_pago OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3252 (class 0 OID 0)
+-- TOC entry 3285 (class 0 OID 0)
 -- Dependencies: 295
 -- Name: seq_tipo_pago; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3880,7 +3942,7 @@ CREATE SEQUENCE seq_tipo_pago_cliente
 ALTER TABLE public.seq_tipo_pago_cliente OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3253 (class 0 OID 0)
+-- TOC entry 3286 (class 0 OID 0)
 -- Dependencies: 296
 -- Name: seq_tipo_pago_cliente; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3905,7 +3967,7 @@ CREATE SEQUENCE seq_tipo_persona
 ALTER TABLE public.seq_tipo_persona OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3254 (class 0 OID 0)
+-- TOC entry 3287 (class 0 OID 0)
 -- Dependencies: 297
 -- Name: seq_tipo_persona; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3930,7 +3992,7 @@ CREATE SEQUENCE seq_unidad_negocio
 ALTER TABLE public.seq_unidad_negocio OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3255 (class 0 OID 0)
+-- TOC entry 3288 (class 0 OID 0)
 -- Dependencies: 298
 -- Name: seq_unidad_negocio; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3955,7 +4017,7 @@ CREATE SEQUENCE seq_usuario
 ALTER TABLE public.seq_usuario OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3256 (class 0 OID 0)
+-- TOC entry 3289 (class 0 OID 0)
 -- Dependencies: 299
 -- Name: seq_usuario; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3980,7 +4042,7 @@ CREATE SEQUENCE seq_vendedor
 ALTER TABLE public.seq_vendedor OWNER TO agewunue_farmacia;
 
 --
--- TOC entry 3257 (class 0 OID 0)
+-- TOC entry 3290 (class 0 OID 0)
 -- Dependencies: 300
 -- Name: seq_vendedor; Type: SEQUENCE SET; Schema: public; Owner: agewunue_farmacia
 --
@@ -3990,7 +4052,7 @@ SELECT pg_catalog.setval('seq_vendedor', 1, false);
 
 --
 -- TOC entry 301 (class 1259 OID 53066)
--- Dependencies: 2621 2622 7
+-- Dependencies: 2632 2633 7
 -- Name: sublinea; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -4007,7 +4069,7 @@ ALTER TABLE public.sublinea OWNER TO agewunue_farmacia;
 
 --
 -- TOC entry 302 (class 1259 OID 53071)
--- Dependencies: 2623 2624 7
+-- Dependencies: 2634 2635 7
 -- Name: tipo_cuenta_bancaria; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -4023,7 +4085,7 @@ ALTER TABLE public.tipo_cuenta_bancaria OWNER TO agewunue_farmacia;
 
 --
 -- TOC entry 303 (class 1259 OID 53076)
--- Dependencies: 2625 2626 2627 2628 7
+-- Dependencies: 2636 2637 2638 2639 7
 -- Name: tipo_pago; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -4042,7 +4104,7 @@ ALTER TABLE public.tipo_pago OWNER TO agewunue_farmacia;
 
 --
 -- TOC entry 304 (class 1259 OID 53083)
--- Dependencies: 2629 2630 7
+-- Dependencies: 2640 2641 7
 -- Name: tipo_persona; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -4078,7 +4140,7 @@ ALTER TABLE public.ubigeo OWNER TO agewunue_farmacia;
 
 --
 -- TOC entry 306 (class 1259 OID 53091)
--- Dependencies: 2631 2632 7
+-- Dependencies: 2642 2643 7
 -- Name: unidad_negocio; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -4098,7 +4160,7 @@ ALTER TABLE public.unidad_negocio OWNER TO agewunue_farmacia;
 
 --
 -- TOC entry 307 (class 1259 OID 53096)
--- Dependencies: 2633 2634 2635 2636 7
+-- Dependencies: 2644 2645 2646 2647 7
 -- Name: usuario; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -4118,7 +4180,7 @@ ALTER TABLE public.usuario OWNER TO agewunue_farmacia;
 
 --
 -- TOC entry 308 (class 1259 OID 53103)
--- Dependencies: 2637 2638 2639 7
+-- Dependencies: 2648 2649 2650 7
 -- Name: vendedor; Type: TABLE; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
 
@@ -4141,7 +4203,7 @@ ALTER TABLE public.vendedor OWNER TO agewunue_farmacia;
 SET search_path = log, pg_catalog;
 
 --
--- TOC entry 3069 (class 0 OID 52283)
+-- TOC entry 3100 (class 0 OID 52283)
 -- Dependencies: 142
 -- Data for Name: log_almacen; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4149,7 +4211,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3070 (class 0 OID 52293)
+-- TOC entry 3101 (class 0 OID 52293)
 -- Dependencies: 144
 -- Data for Name: log_autorizacion; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4157,7 +4219,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3071 (class 0 OID 52303)
+-- TOC entry 3102 (class 0 OID 52303)
 -- Dependencies: 146
 -- Data for Name: log_aval; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4165,7 +4227,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3072 (class 0 OID 52313)
+-- TOC entry 3103 (class 0 OID 52313)
 -- Dependencies: 148
 -- Data for Name: log_banco; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4173,7 +4235,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3073 (class 0 OID 52323)
+-- TOC entry 3104 (class 0 OID 52323)
 -- Dependencies: 150
 -- Data for Name: log_cheque_cliente; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4181,7 +4243,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3074 (class 0 OID 52333)
+-- TOC entry 3105 (class 0 OID 52333)
 -- Dependencies: 152
 -- Data for Name: log_cliente; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4189,7 +4251,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3075 (class 0 OID 52343)
+-- TOC entry 3106 (class 0 OID 52343)
 -- Dependencies: 154
 -- Data for Name: log_comprobante_emitido; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4197,7 +4259,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3076 (class 0 OID 52353)
+-- TOC entry 3107 (class 0 OID 52353)
 -- Dependencies: 156
 -- Data for Name: log_condicion_venta; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4205,7 +4267,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3077 (class 0 OID 52363)
+-- TOC entry 3108 (class 0 OID 52363)
 -- Dependencies: 158
 -- Data for Name: log_cuenta_bancaria; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4213,7 +4275,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3078 (class 0 OID 52373)
+-- TOC entry 3109 (class 0 OID 52373)
 -- Dependencies: 160
 -- Data for Name: log_cuenta_pagar; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4221,7 +4283,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3079 (class 0 OID 52383)
+-- TOC entry 3110 (class 0 OID 52383)
 -- Dependencies: 162
 -- Data for Name: log_deposito_cliente; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4229,7 +4291,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3080 (class 0 OID 52393)
+-- TOC entry 3111 (class 0 OID 52393)
 -- Dependencies: 164
 -- Data for Name: log_detalle_autorizacion; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4237,7 +4299,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3081 (class 0 OID 52403)
+-- TOC entry 3112 (class 0 OID 52403)
 -- Dependencies: 166
 -- Data for Name: log_documento; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4245,7 +4307,7 @@ SET search_path = log, pg_catalog;
 
 
 --
--- TOC entry 3082 (class 0 OID 52413)
+-- TOC entry 3113 (class 0 OID 52413)
 -- Dependencies: 168
 -- Data for Name: log_empresa; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4262,7 +4324,7 @@ INSERT INTO log_empresa (idlog, idempresa, cmotivo, cobservacion, idusuario, dfe
 
 
 --
--- TOC entry 3083 (class 0 OID 52423)
+-- TOC entry 3114 (class 0 OID 52423)
 -- Dependencies: 170
 -- Data for Name: log_existencia; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4270,7 +4332,7 @@ INSERT INTO log_empresa (idlog, idempresa, cmotivo, cobservacion, idusuario, dfe
 
 
 --
--- TOC entry 3084 (class 0 OID 52433)
+-- TOC entry 3115 (class 0 OID 52433)
 -- Dependencies: 172
 -- Data for Name: log_familia; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4278,7 +4340,7 @@ INSERT INTO log_empresa (idlog, idempresa, cmotivo, cobservacion, idusuario, dfe
 
 
 --
--- TOC entry 3085 (class 0 OID 52443)
+-- TOC entry 3116 (class 0 OID 52443)
 -- Dependencies: 174
 -- Data for Name: log_letra_proveedor; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4286,7 +4348,7 @@ INSERT INTO log_empresa (idlog, idempresa, cmotivo, cobservacion, idusuario, dfe
 
 
 --
--- TOC entry 3086 (class 0 OID 52453)
+-- TOC entry 3117 (class 0 OID 52453)
 -- Dependencies: 176
 -- Data for Name: log_linea; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4295,7 +4357,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3087 (class 0 OID 52463)
+-- TOC entry 3118 (class 0 OID 52463)
 -- Dependencies: 178
 -- Data for Name: log_lote; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4303,7 +4365,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3159 (class 0 OID 54515)
+-- TOC entry 3190 (class 0 OID 54515)
 -- Dependencies: 320
 -- Data for Name: log_menu; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4311,7 +4373,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3158 (class 0 OID 54488)
+-- TOC entry 3189 (class 0 OID 54488)
 -- Dependencies: 318
 -- Data for Name: log_modulo; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4319,7 +4381,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3088 (class 0 OID 52473)
+-- TOC entry 3119 (class 0 OID 52473)
 -- Dependencies: 180
 -- Data for Name: log_moneda; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4327,7 +4389,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3089 (class 0 OID 52483)
+-- TOC entry 3120 (class 0 OID 52483)
 -- Dependencies: 182
 -- Data for Name: log_motivo_entrada; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4335,7 +4397,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3090 (class 0 OID 52493)
+-- TOC entry 3121 (class 0 OID 52493)
 -- Dependencies: 184
 -- Data for Name: log_motivo_notabo_cliente; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4343,7 +4405,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3091 (class 0 OID 52503)
+-- TOC entry 3122 (class 0 OID 52503)
 -- Dependencies: 186
 -- Data for Name: log_motivo_notabo_proveedor; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4351,7 +4413,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3092 (class 0 OID 52513)
+-- TOC entry 3123 (class 0 OID 52513)
 -- Dependencies: 188
 -- Data for Name: log_motivo_notcar_cliente; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4359,7 +4421,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3093 (class 0 OID 52523)
+-- TOC entry 3124 (class 0 OID 52523)
 -- Dependencies: 190
 -- Data for Name: log_motivo_notcar_proveedor; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4367,7 +4429,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3094 (class 0 OID 52533)
+-- TOC entry 3125 (class 0 OID 52533)
 -- Dependencies: 192
 -- Data for Name: log_motivo_salida; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4375,7 +4437,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3095 (class 0 OID 52543)
+-- TOC entry 3126 (class 0 OID 52543)
 -- Dependencies: 194
 -- Data for Name: log_periodo; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4383,7 +4445,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3096 (class 0 OID 52553)
+-- TOC entry 3127 (class 0 OID 52553)
 -- Dependencies: 196
 -- Data for Name: log_presentacion; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4391,7 +4453,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3097 (class 0 OID 52563)
+-- TOC entry 3128 (class 0 OID 52563)
 -- Dependencies: 198
 -- Data for Name: log_producto; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4399,7 +4461,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3098 (class 0 OID 52573)
+-- TOC entry 3129 (class 0 OID 52573)
 -- Dependencies: 200
 -- Data for Name: log_proveedor; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4407,7 +4469,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3099 (class 0 OID 52583)
+-- TOC entry 3130 (class 0 OID 52583)
 -- Dependencies: 202
 -- Data for Name: log_rol; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4415,7 +4477,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3100 (class 0 OID 52593)
+-- TOC entry 3131 (class 0 OID 52593)
 -- Dependencies: 204
 -- Data for Name: log_sublinea; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4423,7 +4485,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3101 (class 0 OID 52603)
+-- TOC entry 3132 (class 0 OID 52603)
 -- Dependencies: 206
 -- Data for Name: log_tipo_cuenta_bancaria; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4431,7 +4493,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3102 (class 0 OID 52613)
+-- TOC entry 3133 (class 0 OID 52613)
 -- Dependencies: 208
 -- Data for Name: log_tipo_pago; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4439,7 +4501,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3103 (class 0 OID 52623)
+-- TOC entry 3134 (class 0 OID 52623)
 -- Dependencies: 210
 -- Data for Name: log_tipo_persona; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4447,7 +4509,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3104 (class 0 OID 52633)
+-- TOC entry 3135 (class 0 OID 52633)
 -- Dependencies: 212
 -- Data for Name: log_unidad_negocio; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4455,7 +4517,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 
 
 --
--- TOC entry 3105 (class 0 OID 52643)
+-- TOC entry 3136 (class 0 OID 52643)
 -- Dependencies: 214
 -- Data for Name: log_vendedor; Type: TABLE DATA; Schema: log; Owner: agewunue_farmacia
 --
@@ -4465,7 +4527,7 @@ INSERT INTO log_linea (idlog, idlinea, cmotivo, cobservacion, idusuario, dfecreg
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 3157 (class 0 OID 54461)
+-- TOC entry 3188 (class 0 OID 54461)
 -- Dependencies: 315
 -- Data for Name: acceso; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4473,7 +4535,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3106 (class 0 OID 52653)
+-- TOC entry 3137 (class 0 OID 52653)
 -- Dependencies: 216
 -- Data for Name: almacen; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4481,7 +4543,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3107 (class 0 OID 52661)
+-- TOC entry 3138 (class 0 OID 52661)
 -- Dependencies: 218
 -- Data for Name: amortizacion_cliente; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4489,7 +4551,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3108 (class 0 OID 52672)
+-- TOC entry 3139 (class 0 OID 52672)
 -- Dependencies: 220
 -- Data for Name: amortizacion_proveedor; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4497,7 +4559,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3109 (class 0 OID 52682)
+-- TOC entry 3140 (class 0 OID 52682)
 -- Dependencies: 222
 -- Data for Name: autorizacion; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4505,7 +4567,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3110 (class 0 OID 52689)
+-- TOC entry 3141 (class 0 OID 52689)
 -- Dependencies: 224
 -- Data for Name: aval; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4513,7 +4575,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3111 (class 0 OID 52696)
+-- TOC entry 3142 (class 0 OID 52696)
 -- Dependencies: 226
 -- Data for Name: banco; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4521,7 +4583,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3112 (class 0 OID 52703)
+-- TOC entry 3143 (class 0 OID 52703)
 -- Dependencies: 228
 -- Data for Name: cheque_cliente; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4529,7 +4591,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3113 (class 0 OID 52713)
+-- TOC entry 3144 (class 0 OID 52713)
 -- Dependencies: 230
 -- Data for Name: cliente; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4537,7 +4599,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3114 (class 0 OID 52722)
+-- TOC entry 3145 (class 0 OID 52722)
 -- Dependencies: 232
 -- Data for Name: comprobante_emitido; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4545,7 +4607,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3115 (class 0 OID 52740)
+-- TOC entry 3146 (class 0 OID 52740)
 -- Dependencies: 234
 -- Data for Name: condicion_venta; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4553,7 +4615,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3116 (class 0 OID 52750)
+-- TOC entry 3147 (class 0 OID 52750)
 -- Dependencies: 236
 -- Data for Name: cuenta_bancaria; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4561,7 +4623,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3117 (class 0 OID 52757)
+-- TOC entry 3148 (class 0 OID 52757)
 -- Dependencies: 238
 -- Data for Name: cuenta_pagar; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4569,7 +4631,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3118 (class 0 OID 52775)
+-- TOC entry 3149 (class 0 OID 52775)
 -- Dependencies: 240
 -- Data for Name: deposito_cliente; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4577,7 +4639,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3119 (class 0 OID 52784)
+-- TOC entry 3150 (class 0 OID 52784)
 -- Dependencies: 242
 -- Data for Name: detalle_autorizacion; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4585,7 +4647,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3120 (class 0 OID 52791)
+-- TOC entry 3151 (class 0 OID 52791)
 -- Dependencies: 244
 -- Data for Name: documento; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4593,7 +4655,7 @@ SET search_path = public, pg_catalog;
 
 
 --
--- TOC entry 3121 (class 0 OID 52802)
+-- TOC entry 3152 (class 0 OID 52802)
 -- Dependencies: 246
 -- Data for Name: empresa; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4607,7 +4669,7 @@ INSERT INTO empresa (idempresa, cnomempresa, cruc, cdireccion, idubigeo, dfecini
 
 
 --
--- TOC entry 3122 (class 0 OID 52807)
+-- TOC entry 3153 (class 0 OID 52807)
 -- Dependencies: 247
 -- Data for Name: existencia; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4615,7 +4677,7 @@ INSERT INTO empresa (idempresa, cnomempresa, cruc, cdireccion, idubigeo, dfecini
 
 
 --
--- TOC entry 3123 (class 0 OID 52819)
+-- TOC entry 3154 (class 0 OID 52819)
 -- Dependencies: 249
 -- Data for Name: familia; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4623,7 +4685,7 @@ INSERT INTO empresa (idempresa, cnomempresa, cruc, cdireccion, idubigeo, dfecini
 
 
 --
--- TOC entry 3124 (class 0 OID 52827)
+-- TOC entry 3155 (class 0 OID 52827)
 -- Dependencies: 251
 -- Data for Name: letra_cliente; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4631,7 +4693,7 @@ INSERT INTO empresa (idempresa, cnomempresa, cruc, cdireccion, idubigeo, dfecini
 
 
 --
--- TOC entry 3125 (class 0 OID 52841)
+-- TOC entry 3156 (class 0 OID 52841)
 -- Dependencies: 253
 -- Data for Name: letra_proveedor; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4639,7 +4701,7 @@ INSERT INTO empresa (idempresa, cnomempresa, cruc, cdireccion, idubigeo, dfecini
 
 
 --
--- TOC entry 3126 (class 0 OID 52854)
+-- TOC entry 3157 (class 0 OID 52854)
 -- Dependencies: 255
 -- Data for Name: linea; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4648,7 +4710,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3127 (class 0 OID 52863)
+-- TOC entry 3158 (class 0 OID 52863)
 -- Dependencies: 257
 -- Data for Name: lote; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4656,31 +4718,42 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3156 (class 0 OID 54431)
+-- TOC entry 3187 (class 0 OID 54431)
 -- Dependencies: 313
 -- Data for Name: mapa; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
 
+INSERT INTO mapa (idmapa, idrol, idmenu, idusuario, dfecreg) VALUES (1, 1, 3, 2, '2013-08-03 09:54:29.195');
+INSERT INTO mapa (idmapa, idrol, idmenu, idusuario, dfecreg) VALUES (2, 1, 4, 2, '2013-08-03 09:54:37.08');
+INSERT INTO mapa (idmapa, idrol, idmenu, idusuario, dfecreg) VALUES (3, 1, 5, 2, '2013-08-03 09:54:42.103');
+INSERT INTO mapa (idmapa, idrol, idmenu, idusuario, dfecreg) VALUES (5, 1, 6, 2, '2013-08-03 09:54:50.177');
 
 
 --
--- TOC entry 3155 (class 0 OID 54378)
+-- TOC entry 3186 (class 0 OID 54378)
 -- Dependencies: 311
 -- Data for Name: menu; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
 
+INSERT INTO menu (idmenu, cnommenu, cruta, nnivel1, nnivel2, nnivel3, norden, bmodal, idmodulo, idusuario, dfecreg) VALUES (3, 'ARCHIVO', NULL, 1, 0, 0, 1, false, 2, 2, '2013-08-03 09:52:50.369');
+INSERT INTO menu (idmenu, cnommenu, cruta, nnivel1, nnivel2, nnivel3, norden, bmodal, idmodulo, idusuario, dfecreg) VALUES (4, 'PROCESO', NULL, 2, 0, 0, 2, false, 2, 2, '2013-08-03 09:53:06.031');
+INSERT INTO menu (idmenu, cnommenu, cruta, nnivel1, nnivel2, nnivel3, norden, bmodal, idmodulo, idusuario, dfecreg) VALUES (5, 'CONSULTA', NULL, 3, 0, 0, 3, false, 2, 2, '2013-08-03 09:53:20.026');
+INSERT INTO menu (idmenu, cnommenu, cruta, nnivel1, nnivel2, nnivel3, norden, bmodal, idmodulo, idusuario, dfecreg) VALUES (6, 'HERRAMIENTA', NULL, 4, 0, 0, 4, false, 2, 2, '2013-08-03 09:53:32.448');
 
 
 --
--- TOC entry 3154 (class 0 OID 54365)
+-- TOC entry 3185 (class 0 OID 54365)
 -- Dependencies: 310
 -- Data for Name: modulo; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
 
+INSERT INTO modulo (idmodulo, cnommodulo, cimagen, norden, idusuario, dfecreg) VALUES (2, 'ALMACEN', '/img/almacen.png', 1, 2, '2013-08-03 09:51:06.186');
+INSERT INTO modulo (idmodulo, cnommodulo, cimagen, norden, idusuario, dfecreg) VALUES (3, 'VENTAS', '/img/ventas.png', 2, 2, '2013-08-03 09:51:53.679');
+INSERT INTO modulo (idmodulo, cnommodulo, cimagen, norden, idusuario, dfecreg) VALUES (4, 'CAJA', '/img/caja.png', 3, 2, '2013-08-03 09:51:59.951');
 
 
 --
--- TOC entry 3128 (class 0 OID 52871)
+-- TOC entry 3159 (class 0 OID 52871)
 -- Dependencies: 259
 -- Data for Name: moneda; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4688,7 +4761,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3129 (class 0 OID 52879)
+-- TOC entry 3160 (class 0 OID 52879)
 -- Dependencies: 261
 -- Data for Name: motivo_entrada; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4696,7 +4769,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3130 (class 0 OID 52887)
+-- TOC entry 3161 (class 0 OID 52887)
 -- Dependencies: 263
 -- Data for Name: motivo_notabo_cliente; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4704,7 +4777,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3131 (class 0 OID 52896)
+-- TOC entry 3162 (class 0 OID 52896)
 -- Dependencies: 265
 -- Data for Name: motivo_notabo_proveedor; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4712,7 +4785,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3132 (class 0 OID 52903)
+-- TOC entry 3163 (class 0 OID 52903)
 -- Dependencies: 267
 -- Data for Name: motivo_notcar_cliente; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4720,7 +4793,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3133 (class 0 OID 52910)
+-- TOC entry 3164 (class 0 OID 52910)
 -- Dependencies: 269
 -- Data for Name: motivo_notcar_proveedor; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4728,7 +4801,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3134 (class 0 OID 52916)
+-- TOC entry 3165 (class 0 OID 52916)
 -- Dependencies: 271
 -- Data for Name: motivo_salida; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4736,7 +4809,15 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3135 (class 0 OID 52924)
+-- TOC entry 3191 (class 0 OID 54535)
+-- Dependencies: 321
+-- Data for Name: movimiento; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
+--
+
+
+
+--
+-- TOC entry 3166 (class 0 OID 52924)
 -- Dependencies: 273
 -- Data for Name: notabo_cliente; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4744,7 +4825,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3136 (class 0 OID 52939)
+-- TOC entry 3167 (class 0 OID 52939)
 -- Dependencies: 275
 -- Data for Name: notabo_proveedor; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4752,7 +4833,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3137 (class 0 OID 52953)
+-- TOC entry 3168 (class 0 OID 52953)
 -- Dependencies: 277
 -- Data for Name: notcar_cliente; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4760,7 +4841,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3138 (class 0 OID 52968)
+-- TOC entry 3169 (class 0 OID 52968)
 -- Dependencies: 279
 -- Data for Name: notcar_proveedor; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4768,7 +4849,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3139 (class 0 OID 52982)
+-- TOC entry 3170 (class 0 OID 52982)
 -- Dependencies: 281
 -- Data for Name: periodo; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4776,7 +4857,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3140 (class 0 OID 52990)
+-- TOC entry 3171 (class 0 OID 52990)
 -- Dependencies: 283
 -- Data for Name: presentacion; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4784,7 +4865,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3141 (class 0 OID 52996)
+-- TOC entry 3172 (class 0 OID 52996)
 -- Dependencies: 284
 -- Data for Name: producto; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4792,7 +4873,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3142 (class 0 OID 53003)
+-- TOC entry 3173 (class 0 OID 53003)
 -- Dependencies: 286
 -- Data for Name: proveedor; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4800,7 +4881,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3143 (class 0 OID 53014)
+-- TOC entry 3174 (class 0 OID 53014)
 -- Dependencies: 288
 -- Data for Name: registro_entrada; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4808,7 +4889,7 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3144 (class 0 OID 53025)
+-- TOC entry 3175 (class 0 OID 53025)
 -- Dependencies: 290
 -- Data for Name: registro_salida; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4816,20 +4897,16 @@ INSERT INTO linea (idlinea, cnomlinea, idusuario, dfecreg, bactivo, nincremento)
 
 
 --
--- TOC entry 3145 (class 0 OID 53045)
+-- TOC entry 3176 (class 0 OID 53045)
 -- Dependencies: 292
 -- Data for Name: rol; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
 
 INSERT INTO rol (idrol, cnomrol, dfecreg) VALUES (1, 'ADMINISTRADOR', NULL);
-INSERT INTO rol (idrol, cnomrol, dfecreg) VALUES (2, 'VENDEDOR', NULL);
-INSERT INTO rol (idrol, cnomrol, dfecreg) VALUES (3, 'rol de prueba', NULL);
-INSERT INTO rol (idrol, cnomrol, dfecreg) VALUES (4, 'rol de prueba', NULL);
-INSERT INTO rol (idrol, cnomrol, dfecreg) VALUES (5, 'CRUD ROL PRUEBA', '2013-07-26 15:33:44.722');
 
 
 --
--- TOC entry 3146 (class 0 OID 53066)
+-- TOC entry 3177 (class 0 OID 53066)
 -- Dependencies: 301
 -- Data for Name: sublinea; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4837,7 +4914,7 @@ INSERT INTO rol (idrol, cnomrol, dfecreg) VALUES (5, 'CRUD ROL PRUEBA', '2013-07
 
 
 --
--- TOC entry 3147 (class 0 OID 53071)
+-- TOC entry 3178 (class 0 OID 53071)
 -- Dependencies: 302
 -- Data for Name: tipo_cuenta_bancaria; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4845,7 +4922,7 @@ INSERT INTO rol (idrol, cnomrol, dfecreg) VALUES (5, 'CRUD ROL PRUEBA', '2013-07
 
 
 --
--- TOC entry 3148 (class 0 OID 53076)
+-- TOC entry 3179 (class 0 OID 53076)
 -- Dependencies: 303
 -- Data for Name: tipo_pago; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4853,7 +4930,7 @@ INSERT INTO rol (idrol, cnomrol, dfecreg) VALUES (5, 'CRUD ROL PRUEBA', '2013-07
 
 
 --
--- TOC entry 3149 (class 0 OID 53083)
+-- TOC entry 3180 (class 0 OID 53083)
 -- Dependencies: 304
 -- Data for Name: tipo_persona; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -4861,7 +4938,7 @@ INSERT INTO rol (idrol, cnomrol, dfecreg) VALUES (5, 'CRUD ROL PRUEBA', '2013-07
 
 
 --
--- TOC entry 3150 (class 0 OID 53088)
+-- TOC entry 3181 (class 0 OID 53088)
 -- Dependencies: 305
 -- Data for Name: ubigeo; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -6935,7 +7012,7 @@ INSERT INTO ubigeo (idubigeo, cubigeo, cdepartamento, cprovincia, cdistrito, cno
 
 
 --
--- TOC entry 3151 (class 0 OID 53091)
+-- TOC entry 3182 (class 0 OID 53091)
 -- Dependencies: 306
 -- Data for Name: unidad_negocio; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -6943,7 +7020,7 @@ INSERT INTO ubigeo (idubigeo, cubigeo, cdepartamento, cprovincia, cdistrito, cno
 
 
 --
--- TOC entry 3152 (class 0 OID 53096)
+-- TOC entry 3183 (class 0 OID 53096)
 -- Dependencies: 307
 -- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -6952,7 +7029,7 @@ INSERT INTO usuario (idusuario, cnomusuario, bactivo, idrol, clogin, cclave, dfe
 
 
 --
--- TOC entry 3153 (class 0 OID 53103)
+-- TOC entry 3184 (class 0 OID 53103)
 -- Dependencies: 308
 -- Data for Name: vendedor; Type: TABLE DATA; Schema: public; Owner: agewunue_farmacia
 --
@@ -6962,7 +7039,7 @@ INSERT INTO usuario (idusuario, cnomusuario, bactivo, idrol, clogin, cclave, dfe
 SET search_path = log, pg_catalog;
 
 --
--- TOC entry 2660 (class 2606 OID 53110)
+-- TOC entry 2682 (class 2606 OID 53110)
 -- Dependencies: 142 142
 -- Name: log_almacen_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -6972,7 +7049,7 @@ ALTER TABLE ONLY log_almacen
 
 
 --
--- TOC entry 2662 (class 2606 OID 53112)
+-- TOC entry 2684 (class 2606 OID 53112)
 -- Dependencies: 144 144
 -- Name: log_autorizacion_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -6982,7 +7059,7 @@ ALTER TABLE ONLY log_autorizacion
 
 
 --
--- TOC entry 2664 (class 2606 OID 53114)
+-- TOC entry 2686 (class 2606 OID 53114)
 -- Dependencies: 146 146
 -- Name: log_aval_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -6992,7 +7069,7 @@ ALTER TABLE ONLY log_aval
 
 
 --
--- TOC entry 2666 (class 2606 OID 53116)
+-- TOC entry 2688 (class 2606 OID 53116)
 -- Dependencies: 148 148
 -- Name: log_banco_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7002,7 +7079,7 @@ ALTER TABLE ONLY log_banco
 
 
 --
--- TOC entry 2668 (class 2606 OID 53118)
+-- TOC entry 2690 (class 2606 OID 53118)
 -- Dependencies: 150 150
 -- Name: log_cheque_cliente_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7012,7 +7089,7 @@ ALTER TABLE ONLY log_cheque_cliente
 
 
 --
--- TOC entry 2670 (class 2606 OID 53120)
+-- TOC entry 2692 (class 2606 OID 53120)
 -- Dependencies: 152 152
 -- Name: log_cliente_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7022,7 +7099,7 @@ ALTER TABLE ONLY log_cliente
 
 
 --
--- TOC entry 2672 (class 2606 OID 53122)
+-- TOC entry 2694 (class 2606 OID 53122)
 -- Dependencies: 154 154
 -- Name: log_comprobante_emitido_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7032,7 +7109,7 @@ ALTER TABLE ONLY log_comprobante_emitido
 
 
 --
--- TOC entry 2674 (class 2606 OID 53124)
+-- TOC entry 2696 (class 2606 OID 53124)
 -- Dependencies: 156 156
 -- Name: log_condicion_venta_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7042,7 +7119,7 @@ ALTER TABLE ONLY log_condicion_venta
 
 
 --
--- TOC entry 2676 (class 2606 OID 53126)
+-- TOC entry 2698 (class 2606 OID 53126)
 -- Dependencies: 158 158
 -- Name: log_cuenta_bancaria_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7052,7 +7129,7 @@ ALTER TABLE ONLY log_cuenta_bancaria
 
 
 --
--- TOC entry 2678 (class 2606 OID 53128)
+-- TOC entry 2700 (class 2606 OID 53128)
 -- Dependencies: 160 160
 -- Name: log_cuenta_pagar_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7062,7 +7139,7 @@ ALTER TABLE ONLY log_cuenta_pagar
 
 
 --
--- TOC entry 2680 (class 2606 OID 53130)
+-- TOC entry 2702 (class 2606 OID 53130)
 -- Dependencies: 162 162
 -- Name: log_deposito_cliente_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7072,7 +7149,7 @@ ALTER TABLE ONLY log_deposito_cliente
 
 
 --
--- TOC entry 2682 (class 2606 OID 53132)
+-- TOC entry 2704 (class 2606 OID 53132)
 -- Dependencies: 164 164
 -- Name: log_detalle_autorizacion_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7082,7 +7159,7 @@ ALTER TABLE ONLY log_detalle_autorizacion
 
 
 --
--- TOC entry 2684 (class 2606 OID 53134)
+-- TOC entry 2706 (class 2606 OID 53134)
 -- Dependencies: 166 166
 -- Name: log_documento_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7092,7 +7169,7 @@ ALTER TABLE ONLY log_documento
 
 
 --
--- TOC entry 2686 (class 2606 OID 53136)
+-- TOC entry 2708 (class 2606 OID 53136)
 -- Dependencies: 168 168
 -- Name: log_empresa_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7102,7 +7179,7 @@ ALTER TABLE ONLY log_empresa
 
 
 --
--- TOC entry 2688 (class 2606 OID 53138)
+-- TOC entry 2710 (class 2606 OID 53138)
 -- Dependencies: 170 170
 -- Name: log_existencia_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7112,7 +7189,7 @@ ALTER TABLE ONLY log_existencia
 
 
 --
--- TOC entry 2690 (class 2606 OID 53140)
+-- TOC entry 2712 (class 2606 OID 53140)
 -- Dependencies: 172 172
 -- Name: log_familia_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7122,7 +7199,7 @@ ALTER TABLE ONLY log_familia
 
 
 --
--- TOC entry 2692 (class 2606 OID 53142)
+-- TOC entry 2714 (class 2606 OID 53142)
 -- Dependencies: 174 174
 -- Name: log_letra_proveedor_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7132,7 +7209,7 @@ ALTER TABLE ONLY log_letra_proveedor
 
 
 --
--- TOC entry 2694 (class 2606 OID 53144)
+-- TOC entry 2716 (class 2606 OID 53144)
 -- Dependencies: 176 176
 -- Name: log_linea_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7142,7 +7219,7 @@ ALTER TABLE ONLY log_linea
 
 
 --
--- TOC entry 2696 (class 2606 OID 53146)
+-- TOC entry 2718 (class 2606 OID 53146)
 -- Dependencies: 178 178
 -- Name: log_lote_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7152,7 +7229,7 @@ ALTER TABLE ONLY log_lote
 
 
 --
--- TOC entry 2840 (class 2606 OID 54524)
+-- TOC entry 2866 (class 2606 OID 54524)
 -- Dependencies: 320 320
 -- Name: log_menu_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7162,7 +7239,7 @@ ALTER TABLE ONLY log_menu
 
 
 --
--- TOC entry 2838 (class 2606 OID 54497)
+-- TOC entry 2864 (class 2606 OID 54497)
 -- Dependencies: 318 318
 -- Name: log_modulo_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7172,7 +7249,7 @@ ALTER TABLE ONLY log_modulo
 
 
 --
--- TOC entry 2698 (class 2606 OID 53148)
+-- TOC entry 2720 (class 2606 OID 53148)
 -- Dependencies: 180 180
 -- Name: log_moneda_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7182,7 +7259,7 @@ ALTER TABLE ONLY log_moneda
 
 
 --
--- TOC entry 2700 (class 2606 OID 53150)
+-- TOC entry 2722 (class 2606 OID 53150)
 -- Dependencies: 182 182
 -- Name: log_motivo_entrada_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7192,7 +7269,7 @@ ALTER TABLE ONLY log_motivo_entrada
 
 
 --
--- TOC entry 2702 (class 2606 OID 53152)
+-- TOC entry 2724 (class 2606 OID 53152)
 -- Dependencies: 184 184
 -- Name: log_motivo_notabo_cliente_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7202,7 +7279,7 @@ ALTER TABLE ONLY log_motivo_notabo_cliente
 
 
 --
--- TOC entry 2704 (class 2606 OID 53154)
+-- TOC entry 2726 (class 2606 OID 53154)
 -- Dependencies: 186 186
 -- Name: log_motivo_notabo_proveedor_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7212,7 +7289,7 @@ ALTER TABLE ONLY log_motivo_notabo_proveedor
 
 
 --
--- TOC entry 2706 (class 2606 OID 53156)
+-- TOC entry 2728 (class 2606 OID 53156)
 -- Dependencies: 188 188
 -- Name: log_motivo_notcar_cliente_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7222,7 +7299,7 @@ ALTER TABLE ONLY log_motivo_notcar_cliente
 
 
 --
--- TOC entry 2708 (class 2606 OID 53158)
+-- TOC entry 2730 (class 2606 OID 53158)
 -- Dependencies: 190 190
 -- Name: log_motivo_notcar_proveedor_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7232,7 +7309,7 @@ ALTER TABLE ONLY log_motivo_notcar_proveedor
 
 
 --
--- TOC entry 2710 (class 2606 OID 53160)
+-- TOC entry 2732 (class 2606 OID 53160)
 -- Dependencies: 192 192
 -- Name: log_motivo_salida_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7242,7 +7319,7 @@ ALTER TABLE ONLY log_motivo_salida
 
 
 --
--- TOC entry 2712 (class 2606 OID 53162)
+-- TOC entry 2734 (class 2606 OID 53162)
 -- Dependencies: 194 194
 -- Name: log_periodo_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7252,7 +7329,7 @@ ALTER TABLE ONLY log_periodo
 
 
 --
--- TOC entry 2714 (class 2606 OID 53164)
+-- TOC entry 2736 (class 2606 OID 53164)
 -- Dependencies: 196 196
 -- Name: log_presentacion_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7262,7 +7339,7 @@ ALTER TABLE ONLY log_presentacion
 
 
 --
--- TOC entry 2716 (class 2606 OID 53166)
+-- TOC entry 2738 (class 2606 OID 53166)
 -- Dependencies: 198 198
 -- Name: log_producto_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7272,7 +7349,7 @@ ALTER TABLE ONLY log_producto
 
 
 --
--- TOC entry 2718 (class 2606 OID 53168)
+-- TOC entry 2740 (class 2606 OID 53168)
 -- Dependencies: 200 200
 -- Name: log_proveedor_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7282,7 +7359,7 @@ ALTER TABLE ONLY log_proveedor
 
 
 --
--- TOC entry 2720 (class 2606 OID 53170)
+-- TOC entry 2742 (class 2606 OID 53170)
 -- Dependencies: 202 202
 -- Name: log_rol_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7292,7 +7369,7 @@ ALTER TABLE ONLY log_rol
 
 
 --
--- TOC entry 2722 (class 2606 OID 53172)
+-- TOC entry 2744 (class 2606 OID 53172)
 -- Dependencies: 204 204
 -- Name: log_sublinea_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7302,7 +7379,7 @@ ALTER TABLE ONLY log_sublinea
 
 
 --
--- TOC entry 2724 (class 2606 OID 53174)
+-- TOC entry 2746 (class 2606 OID 53174)
 -- Dependencies: 206 206
 -- Name: log_tipo_cuenta_bancaria_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7312,7 +7389,7 @@ ALTER TABLE ONLY log_tipo_cuenta_bancaria
 
 
 --
--- TOC entry 2726 (class 2606 OID 53176)
+-- TOC entry 2748 (class 2606 OID 53176)
 -- Dependencies: 208 208
 -- Name: log_tipo_pago_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7322,7 +7399,7 @@ ALTER TABLE ONLY log_tipo_pago
 
 
 --
--- TOC entry 2728 (class 2606 OID 53178)
+-- TOC entry 2750 (class 2606 OID 53178)
 -- Dependencies: 210 210
 -- Name: log_tipo_persona_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7332,7 +7409,7 @@ ALTER TABLE ONLY log_tipo_persona
 
 
 --
--- TOC entry 2730 (class 2606 OID 53180)
+-- TOC entry 2752 (class 2606 OID 53180)
 -- Dependencies: 212 212
 -- Name: log_unidad_negocio_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7342,7 +7419,7 @@ ALTER TABLE ONLY log_unidad_negocio
 
 
 --
--- TOC entry 2732 (class 2606 OID 53182)
+-- TOC entry 2754 (class 2606 OID 53182)
 -- Dependencies: 214 214
 -- Name: log_vendedor_pkey; Type: CONSTRAINT; Schema: log; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7354,7 +7431,7 @@ ALTER TABLE ONLY log_vendedor
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 2836 (class 2606 OID 54475)
+-- TOC entry 2862 (class 2606 OID 54475)
 -- Dependencies: 315 315
 -- Name: acceso_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7364,7 +7441,7 @@ ALTER TABLE ONLY acceso
 
 
 --
--- TOC entry 2734 (class 2606 OID 53184)
+-- TOC entry 2756 (class 2606 OID 53184)
 -- Dependencies: 216 216
 -- Name: almacen_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7374,7 +7451,7 @@ ALTER TABLE ONLY almacen
 
 
 --
--- TOC entry 2736 (class 2606 OID 53186)
+-- TOC entry 2758 (class 2606 OID 53186)
 -- Dependencies: 218 218
 -- Name: amortizacion_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7384,7 +7461,7 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2738 (class 2606 OID 53188)
+-- TOC entry 2760 (class 2606 OID 53188)
 -- Dependencies: 220 220
 -- Name: amortizacion_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7394,7 +7471,7 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2740 (class 2606 OID 53190)
+-- TOC entry 2762 (class 2606 OID 53190)
 -- Dependencies: 222 222
 -- Name: autorizacion_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7404,7 +7481,7 @@ ALTER TABLE ONLY autorizacion
 
 
 --
--- TOC entry 2742 (class 2606 OID 53192)
+-- TOC entry 2764 (class 2606 OID 53192)
 -- Dependencies: 224 224
 -- Name: aval_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7414,7 +7491,7 @@ ALTER TABLE ONLY aval
 
 
 --
--- TOC entry 2744 (class 2606 OID 53194)
+-- TOC entry 2766 (class 2606 OID 53194)
 -- Dependencies: 226 226
 -- Name: banco_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7424,7 +7501,7 @@ ALTER TABLE ONLY banco
 
 
 --
--- TOC entry 2746 (class 2606 OID 53196)
+-- TOC entry 2768 (class 2606 OID 53196)
 -- Dependencies: 228 228
 -- Name: cheque_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7434,7 +7511,7 @@ ALTER TABLE ONLY cheque_cliente
 
 
 --
--- TOC entry 2748 (class 2606 OID 53198)
+-- TOC entry 2770 (class 2606 OID 53198)
 -- Dependencies: 230 230
 -- Name: cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7444,7 +7521,7 @@ ALTER TABLE ONLY cliente
 
 
 --
--- TOC entry 2750 (class 2606 OID 53200)
+-- TOC entry 2772 (class 2606 OID 53200)
 -- Dependencies: 232 232
 -- Name: comprobante_emitido_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7454,7 +7531,7 @@ ALTER TABLE ONLY comprobante_emitido
 
 
 --
--- TOC entry 2752 (class 2606 OID 53202)
+-- TOC entry 2774 (class 2606 OID 53202)
 -- Dependencies: 234 234
 -- Name: condicion_venta_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7464,7 +7541,7 @@ ALTER TABLE ONLY condicion_venta
 
 
 --
--- TOC entry 2754 (class 2606 OID 53204)
+-- TOC entry 2776 (class 2606 OID 53204)
 -- Dependencies: 236 236
 -- Name: cuenta_bancaria_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7474,7 +7551,17 @@ ALTER TABLE ONLY cuenta_bancaria
 
 
 --
--- TOC entry 2756 (class 2606 OID 53206)
+-- TOC entry 2778 (class 2606 OID 57420)
+-- Dependencies: 238 238 238 238 238
+-- Name: cuenta_pagar_idproveedor_key; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
+--
+
+ALTER TABLE ONLY cuenta_pagar
+    ADD CONSTRAINT cuenta_pagar_idproveedor_key UNIQUE (idproveedor, iddocumento, cserie, cnumero);
+
+
+--
+-- TOC entry 2780 (class 2606 OID 53206)
 -- Dependencies: 238 238
 -- Name: cuenta_pagar_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7484,7 +7571,7 @@ ALTER TABLE ONLY cuenta_pagar
 
 
 --
--- TOC entry 2758 (class 2606 OID 53208)
+-- TOC entry 2782 (class 2606 OID 53208)
 -- Dependencies: 240 240
 -- Name: deposito_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7494,7 +7581,7 @@ ALTER TABLE ONLY deposito_cliente
 
 
 --
--- TOC entry 2760 (class 2606 OID 53210)
+-- TOC entry 2784 (class 2606 OID 53210)
 -- Dependencies: 242 242
 -- Name: detalle_autorizacion_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7504,7 +7591,7 @@ ALTER TABLE ONLY detalle_autorizacion
 
 
 --
--- TOC entry 2762 (class 2606 OID 53212)
+-- TOC entry 2786 (class 2606 OID 53212)
 -- Dependencies: 244 244
 -- Name: documento_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7514,7 +7601,7 @@ ALTER TABLE ONLY documento
 
 
 --
--- TOC entry 2764 (class 2606 OID 53214)
+-- TOC entry 2788 (class 2606 OID 53214)
 -- Dependencies: 246 246
 -- Name: empresa_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7524,7 +7611,7 @@ ALTER TABLE ONLY empresa
 
 
 --
--- TOC entry 2766 (class 2606 OID 53216)
+-- TOC entry 2790 (class 2606 OID 53216)
 -- Dependencies: 247 247 247
 -- Name: existencia_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7534,7 +7621,7 @@ ALTER TABLE ONLY existencia
 
 
 --
--- TOC entry 2768 (class 2606 OID 53218)
+-- TOC entry 2792 (class 2606 OID 53218)
 -- Dependencies: 249 249
 -- Name: familia_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7544,7 +7631,7 @@ ALTER TABLE ONLY familia
 
 
 --
--- TOC entry 2770 (class 2606 OID 53220)
+-- TOC entry 2794 (class 2606 OID 53220)
 -- Dependencies: 251 251
 -- Name: letra_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7554,7 +7641,7 @@ ALTER TABLE ONLY letra_cliente
 
 
 --
--- TOC entry 2772 (class 2606 OID 53222)
+-- TOC entry 2796 (class 2606 OID 53222)
 -- Dependencies: 253 253
 -- Name: letra_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7564,7 +7651,7 @@ ALTER TABLE ONLY letra_proveedor
 
 
 --
--- TOC entry 2774 (class 2606 OID 53224)
+-- TOC entry 2798 (class 2606 OID 53224)
 -- Dependencies: 255 255
 -- Name: linea_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7574,7 +7661,7 @@ ALTER TABLE ONLY linea
 
 
 --
--- TOC entry 2776 (class 2606 OID 53226)
+-- TOC entry 2800 (class 2606 OID 53226)
 -- Dependencies: 257 257
 -- Name: lote_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7584,7 +7671,7 @@ ALTER TABLE ONLY lote
 
 
 --
--- TOC entry 2834 (class 2606 OID 54445)
+-- TOC entry 2860 (class 2606 OID 54445)
 -- Dependencies: 313 313
 -- Name: mapa_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7594,7 +7681,7 @@ ALTER TABLE ONLY mapa
 
 
 --
--- TOC entry 2832 (class 2606 OID 54382)
+-- TOC entry 2858 (class 2606 OID 54382)
 -- Dependencies: 311 311
 -- Name: menu_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7604,7 +7691,7 @@ ALTER TABLE ONLY menu
 
 
 --
--- TOC entry 2830 (class 2606 OID 54372)
+-- TOC entry 2856 (class 2606 OID 54372)
 -- Dependencies: 310 310
 -- Name: modulo_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7614,7 +7701,7 @@ ALTER TABLE ONLY modulo
 
 
 --
--- TOC entry 2778 (class 2606 OID 53228)
+-- TOC entry 2802 (class 2606 OID 53228)
 -- Dependencies: 259 259
 -- Name: moneda_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7624,7 +7711,7 @@ ALTER TABLE ONLY moneda
 
 
 --
--- TOC entry 2782 (class 2606 OID 53230)
+-- TOC entry 2806 (class 2606 OID 53230)
 -- Dependencies: 263 263
 -- Name: motivo_notabo_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7634,7 +7721,7 @@ ALTER TABLE ONLY motivo_notabo_cliente
 
 
 --
--- TOC entry 2784 (class 2606 OID 53232)
+-- TOC entry 2808 (class 2606 OID 53232)
 -- Dependencies: 265 265
 -- Name: motivo_notabo_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7644,7 +7731,7 @@ ALTER TABLE ONLY motivo_notabo_proveedor
 
 
 --
--- TOC entry 2786 (class 2606 OID 53234)
+-- TOC entry 2810 (class 2606 OID 53234)
 -- Dependencies: 267 267
 -- Name: motivo_notcar_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7654,7 +7741,7 @@ ALTER TABLE ONLY motivo_notcar_cliente
 
 
 --
--- TOC entry 2788 (class 2606 OID 53236)
+-- TOC entry 2812 (class 2606 OID 53236)
 -- Dependencies: 269 269
 -- Name: motivo_notcar_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7664,7 +7751,7 @@ ALTER TABLE ONLY motivo_notcar_proveedor
 
 
 --
--- TOC entry 2790 (class 2606 OID 53238)
+-- TOC entry 2814 (class 2606 OID 53238)
 -- Dependencies: 271 271
 -- Name: motivo_salida_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7674,7 +7761,7 @@ ALTER TABLE ONLY motivo_salida
 
 
 --
--- TOC entry 2780 (class 2606 OID 53240)
+-- TOC entry 2804 (class 2606 OID 53240)
 -- Dependencies: 261 261
 -- Name: motivoentrada_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7684,7 +7771,17 @@ ALTER TABLE ONLY motivo_entrada
 
 
 --
--- TOC entry 2792 (class 2606 OID 53242)
+-- TOC entry 2868 (class 2606 OID 54542)
+-- Dependencies: 321 321
+-- Name: movimiento_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
+--
+
+ALTER TABLE ONLY movimiento
+    ADD CONSTRAINT movimiento_pkey PRIMARY KEY (idmovimiento);
+
+
+--
+-- TOC entry 2816 (class 2606 OID 53242)
 -- Dependencies: 273 273
 -- Name: notabo_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7694,7 +7791,7 @@ ALTER TABLE ONLY notabo_cliente
 
 
 --
--- TOC entry 2794 (class 2606 OID 53244)
+-- TOC entry 2818 (class 2606 OID 53244)
 -- Dependencies: 275 275
 -- Name: notabo_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7704,7 +7801,7 @@ ALTER TABLE ONLY notabo_proveedor
 
 
 --
--- TOC entry 2796 (class 2606 OID 53246)
+-- TOC entry 2820 (class 2606 OID 53246)
 -- Dependencies: 277 277
 -- Name: notcar_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7714,7 +7811,7 @@ ALTER TABLE ONLY notcar_cliente
 
 
 --
--- TOC entry 2798 (class 2606 OID 53248)
+-- TOC entry 2822 (class 2606 OID 53248)
 -- Dependencies: 279 279
 -- Name: notcar_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7724,7 +7821,7 @@ ALTER TABLE ONLY notcar_proveedor
 
 
 --
--- TOC entry 2800 (class 2606 OID 53250)
+-- TOC entry 2824 (class 2606 OID 53250)
 -- Dependencies: 281 281
 -- Name: periodo_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7734,7 +7831,7 @@ ALTER TABLE ONLY periodo
 
 
 --
--- TOC entry 2802 (class 2606 OID 53252)
+-- TOC entry 2826 (class 2606 OID 53252)
 -- Dependencies: 283 283
 -- Name: presentacion_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7744,7 +7841,7 @@ ALTER TABLE ONLY presentacion
 
 
 --
--- TOC entry 2804 (class 2606 OID 53254)
+-- TOC entry 2828 (class 2606 OID 53254)
 -- Dependencies: 284 284
 -- Name: producto_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7754,7 +7851,7 @@ ALTER TABLE ONLY producto
 
 
 --
--- TOC entry 2806 (class 2606 OID 53256)
+-- TOC entry 2830 (class 2606 OID 53256)
 -- Dependencies: 286 286
 -- Name: proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7764,7 +7861,17 @@ ALTER TABLE ONLY proveedor
 
 
 --
--- TOC entry 2808 (class 2606 OID 53258)
+-- TOC entry 2832 (class 2606 OID 57418)
+-- Dependencies: 288 288 288 288 288
+-- Name: registro_entrada_idproveedor_key; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
+--
+
+ALTER TABLE ONLY registro_entrada
+    ADD CONSTRAINT registro_entrada_idproveedor_key UNIQUE (idproveedor, iddocumento, cserie, cnumero);
+
+
+--
+-- TOC entry 2834 (class 2606 OID 53258)
 -- Dependencies: 288 288
 -- Name: registro_entrada_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7774,7 +7881,7 @@ ALTER TABLE ONLY registro_entrada
 
 
 --
--- TOC entry 2810 (class 2606 OID 53260)
+-- TOC entry 2836 (class 2606 OID 53260)
 -- Dependencies: 290 290
 -- Name: registro_salida_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7784,7 +7891,7 @@ ALTER TABLE ONLY registro_salida
 
 
 --
--- TOC entry 2812 (class 2606 OID 53262)
+-- TOC entry 2838 (class 2606 OID 53262)
 -- Dependencies: 292 292
 -- Name: rol_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7794,7 +7901,7 @@ ALTER TABLE ONLY rol
 
 
 --
--- TOC entry 2814 (class 2606 OID 53264)
+-- TOC entry 2840 (class 2606 OID 53264)
 -- Dependencies: 301 301
 -- Name: sublinea_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7804,7 +7911,7 @@ ALTER TABLE ONLY sublinea
 
 
 --
--- TOC entry 2816 (class 2606 OID 53266)
+-- TOC entry 2842 (class 2606 OID 53266)
 -- Dependencies: 302 302
 -- Name: tipo_cuenta_bancaria_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7814,7 +7921,7 @@ ALTER TABLE ONLY tipo_cuenta_bancaria
 
 
 --
--- TOC entry 2818 (class 2606 OID 53268)
+-- TOC entry 2844 (class 2606 OID 53268)
 -- Dependencies: 303 303
 -- Name: tipo_pago_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7824,7 +7931,7 @@ ALTER TABLE ONLY tipo_pago
 
 
 --
--- TOC entry 2820 (class 2606 OID 53270)
+-- TOC entry 2846 (class 2606 OID 53270)
 -- Dependencies: 304 304
 -- Name: tipo_persona_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7834,7 +7941,7 @@ ALTER TABLE ONLY tipo_persona
 
 
 --
--- TOC entry 2822 (class 2606 OID 53272)
+-- TOC entry 2848 (class 2606 OID 53272)
 -- Dependencies: 305 305
 -- Name: ubigeo_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7844,7 +7951,7 @@ ALTER TABLE ONLY ubigeo
 
 
 --
--- TOC entry 2824 (class 2606 OID 53274)
+-- TOC entry 2850 (class 2606 OID 53274)
 -- Dependencies: 306 306
 -- Name: unidad_negocio_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7854,7 +7961,7 @@ ALTER TABLE ONLY unidad_negocio
 
 
 --
--- TOC entry 2826 (class 2606 OID 53276)
+-- TOC entry 2852 (class 2606 OID 53276)
 -- Dependencies: 307 307
 -- Name: usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7864,7 +7971,7 @@ ALTER TABLE ONLY usuario
 
 
 --
--- TOC entry 2828 (class 2606 OID 53278)
+-- TOC entry 2854 (class 2606 OID 53278)
 -- Dependencies: 308 308
 -- Name: vendedor_pkey; Type: CONSTRAINT; Schema: public; Owner: agewunue_farmacia; Tablespace: 
 --
@@ -7876,8 +7983,8 @@ ALTER TABLE ONLY vendedor
 SET search_path = log, pg_catalog;
 
 --
--- TOC entry 2841 (class 2606 OID 53279)
--- Dependencies: 216 142 2733
+-- TOC entry 2869 (class 2606 OID 53279)
+-- Dependencies: 142 2755 216
 -- Name: log_almacen_idalmacen_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7886,8 +7993,8 @@ ALTER TABLE ONLY log_almacen
 
 
 --
--- TOC entry 2842 (class 2606 OID 53284)
--- Dependencies: 307 142 2825
+-- TOC entry 2870 (class 2606 OID 53284)
+-- Dependencies: 2851 307 142
 -- Name: log_almacen_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7896,8 +8003,8 @@ ALTER TABLE ONLY log_almacen
 
 
 --
--- TOC entry 2843 (class 2606 OID 53289)
--- Dependencies: 144 222 2739
+-- TOC entry 2871 (class 2606 OID 53289)
+-- Dependencies: 144 2761 222
 -- Name: log_autorizacion_idautorizacion_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7906,8 +8013,8 @@ ALTER TABLE ONLY log_autorizacion
 
 
 --
--- TOC entry 2844 (class 2606 OID 53294)
--- Dependencies: 2825 307 144
+-- TOC entry 2872 (class 2606 OID 53294)
+-- Dependencies: 2851 307 144
 -- Name: log_autorizacion_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7916,8 +8023,8 @@ ALTER TABLE ONLY log_autorizacion
 
 
 --
--- TOC entry 2845 (class 2606 OID 53299)
--- Dependencies: 2741 146 224
+-- TOC entry 2873 (class 2606 OID 53299)
+-- Dependencies: 2763 224 146
 -- Name: log_aval_idaval_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7926,8 +8033,8 @@ ALTER TABLE ONLY log_aval
 
 
 --
--- TOC entry 2846 (class 2606 OID 53304)
--- Dependencies: 2825 307 146
+-- TOC entry 2874 (class 2606 OID 53304)
+-- Dependencies: 2851 307 146
 -- Name: log_aval_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7936,8 +8043,8 @@ ALTER TABLE ONLY log_aval
 
 
 --
--- TOC entry 2847 (class 2606 OID 53309)
--- Dependencies: 226 148 2743
+-- TOC entry 2875 (class 2606 OID 53309)
+-- Dependencies: 2765 226 148
 -- Name: log_banco_idbanco_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7946,8 +8053,8 @@ ALTER TABLE ONLY log_banco
 
 
 --
--- TOC entry 2848 (class 2606 OID 53314)
--- Dependencies: 2825 148 307
+-- TOC entry 2876 (class 2606 OID 53314)
+-- Dependencies: 307 2851 148
 -- Name: log_banco_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7956,8 +8063,8 @@ ALTER TABLE ONLY log_banco
 
 
 --
--- TOC entry 2849 (class 2606 OID 53319)
--- Dependencies: 2745 150 228
+-- TOC entry 2877 (class 2606 OID 53319)
+-- Dependencies: 150 228 2767
 -- Name: log_cheque_cliente_idcheque_cliente_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7966,8 +8073,8 @@ ALTER TABLE ONLY log_cheque_cliente
 
 
 --
--- TOC entry 2850 (class 2606 OID 53324)
--- Dependencies: 307 2825 150
+-- TOC entry 2878 (class 2606 OID 53324)
+-- Dependencies: 307 150 2851
 -- Name: log_cheque_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7976,8 +8083,8 @@ ALTER TABLE ONLY log_cheque_cliente
 
 
 --
--- TOC entry 2851 (class 2606 OID 53329)
--- Dependencies: 2747 152 230
+-- TOC entry 2879 (class 2606 OID 53329)
+-- Dependencies: 230 152 2769
 -- Name: log_cliente_idcliente_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7986,8 +8093,8 @@ ALTER TABLE ONLY log_cliente
 
 
 --
--- TOC entry 2852 (class 2606 OID 53334)
--- Dependencies: 2825 307 152
+-- TOC entry 2880 (class 2606 OID 53334)
+-- Dependencies: 152 307 2851
 -- Name: log_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -7996,8 +8103,8 @@ ALTER TABLE ONLY log_cliente
 
 
 --
--- TOC entry 2853 (class 2606 OID 53339)
--- Dependencies: 232 154 2749
+-- TOC entry 2881 (class 2606 OID 53339)
+-- Dependencies: 154 232 2771
 -- Name: log_comprobante_emitido_idcomprobante_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8006,8 +8113,8 @@ ALTER TABLE ONLY log_comprobante_emitido
 
 
 --
--- TOC entry 2854 (class 2606 OID 53344)
--- Dependencies: 154 307 2825
+-- TOC entry 2882 (class 2606 OID 53344)
+-- Dependencies: 2851 307 154
 -- Name: log_comprobante_emitido_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8016,8 +8123,8 @@ ALTER TABLE ONLY log_comprobante_emitido
 
 
 --
--- TOC entry 2855 (class 2606 OID 53349)
--- Dependencies: 156 234 2751
+-- TOC entry 2883 (class 2606 OID 53349)
+-- Dependencies: 156 234 2773
 -- Name: log_condicion_venta_idcondicion_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8026,8 +8133,8 @@ ALTER TABLE ONLY log_condicion_venta
 
 
 --
--- TOC entry 2856 (class 2606 OID 53354)
--- Dependencies: 156 307 2825
+-- TOC entry 2884 (class 2606 OID 53354)
+-- Dependencies: 307 2851 156
 -- Name: log_condicion_venta_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8036,8 +8143,8 @@ ALTER TABLE ONLY log_condicion_venta
 
 
 --
--- TOC entry 2857 (class 2606 OID 53359)
--- Dependencies: 158 236 2753
+-- TOC entry 2885 (class 2606 OID 53359)
+-- Dependencies: 158 2775 236
 -- Name: log_cuenta_bancaria_idcuenta_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8046,8 +8153,8 @@ ALTER TABLE ONLY log_cuenta_bancaria
 
 
 --
--- TOC entry 2858 (class 2606 OID 53364)
--- Dependencies: 158 307 2825
+-- TOC entry 2886 (class 2606 OID 53364)
+-- Dependencies: 158 2851 307
 -- Name: log_cuenta_bancaria_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8056,8 +8163,8 @@ ALTER TABLE ONLY log_cuenta_bancaria
 
 
 --
--- TOC entry 2859 (class 2606 OID 53369)
--- Dependencies: 160 238 2755
+-- TOC entry 2887 (class 2606 OID 53369)
+-- Dependencies: 238 2779 160
 -- Name: log_cuenta_pagar_idcuenta_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8066,8 +8173,8 @@ ALTER TABLE ONLY log_cuenta_pagar
 
 
 --
--- TOC entry 2860 (class 2606 OID 53374)
--- Dependencies: 307 160 2825
+-- TOC entry 2888 (class 2606 OID 53374)
+-- Dependencies: 160 307 2851
 -- Name: log_cuenta_pagar_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8076,8 +8183,8 @@ ALTER TABLE ONLY log_cuenta_pagar
 
 
 --
--- TOC entry 2861 (class 2606 OID 53379)
--- Dependencies: 162 240 2757
+-- TOC entry 2889 (class 2606 OID 53379)
+-- Dependencies: 240 162 2781
 -- Name: log_deposito_cliente_iddeposito_cliente_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8086,8 +8193,8 @@ ALTER TABLE ONLY log_deposito_cliente
 
 
 --
--- TOC entry 2862 (class 2606 OID 53384)
--- Dependencies: 162 307 2825
+-- TOC entry 2890 (class 2606 OID 53384)
+-- Dependencies: 162 307 2851
 -- Name: log_deposito_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8096,8 +8203,8 @@ ALTER TABLE ONLY log_deposito_cliente
 
 
 --
--- TOC entry 2863 (class 2606 OID 53389)
--- Dependencies: 164 242 2759
+-- TOC entry 2891 (class 2606 OID 53389)
+-- Dependencies: 164 242 2783
 -- Name: log_detalle_autorizacion_iddetalle_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8106,8 +8213,8 @@ ALTER TABLE ONLY log_detalle_autorizacion
 
 
 --
--- TOC entry 2864 (class 2606 OID 53394)
--- Dependencies: 164 307 2825
+-- TOC entry 2892 (class 2606 OID 53394)
+-- Dependencies: 164 307 2851
 -- Name: log_detalle_autorizacion_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8116,8 +8223,8 @@ ALTER TABLE ONLY log_detalle_autorizacion
 
 
 --
--- TOC entry 2865 (class 2606 OID 53399)
--- Dependencies: 166 244 2761
+-- TOC entry 2893 (class 2606 OID 53399)
+-- Dependencies: 166 244 2785
 -- Name: log_documento_iddocumento_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8126,8 +8233,8 @@ ALTER TABLE ONLY log_documento
 
 
 --
--- TOC entry 2866 (class 2606 OID 53404)
--- Dependencies: 166 307 2825
+-- TOC entry 2894 (class 2606 OID 53404)
+-- Dependencies: 166 307 2851
 -- Name: log_documento_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8136,8 +8243,8 @@ ALTER TABLE ONLY log_documento
 
 
 --
--- TOC entry 2867 (class 2606 OID 53409)
--- Dependencies: 168 2763 246
+-- TOC entry 2895 (class 2606 OID 53409)
+-- Dependencies: 168 246 2787
 -- Name: log_empresa_idempresa_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8146,8 +8253,8 @@ ALTER TABLE ONLY log_empresa
 
 
 --
--- TOC entry 2868 (class 2606 OID 53414)
--- Dependencies: 2825 168 307
+-- TOC entry 2896 (class 2606 OID 53414)
+-- Dependencies: 168 2851 307
 -- Name: log_empresa_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8156,8 +8263,8 @@ ALTER TABLE ONLY log_empresa
 
 
 --
--- TOC entry 2869 (class 2606 OID 53419)
--- Dependencies: 170 2765 170 247 247
+-- TOC entry 2897 (class 2606 OID 53419)
+-- Dependencies: 170 2789 247 247 170
 -- Name: log_existencia_idalmacen_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8166,8 +8273,8 @@ ALTER TABLE ONLY log_existencia
 
 
 --
--- TOC entry 2870 (class 2606 OID 53424)
--- Dependencies: 2825 307 170
+-- TOC entry 2898 (class 2606 OID 53424)
+-- Dependencies: 307 2851 170
 -- Name: log_existencia_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8176,8 +8283,8 @@ ALTER TABLE ONLY log_existencia
 
 
 --
--- TOC entry 2871 (class 2606 OID 53429)
--- Dependencies: 249 172 2767
+-- TOC entry 2899 (class 2606 OID 53429)
+-- Dependencies: 172 2791 249
 -- Name: log_familia_idfamilia_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8186,8 +8293,8 @@ ALTER TABLE ONLY log_familia
 
 
 --
--- TOC entry 2872 (class 2606 OID 53434)
--- Dependencies: 307 172 2825
+-- TOC entry 2900 (class 2606 OID 53434)
+-- Dependencies: 2851 172 307
 -- Name: log_familia_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8196,8 +8303,8 @@ ALTER TABLE ONLY log_familia
 
 
 --
--- TOC entry 2873 (class 2606 OID 53439)
--- Dependencies: 2771 253 174
+-- TOC entry 2901 (class 2606 OID 53439)
+-- Dependencies: 253 174 2795
 -- Name: log_letra_proveedor_idletra_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8206,8 +8313,8 @@ ALTER TABLE ONLY log_letra_proveedor
 
 
 --
--- TOC entry 2874 (class 2606 OID 53444)
--- Dependencies: 174 2825 307
+-- TOC entry 2902 (class 2606 OID 53444)
+-- Dependencies: 174 307 2851
 -- Name: log_letra_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8216,8 +8323,8 @@ ALTER TABLE ONLY log_letra_proveedor
 
 
 --
--- TOC entry 2875 (class 2606 OID 53449)
--- Dependencies: 255 2773 176
+-- TOC entry 2903 (class 2606 OID 53449)
+-- Dependencies: 176 2797 255
 -- Name: log_linea_idlinea_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8226,8 +8333,8 @@ ALTER TABLE ONLY log_linea
 
 
 --
--- TOC entry 2876 (class 2606 OID 53454)
--- Dependencies: 307 176 2825
+-- TOC entry 2904 (class 2606 OID 53454)
+-- Dependencies: 176 2851 307
 -- Name: log_linea_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8236,8 +8343,8 @@ ALTER TABLE ONLY log_linea
 
 
 --
--- TOC entry 2877 (class 2606 OID 53459)
--- Dependencies: 178 257 2775
+-- TOC entry 2905 (class 2606 OID 53459)
+-- Dependencies: 178 2799 257
 -- Name: log_lote_idlote_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8246,8 +8353,8 @@ ALTER TABLE ONLY log_lote
 
 
 --
--- TOC entry 2878 (class 2606 OID 53464)
--- Dependencies: 178 307 2825
+-- TOC entry 2906 (class 2606 OID 53464)
+-- Dependencies: 307 178 2851
 -- Name: log_lote_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8256,8 +8363,8 @@ ALTER TABLE ONLY log_lote
 
 
 --
--- TOC entry 3067 (class 2606 OID 54525)
--- Dependencies: 311 320 2831
+-- TOC entry 3095 (class 2606 OID 54525)
+-- Dependencies: 320 2857 311
 -- Name: log_menu_idmenu_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8266,8 +8373,8 @@ ALTER TABLE ONLY log_menu
 
 
 --
--- TOC entry 3068 (class 2606 OID 54530)
--- Dependencies: 320 307 2825
+-- TOC entry 3096 (class 2606 OID 54530)
+-- Dependencies: 2851 320 307
 -- Name: log_menu_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8276,8 +8383,8 @@ ALTER TABLE ONLY log_menu
 
 
 --
--- TOC entry 3065 (class 2606 OID 54498)
--- Dependencies: 318 310 2829
+-- TOC entry 3093 (class 2606 OID 54498)
+-- Dependencies: 318 310 2855
 -- Name: log_modulo_idmodulo_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8286,8 +8393,8 @@ ALTER TABLE ONLY log_modulo
 
 
 --
--- TOC entry 3066 (class 2606 OID 54503)
--- Dependencies: 318 307 2825
+-- TOC entry 3094 (class 2606 OID 54503)
+-- Dependencies: 318 2851 307
 -- Name: log_modulo_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8296,8 +8403,8 @@ ALTER TABLE ONLY log_modulo
 
 
 --
--- TOC entry 2879 (class 2606 OID 53469)
--- Dependencies: 259 2777 180
+-- TOC entry 2907 (class 2606 OID 53469)
+-- Dependencies: 180 2801 259
 -- Name: log_moneda_idmoneda_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8306,8 +8413,8 @@ ALTER TABLE ONLY log_moneda
 
 
 --
--- TOC entry 2880 (class 2606 OID 53474)
--- Dependencies: 307 180 2825
+-- TOC entry 2908 (class 2606 OID 53474)
+-- Dependencies: 180 2851 307
 -- Name: log_moneda_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8316,8 +8423,8 @@ ALTER TABLE ONLY log_moneda
 
 
 --
--- TOC entry 2881 (class 2606 OID 53479)
--- Dependencies: 261 2779 182
+-- TOC entry 2909 (class 2606 OID 53479)
+-- Dependencies: 182 2803 261
 -- Name: log_motivo_entrada_idmotivo_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8326,8 +8433,8 @@ ALTER TABLE ONLY log_motivo_entrada
 
 
 --
--- TOC entry 2882 (class 2606 OID 53484)
--- Dependencies: 2825 182 307
+-- TOC entry 2910 (class 2606 OID 53484)
+-- Dependencies: 182 307 2851
 -- Name: log_motivo_entrada_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8336,8 +8443,8 @@ ALTER TABLE ONLY log_motivo_entrada
 
 
 --
--- TOC entry 2883 (class 2606 OID 53489)
--- Dependencies: 263 184 2781
+-- TOC entry 2911 (class 2606 OID 53489)
+-- Dependencies: 2805 184 263
 -- Name: log_motivo_notabo_cliente_idmotivo_notabo_cliente_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8346,8 +8453,8 @@ ALTER TABLE ONLY log_motivo_notabo_cliente
 
 
 --
--- TOC entry 2884 (class 2606 OID 53494)
--- Dependencies: 184 2825 307
+-- TOC entry 2912 (class 2606 OID 53494)
+-- Dependencies: 184 2851 307
 -- Name: log_motivo_notabo_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8356,8 +8463,8 @@ ALTER TABLE ONLY log_motivo_notabo_cliente
 
 
 --
--- TOC entry 2885 (class 2606 OID 53499)
--- Dependencies: 186 265 2783
+-- TOC entry 2913 (class 2606 OID 53499)
+-- Dependencies: 265 186 2807
 -- Name: log_motivo_notabo_proveedor_idmotivo_notabo_proveedor_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8366,8 +8473,8 @@ ALTER TABLE ONLY log_motivo_notabo_proveedor
 
 
 --
--- TOC entry 2886 (class 2606 OID 53504)
--- Dependencies: 186 2825 307
+-- TOC entry 2914 (class 2606 OID 53504)
+-- Dependencies: 307 2851 186
 -- Name: log_motivo_notabo_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8376,8 +8483,8 @@ ALTER TABLE ONLY log_motivo_notabo_proveedor
 
 
 --
--- TOC entry 2887 (class 2606 OID 53509)
--- Dependencies: 2785 188 267
+-- TOC entry 2915 (class 2606 OID 53509)
+-- Dependencies: 2809 267 188
 -- Name: log_motivo_notcar_cliente_idmotivo_notcar_cliente_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8386,8 +8493,8 @@ ALTER TABLE ONLY log_motivo_notcar_cliente
 
 
 --
--- TOC entry 2888 (class 2606 OID 53514)
--- Dependencies: 307 2825 188
+-- TOC entry 2916 (class 2606 OID 53514)
+-- Dependencies: 307 188 2851
 -- Name: log_motivo_notcar_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8396,8 +8503,8 @@ ALTER TABLE ONLY log_motivo_notcar_cliente
 
 
 --
--- TOC entry 2889 (class 2606 OID 53519)
--- Dependencies: 269 190 2787
+-- TOC entry 2917 (class 2606 OID 53519)
+-- Dependencies: 2811 190 269
 -- Name: log_motivo_notcar_proveedor_idmotivo_notcar_proveedor_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8406,8 +8513,8 @@ ALTER TABLE ONLY log_motivo_notcar_proveedor
 
 
 --
--- TOC entry 2890 (class 2606 OID 53524)
--- Dependencies: 307 190 2825
+-- TOC entry 2918 (class 2606 OID 53524)
+-- Dependencies: 2851 190 307
 -- Name: log_motivo_notcar_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8416,8 +8523,8 @@ ALTER TABLE ONLY log_motivo_notcar_proveedor
 
 
 --
--- TOC entry 2891 (class 2606 OID 53529)
--- Dependencies: 2789 192 271
+-- TOC entry 2919 (class 2606 OID 53529)
+-- Dependencies: 2813 271 192
 -- Name: log_motivo_salida_idmotivo_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8426,8 +8533,8 @@ ALTER TABLE ONLY log_motivo_salida
 
 
 --
--- TOC entry 2892 (class 2606 OID 53534)
--- Dependencies: 307 2825 192
+-- TOC entry 2920 (class 2606 OID 53534)
+-- Dependencies: 2851 192 307
 -- Name: log_motivo_salida_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8436,8 +8543,8 @@ ALTER TABLE ONLY log_motivo_salida
 
 
 --
--- TOC entry 2893 (class 2606 OID 53539)
--- Dependencies: 194 2799 281
+-- TOC entry 2921 (class 2606 OID 53539)
+-- Dependencies: 2823 281 194
 -- Name: log_periodo_idperiodo_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8446,8 +8553,8 @@ ALTER TABLE ONLY log_periodo
 
 
 --
--- TOC entry 2894 (class 2606 OID 53544)
--- Dependencies: 194 2825 307
+-- TOC entry 2922 (class 2606 OID 53544)
+-- Dependencies: 307 194 2851
 -- Name: log_periodo_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8456,8 +8563,8 @@ ALTER TABLE ONLY log_periodo
 
 
 --
--- TOC entry 2895 (class 2606 OID 53549)
--- Dependencies: 2801 283 196
+-- TOC entry 2923 (class 2606 OID 53549)
+-- Dependencies: 196 283 2825
 -- Name: log_presentacion_idpresentacion_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8466,8 +8573,8 @@ ALTER TABLE ONLY log_presentacion
 
 
 --
--- TOC entry 2896 (class 2606 OID 53554)
--- Dependencies: 307 2825 196
+-- TOC entry 2924 (class 2606 OID 53554)
+-- Dependencies: 2851 196 307
 -- Name: log_presentacion_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8476,8 +8583,8 @@ ALTER TABLE ONLY log_presentacion
 
 
 --
--- TOC entry 2897 (class 2606 OID 53559)
--- Dependencies: 198 284 2803
+-- TOC entry 2925 (class 2606 OID 53559)
+-- Dependencies: 2827 198 284
 -- Name: log_producto_idproducto_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8486,8 +8593,8 @@ ALTER TABLE ONLY log_producto
 
 
 --
--- TOC entry 2898 (class 2606 OID 53564)
--- Dependencies: 198 307 2825
+-- TOC entry 2926 (class 2606 OID 53564)
+-- Dependencies: 307 198 2851
 -- Name: log_producto_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8496,8 +8603,8 @@ ALTER TABLE ONLY log_producto
 
 
 --
--- TOC entry 2899 (class 2606 OID 53569)
--- Dependencies: 200 286 2805
+-- TOC entry 2927 (class 2606 OID 53569)
+-- Dependencies: 200 286 2829
 -- Name: log_proveedor_idproveedor_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8506,8 +8613,8 @@ ALTER TABLE ONLY log_proveedor
 
 
 --
--- TOC entry 2900 (class 2606 OID 53574)
--- Dependencies: 200 2825 307
+-- TOC entry 2928 (class 2606 OID 53574)
+-- Dependencies: 200 307 2851
 -- Name: log_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8516,8 +8623,8 @@ ALTER TABLE ONLY log_proveedor
 
 
 --
--- TOC entry 2901 (class 2606 OID 53579)
--- Dependencies: 202 292 2811
+-- TOC entry 2929 (class 2606 OID 53579)
+-- Dependencies: 2837 202 292
 -- Name: log_rol_idrol_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8526,8 +8633,8 @@ ALTER TABLE ONLY log_rol
 
 
 --
--- TOC entry 2902 (class 2606 OID 53584)
--- Dependencies: 202 307 2825
+-- TOC entry 2930 (class 2606 OID 53584)
+-- Dependencies: 307 202 2851
 -- Name: log_rol_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8536,8 +8643,8 @@ ALTER TABLE ONLY log_rol
 
 
 --
--- TOC entry 2903 (class 2606 OID 53589)
--- Dependencies: 204 301 2813
+-- TOC entry 2931 (class 2606 OID 53589)
+-- Dependencies: 2839 204 301
 -- Name: log_sublinea_idsublinea_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8546,8 +8653,8 @@ ALTER TABLE ONLY log_sublinea
 
 
 --
--- TOC entry 2904 (class 2606 OID 53594)
--- Dependencies: 204 307 2825
+-- TOC entry 2932 (class 2606 OID 53594)
+-- Dependencies: 307 204 2851
 -- Name: log_sublinea_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8556,8 +8663,8 @@ ALTER TABLE ONLY log_sublinea
 
 
 --
--- TOC entry 2905 (class 2606 OID 53599)
--- Dependencies: 206 302 2815
+-- TOC entry 2933 (class 2606 OID 53599)
+-- Dependencies: 206 302 2841
 -- Name: log_tipo_cuenta_bancaria_idtipo_cuenta_bancaria_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8566,8 +8673,8 @@ ALTER TABLE ONLY log_tipo_cuenta_bancaria
 
 
 --
--- TOC entry 2906 (class 2606 OID 53604)
--- Dependencies: 206 307 2825
+-- TOC entry 2934 (class 2606 OID 53604)
+-- Dependencies: 206 307 2851
 -- Name: log_tipo_cuenta_bancaria_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8576,8 +8683,8 @@ ALTER TABLE ONLY log_tipo_cuenta_bancaria
 
 
 --
--- TOC entry 2907 (class 2606 OID 53609)
--- Dependencies: 208 303 2817
+-- TOC entry 2935 (class 2606 OID 53609)
+-- Dependencies: 2843 303 208
 -- Name: log_tipo_pago_idtipo_pago_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8586,8 +8693,8 @@ ALTER TABLE ONLY log_tipo_pago
 
 
 --
--- TOC entry 2908 (class 2606 OID 53614)
--- Dependencies: 2825 208 307
+-- TOC entry 2936 (class 2606 OID 53614)
+-- Dependencies: 208 2851 307
 -- Name: log_tipo_pago_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8596,8 +8703,8 @@ ALTER TABLE ONLY log_tipo_pago
 
 
 --
--- TOC entry 2909 (class 2606 OID 53619)
--- Dependencies: 210 2819 304
+-- TOC entry 2937 (class 2606 OID 53619)
+-- Dependencies: 210 304 2845
 -- Name: log_tipo_persona_idtipo_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8606,8 +8713,8 @@ ALTER TABLE ONLY log_tipo_persona
 
 
 --
--- TOC entry 2910 (class 2606 OID 53624)
--- Dependencies: 307 210 2825
+-- TOC entry 2938 (class 2606 OID 53624)
+-- Dependencies: 210 2851 307
 -- Name: log_tipo_persona_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8616,8 +8723,8 @@ ALTER TABLE ONLY log_tipo_persona
 
 
 --
--- TOC entry 2911 (class 2606 OID 53629)
--- Dependencies: 306 212 2823
+-- TOC entry 2939 (class 2606 OID 53629)
+-- Dependencies: 212 2849 306
 -- Name: log_unidad_negocio_idunidad_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8626,8 +8733,8 @@ ALTER TABLE ONLY log_unidad_negocio
 
 
 --
--- TOC entry 2912 (class 2606 OID 53634)
--- Dependencies: 212 307 2825
+-- TOC entry 2940 (class 2606 OID 53634)
+-- Dependencies: 307 212 2851
 -- Name: log_unidad_negocio_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8636,8 +8743,8 @@ ALTER TABLE ONLY log_unidad_negocio
 
 
 --
--- TOC entry 2913 (class 2606 OID 53639)
--- Dependencies: 307 214 2825
+-- TOC entry 2941 (class 2606 OID 53639)
+-- Dependencies: 2851 214 307
 -- Name: log_vendedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8646,8 +8753,8 @@ ALTER TABLE ONLY log_vendedor
 
 
 --
--- TOC entry 2914 (class 2606 OID 53644)
--- Dependencies: 308 214 2827
+-- TOC entry 2942 (class 2606 OID 53644)
+-- Dependencies: 308 214 2853
 -- Name: log_vendedor_idvendedor_fkey; Type: FK CONSTRAINT; Schema: log; Owner: agewunue_farmacia
 --
 
@@ -8658,8 +8765,8 @@ ALTER TABLE ONLY log_vendedor
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 3064 (class 2606 OID 54481)
--- Dependencies: 315 2733 216
+-- TOC entry 3092 (class 2606 OID 54481)
+-- Dependencies: 315 216 2755
 -- Name: acceso_idalmacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8668,8 +8775,8 @@ ALTER TABLE ONLY acceso
 
 
 --
--- TOC entry 3063 (class 2606 OID 54476)
--- Dependencies: 315 307 2825
+-- TOC entry 3091 (class 2606 OID 54476)
+-- Dependencies: 315 307 2851
 -- Name: acceso_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8678,8 +8785,8 @@ ALTER TABLE ONLY acceso
 
 
 --
--- TOC entry 2915 (class 2606 OID 53649)
--- Dependencies: 305 216 2821
+-- TOC entry 2943 (class 2606 OID 53649)
+-- Dependencies: 305 216 2847
 -- Name: almacen_idubigeo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8688,8 +8795,8 @@ ALTER TABLE ONLY almacen
 
 
 --
--- TOC entry 2916 (class 2606 OID 53654)
--- Dependencies: 2823 306 216
+-- TOC entry 2944 (class 2606 OID 53654)
+-- Dependencies: 306 216 2849
 -- Name: almacen_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8698,8 +8805,8 @@ ALTER TABLE ONLY almacen
 
 
 --
--- TOC entry 2917 (class 2606 OID 53659)
--- Dependencies: 307 2825 216
+-- TOC entry 2945 (class 2606 OID 53659)
+-- Dependencies: 307 216 2851
 -- Name: almacen_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8708,8 +8815,8 @@ ALTER TABLE ONLY almacen
 
 
 --
--- TOC entry 2918 (class 2606 OID 53664)
--- Dependencies: 232 2749 218
+-- TOC entry 2946 (class 2606 OID 53664)
+-- Dependencies: 232 218 2771
 -- Name: amortizacion_cliente_idcomprobante_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8718,8 +8825,8 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2919 (class 2606 OID 53669)
--- Dependencies: 218 2761 244
+-- TOC entry 2947 (class 2606 OID 53669)
+-- Dependencies: 2785 218 244
 -- Name: amortizacion_cliente_iddocumento_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8728,8 +8835,8 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2920 (class 2606 OID 53674)
--- Dependencies: 251 218 2769
+-- TOC entry 2948 (class 2606 OID 53674)
+-- Dependencies: 218 251 2793
 -- Name: amortizacion_cliente_idletra_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8738,8 +8845,8 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2921 (class 2606 OID 53679)
--- Dependencies: 218 259 2777
+-- TOC entry 2949 (class 2606 OID 53679)
+-- Dependencies: 2801 218 259
 -- Name: amortizacion_cliente_idmoneda_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8748,8 +8855,8 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2922 (class 2606 OID 53684)
--- Dependencies: 273 2791 218
+-- TOC entry 2950 (class 2606 OID 53684)
+-- Dependencies: 273 218 2815
 -- Name: amortizacion_cliente_idnotabo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8758,8 +8865,8 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2923 (class 2606 OID 53689)
--- Dependencies: 218 277 2795
+-- TOC entry 2951 (class 2606 OID 53689)
+-- Dependencies: 277 218 2819
 -- Name: amortizacion_cliente_idnotcar_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8768,8 +8875,8 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2924 (class 2606 OID 53694)
--- Dependencies: 303 218 2817
+-- TOC entry 2952 (class 2606 OID 53694)
+-- Dependencies: 303 218 2843
 -- Name: amortizacion_cliente_idtipo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8778,8 +8885,8 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2925 (class 2606 OID 53699)
--- Dependencies: 307 218 2825
+-- TOC entry 2953 (class 2606 OID 53699)
+-- Dependencies: 307 218 2851
 -- Name: amortizacion_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8788,8 +8895,8 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2926 (class 2606 OID 53704)
--- Dependencies: 308 218 2827
+-- TOC entry 2954 (class 2606 OID 53704)
+-- Dependencies: 308 218 2853
 -- Name: amortizacion_cliente_idvendedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8798,8 +8905,8 @@ ALTER TABLE ONLY amortizacion_cliente
 
 
 --
--- TOC entry 2927 (class 2606 OID 53709)
--- Dependencies: 220 226 2743
+-- TOC entry 2955 (class 2606 OID 53709)
+-- Dependencies: 226 220 2765
 -- Name: amortizacion_proveedor_idbanco_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8808,8 +8915,8 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2928 (class 2606 OID 53714)
--- Dependencies: 238 220 2755
+-- TOC entry 2956 (class 2606 OID 53714)
+-- Dependencies: 220 238 2779
 -- Name: amortizacion_proveedor_idcuenta_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8818,8 +8925,8 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2929 (class 2606 OID 53719)
--- Dependencies: 2761 244 220
+-- TOC entry 2957 (class 2606 OID 53719)
+-- Dependencies: 220 244 2785
 -- Name: amortizacion_proveedor_iddocumento_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8828,8 +8935,8 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2930 (class 2606 OID 53724)
--- Dependencies: 253 220 2771
+-- TOC entry 2958 (class 2606 OID 53724)
+-- Dependencies: 2795 220 253
 -- Name: amortizacion_proveedor_idletra_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8838,8 +8945,8 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2931 (class 2606 OID 53729)
--- Dependencies: 220 259 2777
+-- TOC entry 2959 (class 2606 OID 53729)
+-- Dependencies: 259 220 2801
 -- Name: amortizacion_proveedor_idmoneda_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8848,8 +8955,8 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2932 (class 2606 OID 53734)
--- Dependencies: 220 2793 275
+-- TOC entry 2960 (class 2606 OID 53734)
+-- Dependencies: 275 220 2817
 -- Name: amortizacion_proveedor_idnotabo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8858,8 +8965,8 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2933 (class 2606 OID 53739)
--- Dependencies: 2797 279 220
+-- TOC entry 2961 (class 2606 OID 53739)
+-- Dependencies: 279 220 2821
 -- Name: amortizacion_proveedor_idnotcar_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8868,8 +8975,8 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2934 (class 2606 OID 53744)
--- Dependencies: 2817 303 220
+-- TOC entry 2962 (class 2606 OID 53744)
+-- Dependencies: 303 220 2843
 -- Name: amortizacion_proveedor_idtipo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8878,8 +8985,8 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2935 (class 2606 OID 53749)
--- Dependencies: 220 307 2825
+-- TOC entry 2963 (class 2606 OID 53749)
+-- Dependencies: 307 220 2851
 -- Name: amortizacion_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8888,8 +8995,8 @@ ALTER TABLE ONLY amortizacion_proveedor
 
 
 --
--- TOC entry 2937 (class 2606 OID 53754)
--- Dependencies: 2747 224 230
+-- TOC entry 2965 (class 2606 OID 53754)
+-- Dependencies: 2769 224 230
 -- Name: aval_idcliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8898,8 +9005,8 @@ ALTER TABLE ONLY aval
 
 
 --
--- TOC entry 2938 (class 2606 OID 53759)
--- Dependencies: 224 307 2825
+-- TOC entry 2966 (class 2606 OID 53759)
+-- Dependencies: 2851 307 224
 -- Name: aval_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8908,8 +9015,8 @@ ALTER TABLE ONLY aval
 
 
 --
--- TOC entry 2939 (class 2606 OID 53764)
--- Dependencies: 259 226 2777
+-- TOC entry 2967 (class 2606 OID 53764)
+-- Dependencies: 226 259 2801
 -- Name: banco_idmoneda_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8918,8 +9025,8 @@ ALTER TABLE ONLY banco
 
 
 --
--- TOC entry 2940 (class 2606 OID 53769)
--- Dependencies: 307 226 2825
+-- TOC entry 2968 (class 2606 OID 53769)
+-- Dependencies: 307 2851 226
 -- Name: banco_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8928,8 +9035,8 @@ ALTER TABLE ONLY banco
 
 
 --
--- TOC entry 2941 (class 2606 OID 53774)
--- Dependencies: 226 2743 228
+-- TOC entry 2969 (class 2606 OID 53774)
+-- Dependencies: 228 226 2765
 -- Name: cheque_cliente_idbanco_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8938,8 +9045,8 @@ ALTER TABLE ONLY cheque_cliente
 
 
 --
--- TOC entry 2942 (class 2606 OID 53779)
--- Dependencies: 228 2747 230
+-- TOC entry 2970 (class 2606 OID 53779)
+-- Dependencies: 228 2769 230
 -- Name: cheque_cliente_idcliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8948,8 +9055,8 @@ ALTER TABLE ONLY cheque_cliente
 
 
 --
--- TOC entry 2943 (class 2606 OID 53784)
--- Dependencies: 228 2799 281
+-- TOC entry 2971 (class 2606 OID 53784)
+-- Dependencies: 281 2823 228
 -- Name: cheque_cliente_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8958,8 +9065,8 @@ ALTER TABLE ONLY cheque_cliente
 
 
 --
--- TOC entry 2944 (class 2606 OID 53789)
--- Dependencies: 306 228 2823
+-- TOC entry 2972 (class 2606 OID 53789)
+-- Dependencies: 306 2849 228
 -- Name: cheque_cliente_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8968,8 +9075,8 @@ ALTER TABLE ONLY cheque_cliente
 
 
 --
--- TOC entry 2945 (class 2606 OID 53794)
--- Dependencies: 307 2825 228
+-- TOC entry 2973 (class 2606 OID 53794)
+-- Dependencies: 228 307 2851
 -- Name: cheque_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8978,8 +9085,8 @@ ALTER TABLE ONLY cheque_cliente
 
 
 --
--- TOC entry 2946 (class 2606 OID 53799)
--- Dependencies: 230 2819 304
+-- TOC entry 2974 (class 2606 OID 53799)
+-- Dependencies: 304 230 2845
 -- Name: cliente_idtipo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8988,8 +9095,8 @@ ALTER TABLE ONLY cliente
 
 
 --
--- TOC entry 2947 (class 2606 OID 53804)
--- Dependencies: 230 2821 305
+-- TOC entry 2975 (class 2606 OID 53804)
+-- Dependencies: 230 305 2847
 -- Name: cliente_idubigeo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -8998,8 +9105,8 @@ ALTER TABLE ONLY cliente
 
 
 --
--- TOC entry 2948 (class 2606 OID 53809)
--- Dependencies: 2823 306 230
+-- TOC entry 2976 (class 2606 OID 53809)
+-- Dependencies: 2849 230 306
 -- Name: cliente_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9008,8 +9115,8 @@ ALTER TABLE ONLY cliente
 
 
 --
--- TOC entry 2949 (class 2606 OID 53814)
--- Dependencies: 230 2825 307
+-- TOC entry 2977 (class 2606 OID 53814)
+-- Dependencies: 2851 307 230
 -- Name: cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9018,8 +9125,8 @@ ALTER TABLE ONLY cliente
 
 
 --
--- TOC entry 2950 (class 2606 OID 53819)
--- Dependencies: 232 2747 230
+-- TOC entry 2978 (class 2606 OID 53819)
+-- Dependencies: 230 232 2769
 -- Name: comprobante_emitido_idcliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9028,8 +9135,8 @@ ALTER TABLE ONLY comprobante_emitido
 
 
 --
--- TOC entry 2951 (class 2606 OID 53824)
--- Dependencies: 2751 234 232
+-- TOC entry 2979 (class 2606 OID 53824)
+-- Dependencies: 232 2773 234
 -- Name: comprobante_emitido_idcondicion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9038,8 +9145,8 @@ ALTER TABLE ONLY comprobante_emitido
 
 
 --
--- TOC entry 2952 (class 2606 OID 53829)
--- Dependencies: 2761 232 244
+-- TOC entry 2980 (class 2606 OID 53829)
+-- Dependencies: 232 244 2785
 -- Name: comprobante_emitido_iddocumento_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9048,8 +9155,8 @@ ALTER TABLE ONLY comprobante_emitido
 
 
 --
--- TOC entry 2953 (class 2606 OID 53834)
--- Dependencies: 2809 232 290
+-- TOC entry 2981 (class 2606 OID 53834)
+-- Dependencies: 290 232 2835
 -- Name: comprobante_emitido_idregsalida_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9058,8 +9165,8 @@ ALTER TABLE ONLY comprobante_emitido
 
 
 --
--- TOC entry 2954 (class 2606 OID 53839)
--- Dependencies: 232 2823 306
+-- TOC entry 2982 (class 2606 OID 53839)
+-- Dependencies: 306 232 2849
 -- Name: comprobante_emitido_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9068,8 +9175,8 @@ ALTER TABLE ONLY comprobante_emitido
 
 
 --
--- TOC entry 2955 (class 2606 OID 53844)
--- Dependencies: 307 232 2825
+-- TOC entry 2983 (class 2606 OID 53844)
+-- Dependencies: 2851 307 232
 -- Name: comprobante_emitido_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9078,8 +9185,8 @@ ALTER TABLE ONLY comprobante_emitido
 
 
 --
--- TOC entry 2956 (class 2606 OID 53849)
--- Dependencies: 232 2827 308
+-- TOC entry 2984 (class 2606 OID 53849)
+-- Dependencies: 308 232 2853
 -- Name: comprobante_emitido_idvendedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9088,8 +9195,8 @@ ALTER TABLE ONLY comprobante_emitido
 
 
 --
--- TOC entry 2957 (class 2606 OID 53854)
--- Dependencies: 2825 307 234
+-- TOC entry 2985 (class 2606 OID 53854)
+-- Dependencies: 307 234 2851
 -- Name: condicion_venta_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9098,8 +9205,8 @@ ALTER TABLE ONLY condicion_venta
 
 
 --
--- TOC entry 2958 (class 2606 OID 53859)
--- Dependencies: 236 226 2743
+-- TOC entry 2986 (class 2606 OID 53859)
+-- Dependencies: 2765 226 236
 -- Name: cuenta_bancaria_idbanco_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9108,8 +9215,8 @@ ALTER TABLE ONLY cuenta_bancaria
 
 
 --
--- TOC entry 2959 (class 2606 OID 53864)
--- Dependencies: 2805 236 286
+-- TOC entry 2987 (class 2606 OID 53864)
+-- Dependencies: 286 2829 236
 -- Name: cuenta_bancaria_idproveedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9118,8 +9225,8 @@ ALTER TABLE ONLY cuenta_bancaria
 
 
 --
--- TOC entry 2960 (class 2606 OID 53869)
--- Dependencies: 302 2815 236
+-- TOC entry 2988 (class 2606 OID 53869)
+-- Dependencies: 302 2841 236
 -- Name: cuenta_bancaria_idtipo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9128,8 +9235,8 @@ ALTER TABLE ONLY cuenta_bancaria
 
 
 --
--- TOC entry 2961 (class 2606 OID 53874)
--- Dependencies: 236 307 2825
+-- TOC entry 2989 (class 2606 OID 53874)
+-- Dependencies: 2851 236 307
 -- Name: cuenta_bancaria_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9138,8 +9245,8 @@ ALTER TABLE ONLY cuenta_bancaria
 
 
 --
--- TOC entry 2962 (class 2606 OID 53879)
--- Dependencies: 2761 238 244
+-- TOC entry 2990 (class 2606 OID 53879)
+-- Dependencies: 244 2785 238
 -- Name: cuenta_pagar_iddocumento_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9148,8 +9255,8 @@ ALTER TABLE ONLY cuenta_pagar
 
 
 --
--- TOC entry 2963 (class 2606 OID 53884)
--- Dependencies: 259 238 2777
+-- TOC entry 2991 (class 2606 OID 53884)
+-- Dependencies: 238 2801 259
 -- Name: cuenta_pagar_idmoneda_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9158,8 +9265,8 @@ ALTER TABLE ONLY cuenta_pagar
 
 
 --
--- TOC entry 2964 (class 2606 OID 53889)
--- Dependencies: 281 238 2799
+-- TOC entry 2992 (class 2606 OID 53889)
+-- Dependencies: 238 281 2823
 -- Name: cuenta_pagar_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9168,8 +9275,8 @@ ALTER TABLE ONLY cuenta_pagar
 
 
 --
--- TOC entry 2965 (class 2606 OID 53894)
--- Dependencies: 286 238 2805
+-- TOC entry 2993 (class 2606 OID 53894)
+-- Dependencies: 286 238 2829
 -- Name: cuenta_pagar_idproveedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9178,8 +9285,8 @@ ALTER TABLE ONLY cuenta_pagar
 
 
 --
--- TOC entry 2966 (class 2606 OID 53899)
--- Dependencies: 288 238 2807
+-- TOC entry 2994 (class 2606 OID 53899)
+-- Dependencies: 2833 288 238
 -- Name: cuenta_pagar_idregentrada_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9188,8 +9295,8 @@ ALTER TABLE ONLY cuenta_pagar
 
 
 --
--- TOC entry 2967 (class 2606 OID 53904)
--- Dependencies: 306 238 2823
+-- TOC entry 2995 (class 2606 OID 53904)
+-- Dependencies: 238 2849 306
 -- Name: cuenta_pagar_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9198,8 +9305,8 @@ ALTER TABLE ONLY cuenta_pagar
 
 
 --
--- TOC entry 2968 (class 2606 OID 53909)
--- Dependencies: 307 238 2825
+-- TOC entry 2996 (class 2606 OID 53909)
+-- Dependencies: 238 2851 307
 -- Name: cuenta_pagar_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9208,8 +9315,8 @@ ALTER TABLE ONLY cuenta_pagar
 
 
 --
--- TOC entry 2969 (class 2606 OID 53914)
--- Dependencies: 226 240 2743
+-- TOC entry 2997 (class 2606 OID 53914)
+-- Dependencies: 226 240 2765
 -- Name: deposito_cliente_idbanco_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9218,8 +9325,8 @@ ALTER TABLE ONLY deposito_cliente
 
 
 --
--- TOC entry 2970 (class 2606 OID 53919)
--- Dependencies: 230 240 2747
+-- TOC entry 2998 (class 2606 OID 53919)
+-- Dependencies: 2769 240 230
 -- Name: deposito_cliente_idcliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9228,8 +9335,8 @@ ALTER TABLE ONLY deposito_cliente
 
 
 --
--- TOC entry 2971 (class 2606 OID 53924)
--- Dependencies: 281 240 2799
+-- TOC entry 2999 (class 2606 OID 53924)
+-- Dependencies: 281 240 2823
 -- Name: deposito_cliente_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9238,8 +9345,8 @@ ALTER TABLE ONLY deposito_cliente
 
 
 --
--- TOC entry 2972 (class 2606 OID 53929)
--- Dependencies: 240 306 2823
+-- TOC entry 3000 (class 2606 OID 53929)
+-- Dependencies: 306 240 2849
 -- Name: deposito_cliente_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9248,8 +9355,8 @@ ALTER TABLE ONLY deposito_cliente
 
 
 --
--- TOC entry 2973 (class 2606 OID 53934)
--- Dependencies: 240 307 2825
+-- TOC entry 3001 (class 2606 OID 53934)
+-- Dependencies: 307 240 2851
 -- Name: deposito_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9258,8 +9365,8 @@ ALTER TABLE ONLY deposito_cliente
 
 
 --
--- TOC entry 2974 (class 2606 OID 53939)
--- Dependencies: 2739 242 222
+-- TOC entry 3002 (class 2606 OID 53939)
+-- Dependencies: 222 242 2761
 -- Name: detalle_autorizacion_idautorizacion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9268,8 +9375,8 @@ ALTER TABLE ONLY detalle_autorizacion
 
 
 --
--- TOC entry 2975 (class 2606 OID 53944)
--- Dependencies: 307 244 2825
+-- TOC entry 3003 (class 2606 OID 53944)
+-- Dependencies: 2851 244 307
 -- Name: documento_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9278,8 +9385,8 @@ ALTER TABLE ONLY documento
 
 
 --
--- TOC entry 2976 (class 2606 OID 53949)
--- Dependencies: 305 246 2821
+-- TOC entry 3004 (class 2606 OID 53949)
+-- Dependencies: 246 305 2847
 -- Name: empresa_idubigeo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9288,8 +9395,8 @@ ALTER TABLE ONLY empresa
 
 
 --
--- TOC entry 2977 (class 2606 OID 53954)
--- Dependencies: 307 246 2825
+-- TOC entry 3005 (class 2606 OID 53954)
+-- Dependencies: 246 2851 307
 -- Name: empresa_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9298,8 +9405,8 @@ ALTER TABLE ONLY empresa
 
 
 --
--- TOC entry 2978 (class 2606 OID 53959)
--- Dependencies: 307 247 2825
+-- TOC entry 3006 (class 2606 OID 53959)
+-- Dependencies: 307 2851 247
 -- Name: existencia_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9308,8 +9415,8 @@ ALTER TABLE ONLY existencia
 
 
 --
--- TOC entry 2979 (class 2606 OID 53964)
--- Dependencies: 307 249 2825
+-- TOC entry 3007 (class 2606 OID 53964)
+-- Dependencies: 249 307 2851
 -- Name: familia_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9318,8 +9425,8 @@ ALTER TABLE ONLY familia
 
 
 --
--- TOC entry 2980 (class 2606 OID 53969)
--- Dependencies: 224 251 2741
+-- TOC entry 3008 (class 2606 OID 53969)
+-- Dependencies: 2763 251 224
 -- Name: letra_cliente_idaval_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9328,8 +9435,8 @@ ALTER TABLE ONLY letra_cliente
 
 
 --
--- TOC entry 2981 (class 2606 OID 53974)
--- Dependencies: 226 251 2743
+-- TOC entry 3009 (class 2606 OID 53974)
+-- Dependencies: 2765 251 226
 -- Name: letra_cliente_idbanco_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9338,8 +9445,8 @@ ALTER TABLE ONLY letra_cliente
 
 
 --
--- TOC entry 2982 (class 2606 OID 53979)
--- Dependencies: 230 251 2747
+-- TOC entry 3010 (class 2606 OID 53979)
+-- Dependencies: 2769 251 230
 -- Name: letra_cliente_idcliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9348,8 +9455,8 @@ ALTER TABLE ONLY letra_cliente
 
 
 --
--- TOC entry 2983 (class 2606 OID 53984)
--- Dependencies: 251 2799 281
+-- TOC entry 3011 (class 2606 OID 53984)
+-- Dependencies: 281 251 2823
 -- Name: letra_cliente_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9358,8 +9465,8 @@ ALTER TABLE ONLY letra_cliente
 
 
 --
--- TOC entry 2984 (class 2606 OID 53989)
--- Dependencies: 251 306 2823
+-- TOC entry 3012 (class 2606 OID 53989)
+-- Dependencies: 251 2849 306
 -- Name: letra_cliente_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9368,8 +9475,8 @@ ALTER TABLE ONLY letra_cliente
 
 
 --
--- TOC entry 2985 (class 2606 OID 53994)
--- Dependencies: 251 307 2825
+-- TOC entry 3013 (class 2606 OID 53994)
+-- Dependencies: 307 2851 251
 -- Name: letra_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9378,8 +9485,8 @@ ALTER TABLE ONLY letra_cliente
 
 
 --
--- TOC entry 2986 (class 2606 OID 53999)
--- Dependencies: 2827 251 308
+-- TOC entry 3014 (class 2606 OID 53999)
+-- Dependencies: 308 2853 251
 -- Name: letra_cliente_idvendedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9388,8 +9495,8 @@ ALTER TABLE ONLY letra_cliente
 
 
 --
--- TOC entry 2987 (class 2606 OID 54004)
--- Dependencies: 259 253 2777
+-- TOC entry 3015 (class 2606 OID 54004)
+-- Dependencies: 259 253 2801
 -- Name: letra_proveedor_idmoneda_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9398,8 +9505,8 @@ ALTER TABLE ONLY letra_proveedor
 
 
 --
--- TOC entry 2988 (class 2606 OID 54009)
--- Dependencies: 281 253 2799
+-- TOC entry 3016 (class 2606 OID 54009)
+-- Dependencies: 281 2823 253
 -- Name: letra_proveedor_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9408,8 +9515,8 @@ ALTER TABLE ONLY letra_proveedor
 
 
 --
--- TOC entry 2989 (class 2606 OID 54014)
--- Dependencies: 286 253 2805
+-- TOC entry 3017 (class 2606 OID 54014)
+-- Dependencies: 286 2829 253
 -- Name: letra_proveedor_idproveedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9418,8 +9525,8 @@ ALTER TABLE ONLY letra_proveedor
 
 
 --
--- TOC entry 2990 (class 2606 OID 54019)
--- Dependencies: 306 253 2823
+-- TOC entry 3018 (class 2606 OID 54019)
+-- Dependencies: 2849 253 306
 -- Name: letra_proveedor_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9428,8 +9535,8 @@ ALTER TABLE ONLY letra_proveedor
 
 
 --
--- TOC entry 2991 (class 2606 OID 54024)
--- Dependencies: 307 253 2825
+-- TOC entry 3019 (class 2606 OID 54024)
+-- Dependencies: 307 253 2851
 -- Name: letra_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9438,8 +9545,8 @@ ALTER TABLE ONLY letra_proveedor
 
 
 --
--- TOC entry 2992 (class 2606 OID 54029)
--- Dependencies: 307 255 2825
+-- TOC entry 3020 (class 2606 OID 54029)
+-- Dependencies: 255 2851 307
 -- Name: linea_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9448,8 +9555,8 @@ ALTER TABLE ONLY linea
 
 
 --
--- TOC entry 2993 (class 2606 OID 54034)
--- Dependencies: 247 257 257 247 2765
+-- TOC entry 3021 (class 2606 OID 54034)
+-- Dependencies: 2789 247 247 257 257
 -- Name: lote_idalmacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9458,8 +9565,8 @@ ALTER TABLE ONLY lote
 
 
 --
--- TOC entry 2994 (class 2606 OID 54039)
--- Dependencies: 261 257 2779
+-- TOC entry 3022 (class 2606 OID 54039)
+-- Dependencies: 2803 261 257
 -- Name: lote_idmotivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9468,8 +9575,8 @@ ALTER TABLE ONLY lote
 
 
 --
--- TOC entry 2995 (class 2606 OID 54044)
--- Dependencies: 307 257 2825
+-- TOC entry 3023 (class 2606 OID 54044)
+-- Dependencies: 2851 307 257
 -- Name: lote_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9478,8 +9585,8 @@ ALTER TABLE ONLY lote
 
 
 --
--- TOC entry 3061 (class 2606 OID 54451)
--- Dependencies: 313 2831 311
+-- TOC entry 3089 (class 2606 OID 54451)
+-- Dependencies: 313 311 2857
 -- Name: mapa_idmenu_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9488,8 +9595,8 @@ ALTER TABLE ONLY mapa
 
 
 --
--- TOC entry 3060 (class 2606 OID 54446)
--- Dependencies: 2811 292 313
+-- TOC entry 3088 (class 2606 OID 54446)
+-- Dependencies: 313 292 2837
 -- Name: mapa_idrol_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9498,8 +9605,8 @@ ALTER TABLE ONLY mapa
 
 
 --
--- TOC entry 3062 (class 2606 OID 54456)
--- Dependencies: 307 313 2825
+-- TOC entry 3090 (class 2606 OID 54456)
+-- Dependencies: 313 307 2851
 -- Name: mapa_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9508,8 +9615,8 @@ ALTER TABLE ONLY mapa
 
 
 --
--- TOC entry 3058 (class 2606 OID 54421)
--- Dependencies: 2829 311 310
+-- TOC entry 3086 (class 2606 OID 54421)
+-- Dependencies: 311 310 2855
 -- Name: menu_idmodulo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9518,8 +9625,8 @@ ALTER TABLE ONLY menu
 
 
 --
--- TOC entry 3059 (class 2606 OID 54426)
--- Dependencies: 307 311 2825
+-- TOC entry 3087 (class 2606 OID 54426)
+-- Dependencies: 311 307 2851
 -- Name: menu_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9528,8 +9635,8 @@ ALTER TABLE ONLY menu
 
 
 --
--- TOC entry 3057 (class 2606 OID 54373)
--- Dependencies: 307 2825 310
+-- TOC entry 3085 (class 2606 OID 54373)
+-- Dependencies: 310 307 2851
 -- Name: modulo_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9538,8 +9645,8 @@ ALTER TABLE ONLY modulo
 
 
 --
--- TOC entry 2996 (class 2606 OID 54049)
--- Dependencies: 259 307 2825
+-- TOC entry 3024 (class 2606 OID 54049)
+-- Dependencies: 2851 307 259
 -- Name: moneda_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9548,8 +9655,8 @@ ALTER TABLE ONLY moneda
 
 
 --
--- TOC entry 2998 (class 2606 OID 54054)
--- Dependencies: 2825 263 307
+-- TOC entry 3026 (class 2606 OID 54054)
+-- Dependencies: 307 263 2851
 -- Name: motivo_notabo_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9558,8 +9665,8 @@ ALTER TABLE ONLY motivo_notabo_cliente
 
 
 --
--- TOC entry 2999 (class 2606 OID 54059)
--- Dependencies: 307 265 2825
+-- TOC entry 3027 (class 2606 OID 54059)
+-- Dependencies: 2851 307 265
 -- Name: motivo_notabo_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9568,8 +9675,8 @@ ALTER TABLE ONLY motivo_notabo_proveedor
 
 
 --
--- TOC entry 3000 (class 2606 OID 54064)
--- Dependencies: 307 267 2825
+-- TOC entry 3028 (class 2606 OID 54064)
+-- Dependencies: 307 267 2851
 -- Name: motivo_notcar_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9578,8 +9685,8 @@ ALTER TABLE ONLY motivo_notcar_cliente
 
 
 --
--- TOC entry 3001 (class 2606 OID 54069)
--- Dependencies: 307 269 2825
+-- TOC entry 3029 (class 2606 OID 54069)
+-- Dependencies: 2851 269 307
 -- Name: motivo_notcar_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9588,8 +9695,8 @@ ALTER TABLE ONLY motivo_notcar_proveedor
 
 
 --
--- TOC entry 3002 (class 2606 OID 54074)
--- Dependencies: 307 271 2825
+-- TOC entry 3030 (class 2606 OID 54074)
+-- Dependencies: 2851 307 271
 -- Name: motivo_salida_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9598,8 +9705,8 @@ ALTER TABLE ONLY motivo_salida
 
 
 --
--- TOC entry 2997 (class 2606 OID 54079)
--- Dependencies: 307 261 2825
+-- TOC entry 3025 (class 2606 OID 54079)
+-- Dependencies: 307 261 2851
 -- Name: motivoentrada_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9608,8 +9715,38 @@ ALTER TABLE ONLY motivo_entrada
 
 
 --
--- TOC entry 3003 (class 2606 OID 54084)
--- Dependencies: 230 273 2747
+-- TOC entry 3097 (class 2606 OID 54543)
+-- Dependencies: 321 2789 247 321 247
+-- Name: movimiento_idalmacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
+--
+
+ALTER TABLE ONLY movimiento
+    ADD CONSTRAINT movimiento_idalmacen_fkey FOREIGN KEY (idalmacen, idproducto) REFERENCES existencia(idalmacen, idproducto);
+
+
+--
+-- TOC entry 3098 (class 2606 OID 54593)
+-- Dependencies: 288 2833 321
+-- Name: movimiento_idregentrada_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
+--
+
+ALTER TABLE ONLY movimiento
+    ADD CONSTRAINT movimiento_idregentrada_fkey FOREIGN KEY (idregentrada) REFERENCES registro_entrada(idregentrada);
+
+
+--
+-- TOC entry 3099 (class 2606 OID 54598)
+-- Dependencies: 2835 290 321
+-- Name: movimiento_idregsalida_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
+--
+
+ALTER TABLE ONLY movimiento
+    ADD CONSTRAINT movimiento_idregsalida_fkey FOREIGN KEY (idregsalida) REFERENCES registro_salida(idregsalida);
+
+
+--
+-- TOC entry 3031 (class 2606 OID 54084)
+-- Dependencies: 230 273 2769
 -- Name: notabo_cliente_idcliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9618,8 +9755,8 @@ ALTER TABLE ONLY notabo_cliente
 
 
 --
--- TOC entry 3004 (class 2606 OID 54089)
--- Dependencies: 263 273 2781
+-- TOC entry 3032 (class 2606 OID 54089)
+-- Dependencies: 263 273 2805
 -- Name: notabo_cliente_idmotivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9628,8 +9765,8 @@ ALTER TABLE ONLY notabo_cliente
 
 
 --
--- TOC entry 3005 (class 2606 OID 54094)
--- Dependencies: 281 273 2799
+-- TOC entry 3033 (class 2606 OID 54094)
+-- Dependencies: 281 2823 273
 -- Name: notabo_cliente_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9638,8 +9775,8 @@ ALTER TABLE ONLY notabo_cliente
 
 
 --
--- TOC entry 3006 (class 2606 OID 54099)
--- Dependencies: 306 2823 273
+-- TOC entry 3034 (class 2606 OID 54099)
+-- Dependencies: 2849 306 273
 -- Name: notabo_cliente_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9648,8 +9785,8 @@ ALTER TABLE ONLY notabo_cliente
 
 
 --
--- TOC entry 3007 (class 2606 OID 54104)
--- Dependencies: 307 273 2825
+-- TOC entry 3035 (class 2606 OID 54104)
+-- Dependencies: 2851 273 307
 -- Name: notabo_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9658,8 +9795,8 @@ ALTER TABLE ONLY notabo_cliente
 
 
 --
--- TOC entry 3008 (class 2606 OID 54109)
--- Dependencies: 273 308 2827
+-- TOC entry 3036 (class 2606 OID 54109)
+-- Dependencies: 308 273 2853
 -- Name: notabo_cliente_idvendedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9668,8 +9805,8 @@ ALTER TABLE ONLY notabo_cliente
 
 
 --
--- TOC entry 3009 (class 2606 OID 54114)
--- Dependencies: 2777 275 259
+-- TOC entry 3037 (class 2606 OID 54114)
+-- Dependencies: 275 2801 259
 -- Name: notabo_proveedor_idmoneda_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9678,8 +9815,8 @@ ALTER TABLE ONLY notabo_proveedor
 
 
 --
--- TOC entry 3010 (class 2606 OID 54119)
--- Dependencies: 265 275 2783
+-- TOC entry 3038 (class 2606 OID 54119)
+-- Dependencies: 275 265 2807
 -- Name: notabo_proveedor_idmotivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9688,8 +9825,8 @@ ALTER TABLE ONLY notabo_proveedor
 
 
 --
--- TOC entry 3011 (class 2606 OID 54124)
--- Dependencies: 281 275 2799
+-- TOC entry 3039 (class 2606 OID 54124)
+-- Dependencies: 2823 281 275
 -- Name: notabo_proveedor_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9698,8 +9835,8 @@ ALTER TABLE ONLY notabo_proveedor
 
 
 --
--- TOC entry 3012 (class 2606 OID 54129)
--- Dependencies: 286 275 2805
+-- TOC entry 3040 (class 2606 OID 54129)
+-- Dependencies: 275 286 2829
 -- Name: notabo_proveedor_idproveedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9708,8 +9845,8 @@ ALTER TABLE ONLY notabo_proveedor
 
 
 --
--- TOC entry 3013 (class 2606 OID 54134)
--- Dependencies: 306 275 2823
+-- TOC entry 3041 (class 2606 OID 54134)
+-- Dependencies: 275 306 2849
 -- Name: notabo_proveedor_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9718,8 +9855,8 @@ ALTER TABLE ONLY notabo_proveedor
 
 
 --
--- TOC entry 3014 (class 2606 OID 54139)
--- Dependencies: 307 275 2825
+-- TOC entry 3042 (class 2606 OID 54139)
+-- Dependencies: 275 307 2851
 -- Name: notabo_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9728,8 +9865,8 @@ ALTER TABLE ONLY notabo_proveedor
 
 
 --
--- TOC entry 3015 (class 2606 OID 54144)
--- Dependencies: 230 277 2747
+-- TOC entry 3043 (class 2606 OID 54144)
+-- Dependencies: 2769 230 277
 -- Name: notcar_cliente_idcliente_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9738,8 +9875,8 @@ ALTER TABLE ONLY notcar_cliente
 
 
 --
--- TOC entry 3016 (class 2606 OID 54149)
--- Dependencies: 267 277 2785
+-- TOC entry 3044 (class 2606 OID 54149)
+-- Dependencies: 2809 267 277
 -- Name: notcar_cliente_idmotivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9748,8 +9885,8 @@ ALTER TABLE ONLY notcar_cliente
 
 
 --
--- TOC entry 3017 (class 2606 OID 54154)
--- Dependencies: 281 277 2799
+-- TOC entry 3045 (class 2606 OID 54154)
+-- Dependencies: 277 281 2823
 -- Name: notcar_cliente_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9758,8 +9895,8 @@ ALTER TABLE ONLY notcar_cliente
 
 
 --
--- TOC entry 3018 (class 2606 OID 54159)
--- Dependencies: 306 277 2823
+-- TOC entry 3046 (class 2606 OID 54159)
+-- Dependencies: 306 2849 277
 -- Name: notcar_cliente_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9768,8 +9905,8 @@ ALTER TABLE ONLY notcar_cliente
 
 
 --
--- TOC entry 3019 (class 2606 OID 54164)
--- Dependencies: 277 307 2825
+-- TOC entry 3047 (class 2606 OID 54164)
+-- Dependencies: 307 277 2851
 -- Name: notcar_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9778,8 +9915,8 @@ ALTER TABLE ONLY notcar_cliente
 
 
 --
--- TOC entry 3020 (class 2606 OID 54169)
--- Dependencies: 277 308 2827
+-- TOC entry 3048 (class 2606 OID 54169)
+-- Dependencies: 2853 308 277
 -- Name: notcar_cliente_idvendedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9788,8 +9925,8 @@ ALTER TABLE ONLY notcar_cliente
 
 
 --
--- TOC entry 3021 (class 2606 OID 54174)
--- Dependencies: 2777 279 259
+-- TOC entry 3049 (class 2606 OID 54174)
+-- Dependencies: 259 279 2801
 -- Name: notcar_proveedor_idmoneda_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9798,8 +9935,8 @@ ALTER TABLE ONLY notcar_proveedor
 
 
 --
--- TOC entry 3022 (class 2606 OID 54179)
--- Dependencies: 269 279 2787
+-- TOC entry 3050 (class 2606 OID 54179)
+-- Dependencies: 2811 279 269
 -- Name: notcar_proveedor_idmotivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9808,8 +9945,8 @@ ALTER TABLE ONLY notcar_proveedor
 
 
 --
--- TOC entry 3023 (class 2606 OID 54184)
--- Dependencies: 281 279 2799
+-- TOC entry 3051 (class 2606 OID 54184)
+-- Dependencies: 2823 279 281
 -- Name: notcar_proveedor_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9818,8 +9955,8 @@ ALTER TABLE ONLY notcar_proveedor
 
 
 --
--- TOC entry 3024 (class 2606 OID 54189)
--- Dependencies: 286 279 2805
+-- TOC entry 3052 (class 2606 OID 54189)
+-- Dependencies: 279 286 2829
 -- Name: notcar_proveedor_idproveedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9828,8 +9965,8 @@ ALTER TABLE ONLY notcar_proveedor
 
 
 --
--- TOC entry 3025 (class 2606 OID 54194)
--- Dependencies: 306 279 2823
+-- TOC entry 3053 (class 2606 OID 54194)
+-- Dependencies: 2849 306 279
 -- Name: notcar_proveedor_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9838,8 +9975,8 @@ ALTER TABLE ONLY notcar_proveedor
 
 
 --
--- TOC entry 3026 (class 2606 OID 54199)
--- Dependencies: 307 279 2825
+-- TOC entry 3054 (class 2606 OID 54199)
+-- Dependencies: 2851 279 307
 -- Name: notcar_proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9848,8 +9985,8 @@ ALTER TABLE ONLY notcar_proveedor
 
 
 --
--- TOC entry 3027 (class 2606 OID 54204)
--- Dependencies: 307 281 2825
+-- TOC entry 3055 (class 2606 OID 54204)
+-- Dependencies: 281 307 2851
 -- Name: periodo_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9858,8 +9995,8 @@ ALTER TABLE ONLY periodo
 
 
 --
--- TOC entry 2936 (class 2606 OID 54209)
--- Dependencies: 307 222 2825
+-- TOC entry 2964 (class 2606 OID 54209)
+-- Dependencies: 222 307 2851
 -- Name: permiso_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9868,8 +10005,8 @@ ALTER TABLE ONLY autorizacion
 
 
 --
--- TOC entry 3028 (class 2606 OID 54214)
--- Dependencies: 307 283 2825
+-- TOC entry 3056 (class 2606 OID 54214)
+-- Dependencies: 283 307 2851
 -- Name: presentacion_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9878,8 +10015,8 @@ ALTER TABLE ONLY presentacion
 
 
 --
--- TOC entry 3029 (class 2606 OID 54219)
--- Dependencies: 284 2767 249
+-- TOC entry 3057 (class 2606 OID 54219)
+-- Dependencies: 284 249 2791
 -- Name: producto_idfamilia_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9888,8 +10025,8 @@ ALTER TABLE ONLY producto
 
 
 --
--- TOC entry 3030 (class 2606 OID 54224)
--- Dependencies: 284 283 2801
+-- TOC entry 3058 (class 2606 OID 54224)
+-- Dependencies: 283 284 2825
 -- Name: producto_idpresentacion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9898,8 +10035,8 @@ ALTER TABLE ONLY producto
 
 
 --
--- TOC entry 3031 (class 2606 OID 54229)
--- Dependencies: 284 301 2813
+-- TOC entry 3059 (class 2606 OID 54229)
+-- Dependencies: 301 284 2839
 -- Name: producto_idsublinea_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9908,8 +10045,8 @@ ALTER TABLE ONLY producto
 
 
 --
--- TOC entry 3032 (class 2606 OID 54234)
--- Dependencies: 2825 284 307
+-- TOC entry 3060 (class 2606 OID 54234)
+-- Dependencies: 284 307 2851
 -- Name: producto_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9918,8 +10055,8 @@ ALTER TABLE ONLY producto
 
 
 --
--- TOC entry 3033 (class 2606 OID 54239)
--- Dependencies: 305 286 2821
+-- TOC entry 3061 (class 2606 OID 54239)
+-- Dependencies: 286 305 2847
 -- Name: proveedor_idubigeo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9928,8 +10065,8 @@ ALTER TABLE ONLY proveedor
 
 
 --
--- TOC entry 3034 (class 2606 OID 54244)
--- Dependencies: 307 286 2825
+-- TOC entry 3062 (class 2606 OID 54244)
+-- Dependencies: 286 307 2851
 -- Name: proveedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9938,8 +10075,8 @@ ALTER TABLE ONLY proveedor
 
 
 --
--- TOC entry 3035 (class 2606 OID 54249)
--- Dependencies: 216 288 2733
+-- TOC entry 3063 (class 2606 OID 54249)
+-- Dependencies: 288 216 2755
 -- Name: registro_entrada_idalmacen_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9948,8 +10085,8 @@ ALTER TABLE ONLY registro_entrada
 
 
 --
--- TOC entry 3036 (class 2606 OID 54254)
--- Dependencies: 244 288 2761
+-- TOC entry 3064 (class 2606 OID 54254)
+-- Dependencies: 288 244 2785
 -- Name: registro_entrada_iddocumento_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9958,8 +10095,8 @@ ALTER TABLE ONLY registro_entrada
 
 
 --
--- TOC entry 3037 (class 2606 OID 54259)
--- Dependencies: 261 288 2779
+-- TOC entry 3065 (class 2606 OID 54259)
+-- Dependencies: 288 261 2803
 -- Name: registro_entrada_idmotivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9968,8 +10105,8 @@ ALTER TABLE ONLY registro_entrada
 
 
 --
--- TOC entry 3038 (class 2606 OID 54264)
--- Dependencies: 281 288 2799
+-- TOC entry 3066 (class 2606 OID 54264)
+-- Dependencies: 288 281 2823
 -- Name: registro_entrada_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9978,8 +10115,8 @@ ALTER TABLE ONLY registro_entrada
 
 
 --
--- TOC entry 3039 (class 2606 OID 54269)
--- Dependencies: 286 288 2805
+-- TOC entry 3067 (class 2606 OID 54269)
+-- Dependencies: 288 286 2829
 -- Name: registro_entrada_idproveedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9988,8 +10125,8 @@ ALTER TABLE ONLY registro_entrada
 
 
 --
--- TOC entry 3040 (class 2606 OID 54274)
--- Dependencies: 307 288 2825
+-- TOC entry 3068 (class 2606 OID 54274)
+-- Dependencies: 288 307 2851
 -- Name: registro_entrada_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -9998,8 +10135,8 @@ ALTER TABLE ONLY registro_entrada
 
 
 --
--- TOC entry 3041 (class 2606 OID 54279)
--- Dependencies: 234 290 2751
+-- TOC entry 3069 (class 2606 OID 54279)
+-- Dependencies: 290 234 2773
 -- Name: registro_salida_idcondicion_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10008,8 +10145,8 @@ ALTER TABLE ONLY registro_salida
 
 
 --
--- TOC entry 3042 (class 2606 OID 54284)
--- Dependencies: 290 244 2761
+-- TOC entry 3070 (class 2606 OID 54284)
+-- Dependencies: 290 244 2785
 -- Name: registro_salida_iddocumento_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10018,8 +10155,8 @@ ALTER TABLE ONLY registro_salida
 
 
 --
--- TOC entry 3043 (class 2606 OID 54289)
--- Dependencies: 290 271 2789
+-- TOC entry 3071 (class 2606 OID 54289)
+-- Dependencies: 290 271 2813
 -- Name: registro_salida_idmotivo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10028,8 +10165,8 @@ ALTER TABLE ONLY registro_salida
 
 
 --
--- TOC entry 3044 (class 2606 OID 54294)
--- Dependencies: 2799 290 281
+-- TOC entry 3072 (class 2606 OID 54294)
+-- Dependencies: 290 281 2823
 -- Name: registro_salida_idperiodo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10038,8 +10175,8 @@ ALTER TABLE ONLY registro_salida
 
 
 --
--- TOC entry 3045 (class 2606 OID 54299)
--- Dependencies: 306 290 2823
+-- TOC entry 3073 (class 2606 OID 54299)
+-- Dependencies: 290 306 2849
 -- Name: registro_salida_idunidad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10048,8 +10185,8 @@ ALTER TABLE ONLY registro_salida
 
 
 --
--- TOC entry 3046 (class 2606 OID 54304)
--- Dependencies: 308 290 2827
+-- TOC entry 3074 (class 2606 OID 54304)
+-- Dependencies: 290 308 2853
 -- Name: registro_salida_idvendedor_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10058,8 +10195,8 @@ ALTER TABLE ONLY registro_salida
 
 
 --
--- TOC entry 3047 (class 2606 OID 54309)
--- Dependencies: 255 301 2773
+-- TOC entry 3075 (class 2606 OID 54309)
+-- Dependencies: 301 255 2797
 -- Name: sublinea_idlinea_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10068,8 +10205,8 @@ ALTER TABLE ONLY sublinea
 
 
 --
--- TOC entry 3048 (class 2606 OID 54314)
--- Dependencies: 307 301 2825
+-- TOC entry 3076 (class 2606 OID 54314)
+-- Dependencies: 2851 301 307
 -- Name: sublinea_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10078,8 +10215,8 @@ ALTER TABLE ONLY sublinea
 
 
 --
--- TOC entry 3049 (class 2606 OID 54319)
--- Dependencies: 307 302 2825
+-- TOC entry 3077 (class 2606 OID 54319)
+-- Dependencies: 302 2851 307
 -- Name: tipo_cuenta_bancaria_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10088,8 +10225,8 @@ ALTER TABLE ONLY tipo_cuenta_bancaria
 
 
 --
--- TOC entry 3050 (class 2606 OID 54324)
--- Dependencies: 307 303 2825
+-- TOC entry 3078 (class 2606 OID 54324)
+-- Dependencies: 303 307 2851
 -- Name: tipo_pago_cliente_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10098,8 +10235,8 @@ ALTER TABLE ONLY tipo_pago
 
 
 --
--- TOC entry 3051 (class 2606 OID 54329)
--- Dependencies: 307 304 2825
+-- TOC entry 3079 (class 2606 OID 54329)
+-- Dependencies: 304 307 2851
 -- Name: tipo_persona_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10108,8 +10245,8 @@ ALTER TABLE ONLY tipo_persona
 
 
 --
--- TOC entry 3052 (class 2606 OID 54334)
--- Dependencies: 246 306 2763
+-- TOC entry 3080 (class 2606 OID 54334)
+-- Dependencies: 306 246 2787
 -- Name: unidad_negocio_idempresa_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10118,8 +10255,8 @@ ALTER TABLE ONLY unidad_negocio
 
 
 --
--- TOC entry 3053 (class 2606 OID 54339)
--- Dependencies: 305 2821 306
+-- TOC entry 3081 (class 2606 OID 54339)
+-- Dependencies: 306 305 2847
 -- Name: unidad_negocio_idubigeo_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10128,8 +10265,8 @@ ALTER TABLE ONLY unidad_negocio
 
 
 --
--- TOC entry 3054 (class 2606 OID 54344)
--- Dependencies: 2825 307 306
+-- TOC entry 3082 (class 2606 OID 54344)
+-- Dependencies: 306 307 2851
 -- Name: unidad_negocio_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10138,8 +10275,8 @@ ALTER TABLE ONLY unidad_negocio
 
 
 --
--- TOC entry 3055 (class 2606 OID 54349)
--- Dependencies: 307 292 2811
+-- TOC entry 3083 (class 2606 OID 54349)
+-- Dependencies: 307 292 2837
 -- Name: usuario_idrol_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10148,8 +10285,8 @@ ALTER TABLE ONLY usuario
 
 
 --
--- TOC entry 3056 (class 2606 OID 54354)
--- Dependencies: 2825 308 307
+-- TOC entry 3084 (class 2606 OID 54354)
+-- Dependencies: 308 307 2851
 -- Name: vendedor_idusuario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: agewunue_farmacia
 --
 
@@ -10158,7 +10295,7 @@ ALTER TABLE ONLY vendedor
 
 
 --
--- TOC entry 3164 (class 0 OID 0)
+-- TOC entry 3196 (class 0 OID 0)
 -- Dependencies: 7
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -10170,7 +10307,7 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
--- TOC entry 3206 (class 0 OID 0)
+-- TOC entry 3238 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: almacen; Type: ACL; Schema: public; Owner: agewunue_farmacia
 --
@@ -10181,7 +10318,7 @@ GRANT ALL ON TABLE almacen TO agewunue_farmacia;
 
 
 --
--- TOC entry 3208 (class 0 OID 0)
+-- TOC entry 3240 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: amortizacion_cliente; Type: ACL; Schema: public; Owner: agewunue_farmacia
 --
@@ -10191,7 +10328,7 @@ REVOKE ALL ON TABLE amortizacion_cliente FROM agewunue_farmacia;
 GRANT ALL ON TABLE amortizacion_cliente TO agewunue_farmacia;
 
 
--- Completed on 2013-08-02 22:11:29
+-- Completed on 2013-08-03 17:34:36
 
 --
 -- PostgreSQL database dump complete

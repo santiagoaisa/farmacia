@@ -80,6 +80,15 @@ public class ModuloServiceImpl implements ModuloService {
         return cruddao.listarTodos(Modulo.class);
     }
 
+    @Override
+     @Transactional(readOnly = true)
+    public List<Modulo> listaPorIdrol(Integer idrol) {
+        return modulodao.listaPorIdrol(idrol);
+    }
+    
+    
+    
+
     private void registrarLog(String cmotivo, Modulo modulo) {
         LogModulo logmodulo = new LogModulo();
         logmodulo.setCmotivo(cmotivo);

@@ -1,14 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-    <window id="prueba"   width="400px" height="200px"  border="1" apply="modprueba.Prueba" 
-           mode="modal" position="center"     >
-        
-        <label value="Prueba:"/>
-        <textbox id="txtprueba"   width="95%"  />
-       
-       
-    </window>
-    
-    
-</zk>
+<?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
+<window id="index" apply="modseguridad.Index"  height="100%">        
+    <borderlayout   height="100%" style="background:#c5e6ef;" >
+        <north  >
+            <borderlayout height="55px">       
+                <center flex="true"  >
+                    <toolbar id="btnModulos"  >                            
+                    </toolbar>    
+                </center>    
+            </borderlayout>
+        </north>
+        <center   >
+            <borderlayout style="background:#c5e6ef;" >
+                <!-- Sidebar -->	
+                <!--
+                <west title="Izquierda"  width="100px" flex="false"  collapsible="true"  >
+                    <div align="center" >                                
+                    </div>
+                </west>
+                -->
+                <!-- Content -->
+                <center  >
+                    
+                    <div align="left" height="100%" >
+                        <!-- BARRA DE MENU-->                            
+                       
+                             <div align="left" id="divMenu" >
+                        </div>
+                        <!-- BARRA DE HERRAMIENTAS-->                            
+                        <div align="left" id="divBarra">                       
+                            <hbox width="100%" widths="85%,15%">    
+                            
+                                <toolbar id="tb"    >
+                                    <hbox spacing="0">
+                                        <toolbarbutton id="btnlistado" image="/img/barra/listado.png"  visible="${sec:isNoneGranted('ROLE_CLIENTE')}"     onClick="wprincipal.listadoExistencias()" tooltiptext="Listado de Existencias..."/>                                            
+                                    </hbox>
+                                </toolbar>                               
+                                
+                                <toolbar id="tb2"    align="end">
+                                    <hbox spacing="0">                                            
+                                        <toolbarbutton id="btnSalir" image="/img/Power.png" tooltiptext="Permite salir del Sistema" />
+                                    </hbox>
+                                </toolbar>                                
+                            </hbox>
+                        </div>
+                        <borderlayout width="100%" height="100%">
+                            <center border="none" hflex="true" >
+                                <div id="divContenido">
+                                    <!-- Seccion Principal
+                                    Aqui se debe mostrar todos las pagina del sistema
+                                    -->
+                                </div>
+                            </center>
+                        </borderlayout>
+                    </div>
+                </center>
+            </borderlayout>
+        </center>
+        <!--
+        <east title=""  width="100px" flex="false"  collapsible="true"  >
+            <div align="center" >                  
+            </div>
+        </east>
+        -->
+        <south>
+            <borderlayout height="20px" style="background:#c5e6ef;">
+                <center hflex="true">
+                    <hbox width="100%" widths="60%,40%">
+                        <label id="lblSesion" width="100%" />                            
+                    </hbox>
+                </center>
+            </borderlayout>
+        </south>
+    </borderlayout>
+</window>

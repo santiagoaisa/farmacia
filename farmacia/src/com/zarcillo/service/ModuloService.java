@@ -13,4 +13,5 @@ public interface ModuloService {
     public void eliminar(Modulo modulo);
     public Modulo buscar(Integer idmodulo);
     public List<Modulo> listaGeneral();
+    public List<Modulo> listaPorIdrol(Integer idrol);
 }

@@ -13,7 +13,7 @@ import javax.persistence.Embeddable;
 public class ExistenciaPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "idalmacen")
-    private int idalmacen;
+    private Integer idalmacen;
     @Basic(optional = false)
     @Column(name = "idproducto")
     private String idproducto;
@@ -21,7 +21,7 @@ public class ExistenciaPK implements Serializable {
     public ExistenciaPK() {
     }
 
-    public ExistenciaPK(int idalmacen, String idproducto) {
+    public ExistenciaPK(Integer idalmacen, String idproducto) {
         this.idalmacen = idalmacen;
         this.idproducto = idproducto;
     }
@@ -30,7 +30,7 @@ public class ExistenciaPK implements Serializable {
         return idalmacen;
     }
 
-    public void setIdalmacen(int idalmacen) {
+    public void setIdalmacen(Integer idalmacen) {
         this.idalmacen = idalmacen;
     }
 

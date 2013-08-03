@@ -2,6 +2,7 @@ package com.zarcillo.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -27,8 +28,14 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "registro_entrada")
 @NamedQueries({
-    @NamedQuery(name = "RegistroEntrada.findAll", query = "SELECT r FROM RegistroEntrada r")})
+    @NamedQuery(name = "RegistroEntrada.findAll", query = "SELECT r FROM RegistroEntrada r"),    
+    @NamedQuery(name = "RegistroEntrada.findByIdalmacenByIdregentrada", query = "SELECT r FROM RegistroEntrada r WHERE r.idalmacen.idalmacen=:idalmacen and r.idregentrada=:idregentrada"),
+    @NamedQuery(name = "RegistroEntrada.findByIdregentrada", query = "SELECT r FROM RegistroEntrada r WHERE r.idregentrada=:idregentrada"),
+    @NamedQuery(name = "RegistroEntrada.findByIdalmacenByIdproveedorByNano", query = "SELECT r FROM RegistroEntrada r WHERE r.idalmacen.idalmacen=:idalmacen and r.idproveedor.idproveedor=:idproveedor and r.idperiodo.nano=:nano ORDER BY r.dfecha DESC "),
+    @NamedQuery(name = "RegistroEntrada.findByIdalmacenByFechas", query = "SELECT r FROM RegistroEntrada r WHERE r.idalmacen.idalmacen=:idalmacen and r.dfecha BETWEEN :dfecha1 and :dfecha2 ")
+})
 public class RegistroEntrada implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +49,6 @@ public class RegistroEntrada implements Serializable {
     private String cserie;
     @Column(name = "cnumero")
     private String cnumero;
-    
     @Column(name = "nafecto")
     private BigDecimal nafecto;
     @Column(name = "ninafecto")
@@ -54,7 +60,6 @@ public class RegistroEntrada implements Serializable {
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
@@ -73,13 +78,15 @@ public class RegistroEntrada implements Serializable {
     @JoinColumn(name = "idalmacen", referencedColumnName = "idalmacen")
     @ManyToOne(fetch = FetchType.EAGER)
     private Almacen idalmacen;
+    @OneToMany(mappedBy = "idregentrada", fetch = FetchType.LAZY)
+    private List<Movimiento> movimientoCollection;
 
     public RegistroEntrada() {
-        nafecto=new BigDecimal("0");
-        nigv=new BigDecimal("0");
-        nimporte=new BigDecimal("0");
-        ninafecto=new BigDecimal("0");
-        
+        nafecto = new BigDecimal("0");
+        nigv = new BigDecimal("0");
+        nimporte = new BigDecimal("0");
+        ninafecto = new BigDecimal("0");
+        movimientoCollection = new ArrayList<Movimiento>();
     }
 
     public RegistroEntrada(Integer idregentrada) {
@@ -158,8 +165,6 @@ public class RegistroEntrada implements Serializable {
         this.dfecreg = dfecreg;
     }
 
-  
-
     public Usuario getIdusuario() {
         return idusuario;
     }
@@ -208,6 +213,14 @@ public class RegistroEntrada implements Serializable {
         this.idalmacen = idalmacen;
     }
 
+    public List<Movimiento> getMovimientoCollection() {
+        return movimientoCollection;
+    }
+
+    public void setMovimientoCollection(List<Movimiento> movimientoCollection) {
+        this.movimientoCollection = movimientoCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -230,7 +243,6 @@ public class RegistroEntrada implements Serializable {
 
     @Override
     public String toString() {
-        return idregentrada+"";
+        return idregentrada + "";
     }
-    
 }

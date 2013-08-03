@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Periodo;
+import java.util.Date;
 
 /**
  *
@@ -8,4 +9,6 @@ import com.zarcillo.domain.Periodo;
  */
 public interface PeriodoDAO {    
     Periodo busqueda(Integer idperiodo);
+    Periodo buscarPorNanoPorNmes(Integer nano,Integer nmes);
+    Periodo buscarPorFecha(Date dfecha);
 }

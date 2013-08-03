@@ -80,6 +80,25 @@ public class DocumentoServiceImpl implements DocumentoService {
         return cruddao.listarTodos(Documento.class);
     }
 
+    @Override
+    public List<Documento> listaDocumentoVenta() {
+        return documentodao.listaPorBventa();
+    }
+
+    @Override
+    public List<Documento> listaDocumentoCompra() {
+        return documentodao.listaPorBcompra();
+    }
+
+    @Override
+    public List<Documento> listaDocumentoPago() {
+        return documentodao.listaPorBpago();
+    }
+    
+    
+    
+    
+
     private void registrarLog(String cmotivo, Documento documento) {
         LogDocumento logdocumento = new LogDocumento();
         logdocumento.setCmotivo(cmotivo);

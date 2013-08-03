@@ -27,6 +27,9 @@ import javax.persistence.TemporalType;
 @Table(name = "documento")
 @NamedQueries({
     @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d ORDER BY d.cnomdocumento "),
+    @NamedQuery(name = "Documento.findByBcompra", query = "SELECT d FROM Documento d WHERE d.bcompra=true ORDER BY d.cnomdocumento "),
+    @NamedQuery(name = "Documento.findByBventa", query = "SELECT d FROM Documento d WHERE d.bventa=true ORDER BY d.cnomdocumento "),
+    @NamedQuery(name = "Documento.findByBpago", query = "SELECT d FROM Documento d WHERE d.bpago=true ORDER BY d.cnomdocumento "),
     @NamedQuery(name = "Documento.findByIddocumento", query = "SELECT d FROM Documento d WHERE d.iddocumento=:iddocumento")
 })
 public class Documento implements Serializable {

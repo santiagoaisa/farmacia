@@ -28,6 +28,7 @@ import javax.persistence.TemporalType;
 @Table(name = "periodo")
 @NamedQueries({
     @NamedQuery(name = "Periodo.findAll", query = "SELECT p FROM Periodo p ORDER BY p.nano,p.nmes"),
+    @NamedQuery(name = "Periodo.findByNanoByNmes", query = "SELECT p FROM Periodo p WHERE p.nano=:nano and p.nmes=:nmes "),
     @NamedQuery(name = "Periodo.findByIdperiodo", query = "SELECT p FROM Periodo p WHERE p.idperiodo=:idperiodo ")
 
 })

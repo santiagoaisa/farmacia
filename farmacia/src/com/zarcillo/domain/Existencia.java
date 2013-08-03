@@ -24,7 +24,9 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "existencia")
 @NamedQueries({
-    @NamedQuery(name = "Existencia.findAll", query = "SELECT e FROM Existencia e")})
+    @NamedQuery(name = "Existencia.findAll", query = "SELECT e FROM Existencia e"),
+    @NamedQuery(name = "Existencia.findByIdalmacenByIdproducto", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.idproducto=:idproducto")
+})
 public class Existencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -42,12 +44,23 @@ public class Existencia implements Serializable {
     private BigDecimal nincremento;
     @Column(name = "bactivo")
     private Boolean bactivo;
+    
+    @Column(name = "cubicacion")
+    private String cubicacion;
+    
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
+    
+    @JoinColumn(name = "idalmacen", referencedColumnName = "idalmacen", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Almacen idalmacen;
+    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Producto idproducto;
 
     public Existencia() {
         bactivo=false;
@@ -62,7 +75,7 @@ public class Existencia implements Serializable {
         this.existenciaPK = existenciaPK;
     }
 
-    public Existencia(int idalmacen, String idproducto) {
+    public Existencia(Integer idalmacen, String idproducto) {
         this.existenciaPK = new ExistenciaPK(idalmacen, idproducto);
     }
 
@@ -140,6 +153,35 @@ public class Existencia implements Serializable {
         this.idusuario = idusuario;
     }
 
+    public String getCubicacion() {
+        return cubicacion;
+    }
+
+    public void setCubicacion(String cubicacion) {
+        this.cubicacion = cubicacion;
+    }
+
+    public Almacen getIdalmacen() {
+        return idalmacen;
+    }
+
+    public void setIdalmacen(Almacen idalmacen) {
+        this.idalmacen = idalmacen;
+    }
+
+    public Producto getIdproducto() {
+        return idproducto;
+    }
+
+    public void setIdproducto(Producto idproducto) {
+        this.idproducto = idproducto;
+    }
+
+   
+    
+   
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

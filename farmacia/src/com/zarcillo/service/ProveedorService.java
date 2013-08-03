@@ -14,5 +14,6 @@ public interface ProveedorService {
     public void eliminar(Proveedor proveedor);
     public Proveedor buscar(Integer idproveedor);
     public List<Proveedor> listaGeneral();
+    public List<Proveedor> busquedaListaPorCnomprovee(String ccriterio);
     
 }

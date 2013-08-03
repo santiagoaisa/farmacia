@@ -27,6 +27,7 @@ public class CondicionVentaServiceImpl implements CondicionVentaService {
     private CondicionVentaDAO condicionventadao;
 
     @Override
+     @Transactional
     public CondicionVenta registrar(CondicionVenta condicion) {
         try {
             condicion.setDfecreg(new Date());
@@ -41,6 +42,7 @@ public class CondicionVentaServiceImpl implements CondicionVentaService {
     }
 
     @Override
+     @Transactional
     public CondicionVenta actualizar(CondicionVenta condicion) {
         try {
             cruddao.actualizar(condicion);
@@ -54,6 +56,7 @@ public class CondicionVentaServiceImpl implements CondicionVentaService {
     }
 
     @Override
+     @Transactional
     public void eliminar(CondicionVenta condicion) {
         try {
             cruddao.eliminar(condicion);

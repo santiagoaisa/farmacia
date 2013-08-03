@@ -25,17 +25,22 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "cuenta_pagar")
 @NamedQueries({
-    @NamedQuery(name = "CuentaPagar.findAll", query = "SELECT c FROM CuentaPagar c")})
+    @NamedQuery(name = "CuentaPagar.findAll", query = "SELECT c FROM CuentaPagar c"),
+    @NamedQuery(name = "CuentaPagar.findByIdunidadByIdproveedorByNano", query = "SELECT c FROM CuentaPagar c WHERE c.idunidad.idunidad =:idunidad and c.idproveedor.idproveedor=:idproveedor and c.idperiodo.nano=:ano ORDER BY c.dfecemi DESC "),
+    @NamedQuery(name = "CuentaPagar.findByIdcuenta", query = "SELECT c FROM CuentaPagar c WHERE c.idcuenta=:idcuenta"),
+    @NamedQuery(name = "CuentaPagar.findByIdregentrada", query = "SELECT c FROM CuentaPagar c WHERE c.idregentrada.idregentrada=:idregentrada")
+})
 public class CuentaPagar implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idcuenta")
     private Integer idcuenta;
-    @Column(name = "dfecha")
+    @Column(name = "dfecemi")
     @Temporal(TemporalType.DATE)
-    private Date dfecha;
+    private Date dfecemi;
     @Column(name = "cserie")
     private String cserie;
     @Column(name = "cnumero")
@@ -97,20 +102,36 @@ public class CuentaPagar implements Serializable {
     @JoinColumn(name = "iddocumento", referencedColumnName = "iddocumento")
     @ManyToOne(fetch = FetchType.EAGER)
     private Documento iddocumento;
+    
+     @Column(name = "npercepcion")
+    private BigDecimal npercepcion;
+     
+     @Column(name = "nreclamodevolucion")
+    private BigDecimal nreclamodevolucion;
+     
+     @Column(name = "nreclamoprecio")
+    private BigDecimal nreclamoprecio;
+     
+     @Column(name = "ntotalreclamo")
+    private BigDecimal ntotalreclamo;
 
     public CuentaPagar() {
-        nacuenta=new BigDecimal("0");
-        nafecto=new BigDecimal("0");
-        nigv=new BigDecimal("0");
-        nimporte=new BigDecimal("0");
-        ninafecto=new BigDecimal("0");
-        ningreso=new BigDecimal("0");
-        ningreso=new BigDecimal("0");
-        nnotabo=new BigDecimal("0");
-        nnotcar=new BigDecimal("0");
-        nplazo=0;
-        nsaldo=new BigDecimal("0");
-        ntipocambio=new BigDecimal("0");
+        nacuenta = new BigDecimal("0");
+        nafecto = new BigDecimal("0");
+        nigv = new BigDecimal("0");
+        nimporte = new BigDecimal("0");
+        ninafecto = new BigDecimal("0");
+        ningreso = new BigDecimal("0");
+        ningreso = new BigDecimal("0");
+        nnotabo = new BigDecimal("0");
+        nnotcar = new BigDecimal("0");
+        nplazo = 0;
+        nsaldo = new BigDecimal("0");
+        ntipocambio = new BigDecimal("0");
+        npercepcion = new BigDecimal("0");
+        nreclamodevolucion= new BigDecimal("0");
+        nreclamoprecio= new BigDecimal("0");
+        ntotalreclamo= new BigDecimal("0");
     }
 
     public CuentaPagar(Integer idcuenta) {
@@ -125,13 +146,16 @@ public class CuentaPagar implements Serializable {
         this.idcuenta = idcuenta;
     }
 
-    public Date getDfecha() {
-        return dfecha;
+    public Date getDfecemi() {
+        return dfecemi;
     }
 
-    public void setDfecha(Date dfecha) {
-        this.dfecha = dfecha;
+    public void setDfecemi(Date dfecemi) {
+        this.dfecemi = dfecemi;
     }
+
+   
+    
 
     public String getCserie() {
         return cserie;
@@ -333,6 +357,41 @@ public class CuentaPagar implements Serializable {
         this.iddocumento = iddocumento;
     }
 
+    public BigDecimal getNpercepcion() {
+        return npercepcion;
+    }
+
+    public void setNpercepcion(BigDecimal npercepcion) {
+        this.npercepcion = npercepcion;
+    }
+
+    public BigDecimal getNreclamodevolucion() {
+        return nreclamodevolucion;
+    }
+
+    public void setNreclamodevolucion(BigDecimal nreclamodevolucion) {
+        this.nreclamodevolucion = nreclamodevolucion;
+    }
+
+    public BigDecimal getNreclamoprecio() {
+        return nreclamoprecio;
+    }
+
+    public void setNreclamoprecio(BigDecimal nreclamoprecio) {
+        this.nreclamoprecio = nreclamoprecio;
+    }
+
+    public BigDecimal getNtotalreclamo() {
+        return ntotalreclamo;
+    }
+
+    public void setNtotalreclamo(BigDecimal ntotalreclamo) {
+        this.ntotalreclamo = ntotalreclamo;
+    }
+    
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -355,7 +414,6 @@ public class CuentaPagar implements Serializable {
 
     @Override
     public String toString() {
-        return cserie+"-"+cnumero;
+        return cserie + "-" + cnumero;
     }
-    
 }
