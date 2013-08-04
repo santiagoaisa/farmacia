@@ -1,0 +1,15 @@
+package com.zarcillo.util;
+
+
+import com.zarcillo.domain.Movimiento;
+import java.util.Comparator;
+
+public class OrdenarPorNordenMovimiento implements Comparator {
+
+    public int compare(Object o1, Object o2) {
+        Movimiento m1=(Movimiento)o1;
+        Movimiento m2=(Movimiento)o2;
+        return m2.getNorden().compareTo(m1.getNorden());
+    }
+
+}

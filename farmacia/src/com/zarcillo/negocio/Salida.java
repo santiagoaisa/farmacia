@@ -1,5 +1,164 @@
 package com.zarcillo.negocio;
 
-public class Salida {
-    
+import com.zarcillo.dao.CrudDAO;
+import com.zarcillo.dao.ExistenciaDAO;
+import com.zarcillo.dao.LoteDAO;
+import com.zarcillo.dao.OrdenLineaDAO;
+import com.zarcillo.dao.PeriodoDAO;
+import com.zarcillo.domain.Existencia;
+import com.zarcillo.domain.Lote;
+import com.zarcillo.domain.Movimiento;
+import com.zarcillo.domain.OrdenLinea;
+import com.zarcillo.domain.Periodo;
+import com.zarcillo.domain.RegistroSalida;
+import com.zarcillo.domain.SituacionPedido;
+import com.zarcillo.service.ExceptionZarcillo;
+import com.zarcillo.util.OrdenarPorIdproductoMovimiento;
+import com.zarcillo.util.OrdenarPorNordenMovimiento;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+
+@Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class Salida extends DescargaLote {
+
+    @Autowired
+    private CrudDAO cruddao;
+    @Autowired
+    private PeriodoDAO periododao;
+    @Autowired
+    private ExistenciaDAO existenciadao;
+    @Autowired
+    private LoteDAO lotedao;
+    @Autowired
+    private OrdenLineaDAO ordenlineadao;
+
+    public Integer registrar(RegistroSalida regsalida) {
+        try {
+            regsalida.setDfecreg(new Date());
+            Periodo periodo = periododao.buscarPorFecha(new Date());
+            regsalida.setIdperiodo(periodo);
+            // fin se establece el periodo
+            String cglosa = "";
+            regsalida.setCglosa(cglosa);
+            regsalida.calcula(regsalida.getIdperiodo().getNigv());
+            //////// SITUACION PEDIDO
+            regsalida.setIdsituacion(SituacionPedido.DIGITADO);
+            //////// SITUACION PEDIDO
+            cruddao.registrar(regsalida);
+
+            List<OrdenLinea> listaOrdenLinea = ordenlineadao.listaPorIdunidad(regsalida.getIdunidad().getIdunidad());
+            List<Movimiento> listaMovimiento = regsalida.getMovimientoCollection();
+            Collections.sort(listaMovimiento, new OrdenarPorIdproductoMovimiento());
+            for (OrdenLinea ol : listaOrdenLinea) {
+                for (Movimiento m : listaMovimiento) {
+                    if (m.getExistencia().getIdproducto().getIdsublinea().getIdlinea().getIdlinea().equals(ol.getIdlinea().getIdlinea())) {
+                        m.setNorden(ol.getNorden());
+                    } else {
+                        if (m.getNorden().equals(999)) {
+                            m.setNorden(999);
+                        }
+                    }
+                }
+            }
+            Collections.sort(listaMovimiento, new OrdenarPorNordenMovimiento());
+
+            Existencia existencia;
+            for (Movimiento m : listaMovimiento) {
+                ///CONTROL PARA QUE NO JALE CANTIDADES CERO (O)                
+                if (m.getNcantidad() == 0) {
+                    System.out.println("STOCK CERO:" + m.getNsubtot());
+                    continue;
+                }
+                // CONTROL DE STOCK DE BONIFICACION
+                existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getExistencia().getIdalmacen().getIdalmacen(), m.getExistencia().getIdproducto().getIdproducto());
+                //Descargo del Stock
+                existencia.setNstock(existencia.getNstock() - m.getNcantidad());
+                //Descargo del temporal
+                existencia.setNtemporal(existencia.getNtemporal() - m.getNcantidad());
+                cruddao.actualizar(existencia);
+
+                m.setIdregsalida(regsalida);
+                m.setCtipmov("S");
+                m.setNstock(existencia.getNstock());
+                m.setIdmovimiento(null);
+                cruddao.registrar(m);
+            }
+
+            //Se elimina el log del registro
+//            if (regsalida.getNidlog() != null) {
+//                Logusuario logusuario = logusuariodao.buscar(regsalida.getNidlog());
+//                List<Detallelog> listadetalle = detallelogdao.lista(regsalida.getNidlog());
+//
+//                for (Detallelog d : listadetalle) {
+//                    detallelogdao.eliminar(d);
+//                }
+//
+//                logusuariodao.eliminar(logusuario);
+//            }
+        } catch (Exception e) {
+            throw new ExceptionZarcillo(e.getCause().getMessage());
+        }
+        return regsalida.getIdregsalida();
+    }
+
+    public RegistroSalida lotes(RegistroSalida regsalida) {
+        try {
+            List<Movimiento> listaMovimientos = regsalida.getMovimientoCollection();
+            List<Movimiento> listaLotesAgregados = new ArrayList<>();
+            List<Movimiento> listaBorrarMovimientos = new ArrayList<>();
+
+            for (Movimiento m : listaMovimientos) {
+                //Descarga de lote
+                // si es nulo descargo lote
+                if (m.getClote() != null) {
+                    // si esta vacio descargo lote
+                    if (!m.getClote().isEmpty()) {
+                        // cuando el lote es ingresado manualmente
+                        Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaVenta(m.getExistencia().getIdalmacen().getIdalmacen(), m.getExistencia().getIdproducto().getIdproducto(), m.getClote().trim());
+                        if (lote.getIdlote() == null) {
+                            throw new ExceptionZarcillo("El Lote " + m.getClote() + "\ndel Producto:" + m.getExistencia().getIdproducto() + "\n ¡No existe!");
+                        } else {
+                            lote.setNstock(lote.getNstock() - m.getNcantidad());
+                            cruddao.actualizar(lote);
+                        }
+                    } else {
+                        List<Movimiento> listaMovimientosLotes = super.descargar(m);
+                        listaBorrarMovimientos.add(m);
+                        listaLotesAgregados.addAll(listaMovimientosLotes);
+                    }
+
+                } else {
+                    List<Movimiento> listaMovimientosLotes = super.descargar(m);
+                    listaBorrarMovimientos.add(m);
+                    listaLotesAgregados.addAll(listaMovimientosLotes);
+                }
+
+            }
+
+            listaMovimientos.removeAll(listaBorrarMovimientos);
+            listaMovimientos.addAll(listaLotesAgregados);
+            regsalida.setMovimientoCollection(listaMovimientos);
+
+        } catch (Exception e) {
+            throw new ExceptionZarcillo(e.getMessage());
+        }
+        return regsalida;
+    }
+
+    public RegistroSalida llaves(RegistroSalida regsalida) {
+        List<Movimiento> listaMovimientos = regsalida.getMovimientoCollection();
+        int id = 0;
+        for (Movimiento m : listaMovimientos) {
+            m.setIdmovimiento(id);
+            id = id + 1;
+        }
+        regsalida.setMovimientoCollection(listaMovimientos);
+        return regsalida;
+
+    }
 }

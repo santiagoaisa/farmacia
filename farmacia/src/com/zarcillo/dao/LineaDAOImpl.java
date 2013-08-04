@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Linea;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -20,5 +21,12 @@ public class LineaDAOImpl implements LineaDAO{
     public Linea busqueda(Integer idlinea) {
         return (Linea) em.createNamedQuery("Linea.findByIdlinea").setParameter("idlinea", idlinea).getSingleResult();
     }
+
+    @Override
+    public List<Linea> listaActivos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+ 
+    
     
 }

@@ -98,6 +98,9 @@ public class ComprobanteEmitido implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Cliente idcliente;
     
+     @Column(name = "nfleven")
+    private BigDecimal nfleven;
+    
 
     public ComprobanteEmitido() {
         nacuenta=new BigDecimal("0");
@@ -111,6 +114,7 @@ public class ComprobanteEmitido implements Serializable {
         nplazo=0;
         nredondeo=new BigDecimal("0");
         nsaldo=new BigDecimal("0");
+        nfleven=new BigDecimal("0");
         
     }
 
@@ -333,6 +337,17 @@ public class ComprobanteEmitido implements Serializable {
     public void setIdcliente(Cliente idcliente) {
         this.idcliente = idcliente;
     }
+
+    public BigDecimal getNfleven() {
+        return nfleven;
+    }
+
+    public void setNfleven(BigDecimal nfleven) {
+        this.nfleven = nfleven;
+    }
+    
+    
+    
 
    
     @Override

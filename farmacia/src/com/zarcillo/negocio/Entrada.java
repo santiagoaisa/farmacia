@@ -41,7 +41,7 @@ public class Entrada extends Salida {
 
     public void registrar(RegistroEntrada regentrada) {
         // inicio se establece el periodo
-        
+
         regentrada.setIdperiodo(periododao.buscarPorFecha(new Date()));
         // fin se establece el periodo
         cruddao.registrar(regentrada);
@@ -90,7 +90,7 @@ public class Entrada extends Salida {
             // se graba el detalle
             cruddao.registrar(detalle);
             //para todo concidero lote
-            Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorClote(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto(), detalle.getClote().trim());
+            Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaIngreso(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto(), detalle.getClote().trim());
 
             if (lote.getIdlote() == null) {
                 lote.setExistencia(existencia);
@@ -136,13 +136,18 @@ public class Entrada extends Salida {
                 existencia = existenciadao.buscarPorIdalmacenPorIdproducto(d.getExistencia().getIdalmacen().getIdalmacen(), d.getExistencia().getIdproducto().getIdproducto());
                 existencia.setNstock(existencia.getNstock() - d.getNcantidad());
                 //////
-                Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorClote(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto(), d.getClote().trim());
-                lote.setNstock(lote.getNstock() - d.getNcantidad());
-                cruddao.actualizar(lote);
+                Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaAnulacion(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto(), d.getClote().trim());
+
+                if (lote.getIdlote() != null) {
+                    lote.setNstock(lote.getNstock() - d.getNcantidad());
+                    cruddao.actualizar(lote);
+                }
                 //costeo
                 cruddao.actualizar(existencia);
-                
+                //eliminar movimiento
                 cruddao.eliminar(d);
+
+
             }
 
             cruddao.eliminar(regentrada);

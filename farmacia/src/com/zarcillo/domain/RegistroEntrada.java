@@ -1,5 +1,6 @@
 package com.zarcillo.domain;
 
+import com.zarcillo.negocio.Igv;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "registro_entrada")
 @NamedQueries({
-    @NamedQuery(name = "RegistroEntrada.findAll", query = "SELECT r FROM RegistroEntrada r"),    
+    @NamedQuery(name = "RegistroEntrada.findAll", query = "SELECT r FROM RegistroEntrada r"),
     @NamedQuery(name = "RegistroEntrada.findByIdalmacenByIdregentrada", query = "SELECT r FROM RegistroEntrada r WHERE r.idalmacen.idalmacen=:idalmacen and r.idregentrada=:idregentrada"),
     @NamedQuery(name = "RegistroEntrada.findByIdregentrada", query = "SELECT r FROM RegistroEntrada r WHERE r.idregentrada=:idregentrada"),
     @NamedQuery(name = "RegistroEntrada.findByIdalmacenByIdproveedorByNano", query = "SELECT r FROM RegistroEntrada r WHERE r.idalmacen.idalmacen=:idalmacen and r.idproveedor.idproveedor=:idproveedor and r.idperiodo.nano=:nano ORDER BY r.dfecha DESC "),
@@ -219,6 +220,31 @@ public class RegistroEntrada implements Serializable {
 
     public void setMovimientoCollection(List<Movimiento> movimientoCollection) {
         this.movimientoCollection = movimientoCollection;
+    }
+
+    public void calcula(BigDecimal nmontoigv) {
+        BigDecimal valorinafecto = new BigDecimal("0.00");
+        BigDecimal valorventa = new BigDecimal("0.00");
+        BigDecimal igv = new BigDecimal("0.00");
+        BigDecimal preven = new BigDecimal("0.00");
+
+        List<Movimiento> listaMovimiento = this.getMovimientoCollection();
+
+        for (Movimiento m : listaMovimiento) {
+
+            if (!m.getBinafecto()) {
+                valorventa = valorventa.add(m.getNsubtot());
+                igv = igv.add(Igv.Igv(nmontoigv, m.getNsubtot()));
+            } else {
+                valorinafecto = valorinafecto.add(m.getNsubtot());
+            }
+        }
+
+        preven = preven.add(valorventa.add(igv));
+        this.ninafecto = valorinafecto;
+        this.nafecto = valorventa;
+        this.nigv = igv;
+        this.nimporte = preven;
     }
 
     @Override

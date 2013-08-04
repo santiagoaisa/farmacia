@@ -1,39 +1,30 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package modprueba;
 
-import com.zarcillo.domain.Rol;
-import com.zarcillo.service.RolService;
+import com.zarcillo.domain.Producto;
+import java.util.ArrayList;
 import java.util.List;
-import javax.naming.NamingException;
-import org.zkoss.zk.ui.select.SelectorComposer;
-import org.zkoss.zk.ui.select.annotation.Listen;
-import org.zkoss.zk.ui.select.annotation.VariableResolver;
-import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Window;
 
-@VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class Prueba extends SelectorComposer {
-
-    @Wire
-    private Window prueba;
-    @Wire
-    private Textbox txtprueba;
-    //wire services
-    @WireVariable
-    RolService rolService;
-
-    @Listen("onCreate=window#prueba")
-    public void onCreate() throws NamingException {
-        txtprueba.setText("PRUEBA");
-        List<Rol> listaRol = rolService.listaGeneral();
+/**
+ *
+ * @author saisa
+ */
+public class Prueba {
+    public static void main(String[] args) {
+        List<Producto> listaProducto=new ArrayList<>();
+        Producto p1=new Producto("p1");
+        Producto p2=new Producto("p2");
+        Producto p3=new Producto("p3");
+        listaProducto.add(p1);
+        listaProducto.add(p2);
+        listaProducto.add(p3);
         
-
-        for (Rol r : listaRol) {
-            System.out.println(r);
+        for(Producto p:listaProducto){
+            System.out.println(p.getIdproducto());
         }
         
-       
-
     }
 }

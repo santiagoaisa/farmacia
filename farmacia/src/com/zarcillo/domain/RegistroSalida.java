@@ -1,5 +1,7 @@
 package com.zarcillo.domain;
 
+import com.zarcillo.negocio.Igv;
+import com.zarcillo.negocio.Numero;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "RegistroSalida.findAll", query = "SELECT r FROM RegistroSalida r")})
 public class RegistroSalida implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,7 +87,6 @@ public class RegistroSalida implements Serializable {
     private Date dfecreg;
     @Column(name = "bimpreso")
     private Boolean bimpreso;
-    
     @JoinColumn(name = "idvendedor", referencedColumnName = "idvendedor")
     @ManyToOne(fetch = FetchType.EAGER)
     private Vendedor idvendedor;
@@ -103,20 +105,26 @@ public class RegistroSalida implements Serializable {
     @JoinColumn(name = "idcondicion", referencedColumnName = "idcondicion")
     @ManyToOne(fetch = FetchType.EAGER)
     private CondicionVenta idcondicion;
-    
     @OneToMany(mappedBy = "idregentrada", fetch = FetchType.LAZY)
     private List<Movimiento> movimientoCollection;
+    @Column(name = "nfleven")
+    private BigDecimal nfleven;
+    
+    @JoinColumn(name = "idsituacion", referencedColumnName = "idsituacion")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private SituacionPedido idsituacion;
 
     public RegistroSalida() {
-        nafecto=new BigDecimal("0");
-        ncosto=new BigDecimal("0");
-        nigv=new BigDecimal("0");
-        nimporte=new BigDecimal("0");
-        ninafecto=new BigDecimal("0");
-        nplazo=0;
-        nredondeo=new BigDecimal("0");
-        movimientoCollection=new ArrayList<Movimiento>();
-        
+        nafecto = new BigDecimal("0");
+        ncosto = new BigDecimal("0");
+        nigv = new BigDecimal("0");
+        nimporte = new BigDecimal("0");
+        ninafecto = new BigDecimal("0");
+        nplazo = 0;
+        nredondeo = new BigDecimal("0");
+        movimientoCollection = new ArrayList<Movimiento>();
+        nfleven = new BigDecimal("0");
+
     }
 
     public RegistroSalida(Integer idregsalida) {
@@ -299,8 +307,6 @@ public class RegistroSalida implements Serializable {
         this.bimpreso = bimpreso;
     }
 
-   
-
     public Vendedor getIdvendedor() {
         return idvendedor;
     }
@@ -356,9 +362,64 @@ public class RegistroSalida implements Serializable {
     public void setMovimientoCollection(List<Movimiento> movimientoCollection) {
         this.movimientoCollection = movimientoCollection;
     }
+
+    public BigDecimal getNfleven() {
+        return nfleven;
+    }
+
+    public void setNfleven(BigDecimal nfleven) {
+        this.nfleven = nfleven;
+    }
+
+    public SituacionPedido getIdsituacion() {
+        return idsituacion;
+    }
+
+    public void setIdsituacion(SituacionPedido idsituacion) {
+        this.idsituacion = idsituacion;
+    }
     
-    
-    
+    public void calcula(BigDecimal nmontoigv) {
+        //Calculo los totales de la cabecera        
+        BigDecimal tvalornogra = new BigDecimal("0.00");
+        BigDecimal tvalorventa = new BigDecimal("0.00");        
+        /////////////////
+        BigDecimal tcosto = new BigDecimal("0.00");
+
+        List<Movimiento> lista = this.getMovimientoCollection();
+
+        for (Movimiento m : lista) {
+            //valido y elimino detalle nulos
+            if (m.getExistencia().getIdproducto() != null) {
+                //Acumulo el valor Bruto                
+                tcosto = tcosto.add(m.getNcosuni().multiply(new BigDecimal(m.getNcantidad())));
+                //Acumulo los totales
+                if (m.getExistencia().getIdproducto().getBinafecto()) {
+                    //si es inafecto
+                    tvalornogra = tvalornogra.add(m.getNsubtot());
+                } else {
+                    //si es afecto
+                    tvalorventa = tvalorventa.add(m.getNsubtot());
+                }
+            }
+        }
+        this.ncosto = tcosto;
+        this.ninafecto = tvalornogra;
+        this.nafecto = tvalorventa;
+        //Bonificacion=(valorventa+valorsinigv)-valorbruto        
+        // fleven
+        tvalorventa = tvalorventa.add(this.getNfleven());
+
+        this.nigv = Igv.Igv(nmontoigv, tvalorventa);
+        //Importe total=(valorventa*igv)+valorsinigv
+        this.nimporte = Igv.Importe(nmontoigv,tvalorventa).add(tvalornogra);
+        //calculo el redondeo
+        BigDecimal preciofinal = this.nimporte.divide(Numero.diez, 2, BigDecimal.ROUND_HALF_UP);
+        preciofinal = preciofinal.multiply(Numero.diez);
+        this.nredondeo = preciofinal.subtract(this.nimporte);
+        //fin de redondeo
+        this.nimporte = preciofinal;
+    }
 
     @Override
     public int hashCode() {
@@ -382,7 +443,6 @@ public class RegistroSalida implements Serializable {
 
     @Override
     public String toString() {
-        return idregsalida+"";
+        return idregsalida + "";
     }
-    
 }

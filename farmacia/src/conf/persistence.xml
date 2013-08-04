@@ -4,6 +4,8 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:/comp/env/jdbc/FarmaciaDS</jta-data-source>
     <class>com.zarcillo.domain.Movimiento</class>
+    <class>com.zarcillo.domain.SituacionPedido</class>
+    <class>com.zarcillo.domain.OrdenLinea</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <!-- Enable Hibernate's automatic session context management

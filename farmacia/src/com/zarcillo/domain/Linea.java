@@ -28,6 +28,7 @@ import javax.persistence.TemporalType;
 @Table(name = "linea")
 @NamedQueries({
     @NamedQuery(name = "Linea.findAll", query = "SELECT l FROM Linea l"),
+    @NamedQuery(name = "Linea.findByBactivo", query = "SELECT l FROM Linea l WHERE l.bactivo=true ORDER BY l.idlinea"),
     @NamedQuery(name = "Linea.findByIdlinea", query = "SELECT l FROM Linea l WHERE l.idlinea=:idlinea ")
 })
 public class Linea implements Serializable {

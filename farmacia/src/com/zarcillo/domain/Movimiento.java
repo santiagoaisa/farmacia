@@ -228,7 +228,16 @@ public class Movimiento implements Serializable {
         this.norden = norden;
     }
     
-    
+     //se usara para el descargo de lotes
+    public BigDecimal calculaSubtotal() {
+        BigDecimal nvalorunitario = nvaluni.setScale(4, BigDecimal.ROUND_HALF_UP);
+        nsubtot = nvalorunitario.multiply(new BigDecimal(this.ncantidad));
+        nsubtot = nsubtot.subtract(nsubtot.multiply(ndesfin.divide(new BigDecimal("100"))));
+        nsubtot = nsubtot.subtract(nsubtot.multiply(ndesbon.divide(new BigDecimal("100"))));
+        nsubtot = nsubtot.subtract(nsubtot.multiply(ndeslab.divide(new BigDecimal("100"))));        
+        nsubtot = nsubtot.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return nsubtot;
+    }
     
     
 

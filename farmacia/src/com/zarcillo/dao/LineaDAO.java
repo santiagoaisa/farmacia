@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Linea;
+import java.util.List;
 
 /**
  *
@@ -8,4 +9,5 @@ import com.zarcillo.domain.Linea;
  */
 public interface LineaDAO {
      Linea busqueda(Integer idlinea);
+     List<Linea> listaActivos();
 }

@@ -24,7 +24,7 @@ public class MapaDAOImpl implements MapaDAO {
 
     @Override
     public List<Mapa> listaPorIdrolPorIdmoduloPorNnivel(Integer idrol, Integer idmodulo, Integer nnivel) {
-        return em.createNamedQuery("Mapa.findByIdrolByIdmoduloByNnivel1").setParameter("idrol", idrol).setParameter("idmodulo", idmodulo).setParameter("nnivel", nnivel).getResultList();
+        return em.createNamedQuery("Mapa.findByIdrolByIdmoduloByNnivel1").setParameter("idrol", idrol).setParameter("idmodulo", idmodulo).setParameter("nnivel1", nnivel).getResultList();
     }
 
     @Override

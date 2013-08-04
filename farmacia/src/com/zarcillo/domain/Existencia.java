@@ -62,6 +62,9 @@ public class Existencia implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Producto idproducto;
 
+     @Column(name = "ntemporal")
+    private Integer ntemporal;
+    
     public Existencia() {
         bactivo=false;
         ncosuni=new BigDecimal("0");
@@ -69,6 +72,7 @@ public class Existencia implements Serializable {
         nstock=0;
         nultcos=new BigDecimal("0");
         nvalven=new BigDecimal("0");        
+        ntemporal=0;
     }
 
     public Existencia(ExistenciaPK existenciaPK) {
@@ -175,6 +179,14 @@ public class Existencia implements Serializable {
 
     public void setIdproducto(Producto idproducto) {
         this.idproducto = idproducto;
+    }
+
+    public Integer getNtemporal() {
+        return ntemporal;
+    }
+
+    public void setNtemporal(Integer ntemporal) {
+        this.ntemporal = ntemporal;
     }
 
    
