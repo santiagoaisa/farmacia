@@ -49,7 +49,7 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
         try {
             return registroentradadao.buscarPorIdalmacenPorIdregentrada(idalmacen, idregentrada);
         } catch (Exception e) {
-            throw new ExceptionZarcillo("No existe en Ingreso :" + idregentrada);
+            throw new ExceptionZarcillo("No existe el Ingreso :" + idregentrada);
         }
     }
 

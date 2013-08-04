@@ -1,5 +1,9 @@
 package com.zarcillo.domain;
 
+import com.zarcillo.negocio.Dia;
+import com.zarcillo.negocio.Igv;
+import com.zarcillo.negocio.Numero;
+import com.zarcillo.service.ExceptionZarcillo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -67,11 +71,11 @@ public class CuentaPagar implements Serializable {
     @Column(name = "nplazo")
     private Integer nplazo;
     @Column(name = "dfecven")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date dfecven;
-    @Column(name = "dfecpago")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dfecpago;
+    @Column(name = "dfeccan")
+    @Temporal(TemporalType.DATE)
+    private Date dfeccan;
     @Column(name = "nnotabo")
     private BigDecimal nnotabo;
     @Column(name = "nnotcar")
@@ -102,17 +106,13 @@ public class CuentaPagar implements Serializable {
     @JoinColumn(name = "iddocumento", referencedColumnName = "iddocumento")
     @ManyToOne(fetch = FetchType.EAGER)
     private Documento iddocumento;
-    
-     @Column(name = "npercepcion")
+    @Column(name = "npercepcion")
     private BigDecimal npercepcion;
-     
-     @Column(name = "nreclamodevolucion")
+    @Column(name = "nreclamodevolucion")
     private BigDecimal nreclamodevolucion;
-     
-     @Column(name = "nreclamoprecio")
+    @Column(name = "nreclamoprecio")
     private BigDecimal nreclamoprecio;
-     
-     @Column(name = "ntotalreclamo")
+    @Column(name = "ntotalreclamo")
     private BigDecimal ntotalreclamo;
 
     public CuentaPagar() {
@@ -129,9 +129,9 @@ public class CuentaPagar implements Serializable {
         nsaldo = new BigDecimal("0");
         ntipocambio = new BigDecimal("0");
         npercepcion = new BigDecimal("0");
-        nreclamodevolucion= new BigDecimal("0");
-        nreclamoprecio= new BigDecimal("0");
-        ntotalreclamo= new BigDecimal("0");
+        nreclamodevolucion = new BigDecimal("0");
+        nreclamoprecio = new BigDecimal("0");
+        ntotalreclamo = new BigDecimal("0");
     }
 
     public CuentaPagar(Integer idcuenta) {
@@ -153,9 +153,6 @@ public class CuentaPagar implements Serializable {
     public void setDfecemi(Date dfecemi) {
         this.dfecemi = dfecemi;
     }
-
-   
-    
 
     public String getCserie() {
         return cserie;
@@ -261,12 +258,12 @@ public class CuentaPagar implements Serializable {
         this.dfecven = dfecven;
     }
 
-    public Date getDfecpago() {
-        return dfecpago;
+    public Date getDfeccan() {
+        return dfeccan;
     }
 
-    public void setDfecpago(Date dfecpago) {
-        this.dfecpago = dfecpago;
+    public void setDfeccan(Date dfeccan) {
+        this.dfeccan = dfeccan;
     }
 
     public BigDecimal getNnotabo() {
@@ -388,9 +385,33 @@ public class CuentaPagar implements Serializable {
     public void setNtotalreclamo(BigDecimal ntotalreclamo) {
         this.ntotalreclamo = ntotalreclamo;
     }
-    
-    
-    
+
+    public Date calculaVencimiento() {
+        this.dfecven = Dia.sumarDias(this.dfecemi, this.nplazo);
+        return dfecven;
+    }
+
+    public void calcula(BigDecimal nmontoigv) {
+        this.setNigv(Igv.Igv(nmontoigv, this.nafecto));
+        this.setNimporte(this.nafecto.add(this.ninafecto.add(this.nigv)).add(this.npercepcion));
+
+        if (!Numero.IsCero(this.getNingreso())) {
+            this.setNreclamodevolucion(this.nimporte.subtract(this.getNingreso()));
+            this.setNtotalreclamo(nreclamodevolucion.add(nreclamoprecio));
+        }
+    }
+
+    public void validarTotalesIngreso() {
+        if (!Numero.IsCero(this.getNingreso())) {
+            BigDecimal totalingreso = this.ningreso.add(this.nreclamodevolucion.add(this.nreclamoprecio));
+            BigDecimal diferencia = (this.nimporte.multiply(this.getNtipocambio())).subtract(totalingreso);
+
+            int rpta = diferencia.abs().compareTo(new BigDecimal("5"));
+            if (rpta == 1) {
+                throw new ExceptionZarcillo("El Importe de la factura no cuadra con el Importe del Ingreso");
+            }
+        }
+    }
 
     @Override
     public int hashCode() {

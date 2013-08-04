@@ -27,7 +27,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "notabo_proveedor")
 @NamedQueries({
-    @NamedQuery(name = "NotaboProveedor.findAll", query = "SELECT n FROM NotaboProveedor n")})
+    @NamedQuery(name = "NotaboProveedor.findAll", query = "SELECT n FROM NotaboProveedor n"),
+    @NamedQuery(name = "NotaboProveedor.findByIdnotabo", query = "SELECT n FROM NotaboProveedor n WHERE n.idnotabo=:idnotabo"),
+    @NamedQuery(name = "NotaboProveedor.findByIdunidadByIdproveedorByNano", query = "SELECT n FROM NotaboProveedor n WHERE n.idunidad.idunidad =:idunidad and n.idproveedor.idproveedor=:idproveedor and n.idperiodo.nano=:nano ORDER BY n.dfecemi DESC "),
+
+})
 public class NotaboProveedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

@@ -74,6 +74,9 @@ public class LetraProveedor implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Moneda idmoneda;
 
+    @Column(name = "cnumero")
+    private String cnumero;
+    
     public LetraProveedor() {
         nacuenta=new BigDecimal("0");
         nimporte=new BigDecimal("0");
@@ -214,6 +217,16 @@ public class LetraProveedor implements Serializable {
     public void setIdmoneda(Moneda idmoneda) {
         this.idmoneda = idmoneda;
     }
+
+    public String getCnumero() {
+        return cnumero;
+    }
+
+    public void setCnumero(String cnumero) {
+        this.cnumero = cnumero;
+    }
+    
+    
 
     @Override
     public int hashCode() {

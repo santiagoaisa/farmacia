@@ -23,14 +23,13 @@ import javax.persistence.TemporalType;
  * @author saisa
  */
 @Entity
-@Table(name = "cheque_cliente")
+@Table(name = "cheque_proveedor")
 @NamedQueries({
-    @NamedQuery(name = "ChequeCliente.findAll", query = "SELECT c FROM ChequeCliente c"),
-    @NamedQuery(name = "ChequeCliente.findByIdcheque", query = "SELECT c FROM ChequeCliente c WHERE c.idcheque=:idcheque"),
-    @NamedQuery(name = "ChequeCliente.findByIdunidadByIdclienteByNano", query = "SELECT c FROM ChequeCliente c WHERE c.idunidad.idunidad=:idunidad and c.idcliente.idcliente=:idcliente and c.idperiodo.nano=:nano ORDER BY c.dfecha DESC")    
+    @NamedQuery(name = "ChequeProveedor.findAll", query = "SELECT c FROM ChequeProveedor c"),
+    @NamedQuery(name = "ChequeProveedor.findByIdcheque", query = "SELECT c FROM ChequeProveedor c WHERE c.idcheque=:idcheque "),
+    @NamedQuery(name = "ChequeProveedor.findByIdunidadByIdproveedorByNano", query = "SELECT c FROM ChequeProveedor c WHERE c.idunidad.idunidad=:idunidad and c.idproveedor.idproveedor=:idproveedor and c.idperiodo.nano=:nano ORDER BY c.dfecha DESC ")
 })
-public class ChequeCliente implements Serializable {
-
+public class ChequeProveedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,9 +39,11 @@ public class ChequeCliente implements Serializable {
     @Column(name = "dfecha")
     @Temporal(TemporalType.DATE)
     private Date dfecha;
-    @JoinColumn(name = "idbanco", referencedColumnName = "idbanco")
+    
+     @JoinColumn(name = "idbanco", referencedColumnName = "idbanco")
     @ManyToOne(fetch = FetchType.EAGER)
     private Banco idbanco;
+    
     @Column(name = "cnumero")
     private String cnumero;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -55,33 +56,40 @@ public class ChequeCliente implements Serializable {
     @Column(name = "dfeccan")
     @Temporal(TemporalType.DATE)
     private Date dfeccan;
-    @JoinColumn(name = "idunidad", referencedColumnName = "idunidad")
+    
+     @JoinColumn(name = "idunidad", referencedColumnName = "idunidad")
     @ManyToOne(fetch = FetchType.EAGER)
     private UnidadNegocio idunidad;
-    @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
+     
+      @JoinColumn(name = "idproveedor", referencedColumnName = "idproveedor")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Cliente idcliente;
+    private Proveedor idproveedor;
+      
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
+    
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
-    @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
+     @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Periodo idperiodo;
-    
-      @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+     
+    @Column(name = "cgirado")
+    private String cgirado;
+
+     @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
     @ManyToOne(fetch = FetchType.EAGER)
     private Moneda idmoneda;
-
-    public ChequeCliente() {
-        nacuenta=new BigDecimal("0");
+    
+    public ChequeProveedor() {
+         nacuenta=new BigDecimal("0");
         nimporte=new BigDecimal("0");
         nsaldo=new BigDecimal("0");
     }
 
-    public ChequeCliente(Integer idcheque) {
+    public ChequeProveedor(Integer idcheque) {
         this.idcheque = idcheque;
     }
 
@@ -109,7 +117,7 @@ public class ChequeCliente implements Serializable {
         this.cnumero = cnumero;
     }
 
-    
+   
 
     public BigDecimal getNimporte() {
         return nimporte;
@@ -151,6 +159,14 @@ public class ChequeCliente implements Serializable {
         this.dfecreg = dfecreg;
     }
 
+    public String getCgirado() {
+        return cgirado;
+    }
+
+    public void setCgirado(String cgirado) {
+        this.cgirado = cgirado;
+    }
+
     public Banco getIdbanco() {
         return idbanco;
     }
@@ -167,12 +183,12 @@ public class ChequeCliente implements Serializable {
         this.idunidad = idunidad;
     }
 
-    public Cliente getIdcliente() {
-        return idcliente;
+    public Proveedor getIdproveedor() {
+        return idproveedor;
     }
 
-    public void setIdcliente(Cliente idcliente) {
-        this.idcliente = idcliente;
+    public void setIdproveedor(Proveedor idproveedor) {
+        this.idproveedor = idproveedor;
     }
 
     public Usuario getIdusuario() {
@@ -198,10 +214,10 @@ public class ChequeCliente implements Serializable {
     public void setIdmoneda(Moneda idmoneda) {
         this.idmoneda = idmoneda;
     }
-    
-    
-    
 
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -212,10 +228,10 @@ public class ChequeCliente implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ChequeCliente)) {
+        if (!(object instanceof ChequeProveedor)) {
             return false;
         }
-        ChequeCliente other = (ChequeCliente) object;
+        ChequeProveedor other = (ChequeProveedor) object;
         if ((this.idcheque == null && other.idcheque != null) || (this.idcheque != null && !this.idcheque.equals(other.idcheque))) {
             return false;
         }
@@ -226,4 +242,5 @@ public class ChequeCliente implements Serializable {
     public String toString() {
         return cnumero;
     }
+    
 }

@@ -60,11 +60,14 @@ public class Periodo implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
     
+     @Column(name = "binactivo")
+    private Boolean binactivo;
 
     public Periodo() {
         nano=2013;
         nmes=1;
         nigv=new BigDecimal("0");        
+        binactivo=false;
     }
 
     public Periodo(Integer idperiodo) {
@@ -135,6 +138,14 @@ public class Periodo implements Serializable {
 
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
+    }
+
+    public Boolean getBinactivo() {
+        return binactivo;
+    }
+
+    public void setBinactivo(Boolean binactivo) {
+        this.binactivo = binactivo;
     }
 
     

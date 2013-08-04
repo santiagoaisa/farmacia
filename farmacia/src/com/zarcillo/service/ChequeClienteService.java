@@ -13,6 +13,6 @@ public interface ChequeClienteService {
     public ChequeCliente actualizar(ChequeCliente cheque);
     public void eliminar(ChequeCliente cheque);
     public ChequeCliente buscar(Integer idcheque);
-    public List<ChequeCliente> listaPorIdcliente(Integer idcliente);
+    public List<ChequeCliente> listaPorIdunidadPorIdclientePorNano(String idunidad,Integer idcliente,Integer nano);
     
 }

@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.TipoPago;
+import java.util.List;
 
 /**
  *
@@ -8,4 +9,7 @@ import com.zarcillo.domain.TipoPago;
  */
 public interface TipoPagoDAO {
      TipoPago busqueda(Integer idtipo);
+     List<TipoPago> listaTipoPagoPorBcobro();
+     List<TipoPago> listaTipoPagoPorBpago();
+     TipoPago buscarPorCcodigosunat(String ccodigosunat);
 }

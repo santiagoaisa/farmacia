@@ -90,6 +90,10 @@ public class AmortizacionCliente implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
 
+     @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Periodo idperiodo;
+    
     public AmortizacionCliente() {
         bregistro=false;
         nimporte=new BigDecimal("0");
@@ -229,6 +233,14 @@ public class AmortizacionCliente implements Serializable {
 
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
+    }
+
+    public Periodo getIdperiodo() {
+        return idperiodo;
+    }
+
+    public void setIdperiodo(Periodo idperiodo) {
+        this.idperiodo = idperiodo;
     }
     
     

@@ -80,6 +80,20 @@ public class TipoPagoServiceImpl implements TipoPagoService {
         return cruddao.listarTodos(TipoPago.class);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<TipoPago> listaTipoPagoCliente() {
+        return tipopagodao.listaTipoPagoPorBcobro();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TipoPago> listaTipoPagoProveedor() {
+        return tipopagodao.listaTipoPagoPorBpago();
+    }
+    
+    
+
     private void registrarLog(String cmotivo, TipoPago tipo) {
         LogTipoPago logtipo = new LogTipoPago();
         logtipo.setCmotivo(cmotivo);

@@ -10,5 +10,5 @@ import java.util.List;
 public interface CuentaPagarDAO {
     CuentaPagar buscarPorIdregentrada(Integer idregentrada);    
     CuentaPagar buscarPorIdcuenta(Integer idcuenta);    
-    List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNano(String idunidad,String idproveedor,Integer nano);
+    List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad,Integer idproveedor,Integer nano);
 }

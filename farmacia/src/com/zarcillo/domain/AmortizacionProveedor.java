@@ -25,7 +25,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "amortizacion_proveedor")
 @NamedQueries({
-    @NamedQuery(name = "AmortizacionProveedor.findAll", query = "SELECT a FROM AmortizacionProveedor a")})
+    @NamedQuery(name = "AmortizacionProveedor.findAll", query = "SELECT a FROM AmortizacionProveedor a"),
+    @NamedQuery(name = "AmortizacionProveedor.findByIdcuenta", query = "SELECT a FROM AmortizacionProveedor a WHERE a.idcuenta.idcuenta=:idcuenta ")
+        
+})
 public class AmortizacionProveedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,6 +89,14 @@ public class AmortizacionProveedor implements Serializable {
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
+    
+     @JoinColumn(name = "idcheque", referencedColumnName = "idcheque")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ChequeProveedor idcheque;
+     
+      @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Periodo idperiodo;
    
 
     public AmortizacionProveedor() {
@@ -217,6 +228,22 @@ public class AmortizacionProveedor implements Serializable {
 
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
+    }
+
+    public ChequeProveedor getIdcheque() {
+        return idcheque;
+    }
+
+    public void setIdcheque(ChequeProveedor idcheque) {
+        this.idcheque = idcheque;
+    }
+
+    public Periodo getIdperiodo() {
+        return idperiodo;
+    }
+
+    public void setIdperiodo(Periodo idperiodo) {
+        this.idperiodo = idperiodo;
     }
     
     

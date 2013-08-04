@@ -13,4 +13,6 @@ public interface TipoPagoService {
     public void eliminar(TipoPago tipo);
     public TipoPago buscar(Integer idtipo);
     public List<TipoPago> listaGeneral();
+    public List<TipoPago> listaTipoPagoCliente();
+    public List<TipoPago> listaTipoPagoProveedor();
 }

@@ -22,8 +22,14 @@ public class ChequeClienteDAOImpl implements ChequeClienteDAO {
         return (ChequeCliente) em.createNamedQuery("ChequeCliente.findByIdcheque").setParameter("idcheque", idcheque).getSingleResult();
     }
 
+
     @Override
-    public List<ChequeCliente> listaPorIdcliente(Integer idcliente) {
-        return em.createNamedQuery("ChequeCliente.findByIdcliente").setParameter("idcliente", idcliente).getResultList();
+    public List<ChequeCliente> listaPorIdunidadPorIdclientePorNano(Integer idunidad, Integer idcliente, Integer nano) {
+        return em.createNamedQuery("ChequeCliente.findByIdunidadByIdclienteByNano").setParameter("idunidad", idunidad).setParameter("idcliente", idcliente).setParameter("nano", nano).getResultList();
     }
+
+    
+    
+    
+    
 }

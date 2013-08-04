@@ -8,5 +8,5 @@ import java.util.List;
  */
 public interface ChequeClienteDAO {
      ChequeCliente busqueda(Integer idcheque);
-    List<ChequeCliente> listaPorIdcliente(Integer idcliente);
+    List<ChequeCliente> listaPorIdunidadPorIdclientePorNano(Integer idunidad,Integer idcliente,Integer nano);
 }
