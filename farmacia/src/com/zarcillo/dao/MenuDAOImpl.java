@@ -29,7 +29,7 @@ public class MenuDAOImpl implements MenuDAO{
 
     @Override
     public List<Menu> listaPorIdmoduloPorNnivel1(Integer idmodulo, Integer nnivel) {
-        return em.createNamedQuery("Menu.findByIdmoduloByNnivel1").setParameter("idmodulo",idmodulo).setParameter("nnivel1", nnivel).getResultList();
+        return em.createNamedQuery("Menu.findByIdmoduloByNnivel1").setParameter("idmodulo",idmodulo).setParameter("nnivel", nnivel).getResultList();
     }
     
     
