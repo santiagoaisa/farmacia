@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Table(name = "descuento")
 @NamedQueries({
     @NamedQuery(name = "Descuento.findAll", query = "SELECT d FROM Descuento d"),
-    @NamedQuery(name = "Descuento.findByIdalmacenByIdproducto", query = "SELECT d FROM Descuento d WHERE d.idalmacen.idalmacen=:idalmacen and d.idproducto.idproducto=:idproducto ")
+    @NamedQuery(name = "Descuento.findByIdalmacenByIdproducto", query = "SELECT d FROM Descuento d WHERE d.existencia.idalmacen.idalmacen=:idalmacen and d.existencia.idproducto.idproducto=:idproducto ")
 })
 public class Descuento implements Serializable {
 
