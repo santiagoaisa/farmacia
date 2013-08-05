@@ -66,6 +66,9 @@ public class Lote implements Serializable {
     private Date dfecha;
     @Column(name = "bbloqueado")
     private Boolean bbloqueado;
+    @Column(name = "cobervacion")
+    private String cobervacion;
+    
 
     public Lote() {
         nstock = 0;
@@ -155,6 +158,17 @@ public class Lote implements Serializable {
     public void setBbloqueado(Boolean bbloqueado) {
         this.bbloqueado = bbloqueado;
     }
+
+    public String getCobervacion() {
+        return cobervacion;
+    }
+
+    public void setCobervacion(String cobervacion) {
+        this.cobervacion = cobervacion;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {

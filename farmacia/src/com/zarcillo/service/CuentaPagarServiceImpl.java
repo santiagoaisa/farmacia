@@ -157,22 +157,44 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     @Override
     public CuentaPagar amortizar(AmortizacionProveedor amortizacion) {
         CuentaPagar cuentapagar = new CuentaPagar();
+        BigDecimal nimporteamortizar = new BigDecimal("0");
         try {
             cuentapagar = cuentapagardao.buscarPorIdcuenta(amortizacion.getIdcuenta().getIdcuenta());
             //
             amortizacion.setDfecreg(new Date());
             amortizacion.setIdperiodo(periododao.buscarPorFecha(amortizacion.getDfecha()));
-            // fin se establece el periodo
-            amortizacion.setNimportes(amortizacion.getNimporte().multiply(amortizacion.getNtipocambio()));
-            if (!cuentapagar.getIdmoneda().getIdmoneda().equals(amortizacion.getIdmoneda().getIdmoneda())) {
-                if (amortizacion.getIdmoneda().getBnacional()) {
-                    BigDecimal nimportedolares = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
-                    amortizacion.setNimporte(nimportedolares);
+            amortizacion.setIdcuenta(cuentapagar);
+
+            //CUENTAS PAGAR Y AMORTIZAZION TIENEN IGUAL MONEDA
+            if (cuentapagar.getIdmoneda().getIdmoneda().equals(amortizacion.getIdmoneda().getIdmoneda())) {
+                nimporteamortizar = amortizacion.getNimporte();
+                amortizacion.setNimportes(nimporteamortizar.multiply(amortizacion.getNtipocambio()));
+            } else {
+                //SI CUENTAS PAGAR ES SOLES
+                if (cuentapagar.getIdmoneda().getBnacional()) {
+                    //SI CUENTAS PAGAR ES SOLES Y LA AMORTIZACION ES EN MONEDA EXTRANJERA
+                    if (!amortizacion.getIdmoneda().getBnacional()) {
+                        amortizacion.setNimportes(amortizacion.getNimporte().multiply(amortizacion.getNtipocambio()));
+                        nimporteamortizar = amortizacion.getNimportes();
+                    }
                 } else {
-                    BigDecimal nimportedolares = amortizacion.getNimporte().multiply(amortizacion.getNtipocambio());
-                    amortizacion.setNimporte(nimportedolares);
-                }
+                    //SI CUENTAS PAGAR ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
+                    if (amortizacion.getIdmoneda().getBnacional()) {
+                        nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                        amortizacion.setIdmoneda(cuentapagar.getIdmoneda());
+                        amortizacion.setNimportes(amortizacion.getNimporte());
+                        amortizacion.setNimporte(nimporteamortizar);
+                    }
+                }//FIN SI CUENTAS PAGAR ES SOLES
+            }//FIN SI MONEDAS SONIGUALES
+
+            cuentapagar.setNacuenta(cuentapagar.getNacuenta().add(nimporteamortizar));
+            cuentapagar.setNsaldo(cuentapagar.getNsaldo().subtract(nimporteamortizar));
+            if (Numero.IsCero(cuentapagar.getNsaldo())) {
+                cuentapagar.setDfeccan(amortizacion.getDfecha());
             }
+            cruddao.actualizar(cuentapagar);
+
             //si es cheque
             if (amortizacion.getIdtipo().getCcodigosunat().equals(TipoPago.CHEQUE_SUNAT.getCcodigosunat())) {
                 cuentapagar.setNacuenta(cuentapagar.getNacuenta().add(amortizacion.getNimporte()));
@@ -227,18 +249,13 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
 //                cuentaspagar.setNsaldo(cuentaspagar.getNsaldo().subtract(amortizacion.getNimporte()));
 //            }
 
-            if (Numero.IsCero(cuentapagar.getNsaldo())) {
-                cuentapagar.setDfeccan(amortizacion.getDfecha());
-            }
-
-            cuentapagar = cuentapagardao.buscarPorIdcuenta(cuentapagar.getIdcuenta());
 
         } catch (Exception e) {
             e.printStackTrace();
             throw new ExceptionZarcillo(e.getCause().getMessage());
         }
 
-        return cuentapagar;
+        return cuentapagardao.buscarPorIdcuenta(cuentapagar.getIdcuenta());
     }
 
     @Override
@@ -252,7 +269,7 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     }
 
     @Override
-     @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad, Integer idproveedor, Integer nano) {
         return cuentapagardao.listaPorIdunidadPorIdproveedorPorNano(idunidad, idproveedor, nano);
     }

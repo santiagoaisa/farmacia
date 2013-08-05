@@ -98,6 +98,8 @@ public class AmortizacionProveedor implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Periodo idperiodo;
    
+       @Column(name = "creferencia")
+    private String creferencia;
 
     public AmortizacionProveedor() {
         nimporte=new BigDecimal("0");
@@ -244,6 +246,14 @@ public class AmortizacionProveedor implements Serializable {
 
     public void setIdperiodo(Periodo idperiodo) {
         this.idperiodo = idperiodo;
+    }
+
+    public String getCreferencia() {
+        return creferencia;
+    }
+
+    public void setCreferencia(String creferencia) {
+        this.creferencia = creferencia;
     }
     
     
