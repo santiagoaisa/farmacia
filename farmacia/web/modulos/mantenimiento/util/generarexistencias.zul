@@ -1,0 +1,35 @@
+
+<window id="winGenera" title="Crear Existencias" border="0"
+onCancel="doCancel()"  apply="modmantenimiento.util.GenerarExistencias"   width="500px">
+    <zscript>{
+        void doCancel() {
+        winGenera.onClose();}
+ }
+    </zscript>
+    
+    <grid fixedLayout="true" >
+        <columns>
+            <column label="" width="25%"/>
+            <column label="" width="25%"/>
+            <column label="" width="55%"/>
+        </columns>
+        <rows>
+            <row>
+                <label value="Producto:" />
+                <textbox id="txtCodigo"   width="95%" />
+                <textbox id="txtNombre" readonly="true" width="95%" />
+            </row>
+            <row>
+                <label value="Almacen:" />
+                <combobox id="cboAlmacen" width="95%" constraint="no empty:Debe Seleccionar Almacen" readonly="true"/>
+                <label value="" />    
+            </row>
+        </rows>
+    </grid>
+
+   
+    <toolbar id="tb"  height="25px" align="end"	>
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar" />
+        <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="doCancel()" />
+    </toolbar>
+</window>

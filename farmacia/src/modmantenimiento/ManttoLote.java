@@ -5,13 +5,16 @@ import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Lote;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.AlmacenService;
+import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.ExistenciaService;
 import com.zarcillo.service.LoteService;
 import com.zarcillo.service.ProductoService;
 import com.zarcillo.service.UsuarioService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -20,7 +23,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Checkbox;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.ListModel;
@@ -62,21 +65,21 @@ public class ManttoLote  extends SelectorComposer  {
     
     @Wire
     private Textbox txtSublinea;
-    
-    @Wire
-    private Checkbox bLote;
-    
+        
     @Wire
     private Intbox nStkart;
-    
-    @Wire
-    private Intbox nPeso;
-    
+        
     @Wire
     private Intbox nStklot;
     
     @Wire
     private Toolbarbutton btnNuevo;
+    
+    @Wire
+    private Toolbarbutton btnImprimir;
+    
+    @Wire
+    private Jasperreport rptinventario;
     
     @WireVariable
     UsuarioService usuarioService;
@@ -100,6 +103,16 @@ public class ManttoLote  extends SelectorComposer  {
     public void onCreate() throws NamingException {        
         initComponets();
      }
+    
+    @Listen("onClick = #btnNuevo")
+    public void onAgregarNuevo(Event event) {
+        nuevo();
+    }  
+    
+    @Listen("onClick = #btnImprimir")
+    public void onAgregarImprimir(Event event) {
+        imprimir();
+    }  
     
     public void initComponets(){
         user_login = exec.getUserPrincipal().getName();
@@ -148,7 +161,6 @@ public class ManttoLote  extends SelectorComposer  {
         txtLinea.setText(existencia.getIdproducto().getIdsublinea().getIdlinea().getCnomlinea());
         txtSublinea.setText(existencia.getIdproducto().getIdsublinea().getCnomsublinea());
         nStkart.setValue(existencia.getNstock());
-        bLote.setChecked(existencia.getIdproducto().getBinafecto());
         List<Lote> listaLote = loteService.listaPorIdalmacenPorIdproducto(existencia.getExistenciaPK().getIdalmacen(), existencia.getExistenciaPK().getIdproducto());
         modeloLote = new ListModelList(listaLote);
         lstLote.setModel(modeloLote);
@@ -171,5 +183,90 @@ public class ManttoLote  extends SelectorComposer  {
         txtCodigo.setReadonly(enable);
         cboAlmacen.setDisabled(enable);
         btnNuevo.setVisible(enable);
+    }
+    public void salir(){
+        winLote.onClose();
+    }
+    
+    public void nuevo(){
+        Window wincrea = (Window) Executions.createComponents("/modulos/mantenimiento/util/crealote.zul", null, null);
+        wincrea.setAttribute("REST", true);
+        wincrea.doModal();
+        Boolean rest = (Boolean) wincrea.getAttribute("REST");
+        if (rest) {
+            Lote clote;
+            clote = (Lote) wincrea.getAttribute("LOTE");
+            clote.setExistencia(existencia);
+            clote = loteService.registrar(clote);
+            modeloLote.add(clote);
+        }
+        ActualizaStock();
+    }
+
+    public void Siguiente() {
+        limpiar();
+        habilitar(false);
+        txtCodigo.focus();
+    }
+
+    private void limpiar() {
+        txtCodigo.setText("");
+        txtNombre.setText("");
+        txtUnimed.setText("");
+        txtLinea.setText("");
+        txtSublinea.setText("");
+        nStkart.setValue(0);
+        modeloLote=new ListModelList();
+        lstLote.setModel(modeloLote);
+        nStklot.setValue(0);
+        
+    }
+    
+    public void validarDetalle() {
+        if (modeloLote.size() <= 0) {
+            throw new ExceptionZarcillo("El producto no tiene Lotes");
+        }
+    }
+    public void modificar() throws InterruptedException {
+        Window wincrea = (Window) Executions.createComponents("/modulos/mantenimiento/util/crealote.zul", null, null);
+        wincrea.setAttribute("REST", true);
+        wincrea.setAttribute("LOTE", (Lote) modeloLote.getElementAt(lstLote.getSelectedIndex()));
+        wincrea.doModal();
+        Boolean rest = (Boolean) wincrea.getAttribute("REST");
+        if (rest) {
+            int indice = lstLote.getSelectedIndex();
+            Lote clote;
+            clote = (Lote) wincrea.getAttribute("LOTE");
+            //lote.setExistencias(existencia);
+            clote = loteService.actualizar(clote);
+            modeloLote.remove(indice);
+            modeloLote.add(indice, clote);
+        }
+        ActualizaStock();
+    }
+
+    public void imprimir() {
+        validar();
+        validarDetalle();
+        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+        HashMap parametro = new HashMap();
+        parametro.put("UNIDADNEGOCIO", almacen.getIdunidad().getCnomunidad());
+        parametro.put("ALMACEN", almacen.getCnomalmacen());
+        parametro.put("RUTA", almacen.getIdunidad().getIdempresa().getCruta());
+        parametro.put("LINEA", existencia.getIdproducto().getIdsublinea().getIdlinea().getCnomlinea());
+        parametro.put("SUBLINEA", existencia.getIdproducto().getIdsublinea().getCnomsublinea());
+        parametro.put("CODPRODUCTO", existencia.getIdproducto().getIdproducto());
+        parametro.put("UNIMEDIDA", existencia.getIdproducto().getIdpresentacion().getCabrev());
+        parametro.put("NOMPRODUCTO", existencia.getIdproducto().getCnomproducto());
+        parametro.put("USUARIO", usuario.toString());
+        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloLote);
+        try {
+            rptinventario.setSrc("/modulos/mantenimiento/reporte/mantenimientolote.jasper");
+            rptinventario.setDatasource(data);
+            rptinventario.setParameters(parametro);
+            rptinventario.setType("pdf");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

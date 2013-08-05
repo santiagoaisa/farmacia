@@ -33,32 +33,17 @@ apply="modmantenimiento.ManttoLinea" onCancel="winLote.Siguiente()" >
                 <textbox id="txtSublinea" readonly="true" width="95%"/>
                 
             </row>
+            <separator/>
+            <row spans="4,1,1">
+                    <separator/>
+                    <label value="Stock:"/>
+                    <intbox id="nStkart" readonly="true" value="0" width="95%" />
+                    
+            </row>
 
         </rows>
     </grid>
 
-    <separator/>
-
-    <grid>
-        <columns>
-            <column width="25%"/>
-            <column width="10%"/>
-            <column width="15%"/>
-            <column width="15%"/>
-            <column width="15%"/>
-            <column width="20%"/>
-        </columns>
-        <rows >
-            <row>
-                   <checkbox id="bLote" label="Requiere Lote" disabled="true"/>
-                    <label value="Stock:"/>
-                    <intbox id="nStkart" readonly="true" value="0" width="95%" />
-                    <label value="Peso(Kg):"  />
-                    <decimalbox id="nPeso" value="0" format="0.0000" readonly="true" width="95%" />
-                    <separator/>
-            </row>
-
-            <row spans="6">
                 <listbox id="lstLote" height="195px"  >
                     <auxhead>
                         <auxheader label="Detalle de Lotes" colspan="6"  />
@@ -72,27 +57,29 @@ apply="modmantenimiento.ManttoLinea" onCancel="winLote.Siguiente()" >
                         <listheader label="Bloq."  width="5%"/>
                     </listhead>
                     <listitem self="@{each=lote}" onOK="winLote.modificar()" onDoubleClick="winLote.modificar()">
-                        <listcell label="@{lote.cnumlot}"/>
+                        <listcell label="@{lote.clote}"/>
                         <listcell label="@{lote.cfecven}"/>
-                        <listcell label="@{lote.ncanart}"/>
+                        <listcell label="@{lote.nstock}"/>
                         <listcell label="@{lote.idmotivo}"/>
                         <listcell date="@{lote.dfecreg}"  format="yyyy.MM.dd" use="modalmacen.util.ListcellFecha" />
                         <listcell >
                             <checkbox checked="@{lote.bbloqueado}" disabled="true" />
                         </listcell>
                     </listitem>
+                    <listfoot>
+                        <listfooter />
+                        <listfooter />
+                        <listfooter />
+                        <listfooter />
+                        <listfooter />
+                        <listfooter >
+                            <intbox id="nStklot" readonly="true" width="97%" value="0" />
+                        </listfooter>
+                    </listfoot>
+                    
                 </listbox>
-            </row>
-
-            <row spans="1,1,1,3">
-            		<separator/>
-                  <label value="Stock"/>
-                  <intbox id="nStklot" readonly="true" value="0" width="90%" />
-                  <separator/>
-
-            </row>
-        </rows>
-    </grid>
+            
+        
 
   <jasperreport id="reporte" visible="false" />
 

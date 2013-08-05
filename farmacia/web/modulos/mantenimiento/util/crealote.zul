@@ -1,0 +1,59 @@
+<?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
+<window id="winNlote" title="Creacion de Lotes..."  width="320px"  border="0"
+ apply="modmantenimiento.util.CreaLote" >
+
+    <grid>
+        <columns>
+            <column width="35%"/>
+            <column width="35%" />
+            <column width="30%" />
+        </columns>
+        <rows>
+            <row >
+                <label />
+                <button id="btnBloquear" label="Bloquear" disabled="${sec:isNoneGranted('ROLE_BLOQUEARLOTE')}" />
+                <label />
+            </row>
+            <row spans="1,2">
+                <label value="Tipo Movimiento:"/>
+                <combobox id="cboTipo" readonly="true" width="98%"/>
+            </row>
+            <row spans="1,2">
+                <label value="Numero Lote:"/>
+                <textbox id="txtLote" constraint="no empty: Debe Ingresar Numero" maxlength="15" width="96%"/>
+            </row>
+            <row>
+                <label value="F.Venc.(Año - Mes):"/>
+                <intbox id="nAño" constraint="no empty: Debe Ingresar Stock" value="0" width="96%"/>
+                <intbox id="nMes" constraint="no empty: Debe Ingresar Stock" value="0" width="96%"/>
+            </row>
+
+            <row  spans="1,2" >
+                <label value="Stock:"/>
+                <intbox id="nLote" constraint="no empty: Debe Ingresar Stock" value="0" width="96%"/>
+            </row>
+
+            <row  spans="1,2" >
+                <label value="Observacion:"/>
+                <textbox multiline="true" id="txtObservacion" constraint="no empty: Debe Ingresar Observacion"  width="96%"/>
+            </row>
+        </rows>
+    </grid>
+
+        <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"
+				onClick="winNlote.registrar()"  />
+            <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png"
+				onClick="doCancel()" />
+        </toolbar>
+
+
+    <zscript>{
+        void doCancel() {
+        winNlote.setAttribute("REST",false);
+        winNlote.onClose();
+  }
+ }
+    </zscript>
+
+</window>
