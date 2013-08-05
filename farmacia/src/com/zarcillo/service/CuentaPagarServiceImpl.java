@@ -195,61 +195,6 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
             }
             cruddao.actualizar(cuentapagar);
 
-            //si es cheque
-            if (amortizacion.getIdtipo().getCcodigosunat().equals(TipoPago.CHEQUE_SUNAT.getCcodigosunat())) {
-                cuentapagar.setNacuenta(cuentapagar.getNacuenta().add(amortizacion.getNimporte()));
-                cuentapagar.setNsaldo(cuentapagar.getNsaldo().subtract(amortizacion.getNimporte()));
-
-                ChequeProveedor cheque = chequeproveedordao.busqueda(amortizacion.getIdcheque().getIdcheque());
-                amortizacion.setIdbanco(cheque.getIdbanco());
-                if (!cheque.getIdmoneda().getIdmoneda().equals(amortizacion.getIdmoneda().getIdmoneda())) {
-                    if (amortizacion.getIdmoneda().getBnacional()) {
-                        BigDecimal nimportedolares = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
-                        amortizacion.setNimporte(nimportedolares);
-                    } else {
-                        BigDecimal nimportedolares = amortizacion.getNimporte().multiply(amortizacion.getNtipocambio());
-                        amortizacion.setNimporte(nimportedolares);
-                    }
-                }
-
-                cheque.setNacuenta(cheque.getNacuenta().add(amortizacion.getNimporte()));
-                cheque.setNsaldo(cheque.getNsaldo().subtract(amortizacion.getNimporte()));
-                cruddao.actualizar(cheque);
-            }
-
-            //si es nota de credito
-            if (amortizacion.getIdtipo().getCcodigosunat().contains(TipoPago.NOTA_CREDITO_SUNAT.getCcodigosunat())) {
-                NotaboProveedor ntp = notabodao.busqueda(amortizacion.getIdnotabo().getIdnotabo());
-                ntp.setNacuenta(ntp.getNacuenta().add(amortizacion.getNimporte()));
-                ntp.setNsaldo(ntp.getNsaldo().subtract(amortizacion.getNimporte()));
-
-                //devuelvo el acuenta porque es nota de credito
-                cuentapagar.setNsaldo(cuentapagar.getNsaldo().subtract(amortizacion.getNimporte()));
-                cuentapagar.setNnotabo(cuentapagar.getNnotabo().add(amortizacion.getNimporte()));
-
-                cruddao.actualizar(ntp);
-            }
-
-            //si es nota de debito
-            if (amortizacion.getIdtipo().getCcodigosunat().contains(TipoPago.NOTA_CREDITO_SUNAT.getCcodigosunat())) {
-                NotcarProveedor ntp = notcardao.busqueda(amortizacion.getIdnotcar().getIdnotcar());
-                ntp.setNacuenta(ntp.getNacuenta().add(amortizacion.getNimporte()));
-                ntp.setNsaldo(ntp.getNsaldo().subtract(amortizacion.getNimporte()));
-
-
-                cuentapagar.setNsaldo(cuentapagar.getNsaldo().add(amortizacion.getNimporte()));
-                cuentapagar.setNnotcar(cuentapagar.getNnotcar().add(amortizacion.getNimporte()));
-
-                cruddao.actualizar(ntp);
-            }
-
-            //si es redondeo
-//            if (amortizacion.getIdtipo().getIdtipo().equals(TipoPagoProveedor.REDONDEO.getIdtipo())) {
-//                cuentaspagar.setNacuenta(cuentaspagar.getNacuenta().add(amortizacion.getNimporte()));
-//                cuentaspagar.setNsaldo(cuentaspagar.getNsaldo().subtract(amortizacion.getNimporte()));
-//            }
-
-
         } catch (Exception e) {
             e.printStackTrace();
             throw new ExceptionZarcillo(e.getCause().getMessage());

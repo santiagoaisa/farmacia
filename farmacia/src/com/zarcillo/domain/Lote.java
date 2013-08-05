@@ -66,8 +66,8 @@ public class Lote implements Serializable {
     private Date dfecha;
     @Column(name = "bbloqueado")
     private Boolean bbloqueado;
-    @Column(name = "cobervacion")
-    private String cobervacion;
+    @Column(name = "cobservacion")
+    private String cobservacion;
     
 
     public Lote() {
@@ -159,13 +159,15 @@ public class Lote implements Serializable {
         this.bbloqueado = bbloqueado;
     }
 
-    public String getCobervacion() {
-        return cobervacion;
+    public String getCobservacion() {
+        return cobservacion;
     }
 
-    public void setCobervacion(String cobervacion) {
-        this.cobervacion = cobervacion;
+    public void setCobservacion(String cobservacion) {
+        this.cobservacion = cobservacion;
     }
+
+    
     
     
     
