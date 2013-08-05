@@ -1,10 +1,14 @@
 package modmantenimiento;
 
+import com.zarcillo.domain.Autorizacion;
+import com.zarcillo.domain.DetalleAutorizacion;
 import com.zarcillo.domain.Rol;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.RolService;
 import com.zarcillo.service.UsuarioService;
+import java.util.ArrayList;
+import java.util.List;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
 import modmantenimiento.util.CrudListener;
@@ -18,6 +22,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModel;
@@ -34,6 +39,8 @@ public class ManttoUsuario extends SelectorComposer implements CrudListener{
     private MenuMantenimiento menuMantto;   
     
     private ListModelList modeloRol;
+    private ListModelList modeloPermiso;
+    private List<DetalleAutorizacion> listaAutorizacion=new ArrayList<DetalleAutorizacion>();
     
     @Wire
     private Window winUsuario;
@@ -52,6 +59,12 @@ public class ManttoUsuario extends SelectorComposer implements CrudListener{
     
     @Wire
     private Checkbox bActivo;
+    
+    @Wire
+    private Button btnPermiso;
+    
+    @Wire
+    private Listbox lstPermiso;
     
           
     @WireVariable
@@ -74,12 +87,39 @@ public class ManttoUsuario extends SelectorComposer implements CrudListener{
     public void onFocoDireccion(Event event) {
         cboRol.select();
     }   
+    
+    @Listen("onClick = #btnPermiso")
+    public void onAgregarPermiso(Event event) {
+        agregarPermiso();
+    }  
        
     public void initComponets(){
         modeloRol=new ListModelList(rolService.listaGeneral());
         cboRol.setModel(modeloRol);
+        modeloPermiso=new ListModelList();
+        lstPermiso.setModel(modeloPermiso);
         habilitar(true);
-    }   
+    }  
+    
+    public void agregarPermiso() {
+        Window wincrea = (Window) Executions.createComponents("/modulos/mantenimiento/util/agregarautorizacionusuario.zul", null, null);
+        wincrea.setAttribute("REST", true);
+        Autorizacion autorizacion;
+        DetalleAutorizacion dAutorizacion=new DetalleAutorizacion();
+        wincrea.doModal();
+        Boolean rest = (Boolean) wincrea.getAttribute("REST");
+        if (rest) {
+            Listbox lstbusqueda = (Listbox) wincrea.getFellow("lstAutorizacion");
+            ListModel modelobuscado = lstbusqueda.getModel();
+            autorizacion=  (Autorizacion) modelobuscado.getElementAt(lstbusqueda.getSelectedIndex());
+            dAutorizacion.setIdusuario(usuario);
+            dAutorizacion.setIdautorizacion(autorizacion);
+            dAutorizacion.getIdautorizacion().getCnomautorizacion();
+            listaAutorizacion.add(dAutorizacion);
+            modeloPermiso=new ListModelList(listaAutorizacion);
+            lstPermiso.setModel(modeloPermiso);
+        }
+    }
     
     @Override
     public void leer() {     
@@ -89,6 +129,7 @@ public class ManttoUsuario extends SelectorComposer implements CrudListener{
         usuario.setClogin(txtLogin.getText());
         usuario.setCclave(txtClave.getText());
         usuario.setBactivo(bActivo.isChecked());
+        usuario.setDetalleAutorizacionCollection(listaAutorizacion);
     }
     
     @Override
@@ -105,6 +146,10 @@ public class ManttoUsuario extends SelectorComposer implements CrudListener{
         txtClave.setText(usuario.getCclave());
         bActivo.setChecked(usuario.getBactivo());
         cboRol.setSelectedIndex(modeloRol.indexOf(usuario.getIdrol()));
+        listaAutorizacion=usuarioService.listaDetalleAutorizacionPorIdusuario(usuario.getIdusuario());
+        modeloPermiso=new ListModelList(listaAutorizacion);
+        lstPermiso.setModel(modeloPermiso);
+        
     }
 
     @Override
@@ -112,6 +157,9 @@ public class ManttoUsuario extends SelectorComposer implements CrudListener{
         quitarConstraint();
         habilitar(false);
         usuario=new Usuario();
+        listaAutorizacion.clear();
+        modeloPermiso=new ListModelList(listaAutorizacion);
+        lstPermiso.setModel(modeloPermiso);
         txtLogin.setText("");
         txtNombre.setText("");
         txtClave.setText("");
@@ -180,6 +228,7 @@ public class ManttoUsuario extends SelectorComposer implements CrudListener{
         txtClave.setReadonly(enable);
         cboRol.setDisabled(enable);
         bActivo.setDisabled(enable);
+        btnPermiso.setDisabled(enable);
     }
 
     @Override

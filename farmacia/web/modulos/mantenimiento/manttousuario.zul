@@ -1,32 +1,42 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winUsuario"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
-<window id="winUsuario" width="400px" title="Mantenimiento de Usuarioes de Negocio"
+<window id="winUsuario" width="450px" title="Mantenimiento de Usuarioes de Negocio"
         apply="modmantenimiento.ManttoUsuario"  border="0" position="center">
     
     <grid >
         <columns>
-            <column width="25%"/>
-            <column width="25%"/>
-            <column width="25%"/>
-            <column width="25%"/>
+            <column width="20%"/>
+            <column width="30%"/>
+            <column width="20%"/>
+            <column width="30%"/>
         </columns>
         <rows  >
             <row spans="1,3" >
                 <label value="Nombre:" />
                 <textbox id="txtNombre" width="95%" constraint="no empty" />
             </row>
-            <row spans="1,2,1" >
-                <label value="Rol:" />
-                <combobox id="cboRol" width="95%" constraint="no empty:Debe Seleccionar Rol" readonly="true" autodrop="true" />
-                <checkbox id="bActivo"  label="Activo" disabled="true" />
-            </row>
-            
             <row  >
                 <label value="Login:"/>
                 <textbox id="txtLogin" readonly="true"  width="90%"/>
                 <label value="Clave:"/>
                 <textbox id="txtClave" type="password" readonly="true"  width="90%"/>
-            </row>                                 
+            </row>  
+            
+            <row  >
+                <label value="Rol:" />
+                <combobox id="cboRol" width="95%" constraint="no empty:Debe Seleccionar Rol" readonly="true" autodrop="true" />
+                <checkbox id="bActivo"  label="Activo" disabled="true" />
+                <button label="AgregarPermiso" id="btnPermiso" disabled="true" />
+            </row>                                           
         </rows>
     </grid>
+    <listbox id="lstPermiso" height="100px" mold="paging" pageSize="20" width="100%"  >
+                                <listhead>
+                                    <listheader label="Nombre" width="100%" sort="auto(idautorizacion.cnomautorizacion)"/>
+                                </listhead>
+                                <listitem self="@{each=detallepermiso}"  >
+                                    <listcell label="@{detallepermiso.idautorizacion.cnomautorizacion}" />
+                                </listitem>
+                            </listbox>
     <menu  id="menuMantto" width="100%"></menu>                  
 </window>

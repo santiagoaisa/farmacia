@@ -18,8 +18,8 @@
     
     <listbox id="lstAlmacen" mold="paging"   pageSize="50" width="99%" height="150px"  >
                     <listhead>
-                        <listheader label="Nombre" width="60%" sort="auto(cnomempresa)"/>
-                        <listheader label="Uni.Negocio" width="40%" sort="auto(cruc)"/>
+                        <listheader label="Nombre" width="60%" sort="auto(cnomalmacen)"/>
+                        <listheader label="Uni.Negocio" width="40%" sort="auto(idunineg.cnomunidad)"/>
                     </listhead>
                     <listitem self="@{each=almacen}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
                         <listcell label="@{almacen.cnomalmacen}"/>

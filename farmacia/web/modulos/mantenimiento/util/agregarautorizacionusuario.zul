@@ -1,0 +1,35 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBautorizacion"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="WinBautorizacion" title="Buscando Autorizacion..." border="2" width="400px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.AgregarAutorizacionUsuario" >
+    <zscript>{
+        void doCancel()
+        {
+        WinBautorizacion.setAttribute("REST",false);
+        WinBautorizacion.onClose();
+        }
+        void doRegistrar()
+        {
+        WinBautorizacion.setAttribute("REST",true);
+        WinBautorizacion.onClose();
+        }
+        }
+    </zscript>
+    
+    <listbox id="lstAutorizacion" mold="paging"   pageSize="50" width="99%" height="150px"  >
+                    <listhead>
+                        <listheader label="Nombre" width="60%" sort="auto(cnomautorizacion)"/>
+                    </listhead>
+                    <listitem self="@{each=autorizacion}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
+                        <listcell label="@{autorizacion.cnomautorizacion}"/>
+                    </listitem>
+                </listbox>
+    <menu id="mresultado" width="100%"></menu>
+    <toolbar id="tb"  height="25px" align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                       onClick="doRegistrar()" />
+
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                       onClick="doCancel()" />
+    </toolbar>
+</window>

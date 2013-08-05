@@ -1,0 +1,46 @@
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winMenu" width="560px" title="Mantenimiento de Menu"
+        apply="modmantenimiento.ManttoMenu"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="13%"/>
+            <column width="20%"/>
+            <column width="13%"/>
+            <column width="20%"/>
+            <column width="13%"/>
+            <column width="20%"/>
+        </columns>
+        <rows  >
+            <row spans="1,5" >
+                <label value="Modulo:" />
+                <combobox id="cboModulo" width="90%" constraint="no empty:Debe Seleccionar Modulo"  readonly="true" autodrop="true" />
+                
+            </row>
+            <row spans="1,5" >
+                <label value="Nombre:" />
+                <textbox id="txtNombre" width="90%" constraint="no empty" />
+            </row>
+            <row spans="1,5" >
+                <label value="Ruta:" />
+                <textbox id="txtRuta" width="90%"  />
+            </row>
+            <row  >
+                <label value="1° Nivel" />
+                <intbox id="nNivel1"  value="1"  width="90%" />
+                <label value="2° Nivel" />
+                <intbox id="nNivel2" value="0" width="90%" />
+                <label value="3° Nivel" />
+                <intbox id="nNivel3" value="0"  width="90%" />
+            </row>
+            <row spans="1,1,3,1" >
+                <label value="Orden" />
+                <intbox id="nOrden"  value="1"  width="90%" />
+                <label  />
+                 <checkbox id="bModal"  label="Modal" disabled="true" />
+            </row>                           
+        </rows>
+    </grid>  
+    
+    <menu  id="menuMantto" width="100%"></menu>                  
+</window>

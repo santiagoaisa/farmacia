@@ -1,0 +1,88 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winMapa"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menumantenimiento.zul"?>
+<window id="winMapa" title="Mantenimiento de Rol por Modulo" border="0" width="550px" mode="overlapped"
+apply="modmantenimiento.ManttoMapa">
+    <grid fixedLayout="true" width="100%">
+        <columns>
+            <column label="" width="20%" />
+            <column label="" width="60%" />
+            <column label="" width="20%" />
+            </columns>
+            <rows>
+                <row spans="1,2" >
+                    <label value="Rol:"/>
+                    <combobox id="cboRol" constraint="no empty: Debe Seleccionar Rol" readonly="true" width="98%"/>
+                </row>
+            <row >
+                <label value="Modulo:"/>
+                <combobox id="cboModulo" constraint="no empty: Debe Seleccionar Modulo" readonly="true" width="98%"/>
+                <button id="btnAgregar" label="Agregar" disabled="true"  />
+            </row>
+            </rows>
+            </grid>
+            <grid fixedLayout="true" width="100%">
+                <rows>
+                    <row>
+                        <tabbox>
+                            <tabs>
+                                <tab label="Archivo" id="tabArchivo"  />
+                                <tab label="Procesos" id="tabProceso"  />
+                                <tab label="Consultas" id="tabConsulta"  />
+                                <tab label="Herramientas" id="tabHerramienta"  />
+                            </tabs>
+                            <tabpanels height="60%">
+                                <tabpanel id="Archivo">
+                                    <listbox id="lstArchivo" height="310px" mold="paging" pageSize="50" width="100%"  >
+                                        <listhead>
+                                            <listheader label="Menu" width="35%" />
+                                            <listheader label="Ruta" width="65%" />
+                                        </listhead>
+                                        <listitem self="@{each=mapa}"  >
+                                            <listcell label="@{mapa.idmenu.cnommenu}" />
+                                            <listcell label="@{mapa.idmenu.cruta}" />
+                                        </listitem>
+                                    </listbox>
+                                </tabpanel>
+                                <tabpanel id="Proceso">
+                                    <listbox id="lstProceso" height="310px" mold="paging" pageSize="50" width="100%"  >
+                                        <listhead>
+                                            <listheader label="Menu" width="35%" />
+                                            <listheader label="Ruta" width="65%" />
+                                        </listhead>
+                                        <listitem self="@{each=mapa}"  >
+                                            <listcell label="@{mapa.idmenu.cnommenu}" />
+                                            <listcell label="@{mapa.idmenu.cruta}" />
+                                        </listitem>
+                                    </listbox>
+                                </tabpanel>
+                                <tabpanel id="Consulta">
+                                    <listbox id="lstConsulta" height="310px" mold="paging" pageSize="50" width="100%"  >
+                                        <listhead>
+                                            <listheader label="Menu" width="35%" />
+                                            <listheader label="Ruta" width="65%" />
+                                        </listhead>
+                                        <listitem self="@{each=mapa}"  >
+                                            <listcell label="@{mapa.idmenu.cnommenu}" />
+                                            <listcell label="@{mapa.idmenu.cruta}" />
+                                        </listitem>
+                                    </listbox>
+                                </tabpanel>
+                                <tabpanel id="herramientas">
+                                    <listbox id="lstHerramienta" height="310px" mold="paging" pageSize="50" width="100%"  >
+                                        <listhead>
+                                            <listheader label="Menu" width="35%" />
+                                            <listheader label="Ruta" width="65%" />
+                                        </listhead>
+                                        <listitem self="@{each=mapa}"  >
+                                            <listcell label="@{mapa.idmenu.cnommenu}" />
+                                            <listcell label="@{mapa.idmenu.cruta}" />
+                                        </listitem>
+                                     </listbox>
+                                 </tabpanel>
+                            </tabpanels>
+                        </tabbox>
+                     </row>
+                  </rows>
+               </grid>
+                <menu  id="menuMantto" width="100%"></menu> 
+</window>

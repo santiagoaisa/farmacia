@@ -1,0 +1,47 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winRuta"?>
+<window id="winRuta" title="Agregar Ruta" border="0" width="550px" mode="overlapped"
+apply="modmantenimiento.util.AgregarRuta"  onCancel="doCancel()">
+    <zscript>{
+        void doCancel()
+        {
+        winRuta.setAttribute("REST",false);
+        winRuta.onClose();
+        }
+ }
+    </zscript>
+    <grid fixedLayout="true" width="100%">
+        <columns>
+            <column label="" width="20%" />
+            <column label="" width="80%" />
+        </columns>
+        <rows>
+            <row spans="1,2" >
+                <label value="Modulo:" />
+                <textbox id="txtModulo" readonly="true" width="98%" />
+            </row>
+        </rows>
+    </grid>
+    <grid fixedLayout="true" width="100%">
+        <rows>
+            <row>
+                <listbox id="lstMapa" height="310px" mold="paging" checkmark="true" multiple="true" pageSize="50" width="100%"  >
+                    <listhead>
+                        <listheader label="Menu" width="35%" />
+                        <listheader label="Ruta" width="65%" />
+                    </listhead>
+                    <listitem self="@{each=menu}" onCancel="doCancel()"    >
+                        <listcell label="@{menu.cnommenu}" />
+                        <listcell label="@{menu.cruta}" />
+                    </listitem>
+                </listbox>
+            </row>
+        </rows>
+    </grid>
+    <toolbar id="tb"  height="25px"
+                    style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
+        <toolbarbutton id="btnAgregar" image="/img/Save.png" label="Aceptar"
+                    onClick="winRuta.onClose()" />
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                    onClick="doCancel()" />
+    </toolbar>
+</window>
