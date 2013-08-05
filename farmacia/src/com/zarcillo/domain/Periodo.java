@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "periodo")
 @NamedQueries({
-    @NamedQuery(name = "Periodo.findAll", query = "SELECT p FROM Periodo p ORDER BY p.nano,p.nmes"),
+    @NamedQuery(name = "Periodo.findAll", query = "SELECT p FROM Periodo p ORDER BY p.nano,p.nmes DESC "),
     @NamedQuery(name = "Periodo.findByNanoByNmes", query = "SELECT p FROM Periodo p WHERE p.nano=:nano and p.nmes=:nmes "),
     @NamedQuery(name = "Periodo.findByIdperiodo", query = "SELECT p FROM Periodo p WHERE p.idperiodo=:idperiodo ")
 
@@ -64,8 +64,8 @@ public class Periodo implements Serializable {
     private Boolean binactivo;
 
     public Periodo() {
-        nano=2013;
-        nmes=1;
+        nano=0;
+        nmes=0;
         nigv=new BigDecimal("0");        
         binactivo=false;
     }

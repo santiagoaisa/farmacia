@@ -14,5 +14,6 @@ public interface LineaService {
     public void eliminar(Linea linea);
     public Linea buscar(Integer idlinea);
     public List<Linea> listaGeneral();
+    public List<Linea> listaActivos();
     
 }

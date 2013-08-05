@@ -2,6 +2,7 @@ package com.zarcillo.dao;
 
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.ExistenciaPK;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -41,4 +42,27 @@ public class ExistenciaDAOImpl implements ExistenciaDAO {
 
         return existencia;
     }
+
+    @Override
+    public List<Existencia> busquedaListaPorIdalmacenPorDescripcion(Integer idalmacen, String ccriterio) {
+        return em.createNamedQuery("Existencia.findByIdalmacenByCnomproducto").setParameter("idalmacen", idalmacen).setParameter("ccriterio", ccriterio.trim().toUpperCase().concat("%")).getResultList();
+    }
+
+    @Override
+    public List<Existencia> listaPorIdalmacenPorBinafecto(Integer idalmacen) {
+        return em.createNamedQuery("Existencia.findByIdalmacenByBinafecto").setParameter("idalmacen", idalmacen).getResultList();
+    }
+
+    @Override
+    public List<Existencia> listaPorIdalmacenPorIdlinea(Integer idalmacen, Integer idlinea) {
+        return em.createNamedQuery("Existencia.findByIdalmacenByIdlinea").setParameter("idalmacen", idalmacen).setParameter("idlinea", idlinea).getResultList();
+    }
+
+    @Override
+    public List<Existencia> listaPorIdalmacenPorLineasConStock(Integer idalmacen, List<Integer> lista) {
+        return em.createNamedQuery("Existencia.findByIdalmacenByIdlineaByNstock").setParameter("idalmacen", idalmacen).setParameter("lista",lista).getResultList();
+    }
+    
+    
+    
 }

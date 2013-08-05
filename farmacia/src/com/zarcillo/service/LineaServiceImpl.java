@@ -89,4 +89,12 @@ public class LineaServiceImpl implements LineaService {
         loglinea.setDfecreg(new Date());
         cruddao.registrar(loglinea);
     }
+
+    @Override
+    public List<Linea> listaActivos() {
+        return lineadao.listaActivos();
+    }
+    
+    
+    
 }

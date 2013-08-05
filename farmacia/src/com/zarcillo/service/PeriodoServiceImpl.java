@@ -80,6 +80,14 @@ public class PeriodoServiceImpl implements PeriodoService {
         return cruddao.listarTodos(Periodo.class);
     }
 
+    @Override
+    public List<Periodo> listaAños() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
+    
     private void registrarLog(String cmotivo, Periodo periodo) {
         LogPeriodo logperiodo = new LogPeriodo();
         logperiodo.setCmotivo(cmotivo);

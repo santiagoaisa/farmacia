@@ -2,11 +2,13 @@ package com.zarcillo.service;
 
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.ProductoDAO;
+import com.zarcillo.domain.Linea;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.Producto;
 import com.zarcillo.estado.MotivoLog;
 import com.zarcillo.log.LogPeriodo;
 import com.zarcillo.log.LogProducto;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,14 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional
     public Producto registrar(Producto producto) {
+        DecimalFormat formato = new DecimalFormat("000");
         try {
+            /// CODIGO DE PRODUCTO
+            Linea linea = producto.getIdsublinea().getIdlinea();
+            String ccodigolinea = formato.format(linea.getIdlinea());
+            String ccodigoproducto = formato.format(productodao.numeroPorIdlinea(linea.getIdlinea()));
+            producto.setIdproducto(ccodigolinea.concat(ccodigoproducto));
+            /// CODIGO DE PRODUCTO
             producto.setDfecreg(new Date());
             cruddao.registrar(producto);
             //LOG

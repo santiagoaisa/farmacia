@@ -16,4 +16,6 @@ public interface ProductoService {
     
    public Producto busquedaPorCcodigobarra(String ccodigobarra);      
     public List<Producto> busquedaListaPorDescripcion(String ccriterio);  
+    
+    
 }

@@ -9,5 +9,6 @@ import java.util.List;
 public interface ProductoDAO {
     Producto busqueda(String idproducto);      
     Producto busquedaPorCcodigobarra(String ccodigobarra);      
-    List<Producto> busquedaListaPorDescripcion(String ccriterio);    
+    List<Producto> busquedaListaPorDescripcion(String ccriterio);
+    Integer numeroPorIdlinea(Integer idlinea);
 }

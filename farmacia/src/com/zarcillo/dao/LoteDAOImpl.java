@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Lote;
+import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -62,5 +63,21 @@ public class LoteDAOImpl implements LoteDAO {
     @Override
     public List<Lote> listaPorIdalmacenPorIdproductoParaListado(Integer idalmacen, String idproducto) {
         return em.createNamedQuery("Lote.findByIdalmacenByIdproductoByListado").setParameter("idalmacen", idalmacen).setParameter("idproducto", idproducto).getResultList();
+    }
+
+    @Override
+    public Integer cantidadBloqueadaPorIdalmacenPorIdproductoBloqueados(Integer idalmacen, String idproducto) {
+        String sql = "select sum(nstock) from lote  where idalmacen=:idalmacen and idproducto=:idproducto and bbloqueado=true  ";
+
+        BigInteger nstock;
+        try {
+            nstock = (BigInteger) em.createNativeQuery(sql).setParameter("idalmacen", idalmacen).setParameter("idproducto", idproducto).getSingleResult();
+        } catch (NoResultException e) {
+            nstock = new BigInteger("0");
+        }
+        if (nstock == null) {
+            nstock = new BigInteger("0");
+        }
+        return nstock.intValue();
     }
 }
