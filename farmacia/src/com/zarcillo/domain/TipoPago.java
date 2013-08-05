@@ -31,7 +31,6 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "TipoPago.findByBcobro", query = "SELECT t FROM TipoPago t WHERE t.bcobro=true ORDER BY t.cnomtipo "),
     @NamedQuery(name = "TipoPago.findByBpago", query = "SELECT t FROM TipoPago t WHERE t.bpago=true ORDER BY t.cnomtipo "),
     @NamedQuery(name = "TipoPago.findByIdtipo", query = "SELECT t FROM TipoPago t WHERE t.idtipo=:idtipo")
-
 })
 public class TipoPago implements Serializable {
 
@@ -55,11 +54,16 @@ public class TipoPago implements Serializable {
     private Boolean bcobro;
     @Column(name = "bpago")
     private Boolean bpago;
-    
-    public static TipoPago CHEQUE_SUNAT=new TipoPago("007");
-    public static TipoPago LETRA_CAMBIO_SUNAT=new TipoPago("011");
-    public static TipoPago NOTA_CREDITO_SUNAT=new TipoPago("050");
-    public static TipoPago NOTA_DEBITO_SUNAT=new TipoPago("051");
+    public static TipoPago DEPOSITO_SUNAT = new TipoPago("001");
+    public static TipoPago TRANSFERENCIA_SUNAT = new TipoPago("003");
+    public static TipoPago TARJETA_DEBITO_SUNAT = new TipoPago("005");
+    public static TipoPago TARJETA_CREDITO_SUNAT = new TipoPago("006");
+    public static TipoPago EFECTIVO_SUNAT = new TipoPago("009");
+    public static TipoPago REDONDEO_SUNAT = new TipoPago("053");
+    public static TipoPago CHEQUE_SUNAT = new TipoPago("007");
+    public static TipoPago LETRA_CAMBIO_SUNAT = new TipoPago("011");
+    public static TipoPago NOTA_CREDITO_SUNAT = new TipoPago("050");
+    public static TipoPago NOTA_DEBITO_SUNAT = new TipoPago("051");
 
     public TipoPago() {
         bcobro = false;
@@ -69,8 +73,6 @@ public class TipoPago implements Serializable {
     public TipoPago(String ccodigosunat) {
         this.ccodigosunat = ccodigosunat;
     }
-    
-    
 
     public TipoPago(Integer idtipo) {
         this.idtipo = idtipo;

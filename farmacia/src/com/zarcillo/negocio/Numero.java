@@ -13,7 +13,11 @@ public class Numero {
     public static BigDecimal diez = new BigDecimal("10");
     public static BigDecimal cien = new BigDecimal("100");
 
-    public static boolean IsCero(BigDecimal nvalor) {
+    public static boolean isCero(BigDecimal nvalor) {
         return nvalor.compareTo(BigDecimal.ZERO) == 0;
+    }
+    
+    public static boolean isIgual(BigDecimal nmonto1,BigDecimal nmonto2) {
+        return nmonto1.compareTo(nmonto2) == 0;
     }
 }

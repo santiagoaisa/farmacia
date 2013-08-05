@@ -41,6 +41,13 @@ public class CuentaPagarDAOImpl implements CuentaPagarDAO {
     public List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad, Integer idproveedor, Integer nano) {
         return em.createNamedQuery("CuentaPagar.findByIdunidadByIdproveedorByNano").setParameter("idunidad", idunidad).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
     }
+
+    @Override
+    public List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNanoPendientes(Integer idunidad, Integer idproveedor, Integer nano) {
+        return em.createNamedQuery("CuentaPagar.findByIdunidadByIdproveedorByNanoPendientes").setParameter("idunidad", idunidad).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
+    }
+    
+    
     
     
     

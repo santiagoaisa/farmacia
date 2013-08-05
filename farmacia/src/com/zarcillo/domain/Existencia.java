@@ -222,7 +222,7 @@ public class Existencia implements Serializable {
     }
 
     public BigDecimal getDescuento(BigDecimal valven, BigDecimal ndescuento) {
-        if (!Numero.IsCero(ndescuento)) {
+        if (!Numero.isCero(ndescuento)) {
             valven = valven.multiply(Numero.cien.subtract(ndescuento));
             valven = valven.divide(Numero.cien);
         }
@@ -232,11 +232,11 @@ public class Existencia implements Serializable {
     public BigDecimal getUtilidad(BigDecimal valven, BigDecimal ndescuento) {
         BigDecimal nutilidad = new BigDecimal("0");
         //si d1 es igual a 1 quiere decir q tienen descuentos
-        if (!Numero.IsCero(ndescuento)) {
+        if (!Numero.isCero(ndescuento)) {
             valven = valven.multiply(Numero.cien.subtract(ndescuento));
         }
         //calculo la utilidad, valor venta *(100/cosuni)-100
-        if (Numero.IsCero(this.ncosuni)) {
+        if (Numero.isCero(this.ncosuni)) {
             return Numero.cien;
         }
 
@@ -250,19 +250,19 @@ public class Existencia implements Serializable {
         BigDecimal valven = new BigDecimal("0");
         BigDecimal utilidad = new BigDecimal("0");
         //si d1,d2,d3 son iguales a 1 quiere decir q tienen descuentos
-        if (!Numero.IsCero(descuento.getNdesc1())) {
+        if (!Numero.isCero(descuento.getNdesc1())) {
             ndescuento = descuento.getNdesc1();
         }
 
-        if (!Numero.IsCero(descuento.getNdesc2())) {
+        if (!Numero.isCero(descuento.getNdesc2())) {
             ndescuento = descuento.getNdesc2();
         }
 
-        if (!Numero.IsCero(descuento.getNdesc3())) {
+        if (!Numero.isCero(descuento.getNdesc3())) {
             ndescuento = descuento.getNdesc3();
         }
 
-        if (!Numero.IsCero(descuento.getNdesc4())) {
+        if (!Numero.isCero(descuento.getNdesc4())) {
             ndescuento = descuento.getNdesc4();
         }
 
@@ -271,7 +271,7 @@ public class Existencia implements Serializable {
         valven = valven.multiply(porcentaje);
 
         //calculo la utilidad, valor venta *(100/cosuni)-100
-        if (Numero.IsCero(costo)) {
+        if (Numero.isCero(costo)) {
             return Numero.cien;
         }
 

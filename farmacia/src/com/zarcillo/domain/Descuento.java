@@ -205,19 +205,19 @@ public class Descuento implements Serializable {
      public BigDecimal getMayorDescuento() {        
         BigDecimal ndescuento = new BigDecimal("0");
         
-        if (!Numero.IsCero(this.ndesc1)) {
+        if (!Numero.isCero(this.ndesc1)) {
             ndescuento = this.getNdesc1();
         }
 
-        if (!Numero.IsCero(this.ndesc2)) {
+        if (!Numero.isCero(this.ndesc2)) {
             ndescuento = this.getNdesc2();
         }
 
-        if (!Numero.IsCero(this.ndesc3)) {
+        if (!Numero.isCero(this.ndesc3)) {
             ndescuento = this.getNdesc3();
         }
 
-        if (!Numero.IsCero(this.ndesc4)) {
+        if (!Numero.isCero(this.ndesc4)) {
             ndescuento = this.getNdesc4();
         }
 

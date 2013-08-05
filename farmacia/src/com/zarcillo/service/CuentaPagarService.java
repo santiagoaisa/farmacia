@@ -21,4 +21,5 @@ public interface CuentaPagarService {
     public List<AmortizacionProveedor> listaAmortizaciones(Integer idcuenta);
     
     public List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad,Integer idproveedor,Integer nano);
+    public List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNanoPendientes(Integer idunidad,Integer idproveedor,Integer nano);
 }

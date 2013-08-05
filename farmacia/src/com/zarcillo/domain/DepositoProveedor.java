@@ -26,6 +26,10 @@ import javax.persistence.TemporalType;
 @Table(name = "deposito_proveedor")
 @NamedQueries({
     @NamedQuery(name = "DepositoProveedor.findAll", query = "SELECT d FROM DepositoProveedor d"),
+    
+    @NamedQuery(name = "DepositoProveedor.findByIdunidadByIdproveedorByNano", query = "SELECT d FROM DepositoProveedor d WHERE d.idunidad.idunidad=:idunidad and d.idproveedor.idproveedor=:idproveedor and  d.idperiodo.idperiodo=:idperiodo ORDER BY d.dfecha DESC  "),
+    @NamedQuery(name = "DepositoProveedor.findByIdunidadByIdproveedorByNanoPendientes", query = "SELECT d FROM DepositoProveedor d WHERE d.idunidad.idunidad=:idunidad and d.idproveedor.idproveedor=:idproveedor and  d.idperiodo.idperiodo=:idperiodo and d.nsaldo>0 ORDER BY d.dfecha DESC  "),
+    
     @NamedQuery(name = "DepositoProveedor.findByIddeposito", query = "SELECT d FROM DepositoProveedor d WHERE d.iddeposito=:iddeposito"),
     @NamedQuery(name = "DepositoProveedor.findByIdproveedor", query = "SELECT d FROM DepositoProveedor d WHERE d.idproveedor.idproveedor =:idproveedor ORDER BY d.dfecha DESC ")
 })

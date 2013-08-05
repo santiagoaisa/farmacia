@@ -42,12 +42,6 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     private PeriodoDAO periododao;
     @Autowired
     private AmortizacionProveedorDAO amortizaciondao;
-    @Autowired
-    private ChequeProveedorDAO chequeproveedordao;
-    @Autowired
-    private NotaboProveedorDAO notabodao;
-    @Autowired
-    private NotcarProveedorDAO notcardao;
 
     @Override
     @Transactional
@@ -80,6 +74,7 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     }
 
     @Override
+    @Transactional
     public CuentaPagar actualizar(CuentaPagar cuentapagar) {
         try {
             BigDecimal nresta = cuentapagar.getNacuenta().add(cuentapagar.getNnotabo());
@@ -93,58 +88,18 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     }
 
     @Override
+    @Transactional
     public void eliminar(CuentaPagar cp) {
         CuentaPagar cuentapagar;
         try {
             cuentapagar = cuentapagardao.buscarPorIdcuenta(cp.getIdcuenta());
 
             if (cuentapagar.getIdperiodo().getBinactivo()) {
-                throw new ExceptionZarcillo("El periodo ya esta cerrado\n imposible eliminar ");
+                throw new ExceptionZarcillo("El periodo ya esta cerrado imposible eliminar ");
             }
 
-            List<AmortizacionProveedor> listaAmortizacion = amortizaciondao.listaPorIdcuenta(cp.getIdcuenta());
-
-            for (AmortizacionProveedor amortizacion : listaAmortizacion) {
-                //si es cheque
-                if (amortizacion.getIdtipo().getCcodigosunat().contains(TipoPago.CHEQUE_SUNAT.getCcodigosunat())) {
-                    ChequeProveedor cheque = amortizacion.getIdcheque();
-                    cheque.setNacuenta(cheque.getNacuenta().subtract(amortizacion.getNimporte()));
-                    cheque.setNsaldo(cheque.getNsaldo().add(amortizacion.getNimporte()));
-
-                    cuentapagar.setNacuenta(cuentapagar.getNacuenta().subtract(amortizacion.getNimporte()));
-                    cuentapagar.setNsaldo(cuentapagar.getNsaldo().add(amortizacion.getNimporte()));
-                    cruddao.actualizar(cheque);
-                }
-
-                //si es nota de credito
-                if (amortizacion.getIdtipo().getCcodigosunat().contains(TipoPago.NOTA_CREDITO_SUNAT.getCcodigosunat())) {
-                    NotaboProveedor ntp = amortizacion.getIdnotabo();
-                    ntp.setNacuenta(ntp.getNacuenta().subtract(amortizacion.getNimporte()));
-                    ntp.setNsaldo(ntp.getNsaldo().add(amortizacion.getNimporte()));
-                    //como es nota de credito
-                    cuentapagar.setNsaldo(cuentapagar.getNsaldo().add(amortizacion.getNimporte()));
-                    cuentapagar.setNnotabo(cuentapagar.getNnotabo().subtract(amortizacion.getNimporte()));
-                    cruddao.actualizar(ntp);
-                }
-
-                //si es nota de debito
-                if (amortizacion.getIdtipo().getCcodigosunat().contains(TipoPago.NOTA_DEBITO_SUNAT.getCcodigosunat())) {
-                    NotcarProveedor ntp = amortizacion.getIdnotcar();
-                    ntp.setNacuenta(ntp.getNacuenta().subtract(amortizacion.getNimporte()));
-                    ntp.setNsaldo(ntp.getNsaldo().add(amortizacion.getNimporte()));
-
-                    //como es nota de debito
-                    cuentapagar.setNsaldo(cuentapagar.getNsaldo().subtract(amortizacion.getNimporte()));
-                    cuentapagar.setNnotcar(cuentapagar.getNnotcar().subtract(amortizacion.getNimporte()));
-                    cruddao.actualizar(ntp);
-                }
-
-                //si es letra
-                if (amortizacion.getIdtipo().getCcodigosunat().contains(TipoPago.LETRA_CAMBIO_SUNAT.getCcodigosunat())) {
-                    throw new ExceptionZarcillo("Imposible eliminar la Letra\nElimine la Liquidacion");
-                }
-
-                cruddao.eliminar(amortizacion);
+            if (!Numero.isIgual(cuentapagar.getNimporte(), cuentapagar.getNsaldo())) {
+                throw new ExceptionZarcillo("El documento tiene amortizaciones imposible eliminar");
             }
 
             cruddao.eliminar(cuentapagar);
@@ -155,6 +110,7 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     }
 
     @Override
+    @Transactional
     public CuentaPagar amortizar(AmortizacionProveedor amortizacion) {
         CuentaPagar cuentapagar = new CuentaPagar();
         BigDecimal nimporteamortizar = new BigDecimal("0");
@@ -190,7 +146,7 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
 
             cuentapagar.setNacuenta(cuentapagar.getNacuenta().add(nimporteamortizar));
             cuentapagar.setNsaldo(cuentapagar.getNsaldo().subtract(nimporteamortizar));
-            if (Numero.IsCero(cuentapagar.getNsaldo())) {
+            if (Numero.isCero(cuentapagar.getNsaldo())) {
                 cuentapagar.setDfeccan(amortizacion.getDfecha());
             }
             cruddao.actualizar(cuentapagar);
@@ -204,8 +160,54 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     }
 
     @Override
+    @Transactional
     public CuentaPagar desamortizar(AmortizacionProveedor amortizacion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        CuentaPagar cuentapagar = new CuentaPagar();
+        BigDecimal nimportedesamortizar = new BigDecimal("0");
+
+        try {
+            cuentapagar = cuentapagardao.buscarPorIdcuenta(amortizacion.getIdcuenta().getIdcuenta());
+
+            if (amortizacion.getIdperiodo().getBinactivo()) {
+                throw new ExceptionZarcillo("El periodo ya esta cerrado imposible eliminar ");
+            }
+
+            if (!amortizacion.getIdtipo().getBpago()) {
+                throw new ExceptionZarcillo("Elimine la Amortizacion desde la pestaña " + amortizacion.getIdtipo());
+            }
+            //
+
+
+            //CUENTAS PAGAR Y AMORTIZAZION TIENEN IGUAL MONEDA
+            if (cuentapagar.getIdmoneda().getIdmoneda().equals(amortizacion.getIdmoneda().getIdmoneda())) {
+                nimportedesamortizar = amortizacion.getNimporte();
+            } else {
+                //SI CUENTAS PAGAR ES SOLES
+                if (cuentapagar.getIdmoneda().getBnacional()) {
+                    //SI CUENTAS PAGAR ES SOLES Y LA AMORTIZACION ES EN MONEDA EXTRANJERA
+                    if (!amortizacion.getIdmoneda().getBnacional()) {
+                        nimportedesamortizar = amortizacion.getNimporte().multiply(amortizacion.getNtipocambio());
+                    }
+                } else {
+                    //SI CUENTAS PAGAR ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
+                    if (amortizacion.getIdmoneda().getBnacional()) {
+                        nimportedesamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                    }
+                }//FIN SI CUENTAS PAGAR ES SOLES
+            }//FIN SI MONEDAS SONIGUALES
+            cuentapagar.setNacuenta(cuentapagar.getNacuenta().subtract(nimportedesamortizar));
+            cuentapagar.setNsaldo(cuentapagar.getNsaldo().add(nimportedesamortizar));
+            cuentapagar.setDfeccan(null);
+
+            if (Numero.isCero(cuentapagar.getNsaldo())) {
+                cuentapagar.setDfeccan(amortizacion.getDfecha());
+            }
+            cruddao.actualizar(cuentapagar);
+        } catch (Exception e) {
+            throw new ExceptionZarcillo(e.getCause().getMessage());
+        }
+        return cuentapagardao.buscarPorIdcuenta(cuentapagar.getIdcuenta());
     }
 
     @Override
@@ -217,5 +219,12 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     @Transactional(readOnly = true)
     public List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad, Integer idproveedor, Integer nano) {
         return cuentapagardao.listaPorIdunidadPorIdproveedorPorNano(idunidad, idproveedor, nano);
+    }
+
+    @Override
+    public List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNanoPendientes(Integer idunidad, Integer idproveedor, Integer nano) {
+        List<CuentaPagar> listaRetorno = cuentapagardao.listaPorIdunidadPorIdproveedorPorNanoPendientes(idunidad, idproveedor, nano - 1);
+        listaRetorno.addAll(cuentapagardao.listaPorIdunidadPorIdproveedorPorNanoPendientes(idunidad, idproveedor, nano));
+        return listaRetorno;
     }
 }
