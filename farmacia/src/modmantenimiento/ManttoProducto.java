@@ -207,6 +207,7 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         quitarConstraint();
         habilitar(false);
         producto=new Producto();
+        txtCodigo.setReadonly(true);
         txtCodigo.setText("");
         txtNombre.setText("");
         txtBarras.setText("");
@@ -269,7 +270,6 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     @Override
     public void habilitar(boolean enable) {
         txtNombre.setReadonly(enable);
-        txtCodigo.setReadonly(enable);
         txtBarras.setReadonly(enable);
         bInafecto.setDisabled(enable);
         cboFamilia.setDisabled(enable);
