@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface AmortizacionProveedorDAO {
     List<AmortizacionProveedor> listaPorIdcuenta(Integer idcuenta);
+    List<AmortizacionProveedor> listaPorIddeposito(Integer iddeposito);
 }

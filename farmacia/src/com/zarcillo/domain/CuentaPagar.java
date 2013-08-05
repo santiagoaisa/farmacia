@@ -63,8 +63,14 @@ public class CuentaPagar implements Serializable {
     private BigDecimal nigv;
     @Column(name = "nimporte")
     private BigDecimal nimporte;
+    
+    @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Moneda idmoneda;
+    
     @Column(name = "ntipocambio")
     private BigDecimal ntipocambio;
+    
     @Column(name = "nacuenta")
     private BigDecimal nacuenta;
     @Column(name = "nsaldo")
@@ -101,9 +107,7 @@ public class CuentaPagar implements Serializable {
     @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Periodo idperiodo;
-    @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Moneda idmoneda;
+    
     @JoinColumn(name = "iddocumento", referencedColumnName = "iddocumento")
     @ManyToOne(fetch = FetchType.EAGER)
     private Documento iddocumento;

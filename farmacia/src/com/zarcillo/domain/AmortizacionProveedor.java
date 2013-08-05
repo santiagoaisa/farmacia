@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 @Table(name = "amortizacion_proveedor")
 @NamedQueries({
     @NamedQuery(name = "AmortizacionProveedor.findAll", query = "SELECT a FROM AmortizacionProveedor a"),
+    @NamedQuery(name = "AmortizacionProveedor.findByIddeposito", query = "SELECT a FROM AmortizacionProveedor a WHERE a.iddeposito.iddeposito=:iddeposito"),
     @NamedQuery(name = "AmortizacionProveedor.findByIdcuenta", query = "SELECT a FROM AmortizacionProveedor a WHERE a.idcuenta.idcuenta=:idcuenta ")
         
 })

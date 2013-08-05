@@ -47,6 +47,7 @@ public class ProductoServiceImpl implements ProductoService {
             registrarLog(MotivoLog.REGISTRO.toString(), producto);
             //LOG
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ExceptionZarcillo("Error al crear una Producto");
         }
         return producto;

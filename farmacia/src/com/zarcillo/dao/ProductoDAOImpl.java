@@ -39,7 +39,7 @@ public class ProductoDAOImpl implements ProductoDAO {
         String sql = "select count(*)+1 from producto  p,sublinea s"
                 + "where p.idsublinea=s.idsublinea and s.idlinea=:idlinea ";
         
-        BigInteger idregentrada1 = (BigInteger) em.createNativeQuery(sql).getSingleResult();
+        BigInteger idregentrada1 = (BigInteger) em.createNativeQuery(sql).setParameter("idlinea", idlinea).getSingleResult();
         return idregentrada1.intValue();
         
         

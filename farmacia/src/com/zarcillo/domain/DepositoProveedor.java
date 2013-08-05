@@ -74,11 +74,19 @@ public class DepositoProveedor implements Serializable {
     @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Periodo idperiodo;
+    
+    @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Moneda idmoneda;
+    
+    @Column(name = "ntipocambio")
+    private BigDecimal ntipocambio;
 
     public DepositoProveedor() {
         nacuenta = new BigDecimal("0");
         nimporte = new BigDecimal("0");
         nsaldo = new BigDecimal("0");
+        ntipocambio=new BigDecimal("0");
     }
 
     public DepositoProveedor(Integer iddeposito) {
@@ -188,6 +196,25 @@ public class DepositoProveedor implements Serializable {
     public void setIdperiodo(Periodo idperiodo) {
         this.idperiodo = idperiodo;
     }
+
+    public Moneda getIdmoneda() {
+        return idmoneda;
+    }
+
+    public void setIdmoneda(Moneda idmoneda) {
+        this.idmoneda = idmoneda;
+    }
+
+    public BigDecimal getNtipocambio() {
+        return ntipocambio;
+    }
+
+    public void setNtipocambio(BigDecimal ntipocambio) {
+        this.ntipocambio = ntipocambio;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {

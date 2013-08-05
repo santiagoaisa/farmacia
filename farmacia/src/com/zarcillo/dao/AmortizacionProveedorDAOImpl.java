@@ -21,6 +21,11 @@ public class AmortizacionProveedorDAOImpl implements AmortizacionProveedorDAO{
     public List<AmortizacionProveedor> listaPorIdcuenta(Integer idcuenta) {
         return em.createNamedQuery("AmortizacionProveedor.findByIdcuenta").setParameter("idcuenta", idcuenta).getResultList();
     }
+
+    @Override
+    public List<AmortizacionProveedor> listaPorIddeposito(Integer iddeposito) {
+        return em.createNamedQuery("AmortizacionProveedor.findByIddeposito").setParameter("iddeposito", iddeposito).getResultList();
+    }
     
     
     
