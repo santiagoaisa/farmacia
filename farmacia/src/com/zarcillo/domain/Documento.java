@@ -60,6 +60,15 @@ public class Documento implements Serializable {
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
+    
+    public static Documento LETRA_SUNAT=new Documento("99");
+
+    public Documento(String ccodigosunat) {
+        this.ccodigosunat = ccodigosunat;
+    }
+    
+    
+    
 
     public Documento() {
         bcompra = false;

@@ -2,11 +2,13 @@ package com.zarcillo.service;
 
 import com.zarcillo.dao.AmortizacionProveedorDAO;
 import com.zarcillo.dao.CrudDAO;
+import com.zarcillo.dao.CuentaPagarDAO;
 import com.zarcillo.dao.DepositoProveedorDAO;
 import com.zarcillo.dao.PeriodoDAO;
 import com.zarcillo.domain.AmortizacionProveedor;
 import com.zarcillo.domain.CuentaPagar;
 import com.zarcillo.domain.DepositoProveedor;
+import com.zarcillo.domain.Documento;
 import com.zarcillo.negocio.Numero;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -33,12 +35,14 @@ public class DepositoProveedorServiceImpl implements DepositoProveedorService {
     private PeriodoDAO periododao;
     @Autowired
     private AmortizacionProveedorDAO amortizaciondao;
+     @Autowired
+    private CuentaPagarDAO cuentapagardao;
 
     @Override
     @Transactional
     public DepositoProveedor registrar(DepositoProveedor deposito) {
-         try {
-            deposito.setNsaldo(deposito.getNimporte());            
+        try {
+            deposito.setNsaldo(deposito.getNimporte());
             deposito.setIdperiodo(periododao.buscarPorFecha(deposito.getDfecha()));
             deposito.setDfecreg(new Date());
             cruddao.registrar(deposito);
@@ -52,7 +56,7 @@ public class DepositoProveedorServiceImpl implements DepositoProveedorService {
     @Override
     @Transactional
     public DepositoProveedor actualizar(DepositoProveedor deposito) {
-         try {            
+        try {
             cruddao.actualizar(deposito);
         } catch (Exception e) {
             throw new ExceptionZarcillo(e.getMessage());
@@ -74,37 +78,48 @@ public class DepositoProveedorServiceImpl implements DepositoProveedorService {
     @Override
     @Transactional
     public DepositoProveedor amortizar(AmortizacionProveedor amortizacion) {
-         DepositoProveedor deposito = new DepositoProveedor();
+        DepositoProveedor deposito = new DepositoProveedor();
+        
         BigDecimal nimporteamortizar = new BigDecimal("0");
         try {
             deposito = depositoproveedordao.buscarPorIddeposito(amortizacion.getIddeposito().getIddeposito());
+
+
             //
             amortizacion.setDfecreg(new Date());
             amortizacion.setIdperiodo(periododao.buscarPorFecha(amortizacion.getDfecha()));
             amortizacion.setIddeposito(deposito);
 
-            //CUENTAS PAGAR Y AMORTIZAZION TIENEN IGUAL MONEDA
-            if (deposito.getIdmoneda().getIdmoneda().equals(amortizacion.getIdmoneda().getIdmoneda())) {
-                nimporteamortizar = amortizacion.getNimporte();
-                amortizacion.setNimportes(nimporteamortizar.multiply(amortizacion.getNtipocambio()));
+
+            if (amortizacion.getIddocumento().getCcodigosunat().contains(Documento.LETRA_SUNAT.getCcodigosunat())) {
             } else {
-                //SI CUENTAS PAGAR ES SOLES
-                if (deposito.getIdmoneda().getBnacional()) {
-                    //SI CUENTAS PAGAR ES SOLES Y LA AMORTIZACION ES EN MONEDA EXTRANJERA
-                    if (!amortizacion.getIdmoneda().getBnacional()) {
-                        amortizacion.setNimportes(amortizacion.getNimporte().multiply(amortizacion.getNtipocambio()));
-                        nimporteamortizar = amortizacion.getNimportes();
-                    }
+                //CUENTAS PAGAR Y AMORTIZAZION TIENEN IGUAL MONEDA
+                CuentaPagar cuentapagar = cuentapagardao.buscarPorIdcuenta(amortizacion.getIdcuenta().getIdcuenta());                
+                if (deposito.getIdmoneda().getIdmoneda().equals(cuentapagar.getIdmoneda().getIdmoneda())) {
+                    nimporteamortizar = amortizacion.getNimporte();
+                    amortizacion.setNimportes(nimporteamortizar.multiply(amortizacion.getNtipocambio()));
                 } else {
-                    //SI CUENTAS PAGAR ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
-                    if (amortizacion.getIdmoneda().getBnacional()) {
-                        nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
-                        amortizacion.setIdmoneda(deposito.getIdmoneda());
-                        amortizacion.setNimportes(amortizacion.getNimporte());
-                        amortizacion.setNimporte(nimporteamortizar);
-                    }
-                }//FIN SI CUENTAS PAGAR ES SOLES
-            }//FIN SI MONEDAS SONIGUALES
+                    //SI CUENTAS PAGAR ES SOLES
+                    if (deposito.getIdmoneda().getBnacional()) {
+                        //SI CUENTAS PAGAR ES SOLES Y LA AMORTIZACION ES EN MONEDA EXTRANJERA
+                        if (!cuentapagar.getIdmoneda().getBnacional()) {
+                            amortizacion.setNimportes(amortizacion.getNimporte().multiply(amortizacion.getNtipocambio()));
+                            nimporteamortizar = amortizacion.getNimportes();
+                        }
+                    } else {
+                        //SI CUENTAS PAGAR ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
+                        if (amortizacion.getIdmoneda().getBnacional()) {
+                            nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                            amortizacion.setIdmoneda(deposito.getIdmoneda());
+                            amortizacion.setNimportes(amortizacion.getNimporte());
+                            amortizacion.setNimporte(nimporteamortizar);
+                        }
+                    }//FIN SI CUENTAS PAGAR ES SOLES
+                }//FIN SI MONEDAS SONIGUALES
+            }
+
+
+
 
             deposito.setNacuenta(deposito.getNacuenta().add(nimporteamortizar));
             deposito.setNsaldo(deposito.getNsaldo().subtract(nimporteamortizar));
