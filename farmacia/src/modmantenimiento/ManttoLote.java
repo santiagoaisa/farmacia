@@ -104,6 +104,16 @@ public class ManttoLote  extends SelectorComposer  {
         initComponets();
      }
     
+    @Listen("onCancel = #winLote")
+    public void onSiguiente(Event event) {
+       Siguiente();
+    }  
+    
+    @Listen("onOK = #txtCodigo")
+    public void onBuscarExistencia(Event event) {
+        buscarExistencia();
+    } 
+    
     @Listen("onClick = #btnNuevo")
     public void onAgregarNuevo(Event event) {
         nuevo();

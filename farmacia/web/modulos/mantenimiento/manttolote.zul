@@ -1,14 +1,14 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winLote"?>
-<window id="winLote" title="Mantenimiento de Lotes..." mode="overlapped" width="550px"  border="0"
-apply="modmantenimiento.ManttoLinea" onCancel="winLote.Siguiente()" >
+<window id="winLote" title="Mantenimiento de Lotes..." mode="overlapped" width="600px"  border="0"
+apply="modmantenimiento.ManttoLote"  >
     <grid>
         <columns>
             <column width="15%"/>
-            <column width="12%" />
+            <column width="15%" />
             <column width="13%" />
             <column width="15%" />
             <column width="15%" />
-            <column width="30%"/>
+            <column width="27%"/>
         </columns>
 
         <rows>
@@ -19,23 +19,22 @@ apply="modmantenimiento.ManttoLinea" onCancel="winLote.Siguiente()" >
 
             <row spans="1,1,1,3">
                 <label value="Producto:"/>
-                <textbox id="txtCodigo" readonly="false"  onOK="winLote.buscarExistencia()" width="95%"/>
-                <textbox id="txtUnimed" readonly="true" width="95%"/>
+                <textbox id="txtCodigo" readonly="false"   width="90%"/>
+                <textbox id="txtUnimed" readonly="true" width="90%"/>
                 <textbox id="txtNombre" readonly="true" width="98%"/>
                
             </row>
 
-            <row spans="1,2,1,1,1">
+            <row spans="1,2,1,2">
                 <label value="Linea:"/>
                 <textbox id="txtLinea" readonly="true" width="95%"/>
-                <label value=""/>
                 <label value="SubLinea:"/>
                 <textbox id="txtSublinea" readonly="true" width="95%"/>
                 
             </row>
-            <separator/>
+            
             <row spans="4,1,1">
-                    <separator/>
+                    <label value=""/>
                     <label value="Stock:"/>
                     <intbox id="nStkart" readonly="true" value="0" width="95%" />
                     
@@ -50,18 +49,18 @@ apply="modmantenimiento.ManttoLinea" onCancel="winLote.Siguiente()" >
                     </auxhead>
                     <listhead>
                         <listheader label="Lote" width="15%"/>
-                        <listheader label="Vencimiento"  width="12%"/>
-                        <listheader label="Stock" width="10%" align="right" />
-                        <listheader label="Tipo Movimiento"  width="45%"/>
-                        <listheader label="Fec.Mov."  width="13%"/>
-                        <listheader label="Bloq."  width="5%"/>
+                        <listheader label="Vencimiento"  width="15%"/>
+                        <listheader label="Stock" width="8%" align="right" />
+                        <listheader label="Tipo Movimiento"  width="40%"/>
+                        <listheader label="Fec.Mov."  width="14%"/>
+                        <listheader label="Bloq."  width="8%"/>
                     </listhead>
                     <listitem self="@{each=lote}" onOK="winLote.modificar()" onDoubleClick="winLote.modificar()">
                         <listcell label="@{lote.clote}"/>
                         <listcell label="@{lote.cfecven}"/>
                         <listcell label="@{lote.nstock}"/>
                         <listcell label="@{lote.idmotivo}"/>
-                        <listcell date="@{lote.dfecreg}"  format="yyyy.MM.dd" use="modalmacen.util.ListcellFecha" />
+                        <listcell date="@{lote.dfecreg}"  format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
                         <listcell >
                             <checkbox checked="@{lote.bbloqueado}" disabled="true" />
                         </listcell>
@@ -70,23 +69,25 @@ apply="modmantenimiento.ManttoLinea" onCancel="winLote.Siguiente()" >
                         <listfooter />
                         <listfooter />
                         <listfooter />
-                        <listfooter />
-                        <listfooter />
+                        <listfooter >
+                            <label value="Total Lote" />
+                        </listfooter>
                         <listfooter >
                             <intbox id="nStklot" readonly="true" width="97%" value="0" />
                         </listfooter>
+                        <listfooter />
                     </listfoot>
                     
                 </listbox>
             
         
 
-  <jasperreport id="reporte" visible="false" />
+  <jasperreport id="rptinventario" visible="false" />
 
     
-  <toolbar id="atb"  height="25px" align ="end"	style="background:#defeff repeat-x 0 0;padding-top:7px" >
-            <toolbarbutton id="btnNuevo" visible="false" image="/img/File.png" label="Nuevo" onClick="winLote.nuevo()"  />
-            <toolbarbutton id="btnImprimir" visible="true" image="/img/Printer.png" label="Imprimir" onClick="winLote.imprimir()"/>
+  <toolbar id="atb"  height="25px" align ="end"	 >
+            <toolbarbutton id="btnNuevo" visible="false" image="/img/File.png" label="Nuevo"   />
+            <toolbarbutton id="btnImprimir" visible="true" image="/img/Printer.png" label="Imprimir" />
             <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winLote.onClose()" />
   </toolbar>
     

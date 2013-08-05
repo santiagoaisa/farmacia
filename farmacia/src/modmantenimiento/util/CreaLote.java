@@ -70,7 +70,7 @@ public class CreaLote extends SelectorComposer{
     
     
     
-    @Listen("onCreate=window#winLinea")
+    @Listen("onCreate=window#winNlote")
     public void onCreate() throws NamingException {        
          initComponets();
      }

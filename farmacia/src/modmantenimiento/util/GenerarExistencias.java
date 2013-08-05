@@ -1,17 +1,12 @@
 package modmantenimiento.util;
 
 import com.zarcillo.domain.Almacen;
-import com.zarcillo.domain.Lote;
-import com.zarcillo.domain.MotivoEntrada;
 import com.zarcillo.domain.Producto;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.ExistenciaService;
-import com.zarcillo.service.LoteService;
-import com.zarcillo.service.MotivoEntradaService;
 import com.zarcillo.service.ProductoService;
 import com.zarcillo.service.UsuarioService;
-import java.text.DecimalFormat;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
@@ -21,9 +16,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Intbox;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -101,24 +94,18 @@ public class GenerarExistencias extends SelectorComposer{
     
     public void buscarProducto(){
         if (txtCodigo.getValue().isEmpty()) {
-            try {
-                Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaproducto.zul", null, null);
-                winbuscaprod.setAttribute("REST", true);
-                winbuscaprod.doModal();
-
-                Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
-
-                if (rest) {
-                    Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstproducto");
-                    ListModel modelobuscado = lstproducto1.getModel();
-                    producto = (Producto) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
-                    llenarProducto();
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        } else {
-            producto = productoService.buscar(txtCodigo.getValue());
+            Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaproducto.zul", null, null);
+            winbuscaprod.setAttribute("REST", true);
+            winbuscaprod.doModal();
+            Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
+            if (rest) {
+                Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstProducto");
+                ListModel modelobuscado = lstproducto1.getModel();
+                producto = (Producto) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
+                llenarProducto();
+            } 
+        }else {
+            producto = productoService.buscar(txtCodigo.getValue());            
             llenarProducto();
         }
     }
