@@ -12,19 +12,18 @@
 	<parameter name="CODPRODUCTO" class="java.lang.String"/>
 	<parameter name="UNIMEDIDA" class="java.lang.String"/>
 	<parameter name="NOMPRODUCTO" class="java.lang.String"/>
-	<field name="cnumlot" class="java.lang.String"/>
+	<field name="clote" class="java.lang.String"/>
 	<field name="cfecven" class="java.lang.String"/>
-	<field name="ncanart" class="java.lang.Integer"/>
-	<field name="ncaning" class="java.lang.Integer"/>
+	<field name="nstock" class="java.lang.Integer"/>
 	<field name="dfecreg" class="java.util.Date"/>
-	<field name="dfecmod" class="java.util.Date"/>
+	<field name="dfecha" class="java.util.Date"/>
 	<field name="idmotivo.cnommotivo" class="java.lang.String"/>
 	<field name="cobservacion" class="java.lang.String"/>
 	<variable name="NRO" class="java.lang.Integer" calculation="Count">
-		<variableExpression><![CDATA[$F{cnumlot}]]></variableExpression>
+		<variableExpression><![CDATA[$F{clote}]]></variableExpression>
 	</variable>
 	<variable name="stock" class="java.lang.Integer" calculation="Sum">
-		<variableExpression><![CDATA[$F{ncanart}]]></variableExpression>
+		<variableExpression><![CDATA[$F{nstock}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -184,21 +183,21 @@
 				<text><![CDATA[Nro]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="7229903f-b4ff-474f-9af6-8f20361dc0e4" key="staticText-1" x="19" y="3" width="80" height="14"/>
+				<reportElement uuid="7229903f-b4ff-474f-9af6-8f20361dc0e4" key="staticText-1" x="19" y="3" width="101" height="14"/>
 				<textElement textAlignment="Center">
 					<font fontName="Abadi MT Condensed Light" size="11" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Lote]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="005fc178-8826-4b9f-bd7f-b039bdafda8a" key="staticText-1" x="103" y="3" width="50" height="14"/>
+				<reportElement uuid="005fc178-8826-4b9f-bd7f-b039bdafda8a" key="staticText-1" x="120" y="3" width="72" height="14"/>
 				<textElement textAlignment="Center">
 					<font fontName="Abadi MT Condensed Light" size="11" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Vencimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="50ce6644-8022-4fc8-8b6f-b2a09e27acd0" key="staticText-1" x="155" y="3" width="50" height="14"/>
+				<reportElement uuid="50ce6644-8022-4fc8-8b6f-b2a09e27acd0" key="staticText-1" x="192" y="3" width="50" height="14"/>
 				<textElement textAlignment="Center">
 					<font fontName="Abadi MT Condensed Light" size="11" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
@@ -232,13 +231,6 @@
 				<text><![CDATA[Tipo Movimiento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="ce047686-3004-49d6-907d-78db4fa8ce23" key="staticText-1" x="206" y="3" width="65" height="14"/>
-				<textElement textAlignment="Center">
-					<font fontName="Abadi MT Condensed Light" size="11" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[Stock Ingresado]]></text>
-			</staticText>
-			<staticText>
 				<reportElement uuid="f5d37383-d1ce-42ef-bbb3-54179cdee1aa" key="staticText-1" x="370" y="3" width="54" height="13"/>
 				<textElement textAlignment="Center">
 					<font fontName="Abadi MT Condensed Light" size="11" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
@@ -256,33 +248,26 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$V{NRO}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement uuid="e1762bdc-85cc-4015-89f5-90d6e24af8ba" x="19" y="1" width="80" height="13"/>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e1762bdc-85cc-4015-89f5-90d6e24af8ba" x="19" y="1" width="101" height="13"/>
 				<textElement textAlignment="Center">
 					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cnumlot}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{clote}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="cf962267-252e-4b6a-8ff9-9930539be162" x="103" y="1" width="50" height="13"/>
+				<reportElement uuid="cf962267-252e-4b6a-8ff9-9930539be162" x="120" y="1" width="72" height="13"/>
 				<textElement textAlignment="Center">
 					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cfecven}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="2cfe2765-e282-4966-b60c-4941b1cc0a91" x="155" y="1" width="50" height="13"/>
+				<reportElement uuid="2cfe2765-e282-4966-b60c-4941b1cc0a91" x="192" y="1" width="50" height="13"/>
 				<textElement textAlignment="Center">
 					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ncanart}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="fecd5ce2-6b11-4249-9bb4-7d95ab3d141c" x="206" y="1" width="65" height="13"/>
-				<textElement textAlignment="Center">
-					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{ncaning}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nstock}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="c9e905c3-2888-4ba5-a6c2-438f0a50fe21" x="273" y="1" width="96" height="13"/>

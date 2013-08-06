@@ -112,6 +112,16 @@ public class ManttoLote  extends SelectorComposer  {
     @Listen("onOK = #txtCodigo")
     public void onBuscarExistencia(Event event) {
         buscarExistencia();
+    }
+    
+    @Listen("onDoubleClick = #lstLote")
+    public void onModificarLista(Event event) {
+        modificar();
+    }
+    
+    @Listen("onOK = #lstLote")
+    public void onModificar(Event event) {
+        modificar();
     } 
     
     @Listen("onClick = #btnNuevo")
@@ -237,7 +247,7 @@ public class ManttoLote  extends SelectorComposer  {
             throw new ExceptionZarcillo("El producto no tiene Lotes");
         }
     }
-    public void modificar() throws InterruptedException {
+    public void modificar() {
         Window wincrea = (Window) Executions.createComponents("/modulos/mantenimiento/util/crealote.zul", null, null);
         wincrea.setAttribute("REST", true);
         wincrea.setAttribute("LOTE", (Lote) modeloLote.getElementAt(lstLote.getSelectedIndex()));
@@ -247,7 +257,6 @@ public class ManttoLote  extends SelectorComposer  {
             int indice = lstLote.getSelectedIndex();
             Lote clote;
             clote = (Lote) wincrea.getAttribute("LOTE");
-            //lote.setExistencias(existencia);
             clote = loteService.actualizar(clote);
             modeloLote.remove(indice);
             modeloLote.add(indice, clote);

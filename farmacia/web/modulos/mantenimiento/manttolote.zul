@@ -55,7 +55,7 @@ apply="modmantenimiento.ManttoLote"  >
                         <listheader label="Fec.Mov."  width="14%"/>
                         <listheader label="Bloq."  width="8%"/>
                     </listhead>
-                    <listitem self="@{each=lote}" onOK="winLote.modificar()" onDoubleClick="winLote.modificar()">
+                    <listitem self="@{each=lote}" >
                         <listcell label="@{lote.clote}"/>
                         <listcell label="@{lote.cfecven}"/>
                         <listcell label="@{lote.nstock}"/>
