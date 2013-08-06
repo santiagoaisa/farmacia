@@ -1,23 +1,13 @@
 package com.zarcillo.service;
 
 import com.zarcillo.dao.AmortizacionProveedorDAO;
-import com.zarcillo.dao.ChequeProveedorDAO;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.CuentaPagarDAO;
-import com.zarcillo.dao.NotaboProveedorDAO;
-import com.zarcillo.dao.NotcarProveedorDAO;
 import com.zarcillo.dao.PeriodoDAO;
 import com.zarcillo.domain.AmortizacionProveedor;
-import com.zarcillo.domain.ChequeProveedor;
 import com.zarcillo.domain.CuentaPagar;
-import com.zarcillo.domain.NotaboProveedor;
-import com.zarcillo.domain.NotcarProveedor;
-import com.zarcillo.domain.Periodo;
-import com.zarcillo.domain.TipoPago;
 import com.zarcillo.negocio.Numero;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +41,7 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
             cuentapagar.setNtotalreclamo(cuentapagar.getNreclamodevolucion().add(cuentapagar.getNreclamoprecio()));
             cuentapagar.setIdperiodo(periododao.buscarPorFecha(cuentapagar.getDfecemi()));
             cuentapagar.setDfecreg(new Date());
+
             cruddao.registrar(cuentapagar);
 
             return cuentapagardao.buscarPorIdcuenta(cuentapagar.getIdcuenta());
@@ -113,13 +104,13 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     @Transactional
     public CuentaPagar amortizar(AmortizacionProveedor amortizacion) {
         CuentaPagar cuentapagar = new CuentaPagar();
-        BigDecimal nimporteamortizar = new BigDecimal("0");
+        BigDecimal nimporteamortizar = amortizacion.getNimporte();
         try {
             cuentapagar = cuentapagardao.buscarPorIdcuenta(amortizacion.getIdcuenta().getIdcuenta());
             //
             amortizacion.setDfecreg(new Date());
             amortizacion.setIdperiodo(periododao.buscarPorFecha(amortizacion.getDfecha()));
-            amortizacion.setIdcuenta(cuentapagar);
+            amortizacion.setIdcuenta(cuentapagar);            
 
             //CUENTAS PAGAR Y AMORTIZAZION TIENEN IGUAL MONEDA
             if (cuentapagar.getIdmoneda().getIdmoneda().equals(amortizacion.getIdmoneda().getIdmoneda())) {
@@ -144,6 +135,8 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
                 }//FIN SI CUENTAS PAGAR ES SOLES
             }//FIN SI MONEDAS SONIGUALES
 
+            cruddao.registrar(amortizacion);
+
             cuentapagar.setNacuenta(cuentapagar.getNacuenta().add(nimporteamortizar));
             cuentapagar.setNsaldo(cuentapagar.getNsaldo().subtract(nimporteamortizar));
             if (Numero.isCero(cuentapagar.getNsaldo())) {
@@ -164,15 +157,16 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     public CuentaPagar desamortizar(AmortizacionProveedor amortizacion) {
 
         CuentaPagar cuentapagar = new CuentaPagar();
-        BigDecimal nimportedesamortizar = new BigDecimal("0");
+        BigDecimal nimportedesamortizar = amortizacion.getNimporte();
 
         try {
-            cuentapagar = cuentapagardao.buscarPorIdcuenta(amortizacion.getIdcuenta().getIdcuenta());
 
             if (amortizacion.getIdperiodo().getBinactivo()) {
                 throw new ExceptionZarcillo("El periodo ya esta cerrado imposible eliminar ");
             }
 
+            cuentapagar = cuentapagardao.buscarPorIdcuenta(amortizacion.getIdcuenta().getIdcuenta());
+            
             if (!amortizacion.getIdtipo().getBpago()) {
                 throw new ExceptionZarcillo("Elimine la Amortizacion desde la pestaña " + amortizacion.getIdtipo());
             }
@@ -187,15 +181,18 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
                 if (cuentapagar.getIdmoneda().getBnacional()) {
                     //SI CUENTAS PAGAR ES SOLES Y LA AMORTIZACION ES EN MONEDA EXTRANJERA
                     if (!amortizacion.getIdmoneda().getBnacional()) {
-                        nimportedesamortizar = amortizacion.getNimporte().multiply(amortizacion.getNtipocambio());
+                        nimportedesamortizar = amortizacion.getNimportes();
                     }
                 } else {
                     //SI CUENTAS PAGAR ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
                     if (amortizacion.getIdmoneda().getBnacional()) {
-                        nimportedesamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                        nimportedesamortizar = amortizacion.getNimportes().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
                     }
                 }//FIN SI CUENTAS PAGAR ES SOLES
             }//FIN SI MONEDAS SONIGUALES
+
+            cruddao.eliminar(amortizacion);
+
             cuentapagar.setNacuenta(cuentapagar.getNacuenta().subtract(nimportedesamortizar));
             cuentapagar.setNsaldo(cuentapagar.getNsaldo().add(nimportedesamortizar));
             cuentapagar.setDfeccan(null);

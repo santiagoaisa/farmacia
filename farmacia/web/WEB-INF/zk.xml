@@ -95,7 +95,7 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
             the previous click.
     -->
     <client-config>
-        <click-filter-delay>390</click-filter-delay>
+        <click-filter-delay>990</click-filter-delay>
     </client-config>
 
         

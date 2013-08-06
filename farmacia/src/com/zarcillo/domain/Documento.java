@@ -27,6 +27,7 @@ import javax.persistence.TemporalType;
 @Table(name = "documento")
 @NamedQueries({
     @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d ORDER BY d.cnomdocumento "),
+    @NamedQuery(name = "Documento.findByCcodigosunat", query = "SELECT d FROM Documento d WHERE d.ccodigosunat=:ccodigosunat "),
     @NamedQuery(name = "Documento.findByBcompra", query = "SELECT d FROM Documento d WHERE d.bcompra=true ORDER BY d.cnomdocumento "),
     @NamedQuery(name = "Documento.findByBventa", query = "SELECT d FROM Documento d WHERE d.bventa=true ORDER BY d.cnomdocumento "),
     @NamedQuery(name = "Documento.findByBpago", query = "SELECT d FROM Documento d WHERE d.bpago=true ORDER BY d.cnomdocumento "),
@@ -55,26 +56,38 @@ public class Documento implements Serializable {
     private Date dfecreg;
     @Column(name = "cabrev")
     private String cabrev;
-    @Column(name = "nitems")
-    private Integer nitems;
+   
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
     
+     @Column(name = "nitems")
+    private Integer nitems;
+    
     public static Documento LETRA_SUNAT=new Documento("99");
+    public static Documento FACTURA_SUNAT=new Documento("01");
+    public static Documento BOLETA_SUNAT=new Documento("03");
+    public static Documento NOTA_CREDITO_SUNAT=new Documento("07");
+    public static Documento NOTA_DEBITO_SUNAT=new Documento("08");
+    public static Documento GUIA_REMISION_SUNAT=new Documento("09");
 
     public Documento(String ccodigosunat) {
         this.ccodigosunat = ccodigosunat;
+        nitems=0;
+        bcompra = false;
+        bpago = false;
+        bventa = false;
     }
     
     
     
 
     public Documento() {
+        nitems=0;
         bcompra = false;
         bpago = false;
         bventa = false;
-        nitems = 0;
+       
     }
 
     public Documento(Integer iddocumento) {
@@ -152,6 +165,8 @@ public class Documento implements Serializable {
     public void setNitems(Integer nitems) {
         this.nitems = nitems;
     }
+
+    
 
     public Usuario getIdusuario() {
         return idusuario;

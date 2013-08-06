@@ -13,5 +13,5 @@ public interface RegistroEntradaDAO {
     RegistroEntrada buscarPorIdalmacenPorIdregentrada(Integer idalmacen,Integer idregentrada);
     
      List<RegistroEntrada> listaPorFechas(Integer idalmacen,Date dfecha1,Date dfecha2);
-     List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen,String idproveedor,Integer nano);
+     List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen,Integer idproveedor,Integer nano);
 }

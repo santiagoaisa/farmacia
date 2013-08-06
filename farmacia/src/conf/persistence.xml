@@ -3,7 +3,7 @@
   <persistence-unit name="FarmaciaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <jta-data-source>java:/comp/env/jdbc/FarmaciaDS</jta-data-source>
-    <class>com.zarcillo.domain.Descuento</class>
+    
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       <!-- Enable Hibernate's automatic session context management

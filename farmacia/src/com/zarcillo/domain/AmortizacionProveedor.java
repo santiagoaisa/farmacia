@@ -27,7 +27,10 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "AmortizacionProveedor.findAll", query = "SELECT a FROM AmortizacionProveedor a"),
     @NamedQuery(name = "AmortizacionProveedor.findByIddeposito", query = "SELECT a FROM AmortizacionProveedor a WHERE a.iddeposito.iddeposito=:iddeposito"),
-    @NamedQuery(name = "AmortizacionProveedor.findByIdcuenta", query = "SELECT a FROM AmortizacionProveedor a WHERE a.idcuenta.idcuenta=:idcuenta ")
+    @NamedQuery(name = "AmortizacionProveedor.findByIdcheque", query = "SELECT a FROM AmortizacionProveedor a WHERE a.idcheque.idcheque=:idcheque"),
+    @NamedQuery(name = "AmortizacionProveedor.findByIdcuenta", query = "SELECT a FROM AmortizacionProveedor a WHERE a.idcuenta.idcuenta=:idcuenta "),
+    @NamedQuery(name = "AmortizacionProveedor.findByIdnotabo", query = "SELECT a FROM AmortizacionProveedor a WHERE a.idnotabo.idnotabo=:idnotabo "),
+    @NamedQuery(name = "AmortizacionProveedor.findByIdnotcar", query = "SELECT a FROM AmortizacionProveedor a WHERE a.idnotcar.idnotcar=:idnotcar ")
         
 })
 public class AmortizacionProveedor implements Serializable {
@@ -109,7 +112,7 @@ public class AmortizacionProveedor implements Serializable {
     public AmortizacionProveedor() {
         nimporte=new BigDecimal("0");
         nimportes=new BigDecimal("0");
-        ntipocambio=new BigDecimal("0");
+        ntipocambio=new BigDecimal("1");
         
     }
 

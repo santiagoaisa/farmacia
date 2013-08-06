@@ -29,7 +29,9 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "NotcarProveedor.findAll", query = "SELECT n FROM NotcarProveedor n"),
     @NamedQuery(name = "NotcarProveedor.findByIdnotcar", query = "SELECT n FROM NotcarProveedor n WHERE n.idnotcar=:idnotcar"),
-    @NamedQuery(name = "NotcarProveedor.findByIdunidadByIdproveedorByNano", query = "SELECT n FROM NotcarProveedor n WHERE n.idunidad.idunidad =:idunidad and n.idproveedor.idproveedor=:idproveedor and n.idperiodo.nano=:nano ORDER BY n.dfecemi DESC "),})
+    @NamedQuery(name = "NotcarProveedor.findByIdunidadByIdproveedorByNano", query = "SELECT n FROM NotcarProveedor n WHERE n.idunidad.idunidad =:idunidad and n.idproveedor.idproveedor=:idproveedor and n.idperiodo.nano=:nano ORDER BY n.dfecemi DESC "),
+    @NamedQuery(name = "NotcarProveedor.findByIdunidadByIdproveedorByNanoPendientes", query = "SELECT n FROM NotcarProveedor n WHERE n.idunidad.idunidad =:idunidad and n.idproveedor.idproveedor=:idproveedor and n.idperiodo.nano=:nano and n.nsaldo>0 ORDER BY n.dfecemi DESC ")
+})
 public class NotcarProveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -81,6 +83,10 @@ public class NotcarProveedor implements Serializable {
     @JoinColumn(name = "idmotivo", referencedColumnName = "idmotivo")
     @ManyToOne(fetch = FetchType.EAGER)
     private MotivoNotcarProveedor idmotivo;
+    
+    @Column(name = "dfeccan")
+    @Temporal(TemporalType.DATE)
+    private Date dfeccan;
 
     public NotcarProveedor() {
         nacuenta = new BigDecimal("0");
@@ -89,13 +95,23 @@ public class NotcarProveedor implements Serializable {
         nimporte = new BigDecimal("0");
         ninafecto = new BigDecimal("0");
         nsaldo = new BigDecimal("0");
-        ntipocambio = new BigDecimal("0");
+        ntipocambio = new BigDecimal("1");
     }
 
     public NotcarProveedor(Integer idnotcar) {
         this.idnotcar = idnotcar;
     }
 
+    public Date getDfeccan() {
+        return dfeccan;
+    }
+
+    public void setDfeccan(Date dfeccan) {
+        this.dfeccan = dfeccan;
+    }
+
+    
+    
     public Integer getIdnotcar() {
         return idnotcar;
     }

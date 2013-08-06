@@ -23,6 +23,13 @@ public class DocumentoDAOImpl implements DocumentoDAO{
     }
 
     @Override
+    public Documento buscarPorCcodigosunat(String ccodigosunat) {
+        return (Documento) em.createNamedQuery("Documento.findByCcodigosunat").setParameter("ccodigosunat", ccodigosunat).getSingleResult();
+    }
+
+    
+    
+    @Override
     public List<Documento> listaPorBcompra() {
         return em.createNamedQuery("Documento.findByBcompra").getResultList();
     }

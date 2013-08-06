@@ -18,7 +18,7 @@ public class NotaboProveedorDAOImpl implements NotaboProveedorDAO {
     private EntityManager em;
 
     @Override
-    public NotaboProveedor busqueda(Integer idnotabo) {
+    public NotaboProveedor buscarPorIdnotabo(Integer idnotabo) {
         return (NotaboProveedor) em.createNamedQuery("NotaboProveedor.findByIdnotabo").setParameter("idnotabo", idnotabo).getSingleResult();
     }
 
@@ -26,4 +26,11 @@ public class NotaboProveedorDAOImpl implements NotaboProveedorDAO {
     public List<NotaboProveedor> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad, Integer idproveedor, Integer nano) {
         return em.createNamedQuery("NotaboProveedor.findByIdunidadByIdproveedorByNano").setParameter("idunidad", idunidad).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
     }
+
+    @Override
+    public List<NotaboProveedor> listaPorIdunidadPorIdproveedorPorNanoPendientes(Integer idunidad, Integer idproveedor, Integer nano) {
+        return em.createNamedQuery("NotaboProveedor.findByIdunidadByIdproveedorByNanoPendientes").setParameter("idunidad", idunidad).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
+    }
+    
+    
 }

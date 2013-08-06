@@ -25,35 +25,36 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "amortizacion_cliente")
 @NamedQueries({
-    @NamedQuery(name = "AmortizacionCliente.findAll", query = "SELECT a FROM AmortizacionCliente a")})
+    @NamedQuery(name = "AmortizacionCliente.findAll", query = "SELECT a FROM AmortizacionCliente a"),
+    @NamedQuery(name = "AmortizacionCliente.findByIdcomprobante", query = "SELECT a FROM AmortizacionCliente a WHERE a.idcomprobante.idcomprobante=:idcomprobante "),
+    @NamedQuery(name = "AmortizacionCliente.findByIddeposito", query = "SELECT a FROM AmortizacionCliente a WHERE a.iddeposito.iddeposito=:iddeposito "),
+    @NamedQuery(name = "AmortizacionCliente.findByIdcheque", query = "SELECT a FROM AmortizacionCliente a WHERE a.idcheque.idcheque=:idcheque "),
+    @NamedQuery(name = "AmortizacionCliente.findByIdnotabo", query = "SELECT a FROM AmortizacionCliente a WHERE a.idnotabo.idnotabo=:idnotabo"),
+    @NamedQuery(name = "AmortizacionCliente.findByIdnotcar", query = "SELECT a FROM AmortizacionCliente a WHERE a.idnotcar.idnotcar=:idnotcar")
+})
 public class AmortizacionCliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idamortizacion")
     private Integer idamortizacion;
-    
-     @JoinColumn(name = "iddocumento", referencedColumnName = "iddocumento")
+    @JoinColumn(name = "iddocumento", referencedColumnName = "iddocumento")
     @ManyToOne(fetch = FetchType.EAGER)
     private Documento iddocumento;
-    
-      @JoinColumn(name = "idtipo", referencedColumnName = "idtipo")
+    @JoinColumn(name = "idtipo", referencedColumnName = "idtipo")
     @ManyToOne(fetch = FetchType.EAGER)
     private TipoPago idtipo;
-     
     @Column(name = "dfecha")
     @Temporal(TemporalType.DATE)
     private Date dfecha;
-   
     @JoinColumn(name = "idvendedor", referencedColumnName = "idvendedor")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Vendedor idvendedor;   
-    
-     @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    private Vendedor idvendedor;
+    @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Moneda idmoneda;   
-    
+    private Moneda idmoneda;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "nimporte")
     private BigDecimal nimporte;
@@ -61,44 +62,43 @@ public class AmortizacionCliente implements Serializable {
     private BigDecimal ntipocambio;
     @Column(name = "nimportes")
     private BigDecimal nimportes;
-    
-    
     @JoinColumn(name = "idcomprobante", referencedColumnName = "idcomprobante")
     @ManyToOne(fetch = FetchType.EAGER)
     private ComprobanteEmitido idcomprobante;
-    
-     @JoinColumn(name = "idletra", referencedColumnName = "idletra")
+    @JoinColumn(name = "idletra", referencedColumnName = "idletra")
     @ManyToOne(fetch = FetchType.EAGER)
     private LetraCliente idletra;
-     
-      @JoinColumn(name = "idnotabo", referencedColumnName = "idnotabo")
+    @JoinColumn(name = "idnotabo", referencedColumnName = "idnotabo")
     @ManyToOne(fetch = FetchType.EAGER)
     private NotaboCliente idnotabo;
-    
     @JoinColumn(name = "idnotcar", referencedColumnName = "idnotcar")
     @ManyToOne(fetch = FetchType.EAGER)
     private NotcarCliente idnotcar;
-   
-   @Column(name = "bregistro")
+    @Column(name = "bregistro")
     private Boolean bregistro;
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
-    
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
-
-     @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
+    @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Periodo idperiodo;
-    
+    @JoinColumn(name = "iddeposito", referencedColumnName = "iddeposito")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private DepositoCliente iddeposito;
+    @JoinColumn(name = "idcheque", referencedColumnName = "idcheque")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ChequeCliente idcheque;
+    @Column(name = "creferencia")
+    private String creferencia;
+
     public AmortizacionCliente() {
-        bregistro=false;
-        nimporte=new BigDecimal("0");
-        ntipocambio=new BigDecimal("0");
-        nimportes=new BigDecimal("0");
+        bregistro = false;
+        nimporte = new BigDecimal("0");
+        ntipocambio = new BigDecimal("1");
+        nimportes = new BigDecimal("0");
     }
 
     public AmortizacionCliente(Integer idamortizacion) {
@@ -120,8 +120,6 @@ public class AmortizacionCliente implements Serializable {
     public void setDfecha(Date dfecha) {
         this.dfecha = dfecha;
     }
-
-  
 
     public BigDecimal getNimporte() {
         return nimporte;
@@ -242,9 +240,30 @@ public class AmortizacionCliente implements Serializable {
     public void setIdperiodo(Periodo idperiodo) {
         this.idperiodo = idperiodo;
     }
-    
-    
-    
+
+    public DepositoCliente getIddeposito() {
+        return iddeposito;
+    }
+
+    public void setIddeposito(DepositoCliente iddeposito) {
+        this.iddeposito = iddeposito;
+    }
+
+    public ChequeCliente getIdcheque() {
+        return idcheque;
+    }
+
+    public void setIdcheque(ChequeCliente idcheque) {
+        this.idcheque = idcheque;
+    }
+
+    public String getCreferencia() {
+        return creferencia;
+    }
+
+    public void setCreferencia(String creferencia) {
+        this.creferencia = creferencia;
+    }
 
     @Override
     public int hashCode() {
@@ -270,5 +289,4 @@ public class AmortizacionCliente implements Serializable {
     public String toString() {
         return "com.zarcillo.domain.AmortizacionCliente[ idamortizacion=" + idamortizacion + " ]";
     }
-    
 }

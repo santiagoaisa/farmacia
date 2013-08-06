@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "DepositoCliente.findAll", query = "SELECT d FROM DepositoCliente d"),
     @NamedQuery(name = "DepositoCliente.findByIddeposito", query = "SELECT d FROM DepositoCliente d WHERE d.iddeposito=:iddeposito"),
-    @NamedQuery(name = "DepositoCliente.findByIdcliente", query = "SELECT d FROM DepositoCliente d WHERE d.idcliente.idcliente=:idcliente ORDER BY d.dfecha DESC ")
+    @NamedQuery(name = "DepositoCliente.findByIdunidadByIdclienteByNano", query = "SELECT d FROM DepositoCliente d WHERE d.idunidad.idunidad=:idunidad and d.idcliente.idcliente=:idcliente and d.idperiodo.nano=:nano ORDER BY d.dfecha DESC ")
 })
 public class DepositoCliente implements Serializable {
 
@@ -82,7 +82,7 @@ public class DepositoCliente implements Serializable {
         nacuenta = new BigDecimal("0");
         nimporte = new BigDecimal("0");
         nsaldo = new BigDecimal("0");
-        ntipocambio=new BigDecimal("0");
+        ntipocambio=new BigDecimal("1");
     }
 
     public DepositoCliente(Integer iddeposito) {

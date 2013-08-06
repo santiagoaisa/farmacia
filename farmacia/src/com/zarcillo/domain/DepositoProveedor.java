@@ -86,7 +86,7 @@ public class DepositoProveedor implements Serializable {
         nacuenta = new BigDecimal("0");
         nimporte = new BigDecimal("0");
         nsaldo = new BigDecimal("0");
-        ntipocambio=new BigDecimal("0");
+        ntipocambio=new BigDecimal("1");
     }
 
     public DepositoProveedor(Integer iddeposito) {

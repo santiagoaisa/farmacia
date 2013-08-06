@@ -27,8 +27,12 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "notabo_cliente")
 @NamedQueries({
-    @NamedQuery(name = "NotaboCliente.findAll", query = "SELECT n FROM NotaboCliente n")})
+    @NamedQuery(name = "NotaboCliente.findAll", query = "SELECT n FROM NotaboCliente n"),
+    @NamedQuery(name = "NotaboCliente.findByIdnotabo", query = "SELECT n FROM NotaboCliente n WHERE n.idnotabo=:idnotabo"),
+    @NamedQuery(name = "NotaboCliente.findByIdunidadByIdclienteByNano", query = "SELECT n FROM NotaboCliente n WHERE n.idunidad.idunidad=:idunidad and n.idcliente.idcliente=:idcliente and n.idperiodo.nano=:nano and n.dfecemi DESC ")
+})
 public class NotaboCliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,16 +42,12 @@ public class NotaboCliente implements Serializable {
     @Column(name = "dfecemi")
     @Temporal(TemporalType.DATE)
     private Date dfecemi;
-    
     @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Periodo idperiodo;
-    
-     @JoinColumn(name = "idunidad", referencedColumnName = "idunidad")
+    @JoinColumn(name = "idunidad", referencedColumnName = "idunidad")
     @ManyToOne(fetch = FetchType.EAGER)
     private UnidadNegocio idunidad;
-    
-    
     @Column(name = "cserie")
     private String cserie;
     @Column(name = "cnumero")
@@ -69,29 +69,31 @@ public class NotaboCliente implements Serializable {
     private BigDecimal nsaldo;
     @Column(name = "ncosto")
     private BigDecimal ncosto;
-    
-     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
+    @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cliente idcliente;
-    
-     @JoinColumn(name = "idmotivo", referencedColumnName = "idmotivo")
+    @JoinColumn(name = "idmotivo", referencedColumnName = "idmotivo")
     @ManyToOne(fetch = FetchType.EAGER)
     private MotivoNotaboCliente idmotivo;
-     
-      @JoinColumn(name = "idvendedor", referencedColumnName = "idvendedor")
+    @JoinColumn(name = "idvendedor", referencedColumnName = "idvendedor")
     @ManyToOne(fetch = FetchType.EAGER)
     private Vendedor idvendedor;
-      
-       @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
-     
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
+    @Column(name = "dfeccan")
+    @Temporal(TemporalType.DATE)
+    private Date dfeccan;
     
-   
+     @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Moneda idmoneda;
     
+    @Column(name = "ntipocambio")
+    private BigDecimal ntipocambio;
 
     public NotaboCliente() {
         nacuenta = new BigDecimal("0");
@@ -102,6 +104,7 @@ public class NotaboCliente implements Serializable {
         ninafecto = new BigDecimal("0");
         nredondeo = new BigDecimal("0");
         nsaldo = new BigDecimal("0");
+        ntipocambio= new BigDecimal("1");
     }
 
     public NotaboCliente(Integer idnotabo) {
@@ -212,8 +215,6 @@ public class NotaboCliente implements Serializable {
         this.dfecreg = dfecreg;
     }
 
-    
-
     public Vendedor getIdvendedor() {
         return idvendedor;
     }
@@ -262,6 +263,30 @@ public class NotaboCliente implements Serializable {
         this.idusuario = idusuario;
     }
 
+    public Date getDfeccan() {
+        return dfeccan;
+    }
+
+    public void setDfeccan(Date dfeccan) {
+        this.dfeccan = dfeccan;
+    }
+
+    public Moneda getIdmoneda() {
+        return idmoneda;
+    }
+
+    public void setIdmoneda(Moneda idmoneda) {
+        this.idmoneda = idmoneda;
+    }
+
+    public BigDecimal getNtipocambio() {
+        return ntipocambio;
+    }
+
+    public void setNtipocambio(BigDecimal ntipocambio) {
+        this.ntipocambio = ntipocambio;
+    }
+
     
     
     
@@ -287,7 +312,6 @@ public class NotaboCliente implements Serializable {
 
     @Override
     public String toString() {
-        return cserie+"-"+cnumero;
+        return cserie + "-" + cnumero;
     }
-    
 }

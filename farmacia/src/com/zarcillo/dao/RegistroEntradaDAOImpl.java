@@ -34,7 +34,7 @@ public class RegistroEntradaDAOImpl implements RegistroEntradaDAO{
     }
 
     @Override
-    public List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen, String idproveedor, Integer nano) {
+    public List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen, Integer idproveedor, Integer nano) {
         return em.createNamedQuery("RegistroEntrada.findByIdalmacenByIdproveedorByNano").setParameter("idalmacen", idalmacen).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
     }
     

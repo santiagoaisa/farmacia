@@ -8,6 +8,6 @@ import java.util.List;
  * @author saisa
  */
 public interface DepositoClienteDAO {
-     DepositoCliente busqueda(Integer iddeposito);
-    List<DepositoCliente> listaPorIdcliente(Integer idcliente);
+     DepositoCliente buscarPorIddeposito(Integer iddeposito);
+    List<DepositoCliente> listaPorIdunidadPorIdclientePorNano(Integer idunidad,Integer idcliente,Integer nano);
 }

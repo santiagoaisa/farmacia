@@ -82,7 +82,7 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     }
 
     @Override
-    public List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen, String idproveedor, Integer nano) {
+    public List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen, Integer idproveedor, Integer nano) {
         return registroentradadao.listaPorIdalmacenPorIdproveedorPorNano(idalmacen, idproveedor, nano);
     }
     

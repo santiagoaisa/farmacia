@@ -27,7 +27,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "letra_cliente")
 @NamedQueries({
-    @NamedQuery(name = "LetraCliente.findAll", query = "SELECT l FROM LetraCliente l")})
+    @NamedQuery(name = "LetraCliente.findAll", query = "SELECT l FROM LetraCliente l"),
+    @NamedQuery(name = "LetraCliente.findByIdletra", query = "SELECT l FROM LetraCliente l WHERE l.idletra=:idletra ")
+
+})
 public class LetraCliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -89,6 +92,13 @@ public class LetraCliente implements Serializable {
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
+    
+     @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Moneda idmoneda;
+    
+    @Column(name = "ntipocambio")
+    private BigDecimal ntipocambio;
 
     public LetraCliente() {
         nacuenta = new BigDecimal("0");
@@ -98,6 +108,7 @@ public class LetraCliente implements Serializable {
         nplazo = 0;
         nprotesto = new BigDecimal("0");
         nsaldo = new BigDecimal("0");
+        ntipocambio= new BigDecimal("1");
     }
 
     public LetraCliente(Integer idletra) {
@@ -271,6 +282,25 @@ public class LetraCliente implements Serializable {
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
+
+    public Moneda getIdmoneda() {
+        return idmoneda;
+    }
+
+    public void setIdmoneda(Moneda idmoneda) {
+        this.idmoneda = idmoneda;
+    }
+
+    public BigDecimal getNtipocambio() {
+        return ntipocambio;
+    }
+
+    public void setNtipocambio(BigDecimal ntipocambio) {
+        this.ntipocambio = ntipocambio;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {

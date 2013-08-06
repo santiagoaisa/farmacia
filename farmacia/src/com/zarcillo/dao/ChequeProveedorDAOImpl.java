@@ -18,7 +18,7 @@ public class ChequeProveedorDAOImpl implements ChequeProveedorDAO{
     private EntityManager em;
     
     @Override
-    public ChequeProveedor busqueda(Integer idcheque) {
+    public ChequeProveedor buscarPorIdcheque(Integer idcheque) {
         return (ChequeProveedor) em.createNamedQuery("ChequeProveedor.findByIdcheque").setParameter("idcheque", idcheque).getSingleResult();
     }
 
@@ -26,6 +26,13 @@ public class ChequeProveedorDAOImpl implements ChequeProveedorDAO{
     public List<ChequeProveedor> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad, Integer idproveedor, Integer nano) {
         return em.createNamedQuery("ChequeProveedor.findByIdunidadByIdproveedorByNano").setParameter("idunidad", idunidad).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
     }
+
+    @Override
+    public List<ChequeProveedor> listaPorIdunidadPorIdproveedorPorNanoPendientes(Integer idunidad, Integer idproveedor, Integer nano) {
+        return em.createNamedQuery("ChequeProveedor.findByIdunidadByIdproveedorByNanoPendientes").setParameter("idunidad", idunidad).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
+    }
+    
+    
 
    
     

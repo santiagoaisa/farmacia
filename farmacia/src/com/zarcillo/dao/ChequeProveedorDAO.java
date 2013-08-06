@@ -8,6 +8,7 @@ import java.util.List;
  * @author saisa
  */
 public interface ChequeProveedorDAO {
-    ChequeProveedor busqueda(Integer idcheque);
+    ChequeProveedor buscarPorIdcheque(Integer idcheque);
     List<ChequeProveedor> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad,Integer idproveedor,Integer nano);
+    List<ChequeProveedor> listaPorIdunidadPorIdproveedorPorNanoPendientes(Integer idunidad,Integer idproveedor,Integer nano);
 }

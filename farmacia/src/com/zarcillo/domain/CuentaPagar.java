@@ -132,7 +132,7 @@ public class CuentaPagar implements Serializable {
         nnotcar = new BigDecimal("0");
         nplazo = 0;
         nsaldo = new BigDecimal("0");
-        ntipocambio = new BigDecimal("0");
+        ntipocambio = new BigDecimal("1");
         npercepcion = new BigDecimal("0");
         nreclamodevolucion = new BigDecimal("0");
         nreclamoprecio = new BigDecimal("0");

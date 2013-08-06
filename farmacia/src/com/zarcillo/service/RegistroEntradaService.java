@@ -4,7 +4,7 @@ import com.zarcillo.domain.RegistroEntrada;
 import com.zarcillo.dto.almacen.DetalleIngreso;
 import java.util.Date;
 import java.util.List;
-
+ 
 /**
  *
  * @author saisa
@@ -16,5 +16,5 @@ public interface RegistroEntradaService {
     
     public List<DetalleIngreso> listaDetalleIngreso(Integer idregentrada);    
     public List<RegistroEntrada> listaPorFechas(Integer idalmacen,Date dfecha1,Date dfecha2);
-    public List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen,String idproveedor,Integer nano);
+    public List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen,Integer idproveedor,Integer nano);
 }

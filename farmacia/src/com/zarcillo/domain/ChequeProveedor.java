@@ -27,7 +27,8 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "ChequeProveedor.findAll", query = "SELECT c FROM ChequeProveedor c"),
     @NamedQuery(name = "ChequeProveedor.findByIdcheque", query = "SELECT c FROM ChequeProveedor c WHERE c.idcheque=:idcheque "),
-    @NamedQuery(name = "ChequeProveedor.findByIdunidadByIdproveedorByNano", query = "SELECT c FROM ChequeProveedor c WHERE c.idunidad.idunidad=:idunidad and c.idproveedor.idproveedor=:idproveedor and c.idperiodo.nano=:nano ORDER BY c.dfecha DESC ")
+    @NamedQuery(name = "ChequeProveedor.findByIdunidadByIdproveedorByNano", query = "SELECT c FROM ChequeProveedor c WHERE c.idunidad.idunidad=:idunidad and c.idproveedor.idproveedor=:idproveedor and c.idperiodo.nano=:nano ORDER BY c.dfecha DESC "),
+    @NamedQuery(name = "ChequeProveedor.findByIdunidadByIdproveedorByNanoPendientes", query = "SELECT c FROM ChequeProveedor c WHERE c.idunidad.idunidad=:idunidad and c.idproveedor.idproveedor=:idproveedor and c.idperiodo.nano=:nano and c.nsaldo>0 ORDER BY c.dfecha DESC ")
 })
 public class ChequeProveedor implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -82,11 +83,15 @@ public class ChequeProveedor implements Serializable {
      @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
     @ManyToOne(fetch = FetchType.EAGER)
     private Moneda idmoneda;
+     
+      @Column(name = "ntipocambio")
+    private BigDecimal ntipocambio;
     
     public ChequeProveedor() {
          nacuenta=new BigDecimal("0");
         nimporte=new BigDecimal("0");
         nsaldo=new BigDecimal("0");
+        ntipocambio=new BigDecimal("1");
     }
 
     public ChequeProveedor(Integer idcheque) {
@@ -213,6 +218,14 @@ public class ChequeProveedor implements Serializable {
 
     public void setIdmoneda(Moneda idmoneda) {
         this.idmoneda = idmoneda;
+    }
+
+    public BigDecimal getNtipocambio() {
+        return ntipocambio;
+    }
+
+    public void setNtipocambio(BigDecimal ntipocambio) {
+        this.ntipocambio = ntipocambio;
     }
 
     

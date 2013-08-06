@@ -25,8 +25,12 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "letra_proveedor")
 @NamedQueries({
-    @NamedQuery(name = "LetraProveedor.findAll", query = "SELECT l FROM LetraProveedor l")})
+    @NamedQuery(name = "LetraProveedor.findAll", query = "SELECT l FROM LetraProveedor l"),
+    @NamedQuery(name = "LetraProveedor.findByIdletra", query = "SELECT l FROM LetraProveedor l WHERE l.idletra=:idletra ")
+
+})
 public class LetraProveedor implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,17 +77,20 @@ public class LetraProveedor implements Serializable {
     @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
     @ManyToOne(fetch = FetchType.EAGER)
     private Moneda idmoneda;
-
     @Column(name = "cnumero")
     private String cnumero;
     
+     @Column(name = "nnotcar")
+    private BigDecimal nnotcar;
+
     public LetraProveedor() {
-        nacuenta=new BigDecimal("0");
-        nimporte=new BigDecimal("0");
-        nnotabo=new BigDecimal("0");
-        nplazo=0;
-        nsaldo=new BigDecimal("0");
-        ntipocambio=new BigDecimal("0");
+        nacuenta = new BigDecimal("0");
+        nimporte = new BigDecimal("0");
+        nnotabo = new BigDecimal("0");
+        nnotcar = new BigDecimal("0");
+        nplazo = 0;
+        nsaldo = new BigDecimal("0");
+        ntipocambio = new BigDecimal("1");
     }
 
     public LetraProveedor(Integer idletra) {
@@ -225,6 +232,15 @@ public class LetraProveedor implements Serializable {
     public void setCnumero(String cnumero) {
         this.cnumero = cnumero;
     }
+
+    public BigDecimal getNnotcar() {
+        return nnotcar;
+    }
+
+    public void setNnotcar(BigDecimal nnotcar) {
+        this.nnotcar = nnotcar;
+    }
+    
     
     
 
@@ -252,5 +268,4 @@ public class LetraProveedor implements Serializable {
     public String toString() {
         return "com.zarcillo.domain.LetraProveedor[ idletra=" + idletra + " ]";
     }
-    
 }

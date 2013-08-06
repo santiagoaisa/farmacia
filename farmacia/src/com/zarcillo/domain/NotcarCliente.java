@@ -3,7 +3,6 @@ package com.zarcillo.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,8 +25,13 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "notcar_cliente")
 @NamedQueries({
-    @NamedQuery(name = "NotcarCliente.findAll", query = "SELECT n FROM NotcarCliente n")})
+    @NamedQuery(name = "NotcarCliente.findAll", query = "SELECT n FROM NotcarCliente n"),
+    @NamedQuery(name = "NotcarCliente.findByIdnotcar", query = "SELECT n FROM NotcarCliente n WHERE n.idnotcar=:idnotcar"),
+    @NamedQuery(name = "NotcarCliente.findByIdunidadByIdclienteByNano", query = "SELECT n FROM NotcarCliente n WHERE n.idunidad.idunidad=:idunidad and n.idcliente.idcliente=:idcliente and n.idperiodo.nano=:nano ORDER BY n.dfecemi DESC ")
+    
+})
 public class NotcarCliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,15 +41,12 @@ public class NotcarCliente implements Serializable {
     @Column(name = "dfecemi")
     @Temporal(TemporalType.DATE)
     private Date dfecemi;
-    
-      @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
+    @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Periodo idperiodo;
-      
-        @JoinColumn(name = "idunidad", referencedColumnName = "idunidad")
+    @JoinColumn(name = "idunidad", referencedColumnName = "idunidad")
     @ManyToOne(fetch = FetchType.EAGER)
     private UnidadNegocio idunidad;
-    
     @Column(name = "cserie")
     private String cserie;
     @Column(name = "cnumero")
@@ -68,41 +68,52 @@ public class NotcarCliente implements Serializable {
     private BigDecimal nsaldo;
     @Column(name = "ncosto")
     private BigDecimal ncosto;
-    
-    
-       @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
+    @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cliente idcliente;
-    
-        @JoinColumn(name = "idmotivo", referencedColumnName = "idmotivo")
+    @JoinColumn(name = "idmotivo", referencedColumnName = "idmotivo")
     @ManyToOne(fetch = FetchType.EAGER)
     private MotivoNotcarCliente idmotivo;
-        
-        @JoinColumn(name = "idvendedor", referencedColumnName = "idvendedor")
+    @JoinColumn(name = "idvendedor", referencedColumnName = "idvendedor")
     @ManyToOne(fetch = FetchType.EAGER)
     private Vendedor idvendedor;
-        
-          @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
-       
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
+    @Column(name = "dfeccan")
+    @Temporal(TemporalType.DATE)
+    private Date dfeccan;
+    @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Moneda idmoneda;
+    @Column(name = "ntipocambio")
+    private BigDecimal ntipocambio;
 
     public NotcarCliente() {
-        nacuenta=new BigDecimal("0");
-        nafecto=new BigDecimal("0");
-        ncosto=new BigDecimal("0");
-        nigv=new BigDecimal("0");
-        nimporte=new BigDecimal("0");
-        ninafecto=new BigDecimal("0");
-        nredondeo=new BigDecimal("0");
-        nsaldo=new BigDecimal("0");
+        nacuenta = new BigDecimal("0");
+        nafecto = new BigDecimal("0");
+        ncosto = new BigDecimal("0");
+        nigv = new BigDecimal("0");
+        nimporte = new BigDecimal("0");
+        ninafecto = new BigDecimal("0");
+        nredondeo = new BigDecimal("0");
+        nsaldo = new BigDecimal("0");
+        ntipocambio = new BigDecimal("1");
     }
 
     public NotcarCliente(Integer idnotcar) {
         this.idnotcar = idnotcar;
+    }
+
+    public Date getDfeccan() {
+        return dfeccan;
+    }
+
+    public void setDfeccan(Date dfeccan) {
+        this.dfeccan = dfeccan;
     }
 
     public Integer getIdnotcar() {
@@ -209,8 +220,6 @@ public class NotcarCliente implements Serializable {
         this.dfecreg = dfecreg;
     }
 
-  
-
     public Vendedor getIdvendedor() {
         return idvendedor;
     }
@@ -258,9 +267,22 @@ public class NotcarCliente implements Serializable {
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
-    
-    
-    
+
+    public Moneda getIdmoneda() {
+        return idmoneda;
+    }
+
+    public void setIdmoneda(Moneda idmoneda) {
+        this.idmoneda = idmoneda;
+    }
+
+    public BigDecimal getNtipocambio() {
+        return ntipocambio;
+    }
+
+    public void setNtipocambio(BigDecimal ntipocambio) {
+        this.ntipocambio = ntipocambio;
+    }
 
     @Override
     public int hashCode() {
@@ -284,7 +306,6 @@ public class NotcarCliente implements Serializable {
 
     @Override
     public String toString() {
-        return cserie+"-"+cnumero;
+        return cserie + "-" + cnumero;
     }
-    
 }

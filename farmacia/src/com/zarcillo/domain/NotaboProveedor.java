@@ -30,6 +30,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "NotaboProveedor.findAll", query = "SELECT n FROM NotaboProveedor n"),
     @NamedQuery(name = "NotaboProveedor.findByIdnotabo", query = "SELECT n FROM NotaboProveedor n WHERE n.idnotabo=:idnotabo"),
     @NamedQuery(name = "NotaboProveedor.findByIdunidadByIdproveedorByNano", query = "SELECT n FROM NotaboProveedor n WHERE n.idunidad.idunidad =:idunidad and n.idproveedor.idproveedor=:idproveedor and n.idperiodo.nano=:nano ORDER BY n.dfecemi DESC "),
+    @NamedQuery(name = "NotaboProveedor.findByIdunidadByIdproveedorByNanoPendientes", query = "SELECT n FROM NotaboProveedor n WHERE n.idunidad.idunidad =:idunidad and n.idproveedor.idproveedor=:idproveedor and n.idperiodo.nano=:nano and n.nsaldo>0 ORDER BY n.dfecemi DESC ")
 
 })
 public class NotaboProveedor implements Serializable {
@@ -93,13 +94,33 @@ public class NotaboProveedor implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private MotivoNotaboProveedor idmotivo;
     
+    @Column(name = "dfeccan")
+    @Temporal(TemporalType.DATE)
+    private Date dfeccan;
 
     public NotaboProveedor() {
+          nacuenta = new BigDecimal("0");
+        nafecto = new BigDecimal("0");
+        nigv = new BigDecimal("0");
+        nimporte = new BigDecimal("0");
+        ninafecto = new BigDecimal("0");
+        nsaldo = new BigDecimal("0");
+        ntipocambio = new BigDecimal("1");
     }
 
     public NotaboProveedor(Integer idnotabo) {
         this.idnotabo = idnotabo;
     }
+
+    public Date getDfeccan() {
+        return dfeccan;
+    }
+
+    public void setDfeccan(Date dfeccan) {
+        this.dfeccan = dfeccan;
+    }
+    
+    
 
     public Integer getIdnotabo() {
         return idnotabo;

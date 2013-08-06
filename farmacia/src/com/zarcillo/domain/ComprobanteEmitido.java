@@ -25,8 +25,15 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "comprobante_emitido")
 @NamedQueries({
-    @NamedQuery(name = "ComprobanteEmitido.findAll", query = "SELECT c FROM ComprobanteEmitido c")})
+    @NamedQuery(name = "ComprobanteEmitido.findAll", query = "SELECT c FROM ComprobanteEmitido c"),
+        @NamedQuery(name = "ComprobanteEmitido.findByIdregsalida", query = "SELECT c FROM ComprobanteEmitido c WHERE c.idregsalida.idregsalida=:idregsalida "),
+    @NamedQuery(name = "ComprobanteEmitido.findByIdcomprobante", query = "SELECT c FROM ComprobanteEmitido c WHERE c.idcomprobante=:idcomprobante"),
+    @NamedQuery(name = "ComprobanteEmitido.findByIdunidadByIddocumentoByCserieByCnumero", query = "SELECT c FROM ComprobanteEmitido c WHERE c.idunidad.idunidad=:idunidad and c.iddocumento.iddocumento=:iddocumento and c.cserie=:cserie and c.cnumero=:cnumero  "),
+    @NamedQuery(name = "ComprobanteEmitido.findByIdunidadByIdclienteByNano", query = "SELECT c FROM ComprobanteEmitido c WHERE c.idunidad.idunidad=:idunidad and c.idcliente.idcliente=:idcliente and c.idperiodo.nano =:nano ORDER BY c.dfecemi DESC  ")
+
+})
 public class ComprobanteEmitido implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,25 +104,35 @@ public class ComprobanteEmitido implements Serializable {
     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cliente idcliente;
-    
-     @Column(name = "nfleven")
+    @Column(name = "nfleven")
     private BigDecimal nfleven;
     
+     @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Periodo idperiodo;
+     
+      @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Moneda idmoneda;
+      
+      @Column(name = "ntipocambio")
+    private BigDecimal ntipocambio;
 
     public ComprobanteEmitido() {
-        nacuenta=new BigDecimal("0");
-        nafecto=new BigDecimal("0");
-        ncosto=new BigDecimal("0");
-        nigv=new BigDecimal("0");
-        nimporte=new BigDecimal("0");
-        ninafecto=new BigDecimal("0");
-        nnotabo=new BigDecimal("0");
-        nnotcar=new BigDecimal("0");
-        nplazo=0;
-        nredondeo=new BigDecimal("0");
-        nsaldo=new BigDecimal("0");
-        nfleven=new BigDecimal("0");
-        
+        nacuenta = new BigDecimal("0");
+        nafecto = new BigDecimal("0");
+        ncosto = new BigDecimal("0");
+        nigv = new BigDecimal("0");
+        nimporte = new BigDecimal("0");
+        ninafecto = new BigDecimal("0");
+        nnotabo = new BigDecimal("0");
+        nnotcar = new BigDecimal("0");
+        nplazo = 0;
+        nredondeo = new BigDecimal("0");
+        nsaldo = new BigDecimal("0");
+        nfleven = new BigDecimal("0");
+        ntipocambio= new BigDecimal("1");
+
     }
 
     public ComprobanteEmitido(Integer idcomprobante) {
@@ -345,11 +362,34 @@ public class ComprobanteEmitido implements Serializable {
     public void setNfleven(BigDecimal nfleven) {
         this.nfleven = nfleven;
     }
+
+    public Periodo getIdperiodo() {
+        return idperiodo;
+    }
+
+    public void setIdperiodo(Periodo idperiodo) {
+        this.idperiodo = idperiodo;
+    }
+
+    public Moneda getIdmoneda() {
+        return idmoneda;
+    }
+
+    public void setIdmoneda(Moneda idmoneda) {
+        this.idmoneda = idmoneda;
+    }
+
+    public BigDecimal getNtipocambio() {
+        return ntipocambio;
+    }
+
+    public void setNtipocambio(BigDecimal ntipocambio) {
+        this.ntipocambio = ntipocambio;
+    }
     
     
     
 
-   
     @Override
     public int hashCode() {
         int hash = 0;
@@ -374,5 +414,4 @@ public class ComprobanteEmitido implements Serializable {
     public String toString() {
         return "com.zarcillo.domain.ComprobanteEmitido[ idcomprobante=" + idcomprobante + " ]";
     }
-    
 }

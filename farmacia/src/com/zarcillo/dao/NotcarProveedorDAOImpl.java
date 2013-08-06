@@ -17,7 +17,7 @@ public class NotcarProveedorDAOImpl implements NotcarProveedorDAO{
     private EntityManager em;
 
     @Override
-    public NotcarProveedor busqueda(Integer idnotcar) {
+    public NotcarProveedor buscarPorIdnotcar(Integer idnotcar) {
         return (NotcarProveedor) em.createNamedQuery("NotcarProveedor.findByIdnotcar").setParameter("idnotcar", idnotcar).getSingleResult();
     }
 
@@ -25,5 +25,12 @@ public class NotcarProveedorDAOImpl implements NotcarProveedorDAO{
     public List<NotcarProveedor> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad, Integer idproveedor, Integer nano) {
         return em.createNamedQuery("NotcarProveedor.findByIdunidadByIdproveedorByNano").setParameter("idunidad", idunidad).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
     }
+
+    @Override
+    public List<NotcarProveedor> listaPorIdunidadPorIdproveedorPorNanoPendientes(Integer idunidad, Integer idproveedor, Integer nano) {
+        return em.createNamedQuery("NotcarProveedor.findByIdunidadByIdproveedorByNanoPendientes").setParameter("idunidad", idunidad).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
+    }
+    
+    
     
 }

@@ -113,6 +113,13 @@ public class RegistroSalida implements Serializable {
     @JoinColumn(name = "idsituacion", referencedColumnName = "idsituacion")
     @ManyToOne(fetch = FetchType.EAGER)
     private SituacionPedido idsituacion;
+    
+      @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Moneda idmoneda;
+      
+      @Column(name = "ntipocambio")
+    private BigDecimal ntipocambio;
 
     public RegistroSalida() {
         nafecto = new BigDecimal("0");
@@ -124,6 +131,7 @@ public class RegistroSalida implements Serializable {
         nredondeo = new BigDecimal("0");
         movimientoCollection = new ArrayList<Movimiento>();
         nfleven = new BigDecimal("0");
+        ntipocambio= new BigDecimal("1");
 
     }
 
@@ -420,6 +428,25 @@ public class RegistroSalida implements Serializable {
         //fin de redondeo
         this.nimporte = preciofinal;
     }
+
+    public Moneda getIdmoneda() {
+        return idmoneda;
+    }
+
+    public void setIdmoneda(Moneda idmoneda) {
+        this.idmoneda = idmoneda;
+    }
+
+    public BigDecimal getNtipocambio() {
+        return ntipocambio;
+    }
+
+    public void setNtipocambio(BigDecimal ntipocambio) {
+        this.ntipocambio = ntipocambio;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {

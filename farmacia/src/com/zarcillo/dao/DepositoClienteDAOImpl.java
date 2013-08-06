@@ -19,12 +19,13 @@ public class DepositoClienteDAOImpl implements DepositoClienteDAO {
     private EntityManager em;
 
     @Override
-    public DepositoCliente busqueda(Integer iddeposito) {
+    public DepositoCliente buscarPorIddeposito(Integer iddeposito) {
         return (DepositoCliente) em.createNamedQuery("DepositoCliente.findByIddeposito").setParameter("iddeposito", iddeposito).getSingleResult();
     }
 
+
     @Override
-    public List<DepositoCliente> listaPorIdcliente(Integer idcliente) {
-        return em.createNamedQuery("DepositoCliente.findByIdcliente").setParameter("idcliente", idcliente).getResultList();
+    public List<DepositoCliente> listaPorIdunidadPorIdclientePorNano(Integer idunidad, Integer idcliente, Integer nano) {
+        return em.createNamedQuery("DepositoProveedor.findByIdunidadByIdproveedorByNanoPendientes").setParameter("idunidad", idunidad).setParameter("idcliente", idcliente).setParameter("nano", nano).getResultList();
     }
 }
