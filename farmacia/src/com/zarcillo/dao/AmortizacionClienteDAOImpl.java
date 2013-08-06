@@ -41,4 +41,12 @@ public class AmortizacionClienteDAOImpl implements AmortizacionClienteDAO {
     public List<AmortizacionCliente> listaPorIdnotcar(Integer idnotcar) {
         return em.createNamedQuery("AmortizacionCliente.findByIdnotcar").setParameter("idnotcar", idnotcar).getResultList();
     }
+
+    @Override
+    public List<AmortizacionCliente> listaPorIdretencion(Integer idretencion) {
+        return em.createNamedQuery("AmortizacionCliente.findByIdretencion").setParameter("idretencion", idretencion).getResultList();
+    }
+    
+    
+    
 }

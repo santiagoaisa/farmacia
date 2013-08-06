@@ -30,7 +30,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "AmortizacionCliente.findByIddeposito", query = "SELECT a FROM AmortizacionCliente a WHERE a.iddeposito.iddeposito=:iddeposito "),
     @NamedQuery(name = "AmortizacionCliente.findByIdcheque", query = "SELECT a FROM AmortizacionCliente a WHERE a.idcheque.idcheque=:idcheque "),
     @NamedQuery(name = "AmortizacionCliente.findByIdnotabo", query = "SELECT a FROM AmortizacionCliente a WHERE a.idnotabo.idnotabo=:idnotabo"),
-    @NamedQuery(name = "AmortizacionCliente.findByIdnotcar", query = "SELECT a FROM AmortizacionCliente a WHERE a.idnotcar.idnotcar=:idnotcar")
+    @NamedQuery(name = "AmortizacionCliente.findByIdnotcar", query = "SELECT a FROM AmortizacionCliente a WHERE a.idnotcar.idnotcar=:idnotcar"),
+    @NamedQuery(name = "AmortizacionCliente.findByIdretencion", query = "SELECT a FROM AmortizacionCliente a WHERE a.idretencion.idretencion=:idretencion ")
 })
 public class AmortizacionCliente implements Serializable {
 
@@ -94,6 +95,10 @@ public class AmortizacionCliente implements Serializable {
     @Column(name = "creferencia")
     private String creferencia;
 
+    @JoinColumn(name = "idretencion", referencedColumnName = "idretencion")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private RetencionCliente idretencion;
+    
     public AmortizacionCliente() {
         bregistro = false;
         nimporte = new BigDecimal("0");
@@ -264,6 +269,18 @@ public class AmortizacionCliente implements Serializable {
     public void setCreferencia(String creferencia) {
         this.creferencia = creferencia;
     }
+
+    public RetencionCliente getIdretencion() {
+        return idretencion;
+    }
+
+    public void setIdretencion(RetencionCliente idretencion) {
+        this.idretencion = idretencion;
+    }
+    
+    
+    
+    
 
     @Override
     public int hashCode() {

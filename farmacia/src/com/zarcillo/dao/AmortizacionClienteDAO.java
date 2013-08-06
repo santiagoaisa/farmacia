@@ -13,4 +13,5 @@ public interface AmortizacionClienteDAO {
     List<AmortizacionCliente> listaPorIdcheque(Integer idcheque);
     List<AmortizacionCliente> listaPorIdnotabo(Integer idnotabo);
     List<AmortizacionCliente> listaPorIdnotcar(Integer idnotcar);
+    List<AmortizacionCliente> listaPorIdretencion(Integer idretencion);
 }

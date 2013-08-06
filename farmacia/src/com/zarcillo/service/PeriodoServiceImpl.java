@@ -6,6 +6,7 @@ import com.zarcillo.domain.Periodo;
 import com.zarcillo.estado.MotivoLog;
 import com.zarcillo.log.LogPeriodo;
 import com.zarcillo.negocio.Año;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,24 @@ public class PeriodoServiceImpl implements PeriodoService {
     }
 
     @Override
+    public List<Periodo> listaPeriodoAños() {
+
+        List<Año> lista = periododao.listaAños();
+        List<Periodo> listaPeriodo = new ArrayList<>();
+
+        Periodo periodo;
+
+        for (Año a : lista) {
+            periodo = new Periodo(listaPeriodo.size());
+            periodo.setNano(a.getNano());
+            periodo.setNmes(0);
+            listaPeriodo.add(periodo);
+        }
+
+        return listaPeriodo;
+    }
+
+    @Override
     public Periodo buscarPorNanoPorNmes(Integer nano, Integer nmes) {
         return periododao.buscarPorNanoPorNmes(nano, nmes);
     }
@@ -96,9 +115,6 @@ public class PeriodoServiceImpl implements PeriodoService {
         return periododao.buscarPorFecha(dfecha);
     }
 
-    
-    
-    
     private void registrarLog(String cmotivo, Periodo periodo) {
         LogPeriodo logperiodo = new LogPeriodo();
         logperiodo.setCmotivo(cmotivo);

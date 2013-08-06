@@ -16,6 +16,7 @@ public interface PeriodoService {
     public void eliminar(Periodo periodo);
     public Periodo buscar(Integer idperiodo);
     public List<Periodo> listaGeneral();
+    public List<Periodo> listaPeriodoAños();
     public List<Año> listaAños();
     public Periodo buscarPorNanoPorNmes(Integer nano,Integer nmes);
     public Periodo buscarPorDfecha(Date dfecha);

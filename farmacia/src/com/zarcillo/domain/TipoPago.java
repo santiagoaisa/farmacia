@@ -58,12 +58,13 @@ public class TipoPago implements Serializable {
     public static TipoPago TRANSFERENCIA_SUNAT = new TipoPago("003");
     public static TipoPago TARJETA_DEBITO_SUNAT = new TipoPago("005");
     public static TipoPago TARJETA_CREDITO_SUNAT = new TipoPago("006");
-    public static TipoPago EFECTIVO_SUNAT = new TipoPago("009");
-    public static TipoPago REDONDEO_SUNAT = new TipoPago("053");
     public static TipoPago CHEQUE_SUNAT = new TipoPago("007");
+    public static TipoPago EFECTIVO_SUNAT = new TipoPago("009");
     public static TipoPago LETRA_CAMBIO_SUNAT = new TipoPago("011");
-    public static TipoPago NOTA_CREDITO_SUNAT = new TipoPago("050");
-    public static TipoPago NOTA_DEBITO_SUNAT = new TipoPago("051");
+    public static TipoPago NOTA_CREDITO_SUNAT = new TipoPago("051");
+    public static TipoPago NOTA_DEBITO_SUNAT = new TipoPago("052");
+    public static TipoPago REDONDEO_SUNAT = new TipoPago("053");
+    public static TipoPago RETENCION_SUNAT = new TipoPago("054");
 
     public TipoPago() {
         bcobro = false;
