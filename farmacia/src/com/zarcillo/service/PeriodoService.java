@@ -2,6 +2,7 @@ package com.zarcillo.service;
 
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.negocio.Año;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,5 +18,6 @@ public interface PeriodoService {
     public List<Periodo> listaGeneral();
     public List<Año> listaAños();
     public Periodo buscarPorNanoPorNmes(Integer nano,Integer nmes);
+    public Periodo buscarPorDfecha(Date dfecha);
     
 }

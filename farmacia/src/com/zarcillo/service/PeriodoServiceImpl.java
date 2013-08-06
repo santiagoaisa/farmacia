@@ -91,6 +91,11 @@ public class PeriodoServiceImpl implements PeriodoService {
         return periododao.buscarPorNanoPorNmes(nano, nmes);
     }
 
+    @Override
+    public Periodo buscarPorDfecha(Date dfecha) {
+        return periododao.buscarPorFecha(dfecha);
+    }
+
     
     
     
