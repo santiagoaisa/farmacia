@@ -5,6 +5,7 @@ import com.zarcillo.dao.PeriodoDAO;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.estado.MotivoLog;
 import com.zarcillo.log.LogPeriodo;
+import com.zarcillo.negocio.Año;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,8 +82,13 @@ public class PeriodoServiceImpl implements PeriodoService {
     }
 
     @Override
-    public List<Periodo> listaAños() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Año> listaAños() {
+        return periododao.listaAños();
+    }
+
+    @Override
+    public Periodo buscarPorNanoPorNmes(Integer nano, Integer nmes) {
+        return periododao.buscarPorNanoPorNmes(nano, nmes);
     }
 
     

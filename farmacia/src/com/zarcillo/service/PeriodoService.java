@@ -1,6 +1,7 @@
 package com.zarcillo.service;
 
 import com.zarcillo.domain.Periodo;
+import com.zarcillo.negocio.Año;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ public interface PeriodoService {
     public void eliminar(Periodo periodo);
     public Periodo buscar(Integer idperiodo);
     public List<Periodo> listaGeneral();
-    public List<Periodo> listaAños();
+    public List<Año> listaAños();
+    public Periodo buscarPorNanoPorNmes(Integer nano,Integer nmes);
     
 }
