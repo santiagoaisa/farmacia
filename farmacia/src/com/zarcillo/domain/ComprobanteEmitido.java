@@ -117,6 +117,9 @@ public class ComprobanteEmitido implements Serializable {
       
       @Column(name = "ntipocambio")
     private BigDecimal ntipocambio;
+      
+      @Column(name = "nretencion")
+    private BigDecimal nretencion;
 
     public ComprobanteEmitido() {
         nacuenta = new BigDecimal("0");
@@ -132,6 +135,7 @@ public class ComprobanteEmitido implements Serializable {
         nsaldo = new BigDecimal("0");
         nfleven = new BigDecimal("0");
         ntipocambio= new BigDecimal("1");
+        nretencion= new BigDecimal("0");
 
     }
 
@@ -385,6 +389,14 @@ public class ComprobanteEmitido implements Serializable {
 
     public void setNtipocambio(BigDecimal ntipocambio) {
         this.ntipocambio = ntipocambio;
+    }
+
+    public BigDecimal getNretencion() {
+        return nretencion;
+    }
+
+    public void setNretencion(BigDecimal nretencion) {
+        this.nretencion = nretencion;
     }
     
     

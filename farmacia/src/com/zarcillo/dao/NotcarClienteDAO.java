@@ -8,7 +8,7 @@ import java.util.List;
  * @author saisa
  */
 public interface NotcarClienteDAO {
-     NotcarCliente buscarPorIdnotabo(Integer idnotcar);
+     NotcarCliente buscarPorIdnotcar(Integer idnotcar);
     List<NotcarCliente> listaPorIdunidadPorIdclientePorNano(Integer idunidad,Integer idcliente,Integer nano);
     
 }

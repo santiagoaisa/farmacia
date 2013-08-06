@@ -18,7 +18,7 @@ public class NotcarClienteDAOImpl implements NotcarClienteDAO {
     private EntityManager em;
 
     @Override
-    public NotcarCliente buscarPorIdnotabo(Integer idnotcar) {        
+    public NotcarCliente buscarPorIdnotcar(Integer idnotcar) {        
         return (NotcarCliente) em.createNamedQuery("NotcarCliente.findByIdnotcar").setParameter("idnotcar",idnotcar).getSingleResult();
     }
 
