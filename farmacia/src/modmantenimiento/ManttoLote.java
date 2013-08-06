@@ -144,7 +144,7 @@ public class ManttoLote  extends SelectorComposer  {
         if (txtCodigo.getText().isEmpty()) {
             try {
                 Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/buscaexistenciaalmacen.zul", null, null);
-                winbuscaprod.setAttribute("IDALMACEN", almacen.getIdalmacen());
+                winbuscaprod.setAttribute("ALMACEN", almacen);
                 winbuscaprod.setAttribute("REST", true);
                 winbuscaprod.doModal();
                 Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
