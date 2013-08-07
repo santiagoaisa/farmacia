@@ -66,9 +66,13 @@ public class Proveedor implements Serializable {
     @JoinColumn(name = "idubigeo", referencedColumnName = "idubigeo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Ubigeo idubigeo;
+    
+     @Column(name = "nplazo")
+    private Integer nplazo;
 
     public Proveedor() {
         bretencion = false;
+        nplazo=0;
     }
 
     public Proveedor(Integer idproveedor) {
@@ -187,6 +191,16 @@ public class Proveedor implements Serializable {
         this.idubigeo = idubigeo;
     }
 
+    public Integer getNplazo() {
+        return nplazo;
+    }
+
+    public void setNplazo(Integer nplazo) {
+        this.nplazo = nplazo;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
