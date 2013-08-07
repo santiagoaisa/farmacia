@@ -140,7 +140,7 @@ public class NuevoIngreso extends SelectorComposer {
         llenarpie(lstIngreso.getSelectedIndex());
     }
     
-    @Command
+    @Command("newOrder")
     public void newOrder(){
         Messagebox.show("Hola");
     }
