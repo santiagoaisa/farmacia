@@ -33,7 +33,7 @@ public class Prueba extends SelectorComposer {
         menuimpresion = (MenuImpresion) macro.getChildren().get(0);
         
         
-
+// esto es prueba
     }
     
      @Listen("onClick = button#btnImprimir")
