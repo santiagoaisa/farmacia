@@ -30,9 +30,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Periodo.findAll", query = "SELECT p FROM Periodo p ORDER BY p.nano,p.nmes DESC "),
     @NamedQuery(name = "Periodo.findByNanoByNmes", query = "SELECT p FROM Periodo p WHERE p.nano=:nano and p.nmes=:nmes "),
     @NamedQuery(name = "Periodo.findByIdperiodo", query = "SELECT p FROM Periodo p WHERE p.idperiodo=:idperiodo ")
-
 })
 public class Periodo implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,19 +55,17 @@ public class Periodo implements Serializable {
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
-    
-     @Column(name = "binactivo")
+    @Column(name = "binactivo")
     private Boolean binactivo;
 
     public Periodo() {
-        nano=0;
-        nmes=0;
-        nigv=new BigDecimal("0");        
-        binactivo=false;
+        nano = 0;
+        nmes = 0;
+        nigv = new BigDecimal("0");
+        binactivo = false;
     }
 
     public Periodo(Integer idperiodo) {
@@ -130,8 +128,6 @@ public class Periodo implements Serializable {
         this.dfecreg = dfecreg;
     }
 
-   
-
     public Usuario getIdusuario() {
         return idusuario;
     }
@@ -147,8 +143,6 @@ public class Periodo implements Serializable {
     public void setBinactivo(Boolean binactivo) {
         this.binactivo = binactivo;
     }
-
-    
 
     @Override
     public int hashCode() {
@@ -172,7 +166,11 @@ public class Periodo implements Serializable {
 
     @Override
     public String toString() {
-        return nano+"-"+nmes;
+        if (nmes > 0) {
+            return nano + "-" + nmes;
+        } else {
+            return nano + "";
+        }
+
     }
-    
 }

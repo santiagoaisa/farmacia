@@ -148,9 +148,8 @@ public class NuevoIngreso extends SelectorComposer {
  
     
         
-    @Command
-    public void calcular(@BindingParam("entry") DetalleIngreso item){
-        
+    @Listen("onClick = listbox#lstIngreso > listitem > listcell")
+    public void calcular(){        
         calculaImporte();
     }
     

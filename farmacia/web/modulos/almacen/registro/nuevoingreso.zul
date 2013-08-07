@@ -34,7 +34,7 @@
             </row>
 
             <row spans="1,1,3,1,2">
-                <label value = "Número:" />
+                <label value = "Producto:" />
                 <textbox id="txtCodigo" width="95%" />
                 <label />
                 <label value="Fecha:" width="95%"/>
@@ -69,19 +69,19 @@
             <listcell label="@{detalleIngreso.idproducto}" />
 
             <listcell>
-                <intbox value="@{detalleIngreso.ncantidad}" onOK="@command('newOrder')" onChange="@command('calcular')" width="80%" />
+                <intbox value="@{detalleIngreso.ncantidad}"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.ncosuni}" onChange="@command('calcular')" width="80%" />
+                <decimalbox value="@{detalleIngreso.ncosuni}"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.ndesc1}" onChange="@command('calcular')" width="80%" />
+                <decimalbox value="@{detalleIngreso.ndesc1}"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.ndesc2}" onChange="@command('calcular')" width="80%" />
+                <decimalbox value="@{detalleIngreso.ndesc2}"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.nsubtot}" onChange="@command('calcular')" width="80%" />
+                <decimalbox value="@{detalleIngreso.nsubtot}"  width="80%" />
             </listcell>
             <listcell>
                 <intbox width="40%" value="@{detalleIngreso.naño}" maxlength="4"/>
@@ -138,7 +138,7 @@
                 <decimalbox id="nIgv" format="0.00" width="95%" readonly="true"/>
 
                 <label value="Total"/>
-                <decimalbox id="NPreven" format="0.00" width="90%" readonly="true"/>
+                <decimalbox id="nPreven" format="0.00" width="90%" readonly="true"/>
             </row>
             <row spans="14">
                 <groupbox >
