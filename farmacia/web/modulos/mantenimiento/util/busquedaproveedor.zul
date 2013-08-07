@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBproveedor"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="WinBproveedor" title="Buscando Proveedor..." border="2" width="300px" position="center"
+<window id="WinBproveedor" title="Buscando Proveedor..." border="2" width="400px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaProveedor" >
     <zscript>{
         void doCancel()
@@ -18,8 +18,8 @@
     
     <listbox id="lstProveedor" mold="paging"   pageSize="50" width="99%" height="150px"  >
                     <listhead>
-                        <listheader label="Nombre" width="60%" sort="auto(cnomempresa)"/>
-                        <listheader label="Ruc" width="40%" sort="auto(cruc)"/>
+                        <listheader label="Nombre" width="65%" sort="auto(cnomempresa)"/>
+                        <listheader label="Ruc" width="35%" sort="auto(cruc)"/>
                     </listhead>
                     <listitem self="@{each=proveedor}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
                         <listcell label="@{proveedor.cnomproveedor}"/>

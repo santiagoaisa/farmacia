@@ -161,7 +161,7 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
        cboAlmacen.setDisabled(true);
         tabIngresos.setSelected(true);
         btnCrear.focus();
-        menuperiodo.setLista(periodoService.listaAños());
+        menuperiodo.setLista(periodoService.listaPeriodoAños());
         periodo = periodoService.buscarPorDfecha(new Date());//
         menuperiodo.setPeriododefecto(periodo);
     }
@@ -205,7 +205,7 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
     }
     
     private void crearIngreso() {
-        Window wincrea = (Window) Executions.createComponents("/modulos/modalmacen/registro/nuevoingreso.zul", null, null);
+        Window wincrea = (Window) Executions.createComponents("/modulos/almacen/registro/nuevoingreso.zul", null, null);
         RegistroEntrada rentrada = new RegistroEntrada();
         rentrada.setIdalmacen((Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex()));
         rentrada.setIdproveedor(proveedor);
