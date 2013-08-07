@@ -8,4 +8,5 @@ import com.zarcillo.domain.CondicionVenta;
  */
 public interface CondicionVentaDAO {
      CondicionVenta busqueda(Integer idcondicion);
+     
 }

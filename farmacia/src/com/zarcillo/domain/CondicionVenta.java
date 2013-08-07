@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "condicion_venta")
 @NamedQueries({
-    @NamedQuery(name = "CondicionVenta.findAll", query = "SELECT c FROM CondicionVenta c")})
+    @NamedQuery(name = "CondicionVenta.findAll", query = "SELECT c FROM CondicionVenta c ORDER BY c.cnomcondicion")})
 public class CondicionVenta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

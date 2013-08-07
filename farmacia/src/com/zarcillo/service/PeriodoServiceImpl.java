@@ -89,19 +89,15 @@ public class PeriodoServiceImpl implements PeriodoService {
 
     @Override
     public List<Periodo> listaPeriodoAños() {
-
         List<Año> lista = periododao.listaAños();
         List<Periodo> listaPeriodo = new ArrayList<>();
-
         Periodo periodo;
-
         for (Año a : lista) {
             periodo = new Periodo(listaPeriodo.size());
             periodo.setNano(a.getNano());
             periodo.setNmes(0);
             listaPeriodo.add(periodo);
         }
-
         return listaPeriodo;
     }
 

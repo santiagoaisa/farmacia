@@ -81,6 +81,8 @@ public class RegistroEntrada implements Serializable {
     private Almacen idalmacen;
     @OneToMany(mappedBy = "idregentrada", fetch = FetchType.LAZY)
     private List<Movimiento> movimientoCollection;
+     @Column(name = "cobservacion")
+    private String cobservacion;
 
     public RegistroEntrada() {
         nafecto = new BigDecimal("0");
@@ -88,6 +90,7 @@ public class RegistroEntrada implements Serializable {
         nimporte = new BigDecimal("0");
         ninafecto = new BigDecimal("0");
         movimientoCollection = new ArrayList<Movimiento>();
+        cobservacion="";
     }
 
     public RegistroEntrada(Integer idregentrada) {
@@ -222,6 +225,16 @@ public class RegistroEntrada implements Serializable {
         this.movimientoCollection = movimientoCollection;
     }
 
+    public String getCobservacion() {
+        return cobservacion;
+    }
+
+    public void setCobservacion(String cobservacion) {
+        this.cobservacion = cobservacion;
+    }
+
+    
+    
     public void calcula(BigDecimal nmontoigv) {
         BigDecimal valorinafecto = new BigDecimal("0.00");
         BigDecimal valorventa = new BigDecimal("0.00");

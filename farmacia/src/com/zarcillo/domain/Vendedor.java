@@ -27,7 +27,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "vendedor")
 @NamedQueries({
-    @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v"),
+    @NamedQuery(name = "Vendedor.findAll", query = "SELECT v FROM Vendedor v ORDER BY v.cnomvendedor"),
+    @NamedQuery(name = "Vendedor.findByBactivo", query = "SELECT v FROM Vendedor v WHERE v.bactivo=true ORDER BY v.cnomvendedor "),
     @NamedQuery(name = "Vendedor.findByIdvendedor", query = "SELECT v FROM Vendedor v WHERE v.idvendedor=:idvendedor")
 })
 public class Vendedor implements Serializable {

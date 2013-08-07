@@ -49,12 +49,21 @@ public class TipoPersona implements Serializable {
     private Usuario idusuario;
     
 
+    public static TipoPersona NATURAL_SUNAT=new TipoPersona("01");
+    public static TipoPersona JURIDICA_SUNAT=new TipoPersona("02");
+    
     public TipoPersona() {
     }
 
     public TipoPersona(Integer idtipo) {
         this.idtipo = idtipo;
     }
+
+    public TipoPersona(String ccodigosunat) {
+        this.ccodigosunat = ccodigosunat;
+    }
+    
+    
 
     public Integer getIdtipo() {
         return idtipo;

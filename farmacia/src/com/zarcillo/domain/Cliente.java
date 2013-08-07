@@ -31,7 +31,6 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Cliente.findByIdunidadByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idunidad.idunidad=:idunidad and c.idcliente=:idcliente"),
     @NamedQuery(name = "Cliente.findByIdunidad", query = "SELECT c FROM Cliente c WHERE c.idunidad.idunidad=:idunidad "),
     @NamedQuery(name = "Cliente.findByIdunidadByCnomcli", query = "SELECT c FROM Cliente c WHERE c.idunidad.idunidad=:idunidad and c.cnomcli LIKE :cnomcli ORDER BY c.cnomcli  ")
-    
 })
 public class Cliente implements Serializable {
 
@@ -107,7 +106,11 @@ public class Cliente implements Serializable {
     }
 
     public String getCcomercial() {
-        return ccomercial;
+        if (ccomercial == null) {
+            ccomercial = "";
+        }
+
+        return ccomercial.trim();
     }
 
     public void setCcomercial(String ccomercial) {
@@ -256,6 +259,16 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return cnomcli;
+        String cadena = this.getCnomcli();
+        if (this.getIdtipo().getCcodigosunat().contains(TipoPersona.JURIDICA_SUNAT.getCcodigosunat())) {
+            cadena = this.getCnomcli();
+        } else {
+            if (!getCcomercial().trim().isEmpty()) {
+                cadena = this.getCcomercial();
+            } else {
+                cadena = this.getCnomcli();
+            }
+        }
+        return cadena.trim();
     }
 }

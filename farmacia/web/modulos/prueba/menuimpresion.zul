@@ -1,0 +1,3 @@
+<window id="menuimpresion" use="modprueba.MenuImpresion" >
+    <applet id="applet"   width="100%" height="20px" />
+</window>

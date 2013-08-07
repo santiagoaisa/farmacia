@@ -50,14 +50,21 @@ public class Linea implements Serializable {
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
+    
+    @Column(name = "nmargenminimo")
+    private BigDecimal nmargenminimo;    
 
     public Linea() {
         bactivo=false;
         nincremento=new BigDecimal("0");
+        nmargenminimo=new BigDecimal("0");
     }
 
     public Linea(Integer idlinea) {
         this.idlinea = idlinea;
+         bactivo=false;
+        nincremento=new BigDecimal("0");
+        nmargenminimo=new BigDecimal("0");
     }
 
     public Integer getIdlinea() {
@@ -98,6 +105,14 @@ public class Linea implements Serializable {
 
     public void setNincremento(BigDecimal nincremento) {
         this.nincremento = nincremento;
+    }
+
+    public BigDecimal getNmargenminimo() {
+        return nmargenminimo;
+    }
+
+    public void setNmargenminimo(BigDecimal nmargenminimo) {
+        this.nmargenminimo = nmargenminimo;
     }
 
    

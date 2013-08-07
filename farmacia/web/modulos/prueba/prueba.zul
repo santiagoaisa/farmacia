@@ -1,0 +1,11 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winPrueba"?>
+<?component name="menu" macro-uri="/modulos/prueba/menuimpresion.zul"?>
+
+<window id="winPrueba" title="Consulta de Boletas" border="0"  width="700px"
+  apply="modprueba.Prueba"  >
+    
+    <button id="btnImprimir" label="IMPRIMIR" >
+     </button>
+
+    <menu id="mimpresion" width="100%"  ></menu>
+</window>

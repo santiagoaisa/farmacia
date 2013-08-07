@@ -68,7 +68,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Cliente buscar(Integer idcliente) {
          try {
-            return clientedao.busqueda(idcliente);
+            return clientedao.buscarPorIdcliente(idcliente);
         } catch (Exception e) {
             throw new ExceptionZarcillo("No exite el cliente con id:" + idcliente);
         }

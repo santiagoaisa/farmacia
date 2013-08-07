@@ -18,7 +18,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     private EntityManager em;
 
     @Override
-    public Cliente busqueda(Integer idcliente) {
+    public Cliente buscarPorIdcliente(Integer idcliente) {
         return (Cliente) em.createNamedQuery("Cliente.findByIdcliente").setParameter("idcliente", idcliente).getSingleResult();
     }
 

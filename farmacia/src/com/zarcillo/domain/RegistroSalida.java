@@ -30,7 +30,9 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "registro_salida")
 @NamedQueries({
-    @NamedQuery(name = "RegistroSalida.findAll", query = "SELECT r FROM RegistroSalida r")})
+    @NamedQuery(name = "RegistroSalida.findAll", query = "SELECT r FROM RegistroSalida r"),
+    @NamedQuery(name = "RegistroSalida.findByIdregsalida", query = "SELECT r FROM RegistroSalida r WHERE r.idregsalida=:idregsalida")
+})
 public class RegistroSalida implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,10 +80,15 @@ public class RegistroSalida implements Serializable {
     private String cglosa;
     @Column(name = "cobservacion")
     private String cobservacion;
-    @Column(name = "idcliente")
-    private Integer idcliente;
-    @Column(name = "idusuario")
-    private Integer idusuario;
+    
+     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cliente idcliente;
+    
+     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Usuario idusuario;
+     
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
@@ -120,6 +127,15 @@ public class RegistroSalida implements Serializable {
       
       @Column(name = "ntipocambio")
     private BigDecimal ntipocambio;
+      
+       @Column(name = "cdni")
+    private String cdni;
+       
+       @Column(name = "cnomcli")
+    private String cnomcli;
+       
+        @Column(name = "banulado")
+    private Boolean banulado;
 
     public RegistroSalida() {
         nafecto = new BigDecimal("0");
@@ -132,6 +148,7 @@ public class RegistroSalida implements Serializable {
         movimientoCollection = new ArrayList<Movimiento>();
         nfleven = new BigDecimal("0");
         ntipocambio= new BigDecimal("1");
+        banulado=false;
 
     }
 
@@ -283,21 +300,23 @@ public class RegistroSalida implements Serializable {
         this.cobservacion = cobservacion;
     }
 
-    public Integer getIdcliente() {
+    public Cliente getIdcliente() {
         return idcliente;
     }
 
-    public void setIdcliente(Integer idcliente) {
+    public void setIdcliente(Cliente idcliente) {
         this.idcliente = idcliente;
     }
 
-    public Integer getIdusuario() {
+    public Usuario getIdusuario() {
         return idusuario;
     }
 
-    public void setIdusuario(Integer idusuario) {
+    public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
+
+    
 
     public Date getDfecreg() {
         return dfecreg;
@@ -443,6 +462,30 @@ public class RegistroSalida implements Serializable {
 
     public void setNtipocambio(BigDecimal ntipocambio) {
         this.ntipocambio = ntipocambio;
+    }
+
+    public String getCdni() {
+        return cdni;
+    }
+
+    public void setCdni(String cdni) {
+        this.cdni = cdni;
+    }
+
+    public String getCnomcli() {
+        return cnomcli;
+    }
+
+    public void setCnomcli(String cnomcli) {
+        this.cnomcli = cnomcli;
+    }
+
+    public Boolean getBanulado() {
+        return banulado;
+    }
+
+    public void setBanulado(Boolean banulado) {
+        this.banulado = banulado;
     }
     
     

@@ -1,12 +1,12 @@
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winIngreso"?>
-<window id="winIngreso" title="Registro de Ingresos..." border="0" apply="modalmacen.registro.NuevoIngreso"
-        width="880px" onCancel="doCancel()"   mode="overlapped" closable="false">
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./rregingreso"?>
+<window id="rregingreso" title="Registro de Ingresos..." border="0" use="modalmacen.registro.RegIngreso"
+width="880px" onCancel="doCancel()"   mode="overlapped" closable="false">
     <zscript>{
         void doCancel() {
-        winIngreso.setAttribute("REST",false);
-        winIngreso.onClose();
-        }
-        }
+        rregingreso.setAttribute("REST",false);
+        rregingreso.onClose();
+  }
+ }
     </zscript>
 
     <grid fixedLayout="true" width="100%">
@@ -14,10 +14,10 @@
             <column label="" width="15%"/>
             <column label="" width="17%"/>
             <column label="" width="15%"/>
-            <column label="" width="15%"/>
-            <column label="" width="8%"/>
+            <column label="" width="20%"/>
+            <column label="" width="5%"/>
             <column label="" width="10"/>
-            <column label="" width="10%"/>
+            <column label="" width="8%"/>
             <column label="" width="10%"/>
         </columns>
         <rows>
@@ -32,7 +32,7 @@
                 <textbox id="txtNumero" width="95%" maxlength="10" constraint="no empty:Debe Ingresar un Numero de Documento"  />
             </row>
 
-            <row spans="1,1,3,1,2">
+            <row spans="1,1,1,1,1,1,2">
                 <label value = "Número:"  />
                 <textbox id="txtCodigo" width="95%"   />
                 <label />                
@@ -44,51 +44,59 @@
     </grid>
 
 
-    <listbox id="lstIngreso" mold="paging" pageSize="500" height="300px"  >
+    <listbox id="detalle"   fixedLayout="true" mold="paging" pageSize="500"  multiple="true"  checkmark="true" height="300px"  >
         <auxhead>
-            <auxheader label="Detalle de Ingreso" colspan="12"/>
+            <auxheader label="Detalle de Ingreso" colspan="14"/>
         </auxhead>
         <listhead sizable="true" >
-            <listheader label="No" width="3%"  align="right"/>
-            <listheader label="Codigo" width="6%"  sort="auto(idproducto.idproducto)" />
-            <listheader label="Und" width="4%" />
-            <listheader label="Descripcion" width="30%"  sort="auto(idproducto.cnomart)" />
-            <listheader label="Cantidad" width="6%" />
-            <listheader label="Costo Uni." width="7%"  />
-            <listheader label="Dcto.1" width="6%" />
-            <listheader label="Dcto.2" width="6%" />
-            <listheader label="C.Total" width="8%" />
-            <listheader label="(aaaa-mm)" width="12%" />
-            <listheader label="Lote" width="12%" />
+            <listheader width="2.8%"/>
+            <listheader label="No" width="2.5%"  align="right"/>
+            <listheader label="O/C" width="3%" />
+            <listheader label="Codigo" width="4.5%"  sort="auto(idproducto.idproducto)" />
+            <listheader label="Und" width="3%" />
+            <listheader label="Descripcion" width="26%"  sort="auto(idproducto.cnomart)" />
+            <listheader label="Cantidad" width="5%" />
+            <listheader label="Costo Uni." width="6.4%"  />
+            <listheader label="Dcto.1" width="5.2%" />
+            <listheader label="Dcto.2" width="5.2%" />
+            <listheader label="C.Total" width="7.2%" />
+            <listheader label="(aaaa-mm)" width="8.6%" />
+            <listheader label="Lote" width="7.2%" />
+            <listheader label="Alm.(Simon)" width="4%" />
         </listhead>
-        <listitem self="@{each=detalleIngreso}"  >
+        <listitem self="@{each=detalleIngreso}"  disabled ="@{detalleIngreso.batendido}">
+            <listcell>  </listcell>
             <listcell label="@{self.parent.index}" />
+            <listcell label="@{detalleIngreso.corden}"  />
             <listcell label="@{detalleIngreso.idproducto.idproducto}"  />
-            <listcell label="@{detalleIngreso.idproducto.idpresentacion.cabrev}"  />
+            <listcell label="@{detalleIngreso.idproducto.idunimed.cabrev}"  />
             <listcell label="@{detalleIngreso.idproducto}"  />
 
             <listcell>
-                <intbox value="@{detalleIngreso.ncantidad}" onOK="@command('newOrder')" onChange="@command('calcular')"  width="80%" />
+                <intbox value="@{detalleIngreso.ncantidad}" onChange="rregingreso.calculaImporte()" onFocus="rregingreso.llenarpie(self.parent.parent.index)" width="95%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.ncosuni}" onChange="@command('calcular')" width="80%" />
+                <decimalbox value="@{detalleIngreso.ncosuni}" onChange="rregingreso.calculaImporte()" onFocus="rregingreso.llenarpie(self.parent.parent.index)" width="95%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.ndesc1}" onChange="@command('calcular')" width="80%" />
+                <decimalbox value="@{detalleIngreso.ndesc1}" onChange="rregingreso.calculaImporte()" width="95%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.ndesc2}" onChange="@command('calcular')" width="80%" />
+                <decimalbox value="@{detalleIngreso.ndesc2}" onChange="rregingreso.calculaImporte()" width="95%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.nsubtot}" onChange="@command('calcular')" width="80%" />
+                <decimalbox value="@{detalleIngreso.nsubtot}" onChange="rregingreso.calculaImporte()" width="96%" />
             </listcell>
             <listcell>
-                <intbox  width="40%" value="@{detalleIngreso.naño}"  maxlength="4"/>
+                <intbox  width="49%" value="@{detalleIngreso.naño}"  maxlength="4"/>
                 <label value="-"/>
-                <intbox width="25%" format="00" value="@{detalleIngreso.nmes}" maxlength="2" />
+                <intbox width="29%" format="00" value="@{detalleIngreso.nmes}" maxlength="2" />
             </listcell>
             <listcell>
-                <textbox value="@{detalleIngreso.clote}" maxlength="15" width="90%" />
+                <textbox value="@{detalleIngreso.cnumlot}" maxlength="15" width="96%" />
+            </listcell>
+            <listcell>
+                <intbox value="@{detalleIngreso.nsimon}"  width="95%" />
             </listcell>
         </listitem>
     </listbox>
@@ -100,68 +108,68 @@
         </auxhead>
 
         <columns>
-            <column width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
-            <column  width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
+            <column label="" width="7.14%"/>
         </columns>
 
         <rows>
 
             <row>
                 <label value="V. Venta"/>
-                <decimalbox id="nValven" format="0.00" width="90%" readonly="true"  />
+                <decimalbox id="valven" format="0.00" width="95%" readonly="true"  />
                 <label value="U. Costo"/>
-                <decimalbox id="nUltcos" format="0.00" width="90%"  readonly="true" />
+                <decimalbox id="ultcos" format="0.00" width="95%"  readonly="true" />
                 <label value="C. Unit."/>
-                <decimalbox id="nCosuni" format="0.00" width="90%"  readonly="true" />
+                <decimalbox id="cosuni" format="0.00" width="95%"  readonly="true" />
                 <label value="Utilid.%"/>
-                <decimalbox id="nUtilidad" format="0.00" width="90%"  readonly="true" />
+                <decimalbox id="uti" format="0.00" width="95%"  readonly="true" />
 
                 <label value="SubTotal "/>
-                <decimalbox id="nValneta" format="0.00" width="90%"  readonly="true"/>
+                <decimalbox id="vcn" format="0.00" width="95%"  readonly="true"/>
                 <hbox widths="40%,60%">
                     <label value="Igv"/>
-                    <textbox id="txtIgv" width="90%"  readonly="true"/>
+                    <textbox id="cigv" width="95%"  readonly="true"/>
                 </hbox>
-                <decimalbox id="nIgv" format="0.00" width="95%"  readonly="true"/>
+                <decimalbox id="igv" format="0.00" width="95%"  readonly="true"/>
 
                 <label value="Total"/>
-                <decimalbox id="NPreven" format="0.00" width="90%"  readonly="true"/>
+                <decimalbox id="preven" format="0.00" width="95%"  readonly="true"/>
             </row>
             <row spans="14">
                 <groupbox >
-                    <caption>Observaciones</caption>
-                    <textbox id="txtObservacion" multiline="true" height="40px" width="99%"/>
-                </groupbox>
+                            <caption>Observaciones</caption>
+                            <textbox id="observacion" multiline="true" height="40px" width="99%"/>
+                        </groupbox>
             </row>
 
         </rows>
     </grid>
 
-    <toolbar   height="25px"
-                   style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
+        <toolbar   height="25px"
+			style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
 
-        <toolbarbutton id="btnGrabar" image="/img/Save.png" label="Registrar" tooltip="msggrabar"
-        />
+            <toolbarbutton id="btnGrabar" image="/img/Save.png" label="Registrar" tooltip="msggrabar"
+				onClick="rregingreso.grabar()"  />
 
-        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
-                           onClick="doCancel()" />
-    </toolbar>
+            <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+				onClick="doCancel()" />
+        </toolbar>
 
     <popup id="msggrabar" width="200px">
         <vbox>
-            Permite Grabar Ingresos de Mercadería...
+			Permite Grabar Ingresos de Mercadería...
         </vbox>
     </popup>
 </window>
