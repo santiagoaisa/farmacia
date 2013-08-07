@@ -1,4 +1,3 @@
-
 package modalmacen.registro;
 
 import com.zarcillo.domain.Descuento;
@@ -42,131 +41,104 @@ import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class NuevoIngreso extends SelectorComposer {
-    
+
     private RegistroEntrada rentrada;
     private Periodo periodo;
-    
     private ListModelList modeloMotivo;
     private ListModelList modeloDocumento;
     private ListModelList modeloIngreso;
-    
     @Wire
     private Window winIngreso;
-    
     @Wire
     private Combobox cboMotivo;
-    
     @Wire
     private Combobox cboDocumento;
-    
     @Wire
     private Textbox txtSerie;
-    
     @Wire
     private Textbox txtNumero;
-    
     @Wire
     private Textbox txtCodigo;
-    
     @Wire
     private Listbox lstIngreso;
-    
     @Wire
     private Datebox dFecha;
-    
     @Wire
     private Decimalbox nValven;
-    
     @Wire
     private Decimalbox nUltcos;
-    
     @Wire
     private Decimalbox nCosuni;
-    
     @Wire
     private Decimalbox nUtilidad;
-    
     @Wire
     private Decimalbox nValneta;
-    
     @Wire
     private Decimalbox nIgv;
-    
     @Wire
     private Decimalbox nPreven;
-    
     @Wire
     private Textbox txtIgv;
-    
     @Wire
     private Textbox txtObservacion;
-    
     @Wire
     private Toolbarbutton btnGrabar;
-    
     @WireVariable
     MotivoEntradaService motivoEntradaService;
-    
     @WireVariable
     DocumentoService documentoService;
-    
     @WireVariable
     ProductoService productoService;
-    
-    
-    
     @WireVariable
     ExistenciaService existenciaService;
-    
     @WireVariable
     PeriodoService periodoService;
-    
+
     @Listen("onCreate=window#winIngreso")
     public void onCreate() throws NamingException {
         initComponets();
-     }
-    
+    }
+
     @Listen("onOK = #txtCodigo")
     public void onFocoNombre(Event event) {
         buscarProducto();
     }
-    
+
     @Listen("onOK = #btnGrabar")
     public void onGrabar(Event event) {
         grabar();
     }
-    
+
     @Listen("onSelect = #lstIngreso")
     public void onSeleccionarLista(Event event) {
         llenarpie(lstIngreso.getSelectedIndex());
     }
-    
+
     @Command
-    public void newOrder(){
+    public void newOrder() {
         Messagebox.show("Hola");
     }
- 
-    
-        
-    @Listen("onClick = listbox#lstIngreso > listitem > listcell")
-    public void calcular(){        
+
+    @Listen("  onChange = intbox#i1 , decimalbox#d1,decimalbox#d2, decimalbox#d3, decimalbox#d4 ")
+    public void calcular() {
         calculaImporte();
     }
-    
-    public void initComponets(){
-        rentrada=(RegistroEntrada) winIngreso.getAttribute("RENTRADA");
-        modeloMotivo=new ListModelList(motivoEntradaService.listaGeneral());
+
+    public void initComponets() {
+        rentrada = (RegistroEntrada) winIngreso.getAttribute("RENTRADA");
+        modeloMotivo = new ListModelList(motivoEntradaService.listaGeneral());
         cboMotivo.setModel(modeloMotivo);
-        modeloDocumento=new ListModelList(documentoService.listaDocumentoCompra());
+        modeloDocumento = new ListModelList(documentoService.listaDocumentoCompra());
         cboDocumento.setModel(modeloDocumento);
-        modeloIngreso=new ListModelList();
+        modeloIngreso = new ListModelList();
         lstIngreso.setModel(modeloIngreso);
         dFecha.setValue(new Date());
-        periodo=periodoService.buscarPorDfecha(new Date());
-        txtIgv.setText(periodo.getNigv()+" %");
+        periodo = periodoService.buscarPorDfecha(new Date());
+        txtIgv.setText(periodo.getNigv() + " %");
     }
+
     public void buscarProducto() {
-        Producto producto=new Producto();
+        Producto producto = new Producto();
         if (txtCodigo.getValue().isEmpty()) {
             try {
                 Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaproducto.zul", null, null);
@@ -177,7 +149,7 @@ public class NuevoIngreso extends SelectorComposer {
                     Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstProducto");
                     ListModel modelobuscado = lstproducto1.getModel();
                     producto = (Producto) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
-                    
+
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -185,17 +157,17 @@ public class NuevoIngreso extends SelectorComposer {
         } else {
             producto = productoService.buscar(txtCodigo.getValue());
         }
-        DetalleIngreso dingreso=new DetalleIngreso();
+        DetalleIngreso dingreso = new DetalleIngreso();
         dingreso.setIdproducto(producto);
         modeloIngreso.add(dingreso);
         txtCodigo.setValue("");
         txtCodigo.focus();
         btnGrabar.setVisible(true);
     }
-    private void grabar(){
-        
+
+    private void grabar() {
     }
-    
+
     public void calculaImporte() {
         rentrada.setDfecha(dFecha.getValue());
         rentrada.setMovimientoCollection(llenarDetalle());
@@ -204,7 +176,7 @@ public class NuevoIngreso extends SelectorComposer {
         nIgv.setValue(rentrada.getNigv());
         nPreven.setValue(rentrada.getNimporte());
     }
-    
+
     private List<Movimiento> llenarDetalle() {
         // captura datos del formulario en detalle para guardarlos
         List<Movimiento> coldetalle = new ArrayList<Movimiento>();
@@ -236,7 +208,7 @@ public class NuevoIngreso extends SelectorComposer {
         }
         return coldetalle;
     }
-    
+
     public void llenarpie(int index) {
         if (index > -1) {
             try {
@@ -257,7 +229,4 @@ public class NuevoIngreso extends SelectorComposer {
             }
         }
     }
-    
-    
-    
 }

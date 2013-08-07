@@ -69,19 +69,19 @@
             <listcell label="@{detalleIngreso.idproducto}" />
 
             <listcell>
-                <intbox value="@{detalleIngreso.ncantidad}"  width="80%" />
+                <intbox id="i1" value="@{detalleIngreso.ncantidad}"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.ncosuni}"  width="80%" />
+                <decimalbox id="d1" value="@{detalleIngreso.ncosuni}"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.ndesc1}"  width="80%" />
+                <decimalbox id="d2" value="@{detalleIngreso.ndesc1}"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.ndesc2}"  width="80%" />
+                <decimalbox id="d3" value="@{detalleIngreso.ndesc2}"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox value="@{detalleIngreso.nsubtot}"  width="80%" />
+                <decimalbox id="d4" value="@{detalleIngreso.nsubtot}"  width="80%" />
             </listcell>
             <listcell>
                 <intbox width="40%" value="@{detalleIngreso.naño}" maxlength="4"/>
