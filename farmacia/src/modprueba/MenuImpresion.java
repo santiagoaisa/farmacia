@@ -1,10 +1,10 @@
 package modprueba;
 
 import java.util.HashMap;
-import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.zkoss.zul.Applet;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public class MenuImpresion extends Window {
@@ -21,16 +21,18 @@ public class MenuImpresion extends Window {
 
     private void initcomponentes() {
         applet = (Applet) getFellow("applet");
-        applet.setCode("AppletImpresion");
-        applet.setCodebase("/modulos");
+        applet.setCode("AppletImpresion.class");
+        applet.setCodebase("http://localhost:8084/farmacia/modulos/");
         applet.setArchive("AppletImpresion.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
 
-        applet.setParam("code", "AppletImpresion");
-        applet.setParam("codebase", "/modulos");
+        applet.setParam("code", "AppletImpresion.class");
+        applet.setParam("codebase", "http://localhost:8084/farmacia/modulos/");
         applet.setParam("archive", "AppletImpresion.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
 
         applet.setParam("type", "application/x-java-applet;version=1.2.3");
         applet.setParam("scriptable", "false");
+        
+        
     }
 
     public void imprimirReporte(JasperReport reportecompilado, Integer idreporte, HashMap parametro, JRBeanCollectionDataSource data) {

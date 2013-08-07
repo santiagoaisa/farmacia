@@ -1,12 +1,16 @@
 package com.zarcillo.service;
 
 import com.zarcillo.dao.CrudDAO;
+import com.zarcillo.dao.CuentaPagarDAO;
 import com.zarcillo.dao.MovimientoDAO;
+import com.zarcillo.dao.PeriodoDAO;
 import com.zarcillo.dao.RegistroEntradaDAO;
+import com.zarcillo.domain.CuentaPagar;
 import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.RegistroEntrada;
 import com.zarcillo.dto.almacen.DetalleIngreso;
 import com.zarcillo.negocio.Entrada;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,11 +34,27 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     private RegistroEntradaDAO registroentradadao;
     @Autowired
     private MovimientoDAO movimientodao;
+    @Autowired
+    private CuentaPagarDAO cuentapagardao;
+     @Autowired
+    private PeriodoDAO periododao;
 
     @Override
     @Transactional
-    public RegistroEntrada registrarIngreso(RegistroEntrada regentrada) {
+    public RegistroEntrada registrarIngreso(RegistroEntrada regentrada, CuentaPagar cuentapagar) {
+        
         super.registrar(regentrada);
+
+        cuentapagar.setIdproveedor(regentrada.getIdproveedor());
+        cuentapagar.setNsaldo(cuentapagar.getNimporte().add(cuentapagar.getNpercepcion()));
+        cuentapagar.setNtotalreclamo(cuentapagar.getNimporte().subtract(regentrada.getNimporte()));        
+        cuentapagar.setNingreso(regentrada.getNimporte());
+        cuentapagar.setIdperiodo(periododao.buscarPorFecha(cuentapagar.getDfecemi()));
+        cuentapagar.setDfecreg(new Date());
+        cuentapagar.setIdregentrada(regentrada);
+
+        cruddao.registrar(cuentapagar);
+
         return regentrada;
     }
 
@@ -85,7 +105,4 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     public List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen, Integer idproveedor, Integer nano) {
         return registroentradadao.listaPorIdalmacenPorIdproveedorPorNano(idalmacen, idproveedor, nano);
     }
-    
-    
-    
 }

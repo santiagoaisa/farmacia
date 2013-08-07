@@ -5,7 +5,7 @@
   apply="modprueba.Prueba"   >
 
     
-    <intbox  forward="onChange=onValidar" width="80%" />
+    <intbox   width="80%" />
     <button label="Mensage" />
         
     <button id="btnImprimir" label="IMPRIMIR" >
