@@ -72,16 +72,16 @@
                 <intbox id="i1" value="@{detalleIngreso.ncantidad}"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox id="d1" value="@{detalleIngreso.ncosuni}"  width="80%" />
+                <decimalbox id="d1" value="@{detalleIngreso.ncosuni}" format="0.0000"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox id="d2" value="@{detalleIngreso.ndesc1}"  width="80%" />
+                <decimalbox id="d2" value="@{detalleIngreso.ndesc1}" format="0.00"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox id="d3" value="@{detalleIngreso.ndesc2}"  width="80%" />
+                <decimalbox id="d3" value="@{detalleIngreso.ndesc2}" format="0.00" width="80%" />
             </listcell>
             <listcell>
-                <decimalbox id="d4" value="@{detalleIngreso.nsubtot}"  width="80%" />
+                <decimalbox id="d4" value="@{detalleIngreso.nsubtot}" format="0.0000"  width="80%" />
             </listcell>
             <listcell>
                 <intbox width="40%" value="@{detalleIngreso.naño}" maxlength="4"/>
@@ -97,7 +97,7 @@
 
         <auxhead>
             <auxheader label="Información del Producto" colspan="8"/>
-            <auxheader label="Totales" colspan="8"/>
+            <auxheader label="Totales" colspan="6"/>
         </auxhead>
 
         <columns>
@@ -108,17 +108,15 @@
             <column width="7.14%"/>
             <column width="7.14%"/>
             <column width="7.14%"/>
+            <column width="7.15%"/>
             <column width="7.14%"/>
+            <column width="7.15%"/>
             <column width="7.14%"/>
+            <column width="7.15%"/>
             <column width="7.14%"/>
-            <column width="7.14%"/>
-            <column width="7.14%"/>
-            <column width="7.14%"/>
-            <column width="7.14%"/>
+            <column width="7.15%"/>
         </columns>
-
         <rows>
-
             <row>
                 <label value="V. Venta"/>
                 <decimalbox id="nValven" format="0.00" width="90%" readonly="true" />

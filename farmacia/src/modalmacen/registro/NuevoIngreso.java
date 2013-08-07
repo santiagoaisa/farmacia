@@ -1,23 +1,32 @@
 package modalmacen.registro;
 
+import com.zarcillo.domain.CuentaPagar;
 import com.zarcillo.domain.Descuento;
+import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.Existencia;
+import com.zarcillo.domain.MotivoEntrada;
 import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.Producto;
 import com.zarcillo.domain.RegistroEntrada;
 import com.zarcillo.dto.almacen.DetalleIngreso;
 import com.zarcillo.service.DocumentoService;
+import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.ExistenciaService;
 import com.zarcillo.service.MotivoEntradaService;
 import com.zarcillo.service.PeriodoService;
 import com.zarcillo.service.ProductoService;
+import com.zarcillo.service.RegistroEntradaService;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.naming.NamingException;
+import modmantenimiento.util.ConstraintAñoLote;
+import modmantenimiento.util.ConstraintCamposObligatorios;
+import modmantenimiento.util.ConstraintCantidadValida;
+import modmantenimiento.util.ConstraintMesLote;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.zk.ui.Executions;
@@ -30,9 +39,11 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Decimalbox;
+import org.zkoss.zul.Intbox;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
@@ -74,6 +85,8 @@ public class NuevoIngreso extends SelectorComposer {
     @Wire
     private Decimalbox nValneta;
     @Wire
+    private Decimalbox nInafecto;
+    @Wire
     private Decimalbox nIgv;
     @Wire
     private Decimalbox nPreven;
@@ -93,6 +106,8 @@ public class NuevoIngreso extends SelectorComposer {
     ExistenciaService existenciaService;
     @WireVariable
     PeriodoService periodoService;
+    @WireVariable
+    RegistroEntradaService registroEntradaService;
 
     @Listen("onCreate=window#winIngreso")
     public void onCreate() throws NamingException {
@@ -104,7 +119,7 @@ public class NuevoIngreso extends SelectorComposer {
         buscarProducto();
     }
 
-    @Listen("onOK = #btnGrabar")
+    @Listen("onClick = #btnGrabar")
     public void onGrabar(Event event) {
         grabar();
     }
@@ -114,12 +129,8 @@ public class NuevoIngreso extends SelectorComposer {
         llenarpie(lstIngreso.getSelectedIndex());
     }
 
-    @Command
-    public void newOrder() {
-        Messagebox.show("Hola");
-    }
-
-    @Listen("  onChange = intbox#i1 , decimalbox#d1,decimalbox#d2, decimalbox#d3, decimalbox#d4 ")
+    
+    @Listen("  onBlur = intbox#i1 , decimalbox#d1 , decimalbox#d2, decimalbox#d3 , decimalbox#d4 ")
     public void calcular() {
         calculaImporte();
     }
@@ -164,8 +175,48 @@ public class NuevoIngreso extends SelectorComposer {
         txtCodigo.focus();
         btnGrabar.setVisible(true);
     }
+    private void validar() {       
+        cboDocumento.getValue();
+        cboMotivo.getValue();
+        txtSerie.getValue();
+        txtNumero.getValue();
+    }
 
-    private void grabar() {
+    public void grabar() {
+        CuentaPagar cuentaspagar=new CuentaPagar();
+        MotivoEntrada motivo=(MotivoEntrada) modeloMotivo.getElementAt(cboMotivo.getSelectedIndex());
+        Documento documento=(Documento) modeloDocumento.getElementAt(cboDocumento.getSelectedIndex());
+        validar();
+        validaDetalle();
+        rentrada.setDfecha(dFecha.getValue());
+        rentrada.setIdmotivo(motivo);
+        rentrada.setIddocumento(documento);
+        rentrada.setCserie(txtSerie.getText());
+        rentrada.setCnumero(txtNumero.getText());
+        rentrada.setNafecto(nValneta.getValue());
+        rentrada.setNinafecto(nInafecto.getValue());
+        rentrada.setNigv(nIgv.getValue());
+        rentrada.setNimporte(nPreven.getValue());
+        rentrada.setCobservacion(txtObservacion.getText().trim());
+        rentrada.setMovimientoCollection(llenarDetalle());
+        rentrada=registroEntradaService.registrarIngreso(rentrada);
+        Window wingraba = (Window) Executions.createComponents("/modulos/almacen/registro/registrodocumento.zul", null, null);
+        wingraba.setClosable(false);
+        wingraba.setAttribute("RENTRADA", rentrada);
+        wingraba.setAttribute("REST", true);
+        wingraba.doModal();
+       /* Boolean rest = (Boolean) wingraba.getAttribute("REST");
+        if (rest) {
+            cuentaspagar = (CuentaPagar) wingraba.getAttribute("CUENTASPAGAR");
+                cuentaspagar.setIdcuenta(rentrada.getIdregentrada());
+                cuentaspagar.setIddocumento(datosentrada.getIddocumento());
+                datosentrada.setIdmoneda(cuentaspagar.getIdmoneda());
+                cuentaspagar=cuentapagardao.registrar(cuentaspagar);                        
+                    Messagebox.show("Se ha registrado exitosamente la " + cuentaspagar.getIddocumento() + " " + cuentaspagar.getCserie() + "-" + cuentaspagar.getCnumero(), "Información del Sistema", Messagebox.OK, Messagebox.INFORMATION);                    
+             
+        }        
+        this.setAttribute("COMPRA", datosentrada);
+        this.onClose();*/
     }
 
     public void calculaImporte() {
@@ -173,6 +224,7 @@ public class NuevoIngreso extends SelectorComposer {
         rentrada.setMovimientoCollection(llenarDetalle());
         rentrada.calcula(periodo.getNigv());
         nValneta.setValue(rentrada.getNafecto());
+        nInafecto.setValue(rentrada.getNinafecto());
         nIgv.setValue(rentrada.getNigv());
         nPreven.setValue(rentrada.getNimporte());
     }
@@ -226,6 +278,32 @@ public class NuevoIngreso extends SelectorComposer {
                 nUltcos.setValue(new BigDecimal("0"));
                 nCosuni.setValue(new BigDecimal("0"));
                 nUtilidad.setValue(new BigDecimal("0"));
+            }
+        }
+    }
+    private void validaDetalle() {
+        if (lstIngreso.getItemCount() < 1) {
+            throw new ExceptionZarcillo("La Lista no tiene elementos");
+        } else {
+            List<Listitem> ldatos = lstIngreso.getItems();
+            for (Listitem item : ldatos) {
+                Listcell celda4 = (Listcell) item.getChildren().get(4);
+                Intbox cantidad = (Intbox) celda4.getFirstChild();
+                cantidad.setConstraint(new ConstraintCantidadValida());
+                cantidad.getValue();
+                Listcell celda10 = (Listcell) item.getChildren().get(10);
+                Textbox lote = (Textbox) celda10.getFirstChild();
+                lote.setConstraint("");
+                lote.getValue();
+                Listcell celda9 = (Listcell) item.getChildren().get(9);
+                Intbox año = (Intbox) celda9.getFirstChild();
+                año.setConstraint(new ConstraintAñoLote(4));
+                año.getValue();
+                Intbox mes = (Intbox) celda9.getLastChild();
+                mes.setConstraint(new ConstraintMesLote());
+                mes.getValue();
+                lote.setConstraint(new ConstraintCamposObligatorios());
+                lote.getValue();
             }
         }
     }
