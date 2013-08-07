@@ -150,8 +150,7 @@
         </rows>
     </grid>
 
-    <toolbar height="25px"
-                   style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
+    <toolbar height="25px"  align="end">
 
         <toolbarbutton id="btnGrabar" image="/img/Save.png" label="Registrar" tooltip="msggrabar"
         />
