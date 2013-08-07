@@ -38,5 +38,16 @@
     padding-top:7px;
 }
 
+
+/* ------------------- LISTBOX-------------------- */
+.z-list-item div.z-list-cell-cnt,
+.z-listitem div.z-listcell-cnt{
+    font-size:11px;
+}
+div.z-list-header-cnt,
+div.z-listheader-cnt{
+font-size : 11px;
+}
+
 /* ------------------- WINDOW -------------------- */
 

@@ -1,3 +1,4 @@
+
 package modalmacen.registro;
 
 import com.zarcillo.domain.Descuento;
@@ -106,7 +107,7 @@ public class NuevoIngreso extends SelectorComposer {
     @WireVariable
     MotivoEntradaService motivoEntradaService;
     
-    @WireVariable 
+    @WireVariable
     DocumentoService documentoService;
     
     @WireVariable
@@ -140,7 +141,7 @@ public class NuevoIngreso extends SelectorComposer {
         llenarpie(lstIngreso.getSelectedIndex());
     }
     
-    @Command("newOrder")
+    @Command
     public void newOrder(){
         Messagebox.show("Hola");
     }
@@ -164,8 +165,8 @@ public class NuevoIngreso extends SelectorComposer {
         dFecha.setValue(new Date());
         periodo=periodoService.buscarPorDfecha(new Date());
         txtIgv.setText(periodo.getNigv()+" %");
-    }      
-    public void buscarProducto() {        
+    }
+    public void buscarProducto() {
         Producto producto=new Producto();
         if (txtCodigo.getValue().isEmpty()) {
             try {
@@ -191,7 +192,7 @@ public class NuevoIngreso extends SelectorComposer {
         txtCodigo.setValue("");
         txtCodigo.focus();
         btnGrabar.setVisible(true);
-    }  
+    }
     private void grabar(){
         
     }
@@ -249,7 +250,7 @@ public class NuevoIngreso extends SelectorComposer {
                 nCosuni.setValue(e.getNcosuni());
                 nUtilidad.setValue(e.getUtilidad(des, detalleingreso.getNcosuni()));
             } catch (Exception e) {
-                //En caso de que el producto sea nuevo 
+                //En caso de que el producto sea nuevo
                 nValven.setValue(new BigDecimal("0"));
                 nUltcos.setValue(new BigDecimal("0"));
                 nCosuni.setValue(new BigDecimal("0"));

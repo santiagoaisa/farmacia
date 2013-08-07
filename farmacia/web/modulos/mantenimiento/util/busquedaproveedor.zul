@@ -1,7 +1,8 @@
+
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBproveedor"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="WinBproveedor" title="Buscando Proveedor..." border="2" width="300px" position="center"
-        onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaProveedor" >
+<window id="WinBproveedor" title="Buscando Proveedor..." border="2" width="400px" position="center"
+        onCancel="doCancel()" mode="overlapped" apply="modmantenimiento.util.BusquedaProveedor" >
     <zscript>{
         void doCancel()
         {
@@ -16,10 +17,10 @@
         }
     </zscript>
     
-    <listbox id="lstProveedor" mold="paging"   pageSize="50" width="99%" height="150px"  >
+    <listbox id="lstProveedor" mold="paging" pageSize="50" width="99%" height="150px" >
                     <listhead>
-                        <listheader label="Nombre" width="60%" sort="auto(cnomempresa)"/>
-                        <listheader label="Ruc" width="40%" sort="auto(cruc)"/>
+                        <listheader label="Nombre" width="65%" sort="auto(cnomempresa)"/>
+                        <listheader label="Ruc" width="35%" sort="auto(cruc)"/>
                     </listhead>
                     <listitem self="@{each=proveedor}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
                         <listcell label="@{proveedor.cnomproveedor}"/>
@@ -27,7 +28,7 @@
                     </listitem>
                 </listbox>
     <menu id="mresultado" width="100%"></menu>
-    <toolbar id="tb"  height="25px" align="end">
+    <toolbar id="tb" height="25px" align="end">
         <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
                        onClick="doRegistrar()" />
 
@@ -35,5 +36,3 @@
                        onClick="doCancel()" />
     </toolbar>
 </window>
-
-
