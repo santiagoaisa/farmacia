@@ -59,7 +59,7 @@ public class LoteServiceImpl implements LoteService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Lote> listaPorIdalmacenPorIdproducto(Integer idalmacen, String idproducto) {
         return lotedao.listaPorIdalmacenPorIdproductoParaListado(idalmacen, idproducto);
     }

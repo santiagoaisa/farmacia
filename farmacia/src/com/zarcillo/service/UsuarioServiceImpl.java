@@ -128,7 +128,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Usuario> listaPorIdrol(Integer idrol) {
         return usuariodao.listaPorIdrol(idrol);
     }
@@ -139,7 +139,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<DetalleAutorizacion> listaDetalleAutorizacionPorIdusuario(Integer idusuario) {
         return detalleautorizaciondao.listaPorIdusuario(idusuario);
     }

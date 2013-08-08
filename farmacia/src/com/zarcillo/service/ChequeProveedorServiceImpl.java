@@ -298,7 +298,7 @@ public class ChequeProveedorServiceImpl implements ChequeProveedorService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<ChequeProveedor> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad, Integer idproveedor, Integer nano) {
         return chequeproveedordao.listaPorIdunidadPorIdproveedorPorNano(idunidad, idproveedor, nano);
     }

@@ -75,7 +75,7 @@ public class LineaServiceImpl implements LineaService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Linea> listaGeneral() {
         return cruddao.listarTodos(Linea.class);
     }

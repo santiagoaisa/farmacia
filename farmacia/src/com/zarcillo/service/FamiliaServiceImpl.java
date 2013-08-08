@@ -75,7 +75,7 @@ public class FamiliaServiceImpl implements FamiliaService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Familia> listaGeneral() {
         return cruddao.listarTodos(Familia.class);
     }

@@ -86,10 +86,28 @@ public class Existencia implements Serializable {
 
     public Existencia(ExistenciaPK existenciaPK) {
         this.existenciaPK = existenciaPK;
+        bactivo = false;
+        ncosuni = new BigDecimal("0");
+        nincremento = new BigDecimal("0");
+        nstock = 0;
+        nultcos = new BigDecimal("0");
+        nvalven = new BigDecimal("0");
+        ntemporal = 0;
+        nminimo = 0;
+        nmaximo = 0;
     }
 
     public Existencia(Integer idalmacen, String idproducto) {
         this.existenciaPK = new ExistenciaPK(idalmacen, idproducto);
+        bactivo = false;
+        ncosuni = new BigDecimal("0");
+        nincremento = new BigDecimal("0");
+        nstock = 0;
+        nultcos = new BigDecimal("0");
+        nvalven = new BigDecimal("0");
+        ntemporal = 0;
+        nminimo = 0;
+        nmaximo = 0;
     }
 
     public ExistenciaPK getExistenciaPK() {

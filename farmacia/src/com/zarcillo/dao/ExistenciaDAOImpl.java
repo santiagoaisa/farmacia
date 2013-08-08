@@ -30,10 +30,11 @@ public class ExistenciaDAOImpl implements ExistenciaDAO {
         }
 
     }
+    
 
     @Override
     public Existencia buscarPorIdalmacenPorIdproducto(Integer idalmacen, String idproducto) {
-        Existencia existencia;
+        Existencia existencia; 
         try {
             existencia = (Existencia) em.createNamedQuery("Existencia.findByIdalmacenByIdproducto").setParameter("idalmacen", idalmacen).setParameter("idproducto", idproducto).getSingleResult();
         } catch (NoResultException e) {

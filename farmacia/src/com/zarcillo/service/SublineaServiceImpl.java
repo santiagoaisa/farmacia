@@ -75,7 +75,7 @@ public class SublineaServiceImpl implements SublineaService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Sublinea> listaGeneral() {
         return cruddao.listarTodos(Sublinea.class);
     }

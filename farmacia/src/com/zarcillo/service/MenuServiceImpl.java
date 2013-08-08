@@ -87,25 +87,25 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Menu> listaPorIdmoduloMenuArchivo(Integer idmodulo) {
         return menudao.listaPorIdmoduloPorNnivel1(idmodulo, BarraMenu.ARCHIVOS.getNnivel());
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Menu> listaPorIdmoduloMenuProceso(Integer idmodulo) {
         return menudao.listaPorIdmoduloPorNnivel1(idmodulo, BarraMenu.PROCESOS.getNnivel());
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Menu> listaPorIdmoduloMenuConsulta(Integer idmodulo) {
         return menudao.listaPorIdmoduloPorNnivel1(idmodulo, BarraMenu.CONSULTAS.getNnivel());
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Menu> listaPorIdmoduloMenuHerramienta(Integer idmodulo) {
         return menudao.listaPorIdmoduloPorNnivel1(idmodulo, BarraMenu.HERRAMIENTAS.getNnivel());
     }

@@ -75,7 +75,7 @@ public class BancoServiceImpl implements BancoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Banco> listaGeneral() {
         return cruddao.listarTodos(Banco.class);
     }

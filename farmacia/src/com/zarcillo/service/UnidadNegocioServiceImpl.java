@@ -75,13 +75,13 @@ public class UnidadNegocioServiceImpl implements UnidadNegocioService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<UnidadNegocio> listaGeneral() {
         return cruddao.listarTodos(UnidadNegocio.class);
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<UnidadNegocio> listaPorClogin(String clogin) {
         return unidaddao.listaPorClogin(clogin);
     }

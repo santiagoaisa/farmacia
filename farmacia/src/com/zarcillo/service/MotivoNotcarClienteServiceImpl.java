@@ -75,7 +75,7 @@ public class MotivoNotcarClienteServiceImpl implements MotivoNotcarClienteServic
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<MotivoNotcarCliente> listaGeneral() {
         return cruddao.listarTodos(MotivoNotcarCliente.class);
     }

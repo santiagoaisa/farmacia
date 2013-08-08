@@ -25,6 +25,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Entrada extends Salida {
+    
 
     @Autowired
     private CrudDAO cruddao;

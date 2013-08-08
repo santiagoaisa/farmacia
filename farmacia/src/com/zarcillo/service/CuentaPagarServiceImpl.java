@@ -213,7 +213,7 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad, Integer idproveedor, Integer nano) {
         return cuentapagardao.listaPorIdunidadPorIdproveedorPorNano(idunidad, idproveedor, nano);
     }

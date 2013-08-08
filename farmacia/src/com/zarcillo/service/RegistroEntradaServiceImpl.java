@@ -38,6 +38,7 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     private CuentaPagarDAO cuentapagardao;
      @Autowired
     private PeriodoDAO periododao;
+     
 
     @Override
     @Transactional

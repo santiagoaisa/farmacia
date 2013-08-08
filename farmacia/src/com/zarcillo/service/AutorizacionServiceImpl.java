@@ -77,7 +77,7 @@ public class AutorizacionServiceImpl implements AutorizacionService{
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Autorizacion> listaGeneral() {
          return cruddao.listarTodos(Autorizacion.class);
     }

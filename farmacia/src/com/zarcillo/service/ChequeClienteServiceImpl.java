@@ -79,7 +79,7 @@ public class ChequeClienteServiceImpl implements ChequeClienteService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<ChequeCliente> listaPorIdunidadPorIdclientePorNano(String idunidad, Integer idcliente, Integer nano) {
         return chequeclientedao.listaPorIdunidadPorIdclientePorNano(idcliente, idcliente, nano);
     }

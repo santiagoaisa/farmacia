@@ -87,7 +87,7 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Producto> listaGeneral() {
         return cruddao.listarTodos(Producto.class);
     }
@@ -102,7 +102,7 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Producto> busquedaListaPorDescripcion(String ccriterio) {
         return productodao.busquedaListaPorDescripcion(ccriterio);
     }

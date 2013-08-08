@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
  *
  * @author saisa
  */
+
 @Entity
 @Table(name = "lote")
 @NamedQueries({

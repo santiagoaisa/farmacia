@@ -75,19 +75,19 @@ public class TipoPagoServiceImpl implements TipoPagoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<TipoPago> listaGeneral() {
         return cruddao.listarTodos(TipoPago.class);
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<TipoPago> listaTipoPagoCliente() {
         return tipopagodao.listaTipoPagoPorBcobro();
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<TipoPago> listaTipoPagoProveedor() {
         return tipopagodao.listaTipoPagoPorBpago();
     }

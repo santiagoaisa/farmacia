@@ -74,7 +74,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Empresa> listaGeneral() {
         return cruddao.listarTodos(Empresa.class);
     }

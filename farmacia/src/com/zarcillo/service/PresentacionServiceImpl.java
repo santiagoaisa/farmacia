@@ -75,7 +75,7 @@ public class PresentacionServiceImpl implements PresentacionService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Presentacion> listaGeneral() {
         return cruddao.listarTodos(Presentacion.class);
     }

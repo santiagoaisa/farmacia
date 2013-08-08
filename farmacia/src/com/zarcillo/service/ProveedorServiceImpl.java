@@ -75,7 +75,6 @@ public class ProveedorServiceImpl implements ProveedorService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Proveedor> listaGeneral() {
         return cruddao.listarTodos(Proveedor.class);
     }
@@ -84,9 +83,6 @@ public class ProveedorServiceImpl implements ProveedorService {
     public List<Proveedor> busquedaListaPorCnomprovee(String ccriterio) {
         return proveedordao.busquedaListaPorCnomprovee(ccriterio);
     }
-    
-    
-    
 
     private void registrarLog(String cmotivo, Proveedor proveedor) {
         LogProveedor logproveedor = new LogProveedor();

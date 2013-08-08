@@ -76,13 +76,13 @@ public class AlmacenServiceImpl implements AlmacenService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Almacen> listaGeneral() {
         return cruddao.listarTodos(Almacen.class);
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Almacen> listaPorClogin(String clogin) {
         return almacendao.listaPorClogin(clogin);
     }

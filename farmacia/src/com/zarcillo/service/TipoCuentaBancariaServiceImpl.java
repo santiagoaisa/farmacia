@@ -75,7 +75,7 @@ public class TipoCuentaBancariaServiceImpl implements TipoCuentaBancariaService 
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<TipoCuentaBancaria> listaGeneral() {
         return cruddao.listarTodos(TipoCuentaBancaria.class);
     }

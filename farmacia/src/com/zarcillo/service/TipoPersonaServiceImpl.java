@@ -69,7 +69,7 @@ public class TipoPersonaServiceImpl implements TipoPersonaService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<TipoPersona> listaGeneral() {
         return cruddao.listarTodos(TipoPersona.class);
     }

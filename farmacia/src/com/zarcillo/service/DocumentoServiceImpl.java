@@ -75,7 +75,7 @@ public class DocumentoServiceImpl implements DocumentoService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Documento> listaGeneral() {
         return cruddao.listarTodos(Documento.class);
     }

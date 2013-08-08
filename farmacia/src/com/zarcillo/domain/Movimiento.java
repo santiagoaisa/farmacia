@@ -43,6 +43,7 @@ public class Movimiento implements Serializable {
     @Column(name = "ncantidad")
     private Integer ncantidad;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    
     @Column(name = "ncosuni")
     private BigDecimal ncosuni;
     @Column(name = "ctipmov")

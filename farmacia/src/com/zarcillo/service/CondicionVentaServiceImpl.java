@@ -75,7 +75,7 @@ public class CondicionVentaServiceImpl implements CondicionVentaService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<CondicionVenta> listaGeneral() {
         return cruddao.listarTodos(CondicionVenta.class);
     }

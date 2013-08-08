@@ -75,7 +75,7 @@ public class AvalServiceImpl implements AvalService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Aval> listaPorIdcliente(Integer idcliente) {
         return avaldao.listaPorIdcliente(idcliente);
     }

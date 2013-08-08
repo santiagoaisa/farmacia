@@ -75,7 +75,7 @@ public class MotivoEntradaServiceImpl implements MotivoEntradaService{
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<MotivoEntrada> listaGeneral() {
         return cruddao.listarTodos(MotivoEntrada.class);
     }

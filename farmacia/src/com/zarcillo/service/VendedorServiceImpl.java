@@ -75,7 +75,7 @@ public class VendedorServiceImpl implements VendedorService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Vendedor> listaGeneral() {
         return cruddao.listarTodos(Vendedor.class);
     }

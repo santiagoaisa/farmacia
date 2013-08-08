@@ -75,7 +75,7 @@ public class MonedaServiceImpl implements MonedaService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Moneda> listaGeneral() {
         return cruddao.listarTodos(Moneda.class);
     }

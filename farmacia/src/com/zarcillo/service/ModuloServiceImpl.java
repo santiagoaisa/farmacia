@@ -75,13 +75,13 @@ public class ModuloServiceImpl implements ModuloService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Modulo> listaGeneral() {
         return cruddao.listarTodos(Modulo.class);
     }
 
     @Override
-     @Transactional(readOnly = true)
+    
     public List<Modulo> listaPorIdrol(Integer idrol) {
         return modulodao.listaPorIdrol(idrol);
     }

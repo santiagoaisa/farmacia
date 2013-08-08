@@ -77,7 +77,7 @@ public class RolServiceImpl implements RolService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Rol> listaGeneral() {
           return cruddao.listarTodos(Rol.class);
     }

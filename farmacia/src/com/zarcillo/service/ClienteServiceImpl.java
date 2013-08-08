@@ -84,13 +84,13 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Cliente> listaPorIdunidad(Integer idunidad) {
         return clientedao.listaPorIdunidad(idunidad);
     }
 
     @Override
-    @Transactional(readOnly = true)
+   
     public List<Cliente> busquedaListaPorIdunidadPorCnomcli(Integer idunidad, String cnomcli) {
         return clientedao.busquedaListaPorIdunidadPorCnomcli(idunidad, cnomcli);
     }
