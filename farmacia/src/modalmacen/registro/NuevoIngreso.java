@@ -128,6 +128,20 @@ public class NuevoIngreso extends SelectorComposer {
     public void onSeleccionarLista(Event event) {
         llenarpie(lstIngreso.getSelectedIndex());
     }
+    @Listen("onOK = #lstIngreso")
+    public void onBorrarLista(Event event) {
+        borrarProducto();
+    }
+    
+    @Listen("onOK = #txtSerie")
+    public void onFocoNumero(Event event) {
+        txtNumero.focus();
+    }
+    
+    @Listen("onOK = #txtNumero")
+    public void onFocoCodigo(Event event) {
+        txtCodigo.focus();
+    }
 
     @Listen("  onBlur = intbox#i1 , decimalbox#d1 , decimalbox#d2, decimalbox#d3 , decimalbox#d4 ")
     public void calcular() {
@@ -140,11 +154,22 @@ public class NuevoIngreso extends SelectorComposer {
         cboMotivo.setModel(modeloMotivo);
         modeloDocumento = new ListModelList(documentoService.listaDocumentoCompra());
         cboDocumento.setModel(modeloDocumento);
+        if (modeloMotivo.size() > 0) {
+            cboMotivo.onInitRender(new Event("", cboMotivo));
+            cboMotivo.close();
+            cboMotivo.setSelectedIndex(0);
+        }
+        if (modeloDocumento.size() > 0) {
+            cboDocumento.onInitRender(new Event("", cboDocumento));
+            cboDocumento.close();
+            cboDocumento.setSelectedIndex(0);
+        }
         modeloIngreso = new ListModelList();
         lstIngreso.setModel(modeloIngreso);
         dFecha.setValue(new Date());
         periodo = periodoService.buscarPorDfecha(new Date());
         txtIgv.setText(periodo.getNigv() + " %");
+        txtSerie.focus();
     }
 
     public void buscarProducto() {
@@ -211,6 +236,15 @@ public class NuevoIngreso extends SelectorComposer {
             rentrada = registroEntradaService.registrarIngreso(rentrada, cuentaspagar);
             Messagebox.show("Se ha registrado exitosamente la " + cuentaspagar.getIddocumento() + " " + cuentaspagar.getCserie() + "-" + cuentaspagar.getCnumero() + "OPERACION: " + rentrada.getIdregentrada(), "Información del Sistema", Messagebox.OK, Messagebox.INFORMATION);
             winIngreso.onClose();
+        }
+    }
+    private void borrarProducto(){
+        int resp2=0;
+        resp2 = Messagebox.show("¿Desea eliminar registro?", "Ingreso", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);       
+        if (resp2 == Messagebox.YES)
+        {
+            DetalleIngreso detalle=(DetalleIngreso) modeloIngreso.getElementAt(lstIngreso.getSelectedIndex());
+            modeloIngreso.remove(detalle);            
         }
     }
 

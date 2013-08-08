@@ -161,7 +161,7 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
     }
     
     private void buscarProveedor(){
-        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaproveedor.zul", null, null);
+        Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaproveedor.zul", winTarjeta, null);
         winbuscaprod.setAttribute("REST", true);
         winbuscaprod.doModal();
         Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
