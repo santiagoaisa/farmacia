@@ -129,7 +129,6 @@ public class NuevoIngreso extends SelectorComposer {
         llenarpie(lstIngreso.getSelectedIndex());
     }
 
-    
     @Listen("  onBlur = intbox#i1 , decimalbox#d1 , decimalbox#d2, decimalbox#d3 , decimalbox#d4 ")
     public void calcular() {
         calculaImporte();
@@ -175,7 +174,8 @@ public class NuevoIngreso extends SelectorComposer {
         txtCodigo.focus();
         btnGrabar.setVisible(true);
     }
-    private void validar() {       
+
+    private void validar() {
         cboDocumento.getValue();
         cboMotivo.getValue();
         txtSerie.getValue();
@@ -183,9 +183,9 @@ public class NuevoIngreso extends SelectorComposer {
     }
 
     public void grabar() {
-        CuentaPagar cuentaspagar=new CuentaPagar();
-        MotivoEntrada motivo=(MotivoEntrada) modeloMotivo.getElementAt(cboMotivo.getSelectedIndex());
-        Documento documento=(Documento) modeloDocumento.getElementAt(cboDocumento.getSelectedIndex());
+        CuentaPagar cuentaspagar = new CuentaPagar();
+        MotivoEntrada motivo = (MotivoEntrada) modeloMotivo.getElementAt(cboMotivo.getSelectedIndex());
+        Documento documento = (Documento) modeloDocumento.getElementAt(cboDocumento.getSelectedIndex());
         validar();
         validaDetalle();
         rentrada.setDfecha(dFecha.getValue());
@@ -207,17 +207,11 @@ public class NuevoIngreso extends SelectorComposer {
         Boolean rest = (Boolean) wingraba.getAttribute("REST");
         if (rest) {
             cuentaspagar = (CuentaPagar) wingraba.getAttribute("CUENTASPAGAR");
-            cuentaspagar.setIdcuenta(rentrada.getIdregentrada());                      
             cuentaspagar.setIdusuario(rentrada.getIdusuario());
-            cuentaspagar.setIdperiodo(rentrada.getIdperiodo()); 
-                    
-             rentrada=registroEntradaService.registrarIngreso(rentrada,cuentaspagar);
-             Messagebox.show("Se ha registrado exitosamente la " + cuentaspagar.getIddocumento() + " " + cuentaspagar.getCserie() + "-" + cuentaspagar.getCnumero(), "Información del Sistema", Messagebox.OK, Messagebox.INFORMATION);                    
-             winIngreso.onClose();
-        }    
-        
-        
-      
+            rentrada = registroEntradaService.registrarIngreso(rentrada, cuentaspagar);
+            Messagebox.show("Se ha registrado exitosamente la " + cuentaspagar.getIddocumento() + " " + cuentaspagar.getCserie() + "-" + cuentaspagar.getCnumero() + "OPERACION: " + rentrada.getIdregentrada(), "Información del Sistema", Messagebox.OK, Messagebox.INFORMATION);
+            winIngreso.onClose();
+        }
     }
 
     public void calculaImporte() {
@@ -231,7 +225,6 @@ public class NuevoIngreso extends SelectorComposer {
     }
 
     private List<Movimiento> llenarDetalle() {
-        // captura datos del formulario en detalle para guardarlos
         List<Movimiento> coldetalle = new ArrayList<Movimiento>();
         Movimiento movimiento;
         List<Listitem> ldatos = lstIngreso.getItems();
@@ -282,6 +275,7 @@ public class NuevoIngreso extends SelectorComposer {
             }
         }
     }
+
     private void validaDetalle() {
         if (lstIngreso.getItemCount() < 1) {
             throw new ExceptionZarcillo("La Lista no tiene elementos");

@@ -186,7 +186,6 @@ public class RegistroDocumento extends SelectorComposer {
             cuentapagar.setIddocumento(documento);
             cuentapagar.setIdmoneda(moneda);
             cuentapagar.setIdproveedor(rentrada.getIdproveedor());
-            cuentapagar.setIdregentrada(rentrada);
             cuentapagar.setCserie(txtSerfac.getText());
             cuentapagar.setCnumero(txtNumfac.getText());
             cuentapagar.setCsergui(txtSergui.getText());

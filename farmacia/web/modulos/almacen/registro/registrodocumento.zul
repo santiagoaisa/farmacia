@@ -93,9 +93,9 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="500px"  >
     
             <row>
                 <label value="Percepción:" />                
-                <decimalbox id="nPercepcion" value="0.00" format="###,###,##0.00" width="95%" />
+                <decimalbox id="nPercepcion" value="0.00" format="###,###,##0.00" width="85%" />
                 <label value="Rec. faltante Mercaderia:" />
-                <decimalbox id="nDevolucion" value="0.00" format="###,###,##0.00" width="95%" />
+                <decimalbox id="nDevolucion" value="0.00" format="###,###,##0.00" width="85%" />
 
             </row>
     
