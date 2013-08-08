@@ -1,7 +1,10 @@
 package com.zarcillo.dao;
 
+import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.ExistenciaPK;
+import com.zarcillo.domain.Producto;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -39,6 +42,9 @@ public class ExistenciaDAOImpl implements ExistenciaDAO {
             existencia = (Existencia) em.createNamedQuery("Existencia.findByIdalmacenByIdproducto").setParameter("idalmacen", idalmacen).setParameter("idproducto", idproducto).getSingleResult();
         } catch (NoResultException e) {
             existencia = new Existencia(idalmacen, idproducto);
+            existencia.setDfecreg(new Date());
+            existencia.setIdalmacen(new Almacen(idalmacen));
+            existencia.setIdproducto(new Producto(idproducto));
         }
 
         return existencia;

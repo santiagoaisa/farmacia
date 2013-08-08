@@ -97,7 +97,7 @@ public class Entrada extends Salida {
             if (lote.getIdlote() == null) {
                 lote.setIdalmacen(d.getIdalmacen());
                 lote.setIdproducto(d.getIdproducto());
-                lote.setNstock(detalle.getNstock());
+                lote.setNstock(detalle.getNcantidad());
                 lote.setClote(detalle.getClote().trim());
                 lote.setCfecven(detalle.getCfecven().trim());
                 lote.setIdmotivo(regentrada.getIdmotivo());
