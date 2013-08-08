@@ -83,7 +83,7 @@ public class NuevoIngreso extends SelectorComposer {
     @Wire
     private Decimalbox nUtilidad;
     @Wire
-    private Decimalbox nValneta;
+    private Decimalbox nAfecto;
     @Wire
     private Decimalbox nInafecto;
     @Wire
@@ -193,37 +193,38 @@ public class NuevoIngreso extends SelectorComposer {
         rentrada.setIddocumento(documento);
         rentrada.setCserie(txtSerie.getText());
         rentrada.setCnumero(txtNumero.getText());
-        rentrada.setNafecto(nValneta.getValue());
+        rentrada.setNafecto(nAfecto.getValue());
         rentrada.setNinafecto(nInafecto.getValue());
         rentrada.setNigv(nIgv.getValue());
         rentrada.setNimporte(nPreven.getValue());
         rentrada.setCobservacion(txtObservacion.getText().trim());
         rentrada.setMovimientoCollection(llenarDetalle());
-        rentrada=registroEntradaService.registrarIngreso(rentrada);
         Window wingraba = (Window) Executions.createComponents("/modulos/almacen/registro/registrodocumento.zul", null, null);
         wingraba.setClosable(false);
         wingraba.setAttribute("RENTRADA", rentrada);
         wingraba.setAttribute("REST", true);
         wingraba.doModal();
-       /* Boolean rest = (Boolean) wingraba.getAttribute("REST");
+        Boolean rest = (Boolean) wingraba.getAttribute("REST");
         if (rest) {
             cuentaspagar = (CuentaPagar) wingraba.getAttribute("CUENTASPAGAR");
-                cuentaspagar.setIdcuenta(rentrada.getIdregentrada());
-                cuentaspagar.setIddocumento(datosentrada.getIddocumento());
-                datosentrada.setIdmoneda(cuentaspagar.getIdmoneda());
-                cuentaspagar=cuentapagardao.registrar(cuentaspagar);                        
-                    Messagebox.show("Se ha registrado exitosamente la " + cuentaspagar.getIddocumento() + " " + cuentaspagar.getCserie() + "-" + cuentaspagar.getCnumero(), "Información del Sistema", Messagebox.OK, Messagebox.INFORMATION);                    
-             
-        }        
-        this.setAttribute("COMPRA", datosentrada);
-        this.onClose();*/
+            cuentaspagar.setIdcuenta(rentrada.getIdregentrada());                      
+            cuentaspagar.setIdusuario(rentrada.getIdusuario());
+            cuentaspagar.setIdperiodo(rentrada.getIdperiodo()); 
+                    
+             rentrada=registroEntradaService.registrarIngreso(rentrada,cuentaspagar);
+             Messagebox.show("Se ha registrado exitosamente la " + cuentaspagar.getIddocumento() + " " + cuentaspagar.getCserie() + "-" + cuentaspagar.getCnumero(), "Información del Sistema", Messagebox.OK, Messagebox.INFORMATION);                    
+             winIngreso.onClose();
+        }    
+        
+        
+      
     }
 
     public void calculaImporte() {
         rentrada.setDfecha(dFecha.getValue());
         rentrada.setMovimientoCollection(llenarDetalle());
         rentrada.calcula(periodo.getNigv());
-        nValneta.setValue(rentrada.getNafecto());
+        nAfecto.setValue(rentrada.getNafecto());
         nInafecto.setValue(rentrada.getNinafecto());
         nIgv.setValue(rentrada.getNigv());
         nPreven.setValue(rentrada.getNimporte());

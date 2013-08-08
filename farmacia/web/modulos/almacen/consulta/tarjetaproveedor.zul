@@ -45,33 +45,31 @@
                             <hbox width="100%" >
                                     <listbox id="lstIngresos" mold="paging" pageSize="500"   width="100%" height="200px" >
                                     <listhead>
-                                        <listheader label="F.Ingreso" width="7%" sort="auto(dfecha)"  />
+                                        <listheader label="F.Ingreso" width="8%" sort="auto(dfecha)"  />
                                         <listheader label="Motivo Ingreso" width="22%" sort="auto(idmotivo.cnommotivo)"/>
                                         <listheader label="Documento" width="15%" sort="auto(iddocumento.cnomdocumento)" />
                                         <listheader label="Serie" width="7%" sort="auto(cserie)" align="center"/>
-                                        <listheader label="Numero." width="8%" sort="auto(cnrodocu)" align="right" />
-                                        <listheader label="Moneda" width="7%" align="center"/>
-                                        <listheader label="V.Venta" width="8%" sort="auto(nvalven)" align="right" />
-                                        <listheader label="IGV" width="7%" sort="auto(nigv)" align="right" />
-                                        <listheader label="Importe" width="8%" sort="auto(npreven)" align="right" />
+                                        <listheader label="Numero." width="10%" sort="auto(cnumero)" align="right" />
+                                        <listheader label="V.Afecto" width="10%" sort="auto(nvalven)" align="right" />
+                                         <listheader label="V.Inafecto" width="10%" sort="auto(nvalven)" align="right" />
+                                        <listheader label="IGV" width="8%" sort="auto(nigv)" align="right" />
+                                        <listheader label="Importe" width="10%" sort="auto(npreven)" align="right" />
                                         <listheader label="Operación" width="8%" sort="auto(idregentrada)" align="right"/>
-                                        <listheader label="Arch" width="4%" align="right" />
+                                        
                                     </listhead>
                                     <listitem self="@{each=regentrada}" >
                                         <listcell date="@{regentrada.dfecha}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
-                                        <listcell label="@{regentrada.idmotivo}" />
-                                        <listcell label="@{regentrada.iddocumento}"/>
+                                        <listcell label="@{regentrada.idmotivo.cnommotivo}" />
+                                        <listcell label="@{regentrada.iddocumento.cabrev}"/>
                                         <listcell label="@{regentrada.cserie}"/>
-                                        <listcell label="@{regentrada.cnrodocu}"/>
-                                        <listcell label="@{regentrada.idmoneda}"/>
-                                        <listcell decimal="@{regentrada.nvalven}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell label="@{regentrada.cnumero}"/>
+                                        <listcell decimal="@{regentrada.nafecto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{regentrada.ninafecto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
                                         <listcell decimal="@{regentrada.nigv}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                                        <listcell decimal="@{regentrada.npreven}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{regentrada.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
                                         <listcell label="@{regentrada.idregentrada}"/>
                                         
-                                        <listcell >
-                                            <toolbarbutton label="Ver"   onClick="winTarjeta.imprimirIngreso(self.parent.parent.index)"/>
-                                        </listcell>
+                                        
                                     </listitem>
                                 </listbox>
                             </hbox>
@@ -117,7 +115,14 @@
         </rows>
     </grid>
 
-    <menu2 id="mresultado" width="100%"></menu2>   
+    <menu2 id="mresultado" width="100%"></menu2>  
+    
+      <toolbar height="25px"  align="end">
+
+        <toolbarbutton id="btnBuscar" image="/img/Save.png" label="Buscar"    />
+
+        <toolbarbutton id="btnSalir" image="/img/Undo.png" label="Salir"  />
+    </toolbar>
 
 </window>
 

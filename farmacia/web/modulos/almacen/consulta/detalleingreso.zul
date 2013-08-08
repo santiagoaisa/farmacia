@@ -1,0 +1,116 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDetalle"?>
+<window id="winDetalle" title="Datos Ingreso de mercaderia" border="0" width="750px"
+onCancel="doCancel()" mode="overlapped" apply="modalmacen.consulta.DetalleIngreso">
+<zscript>{
+        void doCancel() {
+        winDetalle.onClose();}
+ }</zscript>
+
+<grid fixedLayout="true" width="100%">
+		<columns>
+			<column label="" width="7%"/>
+			<column label="" width="30%"/>
+			<column label="" width="10%"/>
+			<column label="" width="15%"/>
+			<column label="" width="5%"/>
+			<column label="" width="10%"/>
+			<column label="" width="10%"/>
+			<column label="" width="13%"/>
+
+		</columns>
+		<rows>
+            <row spans="6,1,1">
+                <label />
+                <label value="Operacion:" />
+                <intbox id="nOperacion" width="95%" readonly="true" />
+            </row>
+			<row>
+				<label value="Motivo:" />
+				<textbox id="txtMotivo" readonly="true" width="95%" />
+				<label value="Documento:" />
+				<textbox id="txtDocumento" readonly="true" width="95%"/>
+				<textbox id="txtSerie" readonly="true" width="95%"/>
+				<textbox id="txtNumero" readonly="true" width="95%"/>
+				<label value="F.Emision:" />
+				<datebox id="dFecha" width="95%" compact="true" disabled="true" format="yyyy-MM-dd" />
+			</row>
+		</rows>
+	</grid>
+
+
+
+    <listbox id="lstDetalle"  fixedLayout="true" multiple="true" height="300px"  >
+        <listhead>
+            <listheader label="Codigo" width="7%" />
+            <listheader label="Cantidad" width="6%" align="right" />
+            <listheader label="Unid" width="4%" />
+            <listheader label="Descripcion" width="40%" />
+            <listheader label="C.Total" width="10%" align="right" />
+            <listheader label="Dcto1" width="8%" align="right"/>
+            <listheader label="Dcto2." width="8%" align="right" />
+            <listheader label="Lote" width="9%" />
+            <listheader label="Vencimiento" width="10%" />
+        </listhead>
+        <listitem self="@{each=detalle}">
+            <listcell label="@{detalle.idproducto.idproducto}"/>
+            <listcell label="@{detalle.ncantidad}"/>
+            <listcell label="@{detalle.idproducto.idpresentacion.cabrev}"/>
+            <listcell label="@{detalle.idproducto.cnomproducto}"/>
+            <listcell decimal="@{detalle.nsubtot}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.ndesc1}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.ndesc2}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell label="@{detalle.clote}"/>
+            <listcell label="@{detalle.cfecven}"/>
+        </listitem>
+    </listbox>
+
+
+    <grid fixedLayout="true"  >
+    	<auxhead>
+    		<auxheader label="Totales" colspan="7"/>
+    	</auxhead>
+
+        <columns >
+            <column width="18%" />
+            <column width="12%" />
+            <column width="10%" />
+            <column width="12%" />
+            <column width="10%" />
+            <column width="6%" />
+            <column width="10%" />
+            <column width="12%" />
+            <column width="10%" />
+        </columns>
+        <rows>
+            <row>
+                <label value=""/>
+                <label value="Afecto:"/>
+                <decimalbox id="nAfecto" width="95%" format="###,###,##0.00" readonly="true" />
+                <label value="Inafecto:"/>
+                <decimalbox id="nInafecto" width="95%" format="###,###,##0.00" readonly="true" />
+                
+                <label value="I.G.V."/>
+                <decimalbox id="nIgv" width="95%" format="###,###,##0.00" readonly="true" />
+                <label value="Total:"/>
+                <decimalbox id="nImporte" width="95%" format="###,###,##0.00" readonly="true" />
+            </row>
+            <row spans="9">
+                <groupbox >
+                            <caption>Observaciones</caption>
+                            <textbox id="txtObservacion" multiline="true" readonly="true" height="35px" width="99%"/>
+                </groupbox>
+            </row>
+        </rows>
+    </grid>
+
+        <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar"
+				 />
+           <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir"
+				 />
+				<toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Regresar"
+				onClick="doCancel()" />
+        </toolbar>
+
+<jasperreport id="rptreporte" visible="false" />
+</window>

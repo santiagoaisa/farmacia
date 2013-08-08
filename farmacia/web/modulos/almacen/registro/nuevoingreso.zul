@@ -1,7 +1,7 @@
 
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winIngreso"?>
 <window id="winIngreso" title="Registro de Ingresos..." border="0" apply="modalmacen.registro.NuevoIngreso"
-        width="880px" onCancel="doCancel()" mode="overlapped" closable="false">
+        width="900px" onCancel="doCancel()" mode="overlapped" closable="false">
     <zscript>{
         void doCancel() {
         winIngreso.setAttribute("REST",false);
@@ -10,7 +10,7 @@
         }
     </zscript>
 
-    <grid fixedLayout="true" width="100%">
+    <grid fixedLayout="true" >
         <columns>
             <column label="" width="15%"/>
             <column label="" width="17%"/>
@@ -101,20 +101,22 @@
         </auxhead>
 
         <columns>
-            <column width="7.14%"/>
-            <column width="7.14%"/>
-            <column width="7.14%"/>
-            <column width="7.14%"/>
-            <column width="7.14%"/>
-            <column width="7.14%"/>
-            <column width="7.14%"/>
-            <column width="7.15%"/>
-            <column width="7.14%"/>
-            <column width="7.15%"/>
-            <column width="7.14%"/>
-            <column width="7.15%"/>
-            <column width="7.14%"/>
-            <column width="7.15%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
+            <column width="6.25%"/>
         </columns>
         <rows>
             <row>
@@ -127,8 +129,11 @@
                 <label value="Utilid.%"/>
                 <decimalbox id="nUtilidad" format="0.00" width="90%" readonly="true" />
 
-                <label value="SubTotal "/>
-                <decimalbox id="nValneta" format="0.00" width="90%" readonly="true"/>
+                <label value="Inafecto "/>
+                <decimalbox id="nInafecto" format="0.00" width="90%" readonly="true"/>
+                
+                <label value="Afecto "/>
+                <decimalbox id="nAfecto" format="0.00" width="90%" readonly="true"/>
                 <hbox widths="40%,60%">
                     <label value="Igv"/>
                     <textbox id="txtIgv" width="90%" readonly="true"/>
@@ -138,7 +143,7 @@
                 <label value="Total"/>
                 <decimalbox id="nPreven" format="0.00" width="90%" readonly="true"/>
             </row>
-            <row spans="14">
+            <row spans="16">
                 <groupbox >
                     <caption>Observaciones</caption>
                     <textbox id="txtObservacion" multiline="true" height="40px" width="99%"/>

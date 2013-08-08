@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDocumentoFinanzas"?>
 <window id="winDocumentoFinanzas" position="center" title="Registro de Proveedores..."
-apply="modalmacen.registro.RegistroDocumento" border="0" width="460px"  >
+apply="modalmacen.registro.RegistroDocumento" border="0" width="500px"  >
 
   <grid fixedLayout="true" width="100%" >
         <columns >
@@ -44,19 +44,19 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="460px"  >
     </grid>
     <grid fixedLayout="true" width="100%">
         <columns>
-            <column width="22%" />
-            <column width="22%" />
+            <column width="20%" />
+            <column width="24%" />
             <column width="10%" />
             <column width="10%" />
-            <column width="14%" />
-            <column width="22%" />
+            <column width="12%" />
+            <column width="24%" />
         </columns>
         <rows>
             <row>                
-                    <label value="Fecha Emisión:" />
+                    <label value="Fec.Emisión:" />
                     <datebox id="dFecemi" readonly="true" width="95%" format="yyyy-MM-dd"  />
                     <label value="Plazo:" />
-                    <intbox id="nPlazo" width="95%" />
+                    <intbox id="nPlazo" width="90%" />
                     <label value="Vence:" />
                     <datebox id="dFecven" readonly="true" width="95%" format="yyyy-MM-dd" disabled="true" />
                
@@ -67,17 +67,17 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="460px"  >
 
     <grid fixedLayout="true" width="100%">
         <columns>
-            <column width="33%" />
-            <column width="17%" />
-            <column width="33%" />
-            <column width="17%" />
+            <column width="25%" />
+            <column width="25%" />
+            <column width="25%" />
+            <column width="25%" />
         </columns>
         <rows>
             <row>                
                 <label value="V.V. Afecto: " />
-                <decimalbox id="nAfecto" value="0.00" format="###,###,##0.00"  width="95%" />
+                <decimalbox id="nAfecto" value="0.00" format="###,###,##0.00"  width="85%" />
                 <label value="V.V. Inafecto:" />
-                <decimalbox id="nInafecto" value="0.00" format="###,###,##0.00" width="95%" />
+                <decimalbox id="nInafecto" value="0.00" format="###,###,##0.00" width="85%" />
             </row>
     
             <row>
@@ -85,9 +85,9 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="460px"  >
                     <label value="IGV" />
                     <textbox id="txtIgv" value="18%" width="35px" readonly="true" />
                 </hbox>
-                <decimalbox id="nIgv" value="0.00" format="###,###,##0.00"  width="95%" readonly="false" />
+                <decimalbox id="nIgv" value="0.00" format="###,###,##0.00"  width="85%" readonly="false" />
                 <label value="Precio Venta:" />
-                <decimalbox id="nPreven" value="0.00" format="###,###,##0.00"  width="95%" readonly="false" />
+                <decimalbox id="nPreven" value="0.00" format="###,###,##0.00"  width="85%" readonly="false" />
 
             </row>
     
@@ -101,16 +101,16 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="460px"  >
     
             <row>
                 <label value="Rec. diferencia de Precio:" />
-                <decimalbox id="nDescuento" value="0.00" format="###,###,##0.00" width="95%" />
+                <decimalbox id="nDescuento" value="0.00" format="###,###,##0.00" width="85%" />
                
                 <label value="Diferencia de Reclamo:" />
-                <decimalbox id="nDiferencia" value="0.00" format="###,###,##0.00" width="95%" readonly="true"/>
+                <decimalbox id="nDiferencia" value="0.00" format="###,###,##0.00" width="85%" readonly="true"/>
                 
             </row>
     
             <row spans="1,1,2">
                  <label value="Total Ingreso" />
-                <decimalbox id="nIngreso" value="0.00"  format="###,###,##0.00"  width="95%" readonly="true" />
+                <decimalbox id="nIngreso" value="0.00"  format="###,###,##0.00"  width="85%" readonly="true" />
                    <label  />  
                 
             </row>
@@ -135,8 +135,7 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="460px"  >
     
 
 
-        <toolbar id="tb"  height="25px" align="end"
-			style="background:#defeff repeat-x 0 0;padding-top:7px">
+        <toolbar id="tb"  height="25px" align="end" >
             <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"
 			 />      
         </toolbar>

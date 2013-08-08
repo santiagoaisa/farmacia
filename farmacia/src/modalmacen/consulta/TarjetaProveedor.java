@@ -110,6 +110,16 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
         crear();
     }
     
+    @Listen("onClick = #btnBuscar")
+    public void onBuscarProveedor(Event event) {
+        buscarProveedor();
+    }
+    
+    @Listen("onClick = #btnSalir")
+    public void onSalir(Event event) {
+        winTarjeta.onClose();
+    }
+    
     @Listen("onCancel = #winTarjeta")
     public void onCancelarTarjeta(Event event) {
         limpiar();
@@ -122,6 +132,14 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
     @Listen("onClick = #cboAlmacen")
     public void onBusquedaProveedorClick(Event event) {
         buscarProveedor();
+    }
+    @Listen("onOK = #lstIngresos")
+    public void onMostrarIngresos(Event event) {
+        mostrarIngresos();
+    }
+    @Listen("onOK = #lstCanjes")
+    public void onMostrarCanjes(Event event) {
+        mostrarCanjes();
     }
     
     public void initComponets(){
@@ -266,5 +284,21 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
     @Override
     public void validar() {
         cboAlmacen.getValue();
+    }
+    
+    public void mostrarIngresos() {
+        Window win = (Window) Executions.createComponents("/modulos/almacen/consulta/detalleingreso.zul", null, null);
+        win.setClosable(true);
+        RegistroEntrada ingreso = (RegistroEntrada) modeloIngresos.getElementAt(lstIngresos.getSelectedIndex());
+        win.setAttribute("INGRESO", ingreso);
+        win.doModal();
+    }
+
+    public void mostrarCanjes() {
+        Window win = (Window) Executions.createComponents("/modulos/almacen/consulta/detallecanje.zul", null, null);
+        win.setClosable(true);
+        RegistroEntrada canje = (RegistroEntrada) modeloIngresos.getElementAt(lstIngresos.getSelectedIndex());
+        win.setAttribute("CANJE", canje);
+        win.doModal();
     }
 }

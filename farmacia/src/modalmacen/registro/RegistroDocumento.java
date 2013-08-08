@@ -89,10 +89,23 @@ public class RegistroDocumento extends SelectorComposer {
         initComponets();
     }
     
+    @Listen("onChange = #nPlazo")
+    public void onCambioPlazo(Event event) {
+        calculaFechaVen();
+    }
+    
+    @Listen("onChange = #dFecemi")
+    public void onCambioEmision(Event event) {
+        calculaFechaVen();
+    }
+    
+    @Listen("onClick = #btnGrabar")
+    public void onGrabar(Event event) {
+        registrar();
+    }
 
     private void initComponets(){
         rentrada=(RegistroEntrada) winDocumentoFinanzas.getAttribute("RENTRADA");
-        cuentapagar=(CuentaPagar) winDocumentoFinanzas.getAttribute("CUENTASPAGAR");
         modeloMoneda = new ListModelList(monedaService.listaGeneral());
         cboMoneda.setModel(modeloMoneda);
         if (modeloMoneda.size() > 0) {
@@ -128,9 +141,8 @@ public class RegistroDocumento extends SelectorComposer {
         dFecemi.setValue(new Date());
         dFecven.setValue(new Date());
         nPlazo.setValue(0);
-        
         // Calculo la fecha de vencimiento de acuerdo al plazo del proveedor
-        this.calculaFechaVen();
+        calculaFechaVen();
         //
         nAfecto.setValue(rentrada.getNafecto());
         nInafecto.setValue(rentrada.getNinafecto());
