@@ -3,6 +3,7 @@ package modmantenimiento;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Lote;
+import com.zarcillo.domain.Producto;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.ExceptionZarcillo;
@@ -37,6 +38,7 @@ import org.zkoss.zul.Window;
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class ManttoLote  extends SelectorComposer  {
     
+    private Producto producto;
     private Existencia existencia;
     private Usuario usuario; 
     private ListModelList modeloLote;
@@ -209,6 +211,7 @@ public class ManttoLote  extends SelectorComposer  {
     }
     
     public void nuevo(){
+        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         Window wincrea = (Window) Executions.createComponents("/modulos/mantenimiento/util/crealote.zul", null, null);
         wincrea.setAttribute("REST", true);
         wincrea.doModal();
@@ -216,7 +219,8 @@ public class ManttoLote  extends SelectorComposer  {
         if (rest) {
             Lote clote;
             clote = (Lote) wincrea.getAttribute("LOTE");
-            clote.setExistencia(existencia);
+            clote.setIdalmacen(almacen);
+            clote.setIdproducto(existencia.getIdproducto());
             clote = loteService.registrar(clote);
             modeloLote.add(clote);
         }

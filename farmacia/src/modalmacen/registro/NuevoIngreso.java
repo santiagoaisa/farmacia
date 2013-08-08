@@ -228,23 +228,19 @@ public class NuevoIngreso extends SelectorComposer {
         List<Movimiento> coldetalle = new ArrayList<Movimiento>();
         Movimiento movimiento;
         List<Listitem> ldatos = lstIngreso.getItems();
-        Existencia existenciaproducto;
         DetalleIngreso detalleingreso;
         Producto producto;
         for (Listitem item : ldatos) {
             detalleingreso = (DetalleIngreso) modeloIngreso.getElementAt(item.getIndex());
             producto = detalleingreso.getIdproducto();
             movimiento = new Movimiento();
-            existenciaproducto = new Existencia(rentrada.getIdalmacen().getIdalmacen(), producto.getIdproducto());
-            existenciaproducto.setIdalmacen(rentrada.getIdalmacen());
-            existenciaproducto.setIdproducto(producto);
             movimiento.setBinafecto(producto.getBinafecto());
-            movimiento.setExistencia(existenciaproducto);
+            movimiento.setIdproducto(producto);
+            movimiento.setIdalmacen(rentrada.getIdalmacen());
             movimiento.setNcantidad(detalleingreso.getNcantidad());
             movimiento.setNcosuni(detalleingreso.getNcosuni());
             movimiento.setNsubtot(detalleingreso.getNsubtotal());
             //Fecha de Vencimiento del Producto
-
             movimiento.setClote(detalleingreso.getClote());
             DecimalFormat formato = new DecimalFormat("00");
             String cmes = formato.format(detalleingreso.getNmes());
