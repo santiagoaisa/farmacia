@@ -56,13 +56,14 @@ public class Salida extends DescargaLote {
             Collections.sort(listaMovimiento, new OrdenarPorIdproductoMovimiento());
             for (OrdenLinea ol : listaOrdenLinea) {
                 for (Movimiento m : listaMovimiento) {
-                    if (m.getExistencia().getIdproducto().getIdsublinea().getIdlinea().getIdlinea().equals(ol.getIdlinea().getIdlinea())) {
-                        m.setNorden(ol.getNorden());
-                    } else {
-                        if (m.getNorden().equals(999)) {
-                            m.setNorden(999);
-                        }
-                    }
+                    //ARREGLAR
+//                    if (m.getExistencia().getIdproducto().getIdsublinea().getIdlinea().getIdlinea().equals(ol.getIdlinea().getIdlinea())) {
+//                        m.setNorden(ol.getNorden());
+//                    } else {
+//                        if (m.getNorden().equals(999)) {
+//                            m.setNorden(999);
+//                        }
+//                    }
                 }
             }
             Collections.sort(listaMovimiento, new OrdenarPorNordenMovimiento());
@@ -75,7 +76,7 @@ public class Salida extends DescargaLote {
                     continue;
                 }
                 // CONTROL DE STOCK DE BONIFICACION
-                existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getExistencia().getIdalmacen().getIdalmacen(), m.getExistencia().getIdproducto().getIdproducto());
+                existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
                 //Descargo del Stock
                 existencia.setNstock(existencia.getNstock() - m.getNcantidad());
                 //Descargo del temporal
@@ -119,9 +120,9 @@ public class Salida extends DescargaLote {
                     // si esta vacio descargo lote
                     if (!m.getClote().isEmpty()) {
                         // cuando el lote es ingresado manualmente
-                        Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaVenta(m.getExistencia().getIdalmacen().getIdalmacen(), m.getExistencia().getIdproducto().getIdproducto(), m.getClote().trim());
+                        Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaVenta(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto(), m.getClote().trim());
                         if (lote.getIdlote() == null) {
-                            throw new ExceptionZarcillo("El Lote " + m.getClote() + "\ndel Producto:" + m.getExistencia().getIdproducto() + "\n ¡No existe!");
+                            throw new ExceptionZarcillo("El Lote " + m.getClote() + "\ndel Producto:" + m.getIdproducto() + "\n ¡No existe!");
                         } else {
                             lote.setNstock(lote.getNstock() - m.getNcantidad());
                             cruddao.actualizar(lote);

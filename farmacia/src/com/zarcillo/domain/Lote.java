@@ -57,11 +57,15 @@ public class Lote implements Serializable {
     @JoinColumn(name = "idmotivo", referencedColumnName = "idmotivo")
     @ManyToOne(fetch = FetchType.EAGER)
     private MotivoEntrada idmotivo;
-    @JoinColumns({
-        @JoinColumn(name = "idalmacen", referencedColumnName = "idalmacen"),
-        @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")})
+    
+    @JoinColumn(name = "idalmacen", referencedColumnName = "idalmacen")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Existencia existencia;
+    private Almacen idalmacen;
+    
+    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Producto idproducto;
+    
     @Column(name = "dfecha")
     @Temporal(TemporalType.DATE)
     private Date dfecha;
@@ -136,14 +140,7 @@ public class Lote implements Serializable {
         this.idmotivo = idmotivo;
     }
 
-    public Existencia getExistencia() {
-        return existencia;
-    }
-
-    public void setExistencia(Existencia existencia) {
-        this.existencia = existencia;
-    }
-
+   
     public Date getDfecha() {
         return dfecha;
     }
@@ -166,6 +163,22 @@ public class Lote implements Serializable {
 
     public void setCobservacion(String cobservacion) {
         this.cobservacion = cobservacion;
+    }
+
+    public Almacen getIdalmacen() {
+        return idalmacen;
+    }
+
+    public void setIdalmacen(Almacen idalmacen) {
+        this.idalmacen = idalmacen;
+    }
+
+    public Producto getIdproducto() {
+        return idproducto;
+    }
+
+    public void setIdproducto(Producto idproducto) {
+        this.idproducto = idproducto;
     }
 
     

@@ -35,11 +35,17 @@ public class Movimiento implements Serializable {
     @Basic(optional = false)
     @Column(name = "idmovimiento")
     private Integer idmovimiento;
-    @JoinColumns({
-        @JoinColumn(name = "idproducto", referencedColumnName = "idproducto"),
-        @JoinColumn(name = "idalmacen", referencedColumnName = "idalmacen")})
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Existencia existencia;
+    
+
+    @JoinColumn(name = "idalmacen", referencedColumnName = "idalmacen")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Almacen idalmacen;
+    
+    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Producto idproducto;
+    
+    
     @Column(name = "ncantidad")
     private Integer ncantidad;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -197,14 +203,25 @@ public class Movimiento implements Serializable {
         this.clote = clote;
     }
 
-    public Existencia getExistencia() {
-        return existencia;
+    public Almacen getIdalmacen() {
+        return idalmacen;
     }
 
-    public void setExistencia(Existencia existencia) {
-        this.existencia = existencia;
+    public void setIdalmacen(Almacen idalmacen) {
+        this.idalmacen = idalmacen;
     }
 
+    public Producto getIdproducto() {
+        return idproducto;
+    }
+
+    public void setIdproducto(Producto idproducto) {
+        this.idproducto = idproducto;
+    }
+
+
+    
+    
     public RegistroEntrada getIdregentrada() {
         return idregentrada;
     }
@@ -239,6 +256,8 @@ public class Movimiento implements Serializable {
         nsubtot = nsubtot.setScale(2, BigDecimal.ROUND_HALF_UP);
         return nsubtot;
     }
+    
+    
     
     
 

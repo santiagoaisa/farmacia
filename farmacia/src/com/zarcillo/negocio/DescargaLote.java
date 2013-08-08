@@ -22,7 +22,7 @@ public class DescargaLote {
     private LoteDAO lotedao;
 
     public List<Movimiento> descargar(Movimiento m) {
-        Existencia existencia = m.getExistencia();
+        Existencia existencia = null;
         List<Movimiento> listaMovimientos = new ArrayList<>();
         //Lista de los lotes disponibles de la existencia
         List<Lote> listaLote = lotedao.listaPorIdalmacenPorIdproductoParaVenta(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto());
@@ -33,8 +33,9 @@ public class DescargaLote {
             if (l.getNstock() >= m.getNcantidad()) {
                 movimiento = new Movimiento();
                 /// le asigno un id temporal
+                //AREGLAR
                 movimiento.setIdmovimiento(l.getIdlote());
-                movimiento.setExistencia(m.getExistencia());
+                //movimiento.setExistencia(m.getExistencia());
                 movimiento.setNcosuni(m.getNcosuni());
                 movimiento.setNvaluni(m.getNvaluni());
                 movimiento.setNdesfin(m.getNdesfin());
@@ -62,7 +63,8 @@ public class DescargaLote {
                 movimiento = new Movimiento();
                 /// le asigno un id temporal
                 movimiento.setIdmovimiento(l.getIdlote());
-                movimiento.setExistencia(m.getExistencia());
+                //AREGLAR
+                //movimiento.setExistencia(null);
                 movimiento.setNcosuni(m.getNcosuni());
                 movimiento.setNvaluni(m.getNvaluni());
                 movimiento.setNdesfin(m.getNdesfin());
@@ -87,10 +89,10 @@ public class DescargaLote {
         //la cantidad sobrante no descarga lotes
         if (m.getNcantidad()>0) {
             movimiento = new Movimiento();
-
-            movimiento.setExistencia(m.getExistencia());
+           //AREGLAR     
+            //movimiento.setExistencia(m.getExistencia());
             /// le asigno un id temporal
-            movimiento.setIdmovimiento(m.getExistencia().hashCode());
+            //movimiento.setIdmovimiento(m.getExistencia().hashCode());
             movimiento.setNcosuni(m.getNcosuni());
             movimiento.setNvaluni(m.getNvaluni());
             movimiento.setNdesfin(m.getNdesfin());

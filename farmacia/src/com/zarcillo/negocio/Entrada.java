@@ -53,16 +53,17 @@ public class Entrada extends Salida {
         Existencia existencia;
         for (Movimiento d : listaMovimientos) {
             detalle = new Movimiento();
-            existencia = existenciadao.buscarPorIdalmacenPorIdproducto(d.getExistencia().getIdalmacen().getIdalmacen(), d.getExistencia().getIdproducto().getIdproducto());
-            existencia.setIdproducto(d.getExistencia().getIdproducto());
+            existencia = existenciadao.buscarPorIdalmacenPorIdproducto(d.getIdalmacen().getIdalmacen(), d.getIdproducto().getIdproducto());
+            existencia.setIdproducto(d.getIdproducto());
             existencia.setIdalmacen(regentrada.getIdalmacen());
+            detalle.setIdproducto(d.getIdproducto());
+            detalle.setIdalmacen(regentrada.getIdalmacen());
             detalle.setIdregentrada(regentrada);
             detalle.setNvaluni(d.getNvaluni());
             detalle.setNdesfin(d.getNdesfin());
             detalle.setNdesbon(d.getNdesbon());
             detalle.setNdeslab(d.getNdeslab());
-            detalle.setNsubtot(d.getNsubtot());
-            detalle.setExistencia(existencia);
+            detalle.setNsubtot(d.getNsubtot());            
             detalle.setNcantidad(d.getNcantidad());
             detalle.setNcosuni(d.getNcosuni());
             detalle.setClote(d.getClote());
@@ -94,7 +95,8 @@ public class Entrada extends Salida {
             Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaIngreso(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto(), detalle.getClote().trim());
 
             if (lote.getIdlote() == null) {
-                lote.setExistencia(existencia);
+                lote.setIdalmacen(d.getIdalmacen());
+                lote.setIdproducto(d.getIdproducto());
                 lote.setNstock(detalle.getNstock());
                 lote.setClote(detalle.getClote().trim());
                 lote.setCfecven(detalle.getCfecven().trim());
@@ -134,7 +136,7 @@ public class Entrada extends Salida {
             List<Movimiento> listaIngreso = regentrada.getMovimientoCollection();
             Existencia existencia;
             for (Movimiento d : listaIngreso) {
-                existencia = existenciadao.buscarPorIdalmacenPorIdproducto(d.getExistencia().getIdalmacen().getIdalmacen(), d.getExistencia().getIdproducto().getIdproducto());
+                existencia = existenciadao.buscarPorIdalmacenPorIdproducto(d.getIdalmacen().getIdalmacen(), d.getIdproducto().getIdproducto());
                 existencia.setNstock(existencia.getNstock() - d.getNcantidad());
                 //////
                 Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaAnulacion(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto(), d.getClote().trim());

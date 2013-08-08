@@ -417,11 +417,11 @@ public class RegistroSalida implements Serializable {
 
         for (Movimiento m : lista) {
             //valido y elimino detalle nulos
-            if (m.getExistencia().getIdproducto() != null) {
+            if (m.getIdproducto() != null) {
                 //Acumulo el valor Bruto                
                 tcosto = tcosto.add(m.getNcosuni().multiply(new BigDecimal(m.getNcantidad())));
                 //Acumulo los totales
-                if (m.getExistencia().getIdproducto().getBinafecto()) {
+                if (m.getIdproducto().getBinafecto()) {
                     //si es inafecto
                     tvalornogra = tvalornogra.add(m.getNsubtot());
                 } else {

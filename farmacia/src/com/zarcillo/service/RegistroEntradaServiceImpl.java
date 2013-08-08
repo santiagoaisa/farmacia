@@ -83,8 +83,7 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
         for (Movimiento m : listaMovimientos) {
             detalle = new DetalleIngreso();
             detalle.setId(m.getIdmovimiento());
-            detalle.setIdproducto(m.getExistencia().getIdproducto());
-
+            detalle.setIdproducto(m.getIdproducto());
             detalle.setNcantidad(m.getNcantidad());
             detalle.setBinafec(m.getBinafecto());
             detalle.setNcosuni(m.getNcosuni());
