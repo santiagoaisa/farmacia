@@ -128,7 +128,7 @@ public class NuevoIngreso extends SelectorComposer {
     public void onSeleccionarLista(Event event) {
         llenarpie(lstIngreso.getSelectedIndex());
     }
-    @Listen("onOK = #lstIngreso")
+    @Listen("onClick = #btnQuitar")
     public void onBorrarLista(Event event) {
         borrarProducto();
     }
@@ -312,24 +312,47 @@ public class NuevoIngreso extends SelectorComposer {
         } else {
             List<Listitem> ldatos = lstIngreso.getItems();
             for (Listitem item : ldatos) {
-                Listcell celda4 = (Listcell) item.getChildren().get(4);
-                Intbox cantidad = (Intbox) celda4.getFirstChild();
+                Listcell celda5 = (Listcell) item.getChildren().get(5);
+                Intbox cantidad = (Intbox) celda5.getFirstChild();
                 cantidad.setConstraint(new ConstraintCantidadValida());
                 cantidad.getValue();
-                Listcell celda10 = (Listcell) item.getChildren().get(10);
-                Textbox lote = (Textbox) celda10.getFirstChild();
+                Listcell celda11 = (Listcell) item.getChildren().get(11);
+                Textbox lote = (Textbox) celda11.getFirstChild();
                 lote.setConstraint("");
                 lote.getValue();
-                Listcell celda9 = (Listcell) item.getChildren().get(9);
-                Intbox año = (Intbox) celda9.getFirstChild();
+                Listcell celda10 = (Listcell) item.getChildren().get(10);
+                Intbox año = (Intbox) celda10.getFirstChild();
                 año.setConstraint(new ConstraintAñoLote(4));
                 año.getValue();
-                Intbox mes = (Intbox) celda9.getLastChild();
+                Intbox mes = (Intbox) celda10.getLastChild();
                 mes.setConstraint(new ConstraintMesLote());
                 mes.getValue();
                 lote.setConstraint(new ConstraintCamposObligatorios());
                 lote.getValue();
             }
+        }
+    }
+    private void validarCostoNeto() {
+        if (lstIngreso.getSelectedCount() < 1) {
+            throw new ExceptionZarcillo("La Lista no tiene elementos Seleccionados");
+        } else {
+            Listitem item= lstIngreso.getSelectedItem();
+                Listcell celda9 = (Listcell) item.getChildren().get(9);
+                Decimalbox nCosto=(Decimalbox) celda9.getFirstChild();
+                
+                Listcell celda11 = (Listcell) item.getChildren().get(11);
+                Textbox lote = (Textbox) celda11.getFirstChild();
+                lote.setConstraint("");
+                lote.getValue();
+                Listcell celda10 = (Listcell) item.getChildren().get(10);
+                Intbox año = (Intbox) celda10.getFirstChild();
+                año.setConstraint(new ConstraintAñoLote(4));
+                año.getValue();
+                Intbox mes = (Intbox) celda10.getLastChild();
+                mes.setConstraint(new ConstraintMesLote());
+                mes.getValue();
+                lote.setConstraint(new ConstraintCamposObligatorios());
+                lote.getValue();
         }
     }
 }

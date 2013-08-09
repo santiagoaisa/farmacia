@@ -1,4 +1,3 @@
-
 package modalmacen.consulta;
 
 import com.zarcillo.domain.Almacen;
@@ -35,65 +34,48 @@ import org.zkoss.zul.Tab;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class TarjetaProveedor extends SelectorComposer implements PeriodoListener {
+
     private Usuario usuario;
-    private Proveedor proveedor=new Proveedor();
+    private Proveedor proveedor = new Proveedor();
     private MenuPeriodo menuperiodo;
     private MenuResultado menuresultado;
     private Periodo periodo;
-    
     private ListModelList modeloIngresos;
     private ListModelList modeloCanjes;
     private ListModelList modeloAlmacen;
-    
-    
     @Wire
     private Window winTarjeta;
-    
     @Wire
     private Combobox cboAlmacen;
-    
     @Wire
     private Textbox txtNombre;
-    
     @Wire
     private Textbox txtRuc;
-    
     @Wire
     private Textbox txtDireccion;
-    
     @Wire
     private Button btnCrear;
-    
     @Wire
     private Tab tabIngresos;
-    
     @Wire
     private Tab tabCanjes;
-    
     @Wire
     private Listbox lstIngresos;
-    
     @Wire
     private Listbox lstCanjes;
-    
     @WireVariable
     AlmacenService almacenService;
-    
     @WireVariable
     PeriodoService periodoService;
-    
     @WireVariable
     UsuarioService usuarioService;
-    
     @WireVariable
     RegistroEntradaService registroEntradaService;
-    
     private String user_login;
-    final Execution exec= Executions.getCurrent();
-    
+    final Execution exec = Executions.getCurrent();
+
     @Listen("onCreate=window#winTarjeta")
     public void onCreate() throws NamingException {
         HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winTarjeta/mperiodo");
@@ -103,53 +85,56 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
         HtmlMacroComponent macro2 = (HtmlMacroComponent) Path.getComponent("/winTarjeta/mresultado");
         menuresultado = (MenuResultado) macro2.getChildren().get(0);
         initComponets();
-     }
-    
+    }
+
     @Listen("onClick = #btnCrear")
     public void onCrearEntrada(Event event) {
         crear();
     }
-    
+
     @Listen("onClick = #btnBuscar")
     public void onBuscarProveedor(Event event) {
         buscarProveedor();
     }
-    
+
     @Listen("onClick = #btnSalir")
     public void onSalir(Event event) {
         winTarjeta.onClose();
     }
-    
+
     @Listen("onCancel = #winTarjeta")
     public void onCancelarTarjeta(Event event) {
         limpiar();
     }
-    
+
     @Listen("onOK = #cboAlmacen")
     public void onBusquedaProveedor(Event event) {
         buscarProveedor();
     }
+
     @Listen("onClick = #cboAlmacen")
     public void onBusquedaProveedorClick(Event event) {
         buscarProveedor();
     }
+
     @Listen("onOK = #lstIngresos")
     public void onMostrarIngresos(Event event) {
         mostrarIngresos();
     }
+
     @Listen("onOK = #lstCanjes")
     public void onMostrarCanjes(Event event) {
         mostrarCanjes();
     }
-    
-    public void initComponets(){
+
+    public void initComponets() {
         user_login = exec.getUserPrincipal().getName();
-        usuario=usuarioService.buscarPorLogin(user_login);
-        modeloIngresos=new ListModelList();
+        usuario = usuarioService.buscarPorLogin(user_login);
+        modeloIngresos = new ListModelList();
         lstIngresos.setModel(modeloIngresos);
-        modeloCanjes=new ListModelList();
+        modeloCanjes = new ListModelList();
         lstCanjes.setModel(modeloCanjes);
-        modeloAlmacen=new ListModelList(almacenService.listaGeneral());
+        modeloAlmacen = new ListModelList(almacenService.listaGeneral());
         cboAlmacen.setModel(modeloAlmacen);
         if (modeloAlmacen.size() > 0) {
             cboAlmacen.onInitRender(new Event("", cboAlmacen));
@@ -159,8 +144,8 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
         menuresultado.setSize(modeloIngresos.getSize());
         buscarProveedor();
     }
-    
-    private void buscarProveedor(){
+
+    private void buscarProveedor() {
         Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaproveedor.zul", winTarjeta, null);
         winbuscaprod.setAttribute("REST", true);
         winbuscaprod.doModal();
@@ -172,19 +157,21 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
             mostrarProveedor();
         }
     }
+
     private void mostrarProveedor() {
-       txtNombre.setText(proveedor.getCnomprovee());
-       txtRuc.setText(proveedor.getCruc());
-       txtDireccion.setText(proveedor.getCdireccion().trim()+" - "+proveedor.getIdubigeo().getCubigeo());
-       btnCrear.setDisabled(false);
-       cboAlmacen.setDisabled(true);
+        txtNombre.setText(proveedor.getCnomprovee());
+        txtRuc.setText(proveedor.getCruc());
+        txtDireccion.setText(proveedor.getCdireccion().trim() + " - " + proveedor.getIdubigeo().getCubigeo().trim() + " - " + proveedor.getIdubigeo().getCnomprovincia().trim() + " - " + proveedor.getIdubigeo().getCnomdepartamento().trim());
+        btnCrear.setDisabled(false);
+        cboAlmacen.setDisabled(true);
         tabIngresos.setSelected(true);
         btnCrear.focus();
         menuperiodo.setLista(periodoService.listaPeriodoAños());
         periodo = periodoService.buscarPorDfecha(new Date());//
         menuperiodo.setPeriododefecto(periodo);
     }
-    public void crear(){
+
+    public void crear() {
         String action = (String) btnCrear.getAttribute("ACTION");
         if (action.equals("OC")) {
             crearIngreso();
@@ -195,34 +182,34 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
             return;
         }
     }
-    
+
     public void cargarIngresos() {
         validar();
         btnCrear.setVisible(true);
         btnCrear.setLabel("Nuevo Ingreso");
         btnCrear.setAttribute("ACTION", "OC");
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        modeloIngresos = new ListModelList(registroEntradaService.listaPorIdalmacenPorIdproveedorPorNano(almacen.getIdalmacen(), proveedor.getIdproveedor(),periodo.getNano()));
+        modeloIngresos = new ListModelList(registroEntradaService.listaPorIdalmacenPorIdproveedorPorNano(almacen.getIdalmacen(), proveedor.getIdproveedor(), periodo.getNano()));
         lstIngresos.setModel(modeloIngresos);
-        
+
 
         //mostrar resultado de la consulta
         menuresultado.setSize(modeloIngresos.getSize());
     }
-    
+
     public void cargarCanjes() {
         validar();
         btnCrear.setVisible(true);
         btnCrear.setLabel("Nuevo Canje");
         btnCrear.setAttribute("ACTION", "CJ");
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        modeloCanjes = new ListModelList(registroEntradaService.listaPorIdalmacenPorIdproveedorPorNano(almacen.getIdalmacen(), proveedor.getIdproveedor(),periodo.getNano()));
+        modeloCanjes = new ListModelList(registroEntradaService.listaPorIdalmacenPorIdproveedorPorNano(almacen.getIdalmacen(), proveedor.getIdproveedor(), periodo.getNano()));
         lstCanjes.setModel(modeloCanjes);
 
         //mostrar resultado de la consulta
         menuresultado.setSize(modeloCanjes.getSize());
     }
-    
+
     private void crearIngreso() {
         Window wincrea = (Window) Executions.createComponents("/modulos/almacen/registro/nuevoingreso.zul", null, null);
         RegistroEntrada rentrada = new RegistroEntrada();
@@ -238,7 +225,7 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
             modeloIngresos.add(0, rentrada);
         }
     }
-    
+
     private void crearCanje() {
         Window wincrea = (Window) Executions.createComponents("/modulos/modalmacen/registro/nuevoingreso.zul", null, null);
         RegistroEntrada rentrada = new RegistroEntrada();
@@ -253,30 +240,31 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
             modeloIngresos.add(0, rentrada);
         }
     }
+
     public void limpiar() {
         cboAlmacen.setDisabled(false);
         cboAlmacen.focus();
         txtNombre.setText("");
         txtDireccion.setText("");
         txtRuc.setText("");
-        
-        modeloIngresos=new ListModelList();
+
+        modeloIngresos = new ListModelList();
         lstIngresos.setModel(modeloIngresos);
-        modeloCanjes=new ListModelList();
+        modeloCanjes = new ListModelList();
         lstCanjes.setModel(modeloCanjes);
         tabIngresos.setSelected(true);
 
         //mostrar resultado de la consulta
         menuresultado.setSize(0);
     }
-    
+
     @Override
     public void escribir(Periodo periodo) {
-        this.periodo =periodo;
-        if(tabIngresos.isSelected()){
+        this.periodo = periodo;
+        if (tabIngresos.isSelected()) {
             cargarIngresos();
         }
-        if(tabCanjes.isSelected()){
+        if (tabCanjes.isSelected()) {
             cargarCanjes();
         }
     }
@@ -285,7 +273,7 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
     public void validar() {
         cboAlmacen.getValue();
     }
-    
+
     public void mostrarIngresos() {
         Window win = (Window) Executions.createComponents("/modulos/almacen/consulta/detalleingreso.zul", null, null);
         win.setClosable(true);

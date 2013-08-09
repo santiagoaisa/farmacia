@@ -18,7 +18,7 @@
     
     <listbox id="lstProveedor" mold="paging" pageSize="50" width="99%" height="150px" >
                     <listhead>
-                        <listheader label="Nombre" width="65%" sort="auto(cnomempresa)"/>
+                        <listheader label="Nombre" width="65%" sort="auto(cnomproveedor)"/>
                         <listheader label="Ruc" width="35%" sort="auto(cruc)"/>
                     </listhead>
                     <listitem self="@{each=proveedor}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >

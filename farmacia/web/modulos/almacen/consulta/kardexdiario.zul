@@ -1,0 +1,100 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winKardex"?>
+<?component name="menu" macro-uri="/modulos/modmantenimiento/util/menuperiodo.zul"?>
+<window id="winKardex" title="Consulta Kardex" border="0" width="800px"
+        onCancel="winKardex.limpiar()" use="modalmacen.consulta.KardexDiario" ctrlKeys="#up#down" >
+    <grid fixedLayout="true"  >
+        <columns>
+            <column label="" width="8%"/>
+            <column label="" width="10%"/>
+            <column label="" width="7%"/>
+            <column label="" width="10%"/>
+            <column label="" width="25%"/>
+            <column label="" width="8%"/>
+            <column label="" width="32%"/>
+
+        </columns>
+        <rows>
+            <row spans="1,2,1,1,1,1">
+                <label value="Almacen:" />
+                <combobox id="cboAlmacen" constraint="no empty: Debe Seleccionar un Almacen" width="98%" readonly="true"/>
+                
+                <label value="Linea:" />
+                <textbox id="txtLinea" width="95%" readonly="true"/>
+                <label value="Familia:" />
+                <textbox id="txtFamilia" width="95%" readonly="true"/>
+            </row>
+            <row spans="1,1,1,2,1,1">
+                <label value="Producto:" />
+                <textbox id="txtCodigo" width="95%"  onCancel="winKardex.onClose()" onOK="winKardex.buscarProducto()" readonly="true" />
+                <textbox id="txtPresentacion" width="95%" readonly="true"/>
+                <textbox id="txtNombre" width="95%" readonly="true"/>
+                <label value="Periodo:" />
+                <menu id="mperiodo" width="100%"></menu>
+            </row>
+        </rows>
+    </grid>
+    <listbox id="lstKardex" mold="paging" pageSize="1000" height="400px"  >
+        <auxhead>
+            <auxheader label="Detalle de Movimientos" colspan="14"  />
+        </auxhead>
+        <listhead>
+            <listheader label="Nº" width="30px" />
+            <listheader label="Dia" width="30px" align="center" sort="auto(ndia)" />
+            <listheader label="TD" width="35px" align="center" sort="auto(ndia)" />
+            <listheader label="Ser" width="40px" align="center" sort="auto(cserie)" />
+            <listheader label="Numero" width="50px"  sort="auto(cnumero)"  />
+            <listheader label="SerGui" width="40px" align="center"  />
+            <listheader label="Guia" width="50px" />
+            <listheader label="Cliente/Proveedor" width="250px" />
+            <listheader label="Ingresos" width="55px" align="center"  />
+            <listheader label="Egresos" width="55px" align="center"  />
+            <listheader label="Saldo" width="55px" align="center"  />
+            <listheader label="Lote" width="70px" />
+            <listheader label="Venc" width="50px" />
+            <listheader label="Operacion" align="right" width="70px" />
+            <listheader  width="0px" />
+        </listhead>
+        <listitem self="@{each=kardex}">
+            <listcell label="@{self.parent.index}"/>
+            <listcell label="@{kardex.ndia}"/>
+            <listcell label="@{kardex.cabrev}" />
+            <listcell label="@{kardex.cserfac}" />
+            <listcell label="@{kardex.cfactura}" />
+            <listcell label="@{kardex.csergui}" />
+            <listcell label="@{kardex.cguia}" />
+            <listcell label="@{kardex.cnombre}"/>
+            <listcell decimal="@{kardex.ncompra}"  format="###,###,##0" use="modalmacen.util.ListcellNumero"  />
+            <listcell decimal="@{kardex.nventa}"  format="###,###,##0" use="modalmacen.util.ListcellNumero"  />
+            <listcell decimal="@{kardex.nsaldo}"  format="###,###,##0" use="modalmacen.util.ListcellNumero"  />
+            <listcell label="@{kardex.clote}" />
+            <listcell label="@{kardex.cfecven}" />
+            <listcell label="@{kardex.noperacion}" />
+            <listcell label="@{kardex,converter='modalmacen.util.ConvertidorEstadoKardex'}" visible="false" />
+        </listitem>        
+    </listbox>
+    <grid fixedLayout="true"  >
+        <columns>
+            <column label="" width="66%"/>
+            <column label="" width="7%"/>
+            <column label="" width="7%"/>
+            <column label="" width="7%"/>
+            <column label="" width="13%"/>
+        </columns>
+        <rows>
+            <row  style="background:#E6E6FA repeat-x 0 0;padding-top:7px" >
+                <label value="" />
+                <intbox id="tcompra" width="95%" format="###,###,##0" readonly="true"/>
+                <intbox id="tventa" width="95%" format="###,###,##0" readonly="true"/>
+                <intbox id="tsaldo" width="95%" format="###,###,##0" readonly="true"/>
+                <label value="" />
+            </row>
+        </rows>
+    </grid>
+    <jasperreport id="reporte" visible="false" />
+    <toolbar id="atb"  height="25px" align ="end" >
+        <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+        <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
+        <toolbarbutton id="btnValorizado" image="/img/Printer.png" label="Kardex Valorizado" />
+        <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" />
+    </toolbar>
+</window>
