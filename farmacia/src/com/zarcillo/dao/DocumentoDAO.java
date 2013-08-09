@@ -14,4 +14,5 @@ public interface DocumentoDAO {
     List<Documento> listaPorBcompra();
     List<Documento> listaPorBventa();
     List<Documento> listaPorBpago();
+    List<Documento> listaGeneral();
 }

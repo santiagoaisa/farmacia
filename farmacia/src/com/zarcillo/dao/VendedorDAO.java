@@ -10,5 +10,6 @@ import java.util.List;
 public interface VendedorDAO {
     Vendedor busqueda(Integer idvendedor);
     List<Vendedor> listaPorBactivo();
+    List<Vendedor> listaGeneral();
     
 }

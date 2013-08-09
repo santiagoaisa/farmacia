@@ -77,7 +77,7 @@ public class TipoPagoServiceImpl implements TipoPagoService {
     @Override
    
     public List<TipoPago> listaGeneral() {
-        return cruddao.listarTodos(TipoPago.class);
+        return tipopagodao.listaGeneral();
     }
 
     @Override

@@ -24,9 +24,12 @@ public class ModuloDAOImpl implements ModuloDAO {
 
     @Override
     public List<Modulo> listaPorIdrol(Integer idrol) {
-         String sql="select distinct m.* from modulo m,menu mm,mapa p where m.idmodulo=mm.idmodulo and mm.idmenu=p.idmenu and p.idrol=:idrol order by m.norden ";
-        return em.createNativeQuery(sql,Modulo.class).setParameter("idrol",idrol).getResultList() ;        
+        String sql = "select distinct m.* from modulo m,menu mm,mapa p where m.idmodulo=mm.idmodulo and mm.idmenu=p.idmenu and p.idrol=:idrol order by m.norden ";
+        return em.createNativeQuery(sql, Modulo.class).setParameter("idrol", idrol).getResultList();
     }
-    
-    
+
+    @Override
+    public List<Modulo> listaGeneral() {
+        return em.createNamedQuery("Modulo.findAll").getResultList();
+    }
 }

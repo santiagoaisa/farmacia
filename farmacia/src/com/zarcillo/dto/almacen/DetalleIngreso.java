@@ -1,6 +1,7 @@
 package com.zarcillo.dto.almacen;
 
 import com.zarcillo.domain.Producto;
+import com.zarcillo.negocio.Igv;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -17,7 +18,6 @@ public class DetalleIngreso implements Serializable {
     private BigDecimal nsubtot;
     //precio de la orden de compra
     private BigDecimal nprecio;
-    
     private Boolean binafec;
     private Boolean batendido;
     private Integer naño;
@@ -26,7 +26,8 @@ public class DetalleIngreso implements Serializable {
     private String cfecven;
     private String cdocumento;
     private String cserie;
-    private String cnumero;        
+    private String cnumero;
+    private Boolean bneto;
 
     public DetalleIngreso() {
         ncantidad = 0;
@@ -35,13 +36,22 @@ public class DetalleIngreso implements Serializable {
         ndesc1 = new BigDecimal("0");
         ndesc2 = new BigDecimal("0");
         nsubtot = new BigDecimal("0");
-        nprecio = new BigDecimal("0");        
+        nprecio = new BigDecimal("0");
         batendido = false;
         binafec = false;
         corden = "";
         clote = "";
         cfecven = "";
-        nmes = 0;        
+        nmes = 0;
+        bneto = false;
+    }
+
+    public Boolean getBneto() {
+        return bneto;
+    }
+
+    public void setBneto(Boolean bneto) {
+        this.bneto = bneto;
     }
 
     public Boolean getBinafec() {
@@ -59,8 +69,6 @@ public class DetalleIngreso implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    
 
     public String getCorden() {
         return corden;
@@ -154,9 +162,19 @@ public class DetalleIngreso implements Serializable {
     }
 
     public BigDecimal getNsubtot() {
-        nsubtot = ncosuni.multiply(BigDecimal.valueOf(ncantidad));
-        nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc1.divide(new BigDecimal("100"))));
-        nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc2.divide(new BigDecimal("100"))));
+
+        if (this.bneto) {
+            ncosuni = Igv.valorVentaDetalleVenta(ncosuni, this.getIdproducto().getBinafecto());
+            ndesc1 = new BigDecimal("0");
+            ndesc2 = new BigDecimal("0");
+            nsubtot = ncosuni.multiply(new BigDecimal(this.ncantidad));
+        } else {
+            nsubtot = ncosuni.multiply(BigDecimal.valueOf(ncantidad));
+            nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc1.divide(new BigDecimal("100"))));
+            nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc2.divide(new BigDecimal("100"))));
+        }
+
+
         return nsubtot.setScale(4, BigDecimal.ROUND_HALF_UP);
     }
 
@@ -227,9 +245,6 @@ public class DetalleIngreso implements Serializable {
         this.clote = clote;
     }
 
-   
-    
-
     public String getCdocumento() {
         return cdocumento;
     }
@@ -253,7 +268,4 @@ public class DetalleIngreso implements Serializable {
     public void setCserie(String cserie) {
         this.cserie = cserie;
     }
-
-
-    
 }

@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Empresa;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -20,6 +21,13 @@ public class EmpresaDAOImpl implements EmpresaDAO{
     public Empresa busqueda(Integer idempresa) {
         return (Empresa) em.createNamedQuery("Empresa.findByIdempresa").setParameter("idempresa", idempresa).getSingleResult();
     }
+
+    @Override
+    public List<Empresa> listaGeneral() {
+        return em.createNamedQuery("Empresa.findAll").getResultList();
+    }
+    
+    
     
     
     

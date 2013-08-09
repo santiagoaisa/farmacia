@@ -79,7 +79,7 @@ public class RolServiceImpl implements RolService {
     @Override
    
     public List<Rol> listaGeneral() {
-          return cruddao.listarTodos(Rol.class);
+          return roldao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, Rol rol) {

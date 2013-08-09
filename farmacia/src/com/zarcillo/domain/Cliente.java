@@ -106,11 +106,7 @@ public class Cliente implements Serializable {
     }
 
     public String getCcomercial() {
-        if (ccomercial == null) {
-            ccomercial = "";
-        }
-
-        return ccomercial.trim();
+        return ccomercial;
     }
 
     public void setCcomercial(String ccomercial) {
@@ -260,14 +256,23 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         String cadena = this.getCnomcli();
+
+
         if (this.getIdtipo().getCcodigosunat().contains(TipoPersona.JURIDICA_SUNAT.getCcodigosunat())) {
             cadena = this.getCnomcli();
         } else {
-            if (!getCcomercial().trim().isEmpty()) {
-                cadena = this.getCcomercial();
+
+            if (this.getCcomercial() != null) {
+                if (!getCcomercial().trim().isEmpty()) {
+                    cadena = this.getCcomercial();
+                } else {
+                    cadena = this.getCnomcli();
+                }
             } else {
                 cadena = this.getCnomcli();
             }
+
+
         }
         return cadena.trim();
     }

@@ -77,7 +77,7 @@ public class BancoServiceImpl implements BancoService {
     @Override
    
     public List<Banco> listaGeneral() {
-        return cruddao.listarTodos(Banco.class);
+        return bancodao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, Banco banco) {

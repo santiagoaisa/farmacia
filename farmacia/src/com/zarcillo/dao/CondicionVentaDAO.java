@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.CondicionVenta;
+import java.util.List;
 
 /**
  *
@@ -8,5 +9,6 @@ import com.zarcillo.domain.CondicionVenta;
  */
 public interface CondicionVentaDAO {
      CondicionVenta busqueda(Integer idcondicion);
+     List<CondicionVenta> listaGeneral();
      
 }

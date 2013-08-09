@@ -28,6 +28,7 @@ import org.zkoss.zul.Menubar;
 import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Menupopup;
 import org.zkoss.zul.Menuseparator;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
@@ -67,9 +68,8 @@ public class Index extends SelectorComposer {
 
         llenarSesion();
         List<Modulo> listaModulo = moduloService.listaPorIdrol(usuario.getIdrol().getIdrol());
-                
-        for (Modulo m : listaModulo) {
 
+        for (Modulo m : listaModulo) {
             final Toolbarbutton boton = new Toolbarbutton(m.getCnommodulo(), m.getCimagen());
             boton.setId(m.getIdmodulo() + "");
             boton.setParent(btnModulos);
@@ -98,16 +98,31 @@ public class Index extends SelectorComposer {
             Menupopup contenedormenu = new Menupopup();
 
             List<Mapa> listamenus = mapaService.listaMenu(usuario.getIdrol().getIdrol(), m);
-            for (final Mapa mm : listamenus) {
+            for (Mapa mm : listamenus) {
+                 Messagebox.show(mm.getIdmenu() + "");
+                final Mapa mapaeventomenu = new Mapa();
+                mapaeventomenu.setIdmapa(mm.getIdmapa());
+                mapaeventomenu.setIdmenu(mm.getIdmenu());
+                mapaeventomenu.setIdrol(mm.getIdrol());
+                mapaeventomenu.setIdusuario(mm.getIdusuario());
+
+
                 Menu menuopciones = new Menu(mm.getIdmenu() + "");
                 Menuitem menuopciones1 = new Menuitem(mm.getIdmenu() + "", mm.getIdmenu().getCruta());
                 List<Mapa> listasubmenus = mapaService.listaSubmenu(usuario.getIdrol().getIdrol(), mm);
                 boolean estado = false;
                 Menupopup contenedorsubmenu = new Menupopup();
                 // MENU NIVEL 3
-                for (final Mapa mmm : listasubmenus) {
+                for (Mapa mmm : listasubmenus) {
+                   
                     contenedorsubmenu.setParent(menuopciones);
                     Menuitem submenu = new Menuitem(mmm.getIdmenu() + "", mmm.getIdmenu().getCruta());
+
+                    final Mapa mapaeventosubmenu = new Mapa();
+                    mapaeventosubmenu.setIdmapa(mm.getIdmapa());
+                    mapaeventosubmenu.setIdmenu(mm.getIdmenu());
+                    mapaeventosubmenu.setIdrol(mm.getIdrol());
+                    mapaeventosubmenu.setIdusuario(mm.getIdusuario());
 
                     submenu.addEventListener(Events.ON_CLICK, new EventListener() {
                         public void onEvent(Event event) throws Exception {
@@ -116,11 +131,11 @@ public class Index extends SelectorComposer {
                                 divContenido.getFirstChild().detach();
                             }
 
-                            if (mmm.getIdmenu().getBmodal()) {
-                                Window contactWnd = (Window) Executions.createComponents(mmm.getIdmenu().getCruta(), null, null);
+                            if (mapaeventosubmenu.getIdmenu().getBmodal()) {
+                                Window contactWnd = (Window) Executions.createComponents(mapaeventosubmenu.getIdmenu().getCruta(), null, null);
                                 contactWnd.doModal();
                             } else {
-                                Window contactWnd = (Window) Executions.createComponents(mmm.getIdmenu().getCruta(), divContenido, null);
+                                Window contactWnd = (Window) Executions.createComponents(mapaeventosubmenu.getIdmenu().getCruta(), divContenido, null);
                                 contactWnd.doEmbedded();
                             }
 
@@ -167,11 +182,11 @@ public class Index extends SelectorComposer {
                             }
 
 
-                            if (mm.getIdmenu().getBmodal()) {
-                                Window contactWnd = (Window) Executions.createComponents(mm.getIdmenu().getCruta(), null, null);
+                            if (mapaeventomenu.getIdmenu().getBmodal()) {
+                                Window contactWnd = (Window) Executions.createComponents(mapaeventomenu.getIdmenu().getCruta(), null, null);
                                 contactWnd.doModal();
                             } else {
-                                Window contactWnd = (Window) Executions.createComponents(mm.getIdmenu().getCruta(), divContenido, null);
+                                Window contactWnd = (Window) Executions.createComponents(mapaeventomenu.getIdmenu().getCruta(), divContenido, null);
                                 contactWnd.doEmbedded();
                             }
 
@@ -193,6 +208,8 @@ public class Index extends SelectorComposer {
 
     @Listen("onClick = Toolbarbutton#btnSalir")
     public void salirSistema() {
+        menu.detach();
+        index.detach();
         exec.getDesktop().getSession().invalidate();
         exec.sendRedirect("/modulos/index.zul");
     }

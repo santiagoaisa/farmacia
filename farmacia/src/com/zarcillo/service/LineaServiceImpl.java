@@ -77,7 +77,7 @@ public class LineaServiceImpl implements LineaService {
     @Override
    
     public List<Linea> listaGeneral() {
-        return cruddao.listarTodos(Linea.class);
+        return lineadao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, Linea linea) {

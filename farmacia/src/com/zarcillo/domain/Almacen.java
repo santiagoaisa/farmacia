@@ -56,7 +56,7 @@ public class Almacen implements Serializable {
     private Boolean bprincipal;
 
     public Almacen() {
-        bprincipal = false;
+        //bprincipal = false;
     }
 
     public Almacen(Integer idalmacen) {

@@ -77,7 +77,7 @@ public class MotivoEntradaServiceImpl implements MotivoEntradaService{
     @Override
    
     public List<MotivoEntrada> listaGeneral() {
-        return cruddao.listarTodos(MotivoEntrada.class);
+        return motivodao.listaGeneral();
     }
     
      private void registrarLog(String cmotivo, MotivoEntrada motivo) {

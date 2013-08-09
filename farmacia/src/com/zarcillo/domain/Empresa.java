@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "empresa")
 @NamedQueries({
-    @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e"),
+    @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e ORDER BY e.cnomempresa"),
     @NamedQuery(name = "Empresa.findByIdempresa", query = "SELECT e FROM Empresa e WHERE e.idempresa=:idempresa")
 
 })

@@ -18,5 +18,11 @@ public class RolDAOImpl implements RolDAO {
          return (Rol) em.createNamedQuery("Rol.findByIdrol").setParameter("idrol", idrol).getSingleResult();
     }
 
+    @Override
+    public List<Rol> listaGeneral() {
+        return em.createNamedQuery("Rol.findAll").getResultList();
+    }
+
+    
     
 }

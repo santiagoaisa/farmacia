@@ -79,7 +79,7 @@ public class PeriodoServiceImpl implements PeriodoService {
     @Override
    
     public List<Periodo> listaGeneral() {
-        return cruddao.listarTodos(Periodo.class);
+        return periododao.listaGeneral();
     }
 
     @Override

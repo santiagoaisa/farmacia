@@ -10,4 +10,5 @@ import java.util.List;
 public interface ModuloDAO {
     Modulo busqueda(Integer idmodulo);
     List<Modulo> listaPorIdrol(Integer idrol);
+    List<Modulo> listaGeneral();
 }

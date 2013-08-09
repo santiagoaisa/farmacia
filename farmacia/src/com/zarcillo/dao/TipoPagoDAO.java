@@ -12,4 +12,5 @@ public interface TipoPagoDAO {
      List<TipoPago> listaTipoPagoPorBcobro();
      List<TipoPago> listaTipoPagoPorBpago();
      TipoPago buscarPorCcodigosunat(String ccodigosunat);
+     List<TipoPago> listaGeneral();
 }

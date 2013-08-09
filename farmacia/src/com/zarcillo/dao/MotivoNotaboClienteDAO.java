@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.MotivoNotaboCliente;
+import java.util.List;
 
 /**
  *
@@ -9,5 +10,6 @@ import com.zarcillo.domain.MotivoNotaboCliente;
 public interface MotivoNotaboClienteDAO {
     
      MotivoNotaboCliente busqueda(Integer idmotivo);
+     List<MotivoNotaboCliente> listaGeneral();
     
 }

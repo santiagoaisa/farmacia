@@ -52,43 +52,43 @@ public class MapaServiceImpl implements MapaService {
     }
 
     @Override
-   
+   @Transactional(readOnly=true)
     public List<Mapa> listaPorIdrolPorIdmoduloMenuArchivo(Integer idrol, Integer idmodulo) {
         return mapadao.listaPorIdrolPorIdmoduloPorNnivel(idrol, idmodulo, BarraMenu.ARCHIVOS.getNnivel());
     }
 
     @Override
-   
+   @Transactional(readOnly=true)
     public List<Mapa> listaPorIdrolPorIdmoduloMenuProceso(Integer idrol, Integer idmodulo) {
         return mapadao.listaPorIdrolPorIdmoduloPorNnivel(idrol, idmodulo, BarraMenu.PROCESOS.getNnivel());
     }
 
     @Override
-   
+   @Transactional(readOnly=true)
     public List<Mapa> listaPorIdrolPorIdmoduloMenuConsulta(Integer idrol, Integer idmodulo) {
         return mapadao.listaPorIdrolPorIdmoduloPorNnivel(idrol, idmodulo, BarraMenu.CONSULTAS.getNnivel());
     }
 
     @Override
-   
+   @Transactional(readOnly=true)
     public List<Mapa> listaPorIdrolPorIdmoduloMenuHerramienta(Integer idrol, Integer idmodulo) {
         return mapadao.listaPorIdrolPorIdmoduloPorNnivel(idrol, idmodulo, BarraMenu.HERRAMIENTAS.getNnivel());
     }
 
     @Override
-   
+   @Transactional(readOnly=true)
     public List<Mapa> listaEncabezado(Integer idrol, Integer idmodulo) {
         return mapadao.listaEncabezado(idrol, idmodulo);
     }
 
     @Override
-   
+   @Transactional(readOnly=true)
     public List<Mapa> listaMenu(Integer idrol, Mapa mapa) {
         return mapadao.listaMenu(idrol, mapa);
     }
 
     @Override
-   
+   @Transactional(readOnly=true)
     public List<Mapa> listaSubmenu(Integer idrol, Mapa mapa) {
         return mapadao.listaSubmenu(idrol, mapa);
     }

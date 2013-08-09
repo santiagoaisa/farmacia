@@ -47,6 +47,11 @@ public class PeriodoDAOImpl implements PeriodoDAO {
         String sql = "select nano FROM periodo  group by nano  order by nano DESC";
         return em.createNativeQuery(sql, Año.class).getResultList();
     }
+
+    @Override
+    public List<Periodo> listaGeneral() {
+        return em.createNamedQuery("Periodo.findAll").getResultList();
+    }
     
     
     

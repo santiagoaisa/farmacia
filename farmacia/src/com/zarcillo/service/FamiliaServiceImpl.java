@@ -77,7 +77,7 @@ public class FamiliaServiceImpl implements FamiliaService {
     @Override
    
     public List<Familia> listaGeneral() {
-        return cruddao.listarTodos(Familia.class);
+        return familiadao.listaGeneral();
     }
     
      private void registrarLog(String cmotivo, Familia familia) {

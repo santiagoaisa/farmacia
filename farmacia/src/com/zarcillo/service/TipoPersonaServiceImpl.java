@@ -71,7 +71,7 @@ public class TipoPersonaServiceImpl implements TipoPersonaService {
     @Override
    
     public List<TipoPersona> listaGeneral() {
-        return cruddao.listarTodos(TipoPersona.class);
+        return tipopersonadao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, TipoPersona tipo) {

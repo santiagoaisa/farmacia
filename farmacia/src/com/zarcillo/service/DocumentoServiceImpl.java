@@ -77,7 +77,7 @@ public class DocumentoServiceImpl implements DocumentoService {
     @Override
    
     public List<Documento> listaGeneral() {
-        return cruddao.listarTodos(Documento.class);
+        return documentodao.listaGeneral();
     }
 
     @Override

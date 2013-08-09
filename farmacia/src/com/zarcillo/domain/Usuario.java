@@ -63,8 +63,7 @@ public class Usuario implements Serializable {
     @OneToMany(mappedBy = "idusuario", fetch = FetchType.LAZY)
     private List<DetalleAutorizacion> detalleAutorizacionCollection;
 
-    public Usuario() {
-        detalleAutorizacionCollection=new ArrayList<DetalleAutorizacion>();
+    public Usuario() {        
     }
 
     public Usuario(Integer idusuario) {

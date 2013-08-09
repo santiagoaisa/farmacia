@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Presentacion;
+import java.util.List;
 
 /**
  *
@@ -8,4 +9,5 @@ import com.zarcillo.domain.Presentacion;
  */
 public interface PresentacionDAO {
     Presentacion busqueda(Integer idpresentacion);
+    List<Presentacion> listaGeneral();
 }

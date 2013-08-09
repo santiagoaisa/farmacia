@@ -77,7 +77,7 @@ public class MotivoNotaboProveedorServiceImpl implements MotivoNotaboProveedorSe
     @Override
    
     public List<MotivoNotaboProveedor> listaGeneral() {
-        return cruddao.listarTodos(MotivoNotaboProveedor.class);
+        return motivodao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, MotivoNotaboProveedor motivo) {

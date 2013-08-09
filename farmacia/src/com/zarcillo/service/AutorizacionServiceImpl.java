@@ -79,7 +79,7 @@ public class AutorizacionServiceImpl implements AutorizacionService{
     @Override
    
     public List<Autorizacion> listaGeneral() {
-         return cruddao.listarTodos(Autorizacion.class);
+         return autorizaciondao.listaGeneral();
     }
     
       private void registrarLog(String cmotivo, Autorizacion autorizacion) {

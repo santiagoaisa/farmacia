@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.CondicionVenta;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -20,5 +21,12 @@ public class CondicionVentaDAOImpl implements CondicionVentaDAO{
     public CondicionVenta busqueda(Integer idcondicion) {
         return (CondicionVenta) em.createNamedQuery("CondicionVenta.findAll").setParameter("idcondicion", idcondicion).getSingleResult();
     }
+
+    @Override
+    public List<CondicionVenta> listaGeneral() {
+        return em.createNamedQuery("CondicionVenta.findAll").getResultList();
+    }
+    
+    
     
 }

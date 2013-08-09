@@ -10,4 +10,5 @@ import java.util.List;
 public interface ProveedorDAO {
       Proveedor busqueda(Integer idproveedor);
       List<Proveedor> busquedaListaPorCnomprovee(String ccriterio);
+      List<Proveedor> listaGeneral();
 }

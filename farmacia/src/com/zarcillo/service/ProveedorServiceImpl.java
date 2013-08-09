@@ -76,7 +76,7 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     @Override
     public List<Proveedor> listaGeneral() {
-        return cruddao.listarTodos(Proveedor.class);
+        return proveedordao.listaGeneral();
     }
 
     @Override

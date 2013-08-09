@@ -24,9 +24,15 @@ public class LineaDAOImpl implements LineaDAO{
 
     @Override
     public List<Linea> listaActivos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createNamedQuery("Linea.findByBactivo").getResultList();
+    }
+
+    @Override
+    public List<Linea> listaGeneral() {
+        return em.createNamedQuery("Linea.findAll").getResultList();
     }
  
+    
     
     
 }

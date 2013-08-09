@@ -77,7 +77,7 @@ public class MotivoSalidaServiceImpl implements MotivoSalidaService {
     @Override
    
     public List<MotivoSalida> listaGeneral() {
-        return cruddao.listarTodos(MotivoSalida.class);
+        return motivodao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, MotivoSalida motivo) {

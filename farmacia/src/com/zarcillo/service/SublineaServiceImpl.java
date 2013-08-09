@@ -77,7 +77,7 @@ public class SublineaServiceImpl implements SublineaService {
     @Override
    
     public List<Sublinea> listaGeneral() {
-        return cruddao.listarTodos(Sublinea.class);
+        return sublinedao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, Sublinea sublinea) {

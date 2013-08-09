@@ -26,6 +26,11 @@ public class ProveedorDAOImpl  implements ProveedorDAO{
     public List<Proveedor> busquedaListaPorCnomprovee(String ccriterio) {
         return em.createNamedQuery("Proveedor.findByCnomprovee").setParameter("ccriterio", ccriterio.trim().toUpperCase().concat("%")).getResultList();
     }
+
+    @Override
+    public List<Proveedor> listaGeneral() {
+        return em.createNamedQuery("Proveedor.findAll").getResultList();
+    }
     
     
     

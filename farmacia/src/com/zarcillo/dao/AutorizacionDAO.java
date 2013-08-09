@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Autorizacion;
+import java.util.List;
 
 /**
  *
@@ -8,4 +9,5 @@ import com.zarcillo.domain.Autorizacion;
  */
 public interface AutorizacionDAO {
     Autorizacion busqueda(Integer idautorizacion);
+    List<Autorizacion> listaGeneral();
 }

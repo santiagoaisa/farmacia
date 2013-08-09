@@ -77,7 +77,7 @@ public class MonedaServiceImpl implements MonedaService {
     @Override
    
     public List<Moneda> listaGeneral() {
-        return cruddao.listarTodos(Moneda.class);
+        return monedadao.listaGeneral();
     }
     
      private void registrarLog(String cmotivo, Moneda moneda) {

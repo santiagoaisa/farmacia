@@ -76,8 +76,8 @@ public class CondicionVentaServiceImpl implements CondicionVentaService {
 
     @Override
    
-    public List<CondicionVenta> listaGeneral() {
-        return cruddao.listarTodos(CondicionVenta.class);
+    public List<CondicionVenta> listaGeneral() {        
+        return condicionventadao.listaGeneral();
     }
     
     private void registrarLog(String cmotivo, CondicionVenta condicion) {

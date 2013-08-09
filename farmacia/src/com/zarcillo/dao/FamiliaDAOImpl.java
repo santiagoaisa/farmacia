@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.Familia;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -20,5 +21,12 @@ public class FamiliaDAOImpl  implements FamiliaDAO{
     public Familia busqueda(Integer idfamilia) {
         return (Familia) em.createNamedQuery("Familia.findByIdfamilia").setParameter("idfamilia", idfamilia).getSingleResult();
     }
+
+    @Override
+    public List<Familia> listaGeneral() {
+        return em.createNamedQuery("Familia.findAll").getResultList();
+    }
+    
+    
     
 }

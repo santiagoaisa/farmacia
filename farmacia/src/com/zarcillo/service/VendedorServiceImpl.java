@@ -77,7 +77,7 @@ public class VendedorServiceImpl implements VendedorService {
     @Override
    
     public List<Vendedor> listaGeneral() {
-        return cruddao.listarTodos(Vendedor.class);
+        return vendedordao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, Vendedor vendedor) {

@@ -32,13 +32,5 @@ public class CrudDAOImpl implements CrudDAO {
         em.remove(em.merge(objeto));
     }
 
-    @Override
-    public <T> List<T> listarTodos(Class<T> klass) {
-        return em.createNamedQuery(klass.getSimpleName() + ".findAll").getResultList();
-    }
-
-    @Override
-    public <T> T buscar(Class<T> klass, Integer id) {
-        return em.find(klass, id);
-    }
+  
 }

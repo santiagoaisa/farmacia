@@ -36,6 +36,11 @@ public class TipoPagoDAOImpl implements TipoPagoDAO{
     public TipoPago buscarPorCcodigosunat(String ccodigosunat) {
         return (TipoPago) em.createNamedQuery("TipoPago.findByCcodigosunat").setParameter("ccodigosunat", ccodigosunat).getSingleResult();
     }
+
+    @Override
+    public List<TipoPago> listaGeneral() {
+        return em.createNamedQuery("TipoPago.findAll").getResultList();
+    }
     
     
     

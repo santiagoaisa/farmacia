@@ -6,6 +6,7 @@ import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.DescuentoDAO;
 import com.zarcillo.dao.DocumentoDAO;
 import com.zarcillo.dao.LoteDAO;
+import com.zarcillo.dao.MotivoSalidaDAO;
 import com.zarcillo.dao.NumeracionDAO;
 import com.zarcillo.dao.VendedorDAO;
 import com.zarcillo.domain.Almacen;
@@ -15,7 +16,6 @@ import com.zarcillo.domain.Descuento;
 import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.MotivoSalida;
-import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Numeracion;
 import com.zarcillo.domain.ProductoNoVendido;
 import com.zarcillo.domain.RegistroSalida;
@@ -59,6 +59,8 @@ public class VentaServiceImpl extends Entrada  implements VentaService {
     private LoteDAO lotedao;
     @Autowired
     private DescuentoDAO descuentodao;
+    @Autowired
+    private MotivoSalidaDAO motivosalidadao;
 
     @Override
     @Transactional
@@ -176,12 +178,12 @@ public class VentaServiceImpl extends Entrada  implements VentaService {
 
     @Override
     public List<CondicionVenta> listaCondicion() {
-        return cruddao.listarTodos(CondicionVenta.class);
+        return condicionventadao.listaGeneral();
     }
 
     @Override
     public List<MotivoSalida> listaMotivo() {
-        return cruddao.listarTodos(MotivoSalida.class);
+        return motivosalidadao.listaGeneral();
     }
 
     @Override

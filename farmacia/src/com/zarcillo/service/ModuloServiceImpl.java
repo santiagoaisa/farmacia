@@ -77,7 +77,7 @@ public class ModuloServiceImpl implements ModuloService {
     @Override
    
     public List<Modulo> listaGeneral() {
-        return cruddao.listarTodos(Modulo.class);
+        return modulodao.listaGeneral();
     }
 
     @Override

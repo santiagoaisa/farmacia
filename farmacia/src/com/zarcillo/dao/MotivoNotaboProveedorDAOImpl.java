@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.MotivoNotaboProveedor;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -19,4 +20,12 @@ public class MotivoNotaboProveedorDAOImpl implements MotivoNotaboProveedorDAO{
     public MotivoNotaboProveedor busqueda(Integer idmotivo) {
         return (MotivoNotaboProveedor) em.createNamedQuery("MotivoNotaboProveedor.findByIdmotivo").setParameter("idmotivo", idmotivo).getSingleResult();
     }
+
+    @Override
+    public List<MotivoNotaboProveedor> listaGeneral() {
+        return em.createNamedQuery("MotivoNotaboProveedor.findAll").getResultList();
+    }
+    
+    
+    
 }

@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface RolDAO {
     Rol busqueda(Integer idrol);
+    List<Rol> listaGeneral();
 }

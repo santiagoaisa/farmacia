@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.MotivoSalida;
+import java.util.List;
 
 /**
  *
@@ -8,4 +9,5 @@ import com.zarcillo.domain.MotivoSalida;
  */
 public interface MotivoSalidaDAO {
     MotivoSalida busqueda(Integer idmotivo);
+    List<MotivoSalida> listaGeneral();
 }

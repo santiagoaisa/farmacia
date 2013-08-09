@@ -86,26 +86,22 @@ public class MenuServiceImpl implements MenuService {
         return listaRetorno;
     }
 
-    @Override
-   
+    @Override   
     public List<Menu> listaPorIdmoduloMenuArchivo(Integer idmodulo) {
         return menudao.listaPorIdmoduloPorNnivel1(idmodulo, BarraMenu.ARCHIVOS.getNnivel());
     }
 
-    @Override
-   
+    @Override   
     public List<Menu> listaPorIdmoduloMenuProceso(Integer idmodulo) {
         return menudao.listaPorIdmoduloPorNnivel1(idmodulo, BarraMenu.PROCESOS.getNnivel());
     }
 
-    @Override
-   
+    @Override   
     public List<Menu> listaPorIdmoduloMenuConsulta(Integer idmodulo) {
         return menudao.listaPorIdmoduloPorNnivel1(idmodulo, BarraMenu.CONSULTAS.getNnivel());
     }
 
-    @Override
-   
+    @Override   
     public List<Menu> listaPorIdmoduloMenuHerramienta(Integer idmodulo) {
         return menudao.listaPorIdmoduloPorNnivel1(idmodulo, BarraMenu.HERRAMIENTAS.getNnivel());
     }

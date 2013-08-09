@@ -86,11 +86,7 @@ public class ProductoServiceImpl implements ProductoService {
         }
     }
 
-    @Override
    
-    public List<Producto> listaGeneral() {
-        return cruddao.listarTodos(Producto.class);
-    }
 
     @Override
     public Producto busquedaPorCcodigobarra(String ccodigobarra) {

@@ -76,7 +76,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     @Override
    
     public List<Empresa> listaGeneral() {
-        return cruddao.listarTodos(Empresa.class);
+        return empresadao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo,Empresa empresa) {

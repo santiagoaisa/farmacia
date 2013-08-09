@@ -77,7 +77,7 @@ public class TipoCuentaBancariaServiceImpl implements TipoCuentaBancariaService 
     @Override
    
     public List<TipoCuentaBancaria> listaGeneral() {
-        return cruddao.listarTodos(TipoCuentaBancaria.class);
+        return tipopagodao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, TipoCuentaBancaria tipo) {

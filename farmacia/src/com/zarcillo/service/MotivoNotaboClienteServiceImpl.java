@@ -77,7 +77,7 @@ public class MotivoNotaboClienteServiceImpl implements MotivoNotaboClienteServic
     @Override
    
     public List<MotivoNotaboCliente> listaGeneral() {
-        return cruddao.listarTodos(MotivoNotaboCliente.class);
+        return motivodao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, MotivoNotaboCliente motivo) {

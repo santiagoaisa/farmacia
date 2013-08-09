@@ -14,4 +14,5 @@ public interface PeriodoDAO {
     Periodo buscarPorNanoPorNmes(Integer nano,Integer nmes);
     Periodo buscarPorFecha(Date dfecha);
     List<Año> listaAños();
+    List<Periodo> listaGeneral();
 }

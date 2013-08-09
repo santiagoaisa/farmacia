@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.TipoPersona;
+import java.util.List;
 
 /**
  *
@@ -8,4 +9,5 @@ import com.zarcillo.domain.TipoPersona;
  */
 public interface TipoPersonaDAO {
     TipoPersona busqueda(Integer idtipo);
+    List<TipoPersona> listaGeneral();
 }

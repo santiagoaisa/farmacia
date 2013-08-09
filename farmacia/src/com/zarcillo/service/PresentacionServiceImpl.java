@@ -77,7 +77,7 @@ public class PresentacionServiceImpl implements PresentacionService {
     @Override
    
     public List<Presentacion> listaGeneral() {
-        return cruddao.listarTodos(Presentacion.class);
+        return presentaciondao.listaGeneral();
     }
 
     private void registrarLog(String cmotivo, Presentacion presentacion) {

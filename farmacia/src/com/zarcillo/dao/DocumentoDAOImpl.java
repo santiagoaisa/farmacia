@@ -43,6 +43,12 @@ public class DocumentoDAOImpl implements DocumentoDAO{
     public List<Documento> listaPorBpago() {
         return em.createNamedQuery("Documento.findByBpago").getResultList();
     }
+
+    @Override
+    public List<Documento> listaGeneral() {
+        return em.createNamedQuery("Documento.findAll").getResultList();
+    }
+    
     
     
     

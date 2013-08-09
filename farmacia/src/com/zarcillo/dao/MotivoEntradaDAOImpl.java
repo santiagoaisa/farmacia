@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.MotivoEntrada;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -20,5 +21,12 @@ public class MotivoEntradaDAOImpl implements MotivoEntradaDAO{
     public MotivoEntrada busqueda(Integer idmotivo) {
         return (MotivoEntrada) em.createNamedQuery("MotivoEntrada.findByIdmotivo").setParameter("idmotivo", idmotivo).getSingleResult();
     }
+
+    @Override
+    public List<MotivoEntrada> listaGeneral() {
+        return em.createNamedQuery("MotivoEntrada.findAll").getResultList();
+    }
+    
+    
     
 }

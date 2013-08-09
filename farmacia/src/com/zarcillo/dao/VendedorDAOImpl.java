@@ -25,6 +25,12 @@ public class VendedorDAOImpl implements VendedorDAO{
     public List<Vendedor> listaPorBactivo() {
         return em.createNamedQuery("Vendedor.findByBactivo").getResultList();
     }
+
+    @Override
+    public List<Vendedor> listaGeneral() {
+        return em.createNamedQuery("Vendedor.findAll").getResultList();
+    }
+    
     
     
     
