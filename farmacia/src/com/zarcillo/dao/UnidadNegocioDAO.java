@@ -10,4 +10,5 @@ import java.util.List;
 public interface UnidadNegocioDAO {
      UnidadNegocio busqueda(Integer idunidad);
      List<UnidadNegocio> listaPorClogin(String clogin);
+     List<UnidadNegocio> listaGeneral();
 }

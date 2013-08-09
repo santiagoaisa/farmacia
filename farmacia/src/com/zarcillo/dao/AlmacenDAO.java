@@ -10,4 +10,5 @@ import java.util.List;
 public interface AlmacenDAO {
     Almacen busqueda(Integer idalmacen);
      List<Almacen> listaPorClogin(String clogin);
+     List<Almacen> listaGeneral();
 }

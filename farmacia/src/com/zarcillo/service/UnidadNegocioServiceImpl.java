@@ -77,7 +77,7 @@ public class UnidadNegocioServiceImpl implements UnidadNegocioService {
     @Override
    
     public List<UnidadNegocio> listaGeneral() {
-        return cruddao.listarTodos(UnidadNegocio.class);
+        return unidaddao.listaGeneral();
     }
 
     @Override

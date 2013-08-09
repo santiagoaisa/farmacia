@@ -27,6 +27,13 @@ public class UnidadNegocioDAOImpl implements UnidadNegocioDAO{
         String sql="select distinct n.* from  unidad_negocio n,usuario u,acceso a,almacen al where a.idusuario=u.idusuario and al.idalmacen=a.idalmacen and n.idunidad=al.idunidad  and u.clogin=:clogin order by n.cnomunidad";
         return em.createNativeQuery( sql,UnidadNegocio.class).setParameter("clogin",clogin).getResultList() ;
     }
+
+    @Override
+    public List<UnidadNegocio> listaGeneral() {
+        return em.createNamedQuery("UnidadNegocio.findAll").getResultList();
+    }
+    
+   
     
     
     

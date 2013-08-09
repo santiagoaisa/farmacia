@@ -28,4 +28,13 @@ public class AlmacenDAOImpl implements AlmacenDAO {
         return em.createNativeQuery(sql, Almacen.class).setParameter("clogin", clogin).getResultList();
 
     }
+
+    @Override
+    public List<Almacen> listaGeneral() {
+        return em.createNamedQuery("Almacen.findAll").getResultList();
+    }
+    
+    
+    
+    
 }

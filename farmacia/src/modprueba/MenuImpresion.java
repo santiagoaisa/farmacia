@@ -21,15 +21,15 @@ public class MenuImpresion extends Window {
 
     private void initcomponentes() {
         applet = (Applet) getFellow("applet");
-        applet.setCode("AppletImpresion.class");
+        applet.setCode("impresion");
         applet.setCodebase("http://localhost:8084/farmacia/modulos/");
-        applet.setArchive("AppletImpresion.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
+        applet.setArchive("impresion.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
 
-        applet.setParam("code", "AppletImpresion.class");
+        applet.setParam("code", "impresion");
         applet.setParam("codebase", "http://localhost:8084/farmacia/modulos/");
-        applet.setParam("archive", "AppletImpresion.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
+        applet.setParam("archive", "impresion.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
 
-        applet.setParam("type", "application/x-java-applet;version=1.2.3");
+        applet.setParam("type", "application/x-java-applet;version=1.7");
         applet.setParam("scriptable", "false");
         
         

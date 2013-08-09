@@ -78,7 +78,7 @@ public class AlmacenServiceImpl implements AlmacenService {
     @Override
    
     public List<Almacen> listaGeneral() {
-        return cruddao.listarTodos(Almacen.class);
+        return almacendao.listaGeneral();
     }
 
     @Override
