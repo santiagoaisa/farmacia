@@ -1,3 +1,5 @@
+
+
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winKardex"?>
 <?component name="menu" macro-uri="/modulos/modmantenimiento/util/menuperiodo.zul"?>
 <window id="winKardex" title="Consulta Kardex" border="0" width="800px"

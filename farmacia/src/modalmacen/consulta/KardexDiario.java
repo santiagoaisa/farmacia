@@ -79,6 +79,8 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
     private String user_login;
     final Execution exec = Executions.getCurrent();
 
+    
+    
     private void conectar() {
         Context ocontexto = Sesion.conectar();
         try {
