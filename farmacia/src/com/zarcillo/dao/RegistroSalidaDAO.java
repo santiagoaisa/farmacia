@@ -8,4 +8,5 @@ import com.zarcillo.domain.RegistroSalida;
  */
 public interface RegistroSalidaDAO {
     RegistroSalida  buscarPorIdregsalida(Integer idregsalida);
+    RegistroSalida  buscarPorIdunidadIdregsalida(Integer idunidad,Integer idregsalida);
 }
