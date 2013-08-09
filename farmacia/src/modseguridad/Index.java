@@ -98,14 +98,8 @@ public class Index extends SelectorComposer {
             Menupopup contenedormenu = new Menupopup();
 
             List<Mapa> listamenus = mapaService.listaMenu(usuario.getIdrol().getIdrol(), m);
-            for (Mapa mm : listamenus) {
-                 Messagebox.show(mm.getIdmenu() + "");
-                final Mapa mapaeventomenu = new Mapa();
-                mapaeventomenu.setIdmapa(mm.getIdmapa());
-                mapaeventomenu.setIdmenu(mm.getIdmenu());
-                mapaeventomenu.setIdrol(mm.getIdrol());
-                mapaeventomenu.setIdusuario(mm.getIdusuario());
-
+            for (final Mapa mm : listamenus) {
+                
 
                 Menu menuopciones = new Menu(mm.getIdmenu() + "");
                 Menuitem menuopciones1 = new Menuitem(mm.getIdmenu() + "", mm.getIdmenu().getCruta());
@@ -113,16 +107,12 @@ public class Index extends SelectorComposer {
                 boolean estado = false;
                 Menupopup contenedorsubmenu = new Menupopup();
                 // MENU NIVEL 3
-                for (Mapa mmm : listasubmenus) {
+                for (final Mapa mmm : listasubmenus) {
                    
                     contenedorsubmenu.setParent(menuopciones);
                     Menuitem submenu = new Menuitem(mmm.getIdmenu() + "", mmm.getIdmenu().getCruta());
 
-                    final Mapa mapaeventosubmenu = new Mapa();
-                    mapaeventosubmenu.setIdmapa(mm.getIdmapa());
-                    mapaeventosubmenu.setIdmenu(mm.getIdmenu());
-                    mapaeventosubmenu.setIdrol(mm.getIdrol());
-                    mapaeventosubmenu.setIdusuario(mm.getIdusuario());
+                    
 
                     submenu.addEventListener(Events.ON_CLICK, new EventListener() {
                         public void onEvent(Event event) throws Exception {
@@ -131,11 +121,11 @@ public class Index extends SelectorComposer {
                                 divContenido.getFirstChild().detach();
                             }
 
-                            if (mapaeventosubmenu.getIdmenu().getBmodal()) {
-                                Window contactWnd = (Window) Executions.createComponents(mapaeventosubmenu.getIdmenu().getCruta(), null, null);
+                            if (mmm.getIdmenu().getBmodal()) {
+                                Window contactWnd = (Window) Executions.createComponents(mmm.getIdmenu().getCruta(), null, null);
                                 contactWnd.doModal();
                             } else {
-                                Window contactWnd = (Window) Executions.createComponents(mapaeventosubmenu.getIdmenu().getCruta(), divContenido, null);
+                                Window contactWnd = (Window) Executions.createComponents(mmm.getIdmenu().getCruta(), divContenido, null);
                                 contactWnd.doEmbedded();
                             }
 
@@ -182,11 +172,11 @@ public class Index extends SelectorComposer {
                             }
 
 
-                            if (mapaeventomenu.getIdmenu().getBmodal()) {
-                                Window contactWnd = (Window) Executions.createComponents(mapaeventomenu.getIdmenu().getCruta(), null, null);
+                            if (mm.getIdmenu().getBmodal()) {
+                                Window contactWnd = (Window) Executions.createComponents(mm.getIdmenu().getCruta(), null, null);
                                 contactWnd.doModal();
                             } else {
-                                Window contactWnd = (Window) Executions.createComponents(mapaeventomenu.getIdmenu().getCruta(), divContenido, null);
+                                Window contactWnd = (Window) Executions.createComponents(mm.getIdmenu().getCruta(), divContenido, null);
                                 contactWnd.doEmbedded();
                             }
 
