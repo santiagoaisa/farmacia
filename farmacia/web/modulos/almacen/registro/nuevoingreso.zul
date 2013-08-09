@@ -1,7 +1,7 @@
 
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winIngreso"?>
 <window id="winIngreso" title="Registro de Ingresos..." border="0" apply="modalmacen.registro.NuevoIngreso"
-        width="950px" onCancel="doCancel()" mode="overlapped" closable="false">
+        width="940px" onCancel="doCancel()" mode="overlapped" closable="false">
     <zscript>{
         void doCancel() {
         winIngreso.setAttribute("REST",false);
@@ -13,10 +13,10 @@
     <grid fixedLayout="true" >
         <columns>
             <column label="" width="15%"/>
+            <column label="" width="17%"/>
             <column label="" width="15%"/>
             <column label="" width="15%"/>
-            <column label="" width="15%"/>
-            <column label="" width="10%"/>
+            <column label="" width="8%"/>
             <column label="" width="10"/>
             <column label="" width="10%"/>
             <column label="" width="10%"/>
@@ -28,9 +28,9 @@
                 <label value = "Tipo Documento:" />
                 <combobox id = "cboDocumento" width="98%" readonly="true" constraint="no empty:Debe Seleccionar un tipo de Documento" />
                 <label value = "Serie:" />
-                <textbox id="txtSerie" width="75%" maxlength="3" constraint="no empty:Debe Ingresar una Serie" />
+                <textbox id="txtSerie" width="95%" maxlength="3" constraint="no empty:Debe Ingresar una Serie" />
                 <label value = "Número:" />
-                <textbox id="txtNumero" width="85%" maxlength="10" constraint="no empty:Debe Ingresar un Numero de Documento" />
+                <textbox id="txtNumero" width="95%" maxlength="10" constraint="no empty:Debe Ingresar un Numero de Documento" />
             </row>
 
             <row spans="1,1,3,1,2">
@@ -45,24 +45,24 @@
     </grid>
 
 
-    <listbox id="lstIngreso" mold="paging" pageSize="500"  checkmark="true"  height="280px" >
+    <listbox id="lstIngreso" mold="paging"  checkmark="true"  pageSize="500" height="300px" >
         <auxhead>
-            <auxheader label="Detalle de Ingreso" colspan="13"/>
+            <auxheader label="Detalle de Ingreso" colspan="12"/>
         </auxhead>
         <listhead sizable="true" >
-            <listheader  width="3%" />
+            <listheader width="3%" />
             <listheader label="No" width="3%" align="right"/>
             <listheader label="Codigo" width="6%" sort="auto(idproducto.idproducto)" />
             <listheader label="Und" width="4%" />
-            <listheader label="Descripcion" width="27%" sort="auto(idproducto.cnomart)" />
-            <listheader label="Cant." width="5%" />
+            <listheader label="Descripcion" width="28%" sort="auto(idproducto.cnomart)" />
+            <listheader label="Cantidad" width="5%" />
             <listheader label="Costo Uni." width="6%" />
             <listheader label="Dcto.1" width="5%" />
             <listheader label="Dcto.2" width="5%" />
-            <listheader label="C.Total" width="8%" />
+            <listheader label="C.Total" width="7%" />
             <listheader label="(aaaa-mm)" width="12%" />
-            <listheader label="Lote" width="11%" />
-            <listheader  width="5%" />
+            <listheader label="Lote" width="12%" />
+            <listheader width="4%" />
         </listhead>
         <listitem self="@{each=detalleIngreso}" >
             <listcell />
@@ -78,10 +78,10 @@
                 <decimalbox id="d1" value="@{detalleIngreso.ncosuni}" format="0.0000"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox id="d2" value="@{detalleIngreso.ndesc1}" format="0.00"  width="70%" />
+                <decimalbox id="d2" value="@{detalleIngreso.ndesc1}" format="0.00"  width="80%" />
             </listcell>
             <listcell>
-                <decimalbox id="d3" value="@{detalleIngreso.ndesc2}" format="0.00" width="70%" />
+                <decimalbox id="d3" value="@{detalleIngreso.ndesc2}" format="0.00" width="80%" />
             </listcell>
             <listcell>
                 <decimalbox id="d4" value="@{detalleIngreso.nsubtot}" format="0.0000"  width="80%" />
@@ -95,11 +95,8 @@
                 <textbox value="@{detalleIngreso.clote}" maxlength="15" width="90%" />
             </listcell>
             <listcell>
-                 <button id="btnQuitar"  image="/img/eliminadetalleingreso.jpg"
-                    hoverImage="/img/eliminadetalleingreso.jpg" width="80%" />
+                <button id="btnQuitar" image="/img/eliminadetalleingreso.jpg"   />
             </listcell>
-            
-           
         </listitem>
     </listbox>
     <grid fixedLayout="true" >

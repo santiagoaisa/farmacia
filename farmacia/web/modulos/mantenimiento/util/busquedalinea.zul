@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBlinea"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="WinBlinea" title="Buscando Linea..." border="2" width="400px" position="center"
+<window id="WinBlinea" title="Buscando Linea..." border="2" width="300px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaLinea" >
     <zscript>{
         void doCancel()
@@ -16,7 +16,7 @@
         }
     </zscript>
     
-    <listbox id="lstLinea" mold="paging"   pageSize="300" width="99%" height="150px"  >
+    <listbox id="lstLinea" mold="paging"   pageSize="50" width="99%" height="150px"  >
                     <listhead>
                         <listheader label="Id" width="20%" sort="auto(idlinea)"/>
                         <listheader label="Nombre" width="80%" sort="auto(cnomlinea)"/>

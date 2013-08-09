@@ -27,8 +27,6 @@ import modmantenimiento.util.ConstraintAñoLote;
 import modmantenimiento.util.ConstraintCamposObligatorios;
 import modmantenimiento.util.ConstraintCantidadValida;
 import modmantenimiento.util.ConstraintMesLote;
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -124,20 +122,26 @@ public class NuevoIngreso extends SelectorComposer {
         grabar();
     }
 
+    @Listen("onClick = #btnQuitar")
+    public void onQuitarDetalle(Event event) {
+        borrarProducto();
+    }
+
     @Listen("onSelect = #lstIngreso")
     public void onSeleccionarLista(Event event) {
         llenarpie(lstIngreso.getSelectedIndex());
     }
-    @Listen("onClick = #btnQuitar")
-    public void onBorrarLista(Event event) {
-        borrarProducto();
+
+    @Listen("onOK = #d4")
+    public void onCalcularNeto(Event event) {
+        actualizarNeto();
     }
-    
+
     @Listen("onOK = #txtSerie")
     public void onFocoNumero(Event event) {
         txtNumero.focus();
     }
-    
+
     @Listen("onOK = #txtNumero")
     public void onFocoCodigo(Event event) {
         txtCodigo.focus();
@@ -184,20 +188,26 @@ public class NuevoIngreso extends SelectorComposer {
                     Listbox lstproducto1 = (Listbox) winbuscaprod.getFellow("lstProducto");
                     ListModel modelobuscado = lstproducto1.getModel();
                     producto = (Producto) modelobuscado.getElementAt(lstproducto1.getSelectedIndex());
-
+                    DetalleIngreso dingreso = new DetalleIngreso();
+                    dingreso.setIdproducto(producto);
+                    modeloIngreso.add(dingreso);
+                    txtCodigo.setValue("");
+                    txtCodigo.focus();
+                    btnGrabar.setVisible(true);
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         } else {
             producto = productoService.buscar(txtCodigo.getValue());
+            DetalleIngreso dingreso = new DetalleIngreso();
+            dingreso.setIdproducto(producto);
+            modeloIngreso.add(dingreso);
+            txtCodigo.setValue("");
+            txtCodigo.focus();
+            btnGrabar.setVisible(true);
         }
-        DetalleIngreso dingreso = new DetalleIngreso();
-        dingreso.setIdproducto(producto);
-        modeloIngreso.add(dingreso);
-        txtCodigo.setValue("");
-        txtCodigo.focus();
-        btnGrabar.setVisible(true);
+
     }
 
     private void validar() {
@@ -238,13 +248,13 @@ public class NuevoIngreso extends SelectorComposer {
             winIngreso.onClose();
         }
     }
-    private void borrarProducto(){
-        int resp2=0;
-        resp2 = Messagebox.show("¿Desea eliminar registro?", "Ingreso", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);       
-        if (resp2 == Messagebox.YES)
-        {
-            DetalleIngreso detalle=(DetalleIngreso) modeloIngreso.getElementAt(lstIngreso.getSelectedIndex());
-            modeloIngreso.remove(detalle);            
+
+    private void borrarProducto() {
+        int resp2 = 0;
+        resp2 = Messagebox.show("¿Desea eliminar registro?", "Ingreso", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
+        if (resp2 == Messagebox.YES) {
+            DetalleIngreso detalle = (DetalleIngreso) modeloIngreso.getElementAt(lstIngreso.getSelectedIndex());
+            modeloIngreso.remove(detalle);
         }
     }
 
@@ -332,27 +342,17 @@ public class NuevoIngreso extends SelectorComposer {
             }
         }
     }
-    private void validarCostoNeto() {
-        if (lstIngreso.getSelectedCount() < 1) {
-            throw new ExceptionZarcillo("La Lista no tiene elementos Seleccionados");
-        } else {
-            Listitem item= lstIngreso.getSelectedItem();
-                Listcell celda9 = (Listcell) item.getChildren().get(9);
-                Decimalbox nCosto=(Decimalbox) celda9.getFirstChild();
-                
-                Listcell celda11 = (Listcell) item.getChildren().get(11);
-                Textbox lote = (Textbox) celda11.getFirstChild();
-                lote.setConstraint("");
-                lote.getValue();
-                Listcell celda10 = (Listcell) item.getChildren().get(10);
-                Intbox año = (Intbox) celda10.getFirstChild();
-                año.setConstraint(new ConstraintAñoLote(4));
-                año.getValue();
-                Intbox mes = (Intbox) celda10.getLastChild();
-                mes.setConstraint(new ConstraintMesLote());
-                mes.getValue();
-                lote.setConstraint(new ConstraintCamposObligatorios());
-                lote.getValue();
+
+    private void actualizarNeto() {
+        int resp2 = 0;
+        resp2 = Messagebox.show("¿Valor Inc. IGV?", "Ingreso", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
+        if (resp2 == Messagebox.YES) {
+            if (lstIngreso.getItemCount() < 1) {
+                throw new ExceptionZarcillo("La Lista no tiene elementos Seleccionados");
+            } else {
+                DetalleIngreso deting = (DetalleIngreso) modeloIngreso.getElementAt(lstIngreso.getSelectedIndex());
+                deting.setBneto(true);
+            }
         }
     }
 }

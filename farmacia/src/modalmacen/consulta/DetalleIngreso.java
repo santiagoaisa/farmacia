@@ -4,7 +4,6 @@ import com.zarcillo.domain.RegistroEntrada;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.RegistroEntradaService;
 import com.zarcillo.service.UsuarioService;
-import net.sf.jasperreports.engine.JRException;
 import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;

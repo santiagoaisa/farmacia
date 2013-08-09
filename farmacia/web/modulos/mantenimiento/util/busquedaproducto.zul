@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBproducto"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="WinBproducto" title="Buscando Producto..." border="2" width="550px" position="center"
+<window id="WinBproducto" title="Buscando Producto..." border="2" width="500px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaProducto" >
     <zscript>{
         void doCancel()
@@ -32,16 +32,14 @@
     
     <listbox id="lstProducto" mold="paging"   pageSize="50" width="99%" height="350px"  >
         <listhead>
-            <listheader label="Cod" width="11%" sort="auto(idproducto)"/>
-            <listheader label="Nombre" width="45%" sort="auto(cnomproducto)"/>
-            <listheader label="Presentacion" width="20%" sort="auto(idpresentacion.cnompresentacion)"/>
-            <listheader label="Linea" width="24%" sort="auto(idsublinea.idlinea.cnomlinea)"/>
+            <listheader label="Cod" width="20%" sort="auto(idproducto)"/>
+            <listheader label="Nombre" width="50%" sort="auto(cnomproducto)"/>
+            <listheader label="Linea" width="30%" sort="auto(idsublinea.idlinea.cnomlinea)"/>
             
         </listhead>
         <listitem self="@{each=producto}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
             <listcell label="@{producto.idproducto}"/>
             <listcell label="@{producto.cnomproducto}"/>
-            <listcell label="@{producto.idpresentacion.cnompresentacion}"/>
             <listcell label="@{producto.idsublinea.idlinea.cnomlinea}"/>
          </listitem>
     </listbox>

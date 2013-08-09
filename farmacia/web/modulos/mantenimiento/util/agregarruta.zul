@@ -37,7 +37,8 @@ apply="modmantenimiento.util.AgregarRuta"  onCancel="doCancel()">
             </row>
         </rows>
     </grid>
-    <toolbar id="tb"  height="25px" align="end">
+    <toolbar id="tb"  height="25px"
+                    style="background:#defeff repeat-x 0 0;padding-top:7px" align="end">
         <toolbarbutton id="btnAgregar" image="/img/Save.png" label="Aceptar"
                     onClick="winRuta.onClose()" />
         <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
