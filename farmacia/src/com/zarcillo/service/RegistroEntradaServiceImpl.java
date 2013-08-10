@@ -57,7 +57,8 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
             cruddao.registrar(cuentapagar);
 
         } catch (Exception e) {
-            if (e.getCause().getMessage().contains("ConstraintViolationException")) {
+            e.printStackTrace();
+            if (e.getMessage().contains("ConstraintViolationException")) {
                 throw new ExceptionZarcillo("El documento ya esta registrado:" + cuentapagar.getCserie() +"-"+cuentapagar.getCnumero());
             }
         }

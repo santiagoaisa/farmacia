@@ -26,8 +26,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "sublinea")
 @NamedQueries({
-    @NamedQuery(name = "Sublinea.findAll", query = "SELECT s FROM Sublinea s"),
-    @NamedQuery(name = "Sublinea.findByIdsublinea", query = "SELECT s FROM Sublinea s WHERE s.idsublinea=:idsublinea")
+    @NamedQuery(name = "Sublinea.findAll", query = "SELECT s FROM Sublinea s ORDER BY s.cnomsublinea"),
+    @NamedQuery(name = "Sublinea.findByIdsublinea", query = "SELECT s FROM Sublinea s WHERE s.idsublinea=:idsublinea ORDER BY s.cnomsublinea")
 })
 public class Sublinea implements Serializable {
 
