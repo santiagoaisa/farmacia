@@ -13,6 +13,7 @@ public class DetalleIngreso implements Serializable {
     private String corden;
     private Producto idproducto;
     private Integer ncantidad;
+    private Integer ncantidadm;
     private BigDecimal nvalven;
     private BigDecimal ncosuni;
     private BigDecimal ndesc1;
@@ -33,6 +34,7 @@ public class DetalleIngreso implements Serializable {
 
     public DetalleIngreso() {
         ncantidad = 0;
+        ncantidadm = 0;
         nvalven = new BigDecimal("0");
         ncosuni = new BigDecimal("0");
         ndesc1 = new BigDecimal("0");
@@ -46,6 +48,14 @@ public class DetalleIngreso implements Serializable {
         cfecven = "";
         nmes = 0;
         bneto = false;
+    }
+
+    public Integer getNcantidadm() {
+        return ncantidadm;
+    }
+
+    public void setNcantidadm(Integer ncantidadm) {
+        this.ncantidadm = ncantidadm;
     }
 
     public Boolean getBneto() {
@@ -164,22 +174,36 @@ public class DetalleIngreso implements Serializable {
     }
 
     public BigDecimal getNsubtot() {
+        Integer cantidadentrada = ncantidad;
+        if (ncantidad == 0) {
+            if (ncantidadm != 0) {
+                cantidadentrada = ncantidadm;
+            }
+        }
 
-        nsubtot = ncosuni.multiply(BigDecimal.valueOf(ncantidad));
+        nsubtot = ncosuni.multiply(BigDecimal.valueOf(cantidadentrada));
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc1.divide(new BigDecimal("100"))));
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc2.divide(new BigDecimal("100"))));
-
-
 
         return nsubtot.setScale(4, BigDecimal.ROUND_HALF_UP);
     }
 
     public void calculaNeto() {
         if (this.bneto) {
+
+
             BigDecimal valorventa = Igv.valorVentaDetalleVenta(nsubtot, this.getIdproducto().getBinafecto());
 
             if (!Numero.isCero(nsubtot)) {
-                setNcosuni(valorventa.divide(new BigDecimal(ncantidad), 4, BigDecimal.ROUND_HALF_EVEN));
+
+                Integer cantidadentrada = ncantidad;
+                if (ncantidad == 0) {
+                    if (ncantidadm != 0) {
+                        cantidadentrada = ncantidadm;
+                    }
+                }
+
+                setNcosuni(valorventa.divide(new BigDecimal(cantidadentrada), 4, BigDecimal.ROUND_HALF_EVEN));
                 setNdesc1(new BigDecimal("0"));
                 setNdesc2(new BigDecimal("0"));
                 setNsubtot(ncosuni.multiply(new BigDecimal(this.ncantidad)));

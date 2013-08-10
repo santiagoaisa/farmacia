@@ -48,6 +48,9 @@ public class Movimiento implements Serializable {
     
     @Column(name = "ncantidad")
     private Integer ncantidad;
+    
+    @Column(name = "ncantidadm")
+    private Integer ncantidadm;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     
     @Column(name = "ncosuni")
@@ -84,6 +87,7 @@ public class Movimiento implements Serializable {
 
     public Movimiento() {
         ncantidad = 0;
+        ncantidadm = 0;
         ncosuni = new BigDecimal("0");
         ndesbon = new BigDecimal("0");
         ndesfin = new BigDecimal("0");
@@ -106,6 +110,17 @@ public class Movimiento implements Serializable {
     public void setIdmovimiento(Integer idmovimiento) {
         this.idmovimiento = idmovimiento;
     }
+
+    public Integer getNcantidadm() {
+        return ncantidadm;
+    }
+
+    public void setNcantidadm(Integer ncantidadm) {
+        this.ncantidadm = ncantidadm;
+    }
+    
+    
+    
 
     public Integer getNcantidad() {
         return ncantidad;

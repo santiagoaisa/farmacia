@@ -46,6 +46,10 @@ public class Lote implements Serializable {
     private String clote;
     @Column(name = "nstock")
     private Integer nstock;
+    
+    @Column(name = "nstockm")
+    private Integer nstockm;
+    
     @Column(name = "cfecven")
     private String cfecven;
     @Column(name = "dfecreg")
@@ -78,6 +82,7 @@ public class Lote implements Serializable {
     public Lote() {
         nstock = 0;
         bbloqueado = false;
+        nstockm=0;
     }
 
     public Lote(Integer idlote) {
@@ -179,6 +184,14 @@ public class Lote implements Serializable {
 
     public void setIdproducto(Producto idproducto) {
         this.idproducto = idproducto;
+    }
+
+    public Integer getNstockm() {
+        return nstockm;
+    }
+
+    public void setNstockm(Integer nstockm) {
+        this.nstockm = nstockm;
     }
 
     

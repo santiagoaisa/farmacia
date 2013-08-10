@@ -1,5 +1,6 @@
 package modprueba;
 
+import com.zarcillo.domain.Familia;
 import com.zarcillo.domain.Linea;
 import com.zarcillo.domain.Presentacion;
 import com.zarcillo.domain.Producto;
@@ -98,13 +99,27 @@ public class Prueba extends SelectorComposer {
                 producto.setBinafecto(true);
             }
             
+            celda = sheet.getCell(5, i);
+            if(celda.getContents().trim().contains("true")){
+                producto.setBinafecto(true);
+            }
+            
+            
              //id
              
-            celda = sheet.getCell(5, i);
+            celda = sheet.getCell(6, i);
             Integer id=new Integer(celda.getContents().trim());
             String cid =formato.format(linea.getIdlinea())+formato.format(id);
            producto.setIdproducto(cid);
             productoService.registrar(producto);
+            
+            celda = sheet.getCell(7, i);
+            if(celda.getContents()!=null){
+                producto.setCreseta(celda.getContents().trim().toUpperCase());
+            }
+            
+            celda = sheet.getCell(8, i);
+            producto.setIdfamilia(new Familia(new Integer(celda.getContents().trim())));
 
 
         }

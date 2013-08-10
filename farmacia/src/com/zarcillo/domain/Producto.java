@@ -62,10 +62,14 @@ public class Producto implements Serializable {
      
     @Column(name = "bpsicotropico")
     private Boolean bpsicotropico;
+    
+    @Column(name = "nmenudeo")
+    private Integer nmenudeo;
 
     public Producto() {
         binafecto=false;
         bpsicotropico=false;
+        nmenudeo=1;
     }
     
     public Producto(String idproducto) {
@@ -158,6 +162,14 @@ public class Producto implements Serializable {
 
     public void setBpsicotropico(Boolean bpsicotropico) {
         this.bpsicotropico = bpsicotropico;
+    }
+
+    public Integer getNmenudeo() {
+        return nmenudeo;
+    }
+
+    public void setNmenudeo(Integer nmenudeo) {
+        this.nmenudeo = nmenudeo;
     }
 
     
