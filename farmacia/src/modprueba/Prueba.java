@@ -72,7 +72,7 @@ public class Prueba extends SelectorComposer {
         Linea linea;
         Sublinea sublinea;
         DecimalFormat formato = new DecimalFormat("000");
-        for (int i = 1; i < sheet.getRows(); i++) {
+        for (int i = 1; i < sheet.getRows(); i++) {            
             Cell celda = sheet.getCell(0, i);
             if (celda.getContents().trim().isEmpty()) {
                 continue;
@@ -111,7 +111,7 @@ public class Prueba extends SelectorComposer {
             Integer id=new Integer(celda.getContents().trim());
             String cid =formato.format(linea.getIdlinea())+formato.format(id);
            producto.setIdproducto(cid);
-            productoService.registrar(producto);
+            
             
             celda = sheet.getCell(7, i);
             if(celda.getContents()!=null){
@@ -120,7 +120,8 @@ public class Prueba extends SelectorComposer {
             
             celda = sheet.getCell(8, i);
             producto.setIdfamilia(new Familia(new Integer(celda.getContents().trim())));
-
+            
+            productoService.registrar(producto);
 
         }
 

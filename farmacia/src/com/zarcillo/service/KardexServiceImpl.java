@@ -38,8 +38,11 @@ public class KardexServiceImpl implements KardexService {
     public List<Kardex> listaKardex(Integer idalmacen, String idproducto, Integer idperiodo) {
         Integer nro = 0;
         Integer nsaldo = 0;
+        Integer nsaldom = 0;
         Integer nentrada = 0;
         Integer nsalida = 0;
+        Integer nentradam = 0;
+        Integer nsalidam = 0;
 
         List<Kardex> lista = new ArrayList<>();
 
@@ -64,6 +67,7 @@ public class KardexServiceImpl implements KardexService {
         }
 
         Kardex k;
+        BigDecimal ncostototal;
         for (Kardex m : lista) {
             nro = nro + 1;
             k = new Kardex();
@@ -85,6 +89,10 @@ public class KardexServiceImpl implements KardexService {
             k.setNcompra(m.getNcompra());
             k.setNventa(m.getNventa());
             k.setNsaldo(m.getNsaldo());
+            k.setNcompram(m.getNcompram());
+            k.setNventam(m.getNventam());
+            k.setNsaldom(m.getNsaldom());
+
             k.setNregentrada(m.getNregentrada());
             k.setNregsalida(m.getNregsalida());
             k.setNimporteentrada(m.getNimporteentrada());
@@ -101,11 +109,15 @@ public class KardexServiceImpl implements KardexService {
                 nsaldo = nsaldo + k.getNcompra();
                 k.setNsaldo(nsaldo);
 
+                nsaldom = nsaldom + k.getNcompram();
+                k.setNsaldom(nsaldom);
+
 //                if (m.getIdcodigo().contains(Proveedor.DEVOLUCION.getIdproveedor())) {
 //                    k.setBdevuelto(true);
 //                }
 
                 nentrada = nentrada + k.getNcompra();
+                nentradam = nentradam + k.getNcompram();
 
             } else if (k.getCtipmov().contains("S")) {
                 if (k.getCfactura() == null) {
@@ -124,12 +136,21 @@ public class KardexServiceImpl implements KardexService {
                 nsaldo = nsaldo - k.getNventa();
                 k.setNsaldo(nsaldo);
                 nsalida = nsalida + k.getNventa();
+
+                nsaldom = nsaldom - k.getNventam();
+                k.setNsaldom(nsaldom);
+                nsalidam = nsalidam + k.getNventam();
             } else {
                 k.setCfactura("NC/" + k.getCfactura().trim());
                 k.setNsaldo(nsaldo);
             }
 
-            k.setNimportesaldo(k.getNcosuni().multiply(new BigDecimal(k.getNsaldo())));
+
+//            BigDecimal nstockentero = new BigDecimal(k.getNsaldo());
+//            BigDecimal nstocfraccion = new BigDecimal(k.getNsaldom()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+//            BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
+//
+//            k.setNimportesaldo(k.getNcosuni().multiply(new BigDecimal(k.getNsaldo())));
             listaKardex.add(k);
         }//fin for
 
@@ -143,6 +164,7 @@ public class KardexServiceImpl implements KardexService {
         TotalKardex tk = new TotalKardex();
         Existencia e = existenciadao.buscarPorIdalmacenPorIdproducto(idalmacen, idproducto);
         tk.setNstock(e.getNstock());
+        tk.setNstockm(e.getNstockm());
         return tk;
     }
 }

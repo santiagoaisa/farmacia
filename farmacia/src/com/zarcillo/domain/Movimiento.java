@@ -59,6 +59,8 @@ public class Movimiento implements Serializable {
     private String ctipmov;
     @Column(name = "nstock")
     private Integer nstock;
+        @Column(name = "nstockm")
+    private Integer nstockm;
     @Column(name = "nvaluni")
     private BigDecimal nvaluni;
     @Column(name = "ndesfin")
@@ -93,6 +95,7 @@ public class Movimiento implements Serializable {
         ndesfin = new BigDecimal("0");
         ndeslab = new BigDecimal("0");
         nstock = 0;
+        nstockm = 0;
         nsubtot = new BigDecimal("0");
         nvaluni = new BigDecimal("0");
         binafecto = false;
@@ -270,6 +273,14 @@ public class Movimiento implements Serializable {
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndeslab.divide(new BigDecimal("100"))));        
         nsubtot = nsubtot.setScale(2, BigDecimal.ROUND_HALF_UP);
         return nsubtot;
+    }
+
+    public Integer getNstockm() {
+        return nstockm;
+    }
+
+    public void setNstockm(Integer nstockm) {
+        this.nstockm = nstockm;
     }
     
     
