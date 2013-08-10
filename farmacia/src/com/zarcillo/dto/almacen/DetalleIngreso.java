@@ -199,7 +199,7 @@ public class DetalleIngreso implements Serializable {
                 Integer cantidadentrada = ncantidad;
                 if (ncantidad == 0) {
                     if (getIdproducto().getNmenudeo()>0) {
-                        cantidadentrada = ncantidadm;
+                        cantidadentrada = getIdproducto().getNmenudeo();
                     }
                 }
 
