@@ -8,11 +8,19 @@ public class TotalKardex implements Serializable {
     private Integer ntcompra;
     private Integer ntventa;
     private Integer nstock;
+    
+    private Integer ntcompram;
+    private Integer ntventam;
+    private Integer nstockm;
 
     public TotalKardex() {
         ntcompra=0;
         ntventa=0;
         nstock=0;
+        
+        ntcompram=0;
+        ntventam=0;
+        nstockm=0;
     }
 
     public Integer getNstock() {
@@ -39,4 +47,30 @@ public class TotalKardex implements Serializable {
         this.ntventa = ntventa;
     }
 
+    public Integer getNtcompram() {
+        return ntcompram;
+    }
+
+    public void setNtcompram(Integer ntcompram) {
+        this.ntcompram = ntcompram;
+    }
+
+    public Integer getNtventam() {
+        return ntventam;
+    }
+
+    public void setNtventam(Integer ntventam) {
+        this.ntventam = ntventam;
+    }
+
+    public Integer getNstockm() {
+        return nstockm;
+    }
+
+    public void setNstockm(Integer nstockm) {
+        this.nstockm = nstockm;
+    }
+
+    
+    
 }

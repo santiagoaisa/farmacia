@@ -54,7 +54,6 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
             cuentapagar.setIdperiodo(periododao.buscarPorFecha(cuentapagar.getDfecemi()));
             cuentapagar.setDfecreg(new Date());
             cuentapagar.setIdregentrada(regentrada);
-
             cruddao.registrar(cuentapagar);
 
         } catch (Exception e) {

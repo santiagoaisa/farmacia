@@ -28,10 +28,14 @@ public class Kardex implements Serializable {
     private String ctipmov;
     private String idcodigo;
     private String cnombre;
+    
     private Integer ncompra;
     private Integer nventa;
     private Integer nsaldo;
-
+    
+    private Integer ncompram;
+    private Integer nventam;
+    private Integer nsaldom;
 
     private String clote;
     private String cfecven;
@@ -64,6 +68,11 @@ public class Kardex implements Serializable {
         ncompra=0;
         nventa=0;
         nsaldo=0;
+        
+        ncompram=0;
+        nventam=0;
+        nsaldom=0;
+        
         ncosuni=new BigDecimal("0");
         nimporteentrada=new BigDecimal("0");
         nimportesalida=new BigDecimal("0");
@@ -368,6 +377,38 @@ public class Kardex implements Serializable {
 
     public void setCnomprovincia(String cnomprovincia) {
         this.cnomprovincia = cnomprovincia;
+    }
+
+    public Integer getNcompram() {
+        return ncompram;
+    }
+
+    public void setNcompram(Integer ncompram) {
+        this.ncompram = ncompram;
+    }
+
+    public Integer getNventam() {
+        return nventam;
+    }
+
+    public void setNventam(Integer nventam) {
+        this.nventam = nventam;
+    }
+
+    public Integer getNsaldom() {
+        return nsaldom;
+    }
+
+    public void setNsaldom(Integer nsaldom) {
+        this.nsaldom = nsaldom;
+    }
+
+    public Boolean getBanulado() {
+        return banulado;
+    }
+
+    public void setBanulado(Boolean banulado) {
+        this.banulado = banulado;
     }
 
 

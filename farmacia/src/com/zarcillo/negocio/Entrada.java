@@ -25,7 +25,6 @@ import org.springframework.context.annotation.ScopedProxyMode;
 
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Entrada extends Salida {
-    
 
     @Autowired
     private CrudDAO cruddao;
@@ -57,14 +56,16 @@ public class Entrada extends Salida {
             existencia.setIdproducto(d.getIdproducto());
             existencia.setIdalmacen(regentrada.getIdalmacen());
             detalle.setIdproducto(d.getIdproducto());
+
             detalle.setIdalmacen(regentrada.getIdalmacen());
             detalle.setIdregentrada(regentrada);
             detalle.setNvaluni(d.getNvaluni());
             detalle.setNdesfin(d.getNdesfin());
             detalle.setNdesbon(d.getNdesbon());
             detalle.setNdeslab(d.getNdeslab());
-            detalle.setNsubtot(d.getNsubtot());            
+            detalle.setNsubtot(d.getNsubtot());
             detalle.setNcantidad(d.getNcantidad());
+            detalle.setNcantidadm(d.getNcantidadm());
             detalle.setNcosuni(d.getNcosuni());
             detalle.setClote(d.getClote());
             detalle.setCfecven(d.getCfecven());
@@ -79,13 +80,37 @@ public class Entrada extends Salida {
                 detalle.setNdesbon(new BigDecimal(0));
                 detalle.setNdeslab(new BigDecimal(0));
 
-                BigDecimal costo = costeo(existencia.getNstock(), existencia.getNcosuni(), detalle.getNcantidad(), neto);
-                existencia.setNcosuni(costo);
-                existencia.setNultcos(detalle.getNcosuni());
+                if (detalle.getNcantidad() != 0) {
+                    BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
+                    BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                    BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
+
+
+                    BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(), new BigDecimal(detalle.getNcantidad()), neto);
+                    existencia.setNcosuni(costo);
+                    existencia.setNultcos(detalle.getNcosuni());
+                } else {
+
+                    BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
+                    BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                    BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
+
+                    BigDecimal ningresofraccioningreso=new BigDecimal(detalle.getNcantidadm()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+
+                    BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(),ningresofraccioningreso , neto);
+                    existencia.setNcosuni(costo);
+                    existencia.setNultcos(detalle.getNcosuni());
+
+                }
+
+
             }
 
             existencia.setNstock(existencia.getNstock() + detalle.getNcantidad());
+            existencia.setNstock(existencia.getNstockm() + detalle.getNcantidadm());
+
             detalle.setNstock(existencia.getNstock());
+            detalle.setNstockm(existencia.getNstockm());
             existencia.setBactivo(true);
             //Actualizo la existencia en caso de no existir se crea
             existenciadao.registrar(existencia);
@@ -98,6 +123,7 @@ public class Entrada extends Salida {
                 lote.setIdalmacen(d.getIdalmacen());
                 lote.setIdproducto(d.getIdproducto());
                 lote.setNstock(detalle.getNcantidad());
+                lote.setNstockm(detalle.getNcantidadm());
                 lote.setClote(detalle.getClote().trim());
                 lote.setCfecven(detalle.getCfecven().trim());
                 lote.setIdmotivo(regentrada.getIdmotivo());
@@ -108,6 +134,7 @@ public class Entrada extends Salida {
             } else {
                 lote.setDfecha(regentrada.getDfecha());
                 lote.setNstock(lote.getNstock() + detalle.getNcantidad());
+                lote.setNstockm(lote.getNstockm() + detalle.getNcantidadm());
                 lote.setCfecven(detalle.getCfecven());
                 cruddao.actualizar(lote);
             }
@@ -116,12 +143,12 @@ public class Entrada extends Salida {
 
     }
 
-    public BigDecimal costeo(Integer stockactual, BigDecimal costoactual, Integer stockentrada, BigDecimal costoentrada) {
-        Integer suma = stockactual + stockentrada;
-        BigDecimal sumavalorizado = BigDecimal.valueOf(stockactual).multiply(costoactual).add(BigDecimal.valueOf(stockentrada).multiply(costoentrada));
-        BigDecimal sumastock = BigDecimal.valueOf(stockactual + stockentrada);
+    public BigDecimal costeo(BigDecimal stockactual, BigDecimal costoactual, BigDecimal stockentrada, BigDecimal costoentrada) {
+        BigDecimal suma = stockactual.add(stockentrada);
+        BigDecimal sumavalorizado = stockactual.multiply(costoactual).add(stockentrada.multiply(costoentrada));
+        BigDecimal sumastock = stockactual.add(stockentrada);
 
-        if (suma > 0) {
+        if (!Numero.isCero(sumastock)) {
             BigDecimal costounitario = sumavalorizado.divide(sumastock, 4, BigDecimal.ROUND_HALF_UP);
             return costounitario;
         } else {
