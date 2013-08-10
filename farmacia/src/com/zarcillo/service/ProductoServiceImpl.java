@@ -36,10 +36,10 @@ public class ProductoServiceImpl implements ProductoService {
         DecimalFormat formato = new DecimalFormat("000");
         try {
             /// CODIGO DE PRODUCTO
-//            Linea linea = producto.getIdsublinea().getIdlinea();
-//            String ccodigolinea = formato.format(linea.getIdlinea());
-//            String ccodigoproducto = formato.format(productodao.numeroPorIdlinea(linea.getIdlinea()));
-//            producto.setIdproducto(ccodigolinea.concat(ccodigoproducto));
+            Linea linea = producto.getIdsublinea().getIdlinea();
+            String ccodigolinea = formato.format(linea.getIdlinea());
+            String ccodigoproducto = formato.format(productodao.numeroPorIdlinea(linea.getIdlinea()));
+            producto.setIdproducto(ccodigolinea.concat(ccodigoproducto));
             /// CODIGO DE PRODUCTO
             producto.setDfecreg(new Date());
             cruddao.registrar(producto);

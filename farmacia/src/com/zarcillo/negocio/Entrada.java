@@ -46,15 +46,17 @@ public class Entrada extends Salida {
     public void registrar(RegistroEntrada regentrada) {
         // inicio se establece el periodo
 
-        try {
 
+
+        try {
+            regentrada.setIdregentrada(null);
             regentrada.setIdperiodo(periododao.buscarPorFecha(new Date()));
             // fin se establece el periodo
 
             cruddao.registrar(regentrada);
 
             List<Movimiento> listaMovimientos = regentrada.getMovimientoCollection();
-
+            System.out.println("MOVIMIENTOS:" + listaMovimientos.size());
             Movimiento detalle;
             Existencia existencia;
             Producto producto;
@@ -64,7 +66,9 @@ public class Entrada extends Salida {
                 existencia.setIdproducto(d.getIdproducto());
                 existencia.setIdalmacen(regentrada.getIdalmacen());
                 detalle.setIdproducto(d.getIdproducto());
-                producto = detalle.getIdproducto();
+
+                producto = productodao.busqueda(detalle.getIdproducto().getIdproducto());
+                producto.setNmenudeo(detalle.getIdproducto().getNmenudeo());
                 cruddao.actualizar(producto);
 
                 detalle.setIdalmacen(regentrada.getIdalmacen());
@@ -84,13 +88,14 @@ public class Entrada extends Salida {
                 //SI EL MOTIVO DEL INGRESO SE COSTEA
                 if (regentrada.getIdmotivo().getBcosteo()) {
                     BigDecimal neto = detalle.getNcosuni();
-                    neto = detalle.getNsubtot().divide(new BigDecimal(detalle.getNcantidad()), 4, RoundingMode.HALF_EVEN);
+
                     detalle.setNcosuni(neto);
                     detalle.setNdesfin(new BigDecimal(0));
                     detalle.setNdesbon(new BigDecimal(0));
                     detalle.setNdeslab(new BigDecimal(0));
 
-                    if (detalle.getNcantidad() != 0) {
+                    if (detalle.getNcantidad() > 0) {
+                        neto = detalle.getNsubtot().divide(new BigDecimal(detalle.getNcantidad()), 4, RoundingMode.HALF_EVEN);
                         BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
                         BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
                         BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
@@ -99,7 +104,7 @@ public class Entrada extends Salida {
                         existencia.setNcosuni(costo);
                         existencia.setNultcos(detalle.getNcosuni());
                     } else {
-
+                        neto = detalle.getNsubtot().divide(new BigDecimal(detalle.getNcantidadm()), 4, RoundingMode.HALF_EVEN);
                         BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
                         BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
                         BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
@@ -116,7 +121,7 @@ public class Entrada extends Salida {
                 }
 
                 existencia.setNstock(existencia.getNstock() + detalle.getNcantidad());
-                existencia.setNstock(existencia.getNstockm() + detalle.getNcantidadm());
+                existencia.setNstockm(existencia.getNstockm() + detalle.getNcantidadm());
 
                 detalle.setNstock(existencia.getNstock());
                 detalle.setNstockm(existencia.getNstockm());
@@ -150,7 +155,9 @@ public class Entrada extends Salida {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            throw new ExceptionZarcillo(e.getMessage());
         }
+
 
 
 
@@ -158,7 +165,6 @@ public class Entrada extends Salida {
     }
 
     public BigDecimal costeo(BigDecimal stockactual, BigDecimal costoactual, BigDecimal stockentrada, BigDecimal costoentrada) {
-        BigDecimal suma = stockactual.add(stockentrada);
         BigDecimal sumavalorizado = stockactual.multiply(costoactual).add(stockentrada.multiply(costoentrada));
         BigDecimal sumastock = stockactual.add(stockentrada);
 

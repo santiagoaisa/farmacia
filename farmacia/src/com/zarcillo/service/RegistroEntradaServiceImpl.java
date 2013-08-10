@@ -45,8 +45,8 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
 
         try {
 
-            super.registrar(regentrada);
 
+            super.registrar(regentrada);
             cuentapagar.setIdproveedor(regentrada.getIdproveedor());
             cuentapagar.setNsaldo(cuentapagar.getNimporte().add(cuentapagar.getNpercepcion()));
             cuentapagar.setNtotalreclamo(cuentapagar.getNimporte().subtract(regentrada.getNimporte()));
@@ -59,8 +59,9 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
         } catch (Exception e) {
             e.printStackTrace();
             if (e.getMessage().contains("ConstraintViolationException")) {
-                throw new ExceptionZarcillo("El documento ya esta registrado:" + cuentapagar.getCserie() +"-"+cuentapagar.getCnumero());
+                throw new ExceptionZarcillo("El documento ya esta registrado:" + cuentapagar.getCserie() + "-" + cuentapagar.getCnumero());
             }
+            throw new ExceptionZarcillo(e.getMessage());
         }
 
 

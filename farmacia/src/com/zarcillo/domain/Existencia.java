@@ -40,10 +40,8 @@ public class Existencia implements Serializable {
     protected ExistenciaPK existenciaPK;
     @Column(name = "nstock")
     private Integer nstock;
-    
     @Column(name = "nstockm")
     private Integer nstockm;
-    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "ncosuni")
     private BigDecimal ncosuni;
@@ -75,8 +73,6 @@ public class Existencia implements Serializable {
     private Integer nminimo;
     @Column(name = "nmaximo")
     private Integer nmaximo;
-    
-    
 
     public Existencia() {
         bactivo = false;
@@ -88,7 +84,7 @@ public class Existencia implements Serializable {
         ntemporal = 0;
         nminimo = 0;
         nmaximo = 0;
-        nstockm=0;
+        nstockm = 0;
     }
 
     public Existencia(ExistenciaPK existenciaPK) {
@@ -102,7 +98,7 @@ public class Existencia implements Serializable {
         ntemporal = 0;
         nminimo = 0;
         nmaximo = 0;
-        nstockm=0;
+        nstockm = 0;
     }
 
     public Integer getNstockm() {
@@ -112,9 +108,6 @@ public class Existencia implements Serializable {
     public void setNstockm(Integer nstockm) {
         this.nstockm = nstockm;
     }
-    
-    
-    
 
     public Existencia(Integer idalmacen, String idproducto) {
         this.existenciaPK = new ExistenciaPK(idalmacen, idproducto);
@@ -127,6 +120,7 @@ public class Existencia implements Serializable {
         ntemporal = 0;
         nminimo = 0;
         nmaximo = 0;
+        nstockm = 0;
     }
 
     public ExistenciaPK getExistenciaPK() {
