@@ -27,6 +27,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Intbox;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -55,6 +56,9 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     private Textbox txtCodigo;
     
     @Wire
+    private Intbox nFraccion;
+    
+    @Wire
     private Textbox txtBarras;
     
     @Wire
@@ -64,11 +68,16 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     private Combobox cboFamilia;
     
     @Wire
-    private Combobox cboPresentacion;
-    
+    private Combobox cboPresentacion;    
        
     @Wire
     private Checkbox bInafecto;
+    
+    @Wire
+    private Checkbox bPsicotropico;
+    
+    @Wire
+    private Textbox txtReceta;
         
     @WireVariable
     UsuarioService usuarioService;
@@ -181,7 +190,10 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         producto.setIdpresentacion(presentacion);
         producto.setIdusuario(usuario);
         producto.setCcodigobarra(txtBarras.getText());
+        producto.setCreseta(txtReceta.getText());
         producto.setBinafecto(bInafecto.isChecked());
+        producto.setBpsicotropico(bInafecto.isChecked());
+        producto.setNmenudeo(nFraccion.getValue());
     }
     
     @Override
@@ -200,6 +212,8 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         cboPresentacion.setSelectedIndex(modeloPresentacion.indexOf(producto.getIdpresentacion()));
         txtBarras.setText(producto.getCcodigobarra());        
         bInafecto.setChecked(producto.getBinafecto());
+        bPsicotropico.setChecked(producto.getBpsicotropico());
+        nFraccion.setValue(producto.getNmenudeo());                
     }
 
     @Override
@@ -211,12 +225,16 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         txtCodigo.setText("");
         txtNombre.setText("");
         txtBarras.setText("");
+        txtReceta.setText("");
         cboSublinea.setSelectedIndex(-1);
         cboSublinea.setText("");
         cboFamilia.setSelectedIndex(-1);
         cboFamilia.setText("");
         cboPresentacion.setSelectedIndex(-1);
         cboPresentacion.setText("");
+        bPsicotropico.setChecked(false);
+        bInafecto.setChecked(false);
+        nFraccion.setValue(1);
         agregarConstraint();
     }
 
@@ -271,10 +289,13 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     public void habilitar(boolean enable) {
         txtNombre.setReadonly(enable);
         txtBarras.setReadonly(enable);
+        txtReceta.setReadonly(enable);
         bInafecto.setDisabled(enable);
+        bPsicotropico.setDisabled(enable);
         cboFamilia.setDisabled(enable);
         cboPresentacion.setDisabled(enable);
         cboSublinea.setDisabled(enable);
+        nFraccion.setReadonly(enable);
     }
 
     @Override
@@ -296,6 +317,7 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         cboPresentacion.setConstraint(new ConstraintCamposObligatorios());
         cboSublinea.setConstraint(new ConstraintCamposObligatorios());
         cboFamilia.setConstraint(new ConstraintCamposObligatorios());
+        nFraccion.setConstraint(new ConstraintCamposObligatorios());
     }
 
     public void quitarConstraint() {
@@ -303,6 +325,7 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         cboFamilia.setConstraint("");
         cboPresentacion.setConstraint("");
         cboSublinea.setConstraint("");
+        nFraccion.setConstraint("");
     }   
 }
 

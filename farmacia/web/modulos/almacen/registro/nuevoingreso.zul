@@ -1,7 +1,7 @@
 
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winIngreso"?>
 <window id="winIngreso" title="Registro de Ingresos..." border="0" apply="modalmacen.registro.NuevoIngreso"
-        width="940px" onCancel="doCancel()" mode="overlapped" closable="false">
+        width="980px" onCancel="doCancel()" mode="overlapped" closable="false">
     <zscript>{
         void doCancel() {
         winIngreso.setAttribute("REST",false);
@@ -28,9 +28,9 @@
                 <label value = "Tipo Documento:" />
                 <combobox id = "cboDocumento" width="98%" readonly="true" constraint="no empty:Debe Seleccionar un tipo de Documento" />
                 <label value = "Serie:" />
-                <textbox id="txtSerie" width="95%" maxlength="3" constraint="no empty:Debe Ingresar una Serie" />
+                <textbox id="txtSerie" width="80%" maxlength="3" constraint="no empty:Debe Ingresar una Serie" />
                 <label value = "Número:" />
-                <textbox id="txtNumero" width="95%" maxlength="10" constraint="no empty:Debe Ingresar un Numero de Documento" />
+                <textbox id="txtNumero" width="87%" maxlength="10" constraint="no empty:Debe Ingresar un Numero de Documento" />
             </row>
 
             <row spans="1,1,3,1,2">
@@ -45,34 +45,40 @@
     </grid>
 
 
-    <listbox id="lstIngreso" mold="paging"  checkmark="true"  pageSize="500" height="300px" >
+    <listbox id="lstIngreso" mold="paging"    pageSize="500" height="300px" >
         <auxhead>
             <auxheader label="Detalle de Ingreso" colspan="12"/>
         </auxhead>
         <listhead sizable="true" >
-            <listheader width="3%" />
             <listheader label="No" width="3%" align="right"/>
-            <listheader label="Codigo" width="6%" sort="auto(idproducto.idproducto)" />
+            <listheader label="Codigo" width="5%" sort="auto(idproducto.idproducto)" />
+            <listheader label="F/" width="4%" />
             <listheader label="Und" width="4%" />
-            <listheader label="Descripcion" width="28%" sort="auto(idproducto.cnomart)" />
+            <listheader label="Descripcion" width="30%" sort="auto(idproducto.cnomart)" />
             <listheader label="Cantidad" width="5%" />
+            <listheader label="Menudeo" width="5%" />
             <listheader label="Costo Uni." width="6%" />
             <listheader label="Dcto.1" width="5%" />
             <listheader label="Dcto.2" width="5%" />
-            <listheader label="C.Total" width="7%" />
-            <listheader label="(aaaa-mm)" width="12%" />
-            <listheader label="Lote" width="12%" />
+            <listheader label="C.Total" width="6%" />
+            <listheader label="(aaaa-mm)" width="10%" />
+            <listheader label="Lote" width="8%" />
             <listheader width="4%" />
         </listhead>
         <listitem self="@{each=detalleIngreso}" >
-            <listcell />
             <listcell label="@{self.parent.index}" />
             <listcell label="@{detalleIngreso.idproducto.idproducto}" />
+            <listcell>
+                <intbox id="i0" value="@{detalleIngreso.idproducto.nmenudeo}"  width="70%" />
+            </listcell>
             <listcell label="@{detalleIngreso.idproducto.idpresentacion.cabrev}" />
             <listcell label="@{detalleIngreso.idproducto}" />
 
             <listcell>
                 <intbox id="i1" value="@{detalleIngreso.ncantidad}"  width="80%" />
+            </listcell>
+            <listcell>
+                <intbox id="i2" value="@{detalleIngreso.ncantidadm}"  width="80%" />
             </listcell>
             <listcell>
                 <decimalbox id="d1" value="@{detalleIngreso.ncosuni}" format="0.0000"  width="80%" />
@@ -92,40 +98,43 @@
                 <intbox width="25%" format="00" value="@{detalleIngreso.nmes}" maxlength="2" />
             </listcell>
             <listcell>
-                <textbox value="@{detalleIngreso.clote}" maxlength="15" width="90%" />
+                <textbox id="txtLote" value="@{detalleIngreso.clote}" maxlength="15" width="90%" />
             </listcell>
             <listcell>
-                <button id="btnQuitar" image="/img/eliminadetalleingreso.jpg"   />
+                <toolbarbutton id="btnQuitar" image="/img/eliminadetalleingreso.png" width="70%"   />
             </listcell>
         </listitem>
     </listbox>
     <grid fixedLayout="true" >
-
-        <auxhead>
-            <auxheader label="Información del Producto" colspan="8"/>
-            <auxheader label="Totales" colspan="6"/>
-        </auxhead>
-
         <columns>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
-            <column width="6.25%"/>
+            <column width="20%"/>
+            <column width="10%"/>
+            <column width="10%"/>
+            <column width="10%"/>
+            <column width="10%"/>
+            <column width="10%"/>
+            <column width="10%"/>
+            <column width="10%"/>
+            <column width="10%"/>
+            
         </columns>
         <rows>
             <row>
+                <label value="TOTALES "/>
+                 <label value="Inafecto "/>
+                <decimalbox id="nInafecto" format="0.00" width="90%" readonly="true"/>
+                <label value="Afecto "/>
+                <decimalbox id="nAfecto" format="0.00" width="90%" readonly="true"/>
+                <hbox widths="40%,60%">
+                    <label value="Igv"/>
+                    <textbox id="txtIgv" width="90%" readonly="true"/>
+                </hbox>
+                <decimalbox id="nIgv" format="0.00" width="95%" readonly="true"/>
+                <label value="Total"/>
+                <decimalbox id="nPreven" format="0.00" width="90%" readonly="true"/>
+           </row>
+            <row style="background:#cccccc repeat-x 0 0;padding-top:7px" >            
+                <label value="INFORMACION PRODUCTO "/>
                 <label value="V. Venta"/>
                 <decimalbox id="nValven" format="0.00" width="90%" readonly="true" />
                 <label value="U. Costo"/>
@@ -134,20 +143,7 @@
                 <decimalbox id="nCosuni" format="0.00" width="90%" readonly="true" />
                 <label value="Utilid.%"/>
                 <decimalbox id="nUtilidad" format="0.00" width="90%" readonly="true" />
-
-                <label value="Inafecto "/>
-                <decimalbox id="nInafecto" format="0.00" width="90%" readonly="true"/>
-                
-                <label value="Afecto "/>
-                <decimalbox id="nAfecto" format="0.00" width="90%" readonly="true"/>
-                <hbox widths="40%,60%">
-                    <label value="Igv"/>
-                    <textbox id="txtIgv" width="90%" readonly="true"/>
-                </hbox>
-                <decimalbox id="nIgv" format="0.00" width="95%" readonly="true"/>
-
-                <label value="Total"/>
-                <decimalbox id="nPreven" format="0.00" width="90%" readonly="true"/>
+              
             </row>
             <row spans="16">
                 <groupbox >

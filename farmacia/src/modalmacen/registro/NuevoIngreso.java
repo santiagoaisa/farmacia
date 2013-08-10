@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.naming.NamingException;
+import modalmacen.util.ConstraintMenudeoIngreso;
 import modmantenimiento.util.ConstraintAñoLote;
 import modmantenimiento.util.ConstraintCamposObligatorios;
 import modmantenimiento.util.ConstraintCantidadValida;
@@ -124,7 +125,9 @@ public class NuevoIngreso extends SelectorComposer {
 
     @Listen("onClick = #btnQuitar")
     public void onQuitarDetalle(Event event) {
-        borrarProducto();
+        Toolbarbutton btn = (Toolbarbutton) event.getTarget();
+        Listitem item = (Listitem) (btn.getParent().getParent());
+        borrarProducto(item.getIndex());
     }
 
     @Listen("onSelect = #lstIngreso")
@@ -134,8 +137,8 @@ public class NuevoIngreso extends SelectorComposer {
 
     @Listen("onOK = #d4")
     public void onCalcularNeto(Event event) {
-        Decimalbox sub=(Decimalbox) event.getTarget();
-        Listitem item=(Listitem) (sub.getParent().getParent());        
+        Decimalbox sub = (Decimalbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
         actualizarNeto(item.getIndex());
     }
 
@@ -149,8 +152,14 @@ public class NuevoIngreso extends SelectorComposer {
         txtCodigo.focus();
     }
 
-    @Listen("  onBlur = intbox#i1 , decimalbox#d1 , decimalbox#d2, decimalbox#d3 , decimalbox#d4 ")
+    @Listen("onOK = #txtLote")
+    public void onFocoLote(Event event) {
+        txtCodigo.focus();
+    }
+
+    @Listen("  onBlur = intbox#i1,intbox#i1 , decimalbox#d1 , decimalbox#d2, decimalbox#d3 , decimalbox#d4 ")
     public void calcular() {
+        quitarConstraintDetalle();
         calculaImporte();
     }
 
@@ -251,11 +260,11 @@ public class NuevoIngreso extends SelectorComposer {
         }
     }
 
-    private void borrarProducto() {
+    private void borrarProducto(int index) {
         int resp2 = 0;
         resp2 = Messagebox.show("¿Desea eliminar registro?", "Ingreso", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
         if (resp2 == Messagebox.YES) {
-            DetalleIngreso detalle = (DetalleIngreso) modeloIngreso.getElementAt(lstIngreso.getSelectedIndex());
+            DetalleIngreso detalle = (DetalleIngreso) modeloIngreso.getElementAt(index);
             modeloIngreso.remove(detalle);
         }
     }
@@ -284,6 +293,7 @@ public class NuevoIngreso extends SelectorComposer {
             movimiento.setIdproducto(producto);
             movimiento.setIdalmacen(rentrada.getIdalmacen());
             movimiento.setNcantidad(detalleingreso.getNcantidad());
+            movimiento.setNcantidadm(detalleingreso.getNcantidadm());
             movimiento.setNcosuni(detalleingreso.getNcosuni());
             movimiento.setNsubtot(detalleingreso.getNsubtotal());
             //Fecha de Vencimiento del Producto
@@ -295,6 +305,16 @@ public class NuevoIngreso extends SelectorComposer {
             coldetalle.add(movimiento);
         }
         return coldetalle;
+    }
+
+    private void quitarConstraintDetalle() {
+        List<Listitem> ldatos = lstIngreso.getItems();
+        for (Listitem item : ldatos) {
+            Listcell celda5 = (Listcell) item.getChildren().get(5);
+            Intbox cantidad = (Intbox) celda5.getFirstChild();
+            cantidad.setConstraint("");
+
+        }
     }
 
     public void llenarpie(int index) {
@@ -326,17 +346,19 @@ public class NuevoIngreso extends SelectorComposer {
             for (Listitem item : ldatos) {
                 Listcell celda5 = (Listcell) item.getChildren().get(5);
                 Intbox cantidad = (Intbox) celda5.getFirstChild();
-                cantidad.setConstraint(new ConstraintCantidadValida());
+                Listcell celda6 = (Listcell) item.getChildren().get(6);
+                Intbox cantidadm = (Intbox) celda6.getFirstChild();
+                cantidad.setConstraint(new ConstraintMenudeoIngreso(cantidad.getValue(), cantidadm.getValue()));
                 cantidad.getValue();
-                Listcell celda11 = (Listcell) item.getChildren().get(11);
-                Textbox lote = (Textbox) celda11.getFirstChild();
+                Listcell celda12 = (Listcell) item.getChildren().get(12);
+                Textbox lote = (Textbox) celda12.getFirstChild();
                 lote.setConstraint("");
                 lote.getValue();
-                Listcell celda10 = (Listcell) item.getChildren().get(10);
-                Intbox año = (Intbox) celda10.getFirstChild();
+                Listcell celda11 = (Listcell) item.getChildren().get(11);
+                Intbox año = (Intbox) celda11.getFirstChild();
                 año.setConstraint(new ConstraintAñoLote(4));
                 año.getValue();
-                Intbox mes = (Intbox) celda10.getLastChild();
+                Intbox mes = (Intbox) celda11.getLastChild();
                 mes.setConstraint(new ConstraintMesLote());
                 mes.getValue();
                 lote.setConstraint(new ConstraintCamposObligatorios());
@@ -354,9 +376,10 @@ public class NuevoIngreso extends SelectorComposer {
             } else {
                 DetalleIngreso deting = (DetalleIngreso) modeloIngreso.getElementAt(index);
                 deting.setBneto(true);
-                deting.calculaNeto();                
+                deting.calculaNeto();
                 lstIngreso.setModel(modeloIngreso);
                 lstIngreso.onInitRender();
+                calculaImporte();
             }
         }
     }

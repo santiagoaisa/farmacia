@@ -85,6 +85,21 @@ public class Index extends SelectorComposer {
         }
 
     }
+    
+    @Listen("onClick = Toolbarbutton#btnSalir")
+    public void salirSistema() {
+        menu.detach();
+        index.detach();
+        exec.getDesktop().getSession().invalidate();
+        exec.sendRedirect("/modulos/index.zul");
+    }
+    
+    @Listen("onClick = #btnKardex")
+    public void onConsultaKardex(Event event) {
+        Window contactWnd = (Window) Executions.createComponents("/modulos/almacen/consulta/kardexdiario.zul", null, null);
+        contactWnd.doModal();
+    }
+    
 
     private void llenarMenu(Integer idmodulo) {
         menu.detach();
@@ -196,11 +211,7 @@ public class Index extends SelectorComposer {
         lblSesion.setValue("Usuario: " + usuario.getCnomusuario() + " | " + "Inicio Sesion: " + fechaInicio + " | ");
     }
 
-    @Listen("onClick = Toolbarbutton#btnSalir")
-    public void salirSistema() {
-        menu.detach();
-        index.detach();
-        exec.getDesktop().getSession().invalidate();
-        exec.sendRedirect("/modulos/index.zul");
-    }
+    
+    
+    
 }

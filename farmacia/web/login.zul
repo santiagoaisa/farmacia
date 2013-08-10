@@ -5,10 +5,19 @@
     <window id="login" width="360px" title="Sistema Farmacia [Zarcillo Soluciones]"
             apply="modseguridad.Login" mode="overlapped" border="0" position="center">
 
-        <hbox>
-            <image src="/img/login.png" height="60px" />
-            <image src="/img/logodim.jpg" height="40px"/>
-        </hbox>
+        <grid >
+                <columns>
+                    <column width="65%"/>
+                    <column width="35%"/>
+                </columns>
+                <rows  >
+                    <row >
+                        <image  height="70px" />
+                        <image src="/img/Vidfarma.png" height="70px"/>
+                    </row>
+                </rows>
+        </grid>
+        
         <groupbox >
             <caption>Inicio de Sesión...</caption>
             

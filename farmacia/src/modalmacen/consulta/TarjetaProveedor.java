@@ -1,7 +1,5 @@
 
 package modalmacen.consulta;
-
-
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.Proveedor;
@@ -11,7 +9,6 @@ import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.PeriodoService;
 import com.zarcillo.service.RegistroEntradaService;
 import com.zarcillo.service.UsuarioService;
-import java.util.Calendar;
 import java.util.Date;
 import javax.naming.NamingException;
 import modmantenimiento.util.MenuPeriodo;
@@ -20,7 +17,6 @@ import modmantenimiento.util.PeriodoListener;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -32,7 +28,6 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
