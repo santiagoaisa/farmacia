@@ -10,6 +10,7 @@
         
     <button id="btnImprimir" label="IMPRIMIR" >
      </button>
-
-    <menu id="mimpresion" width="100%"  ></menu>
+ <button id="btnCargar" label="Cargar" >
+     </button>
+    
 </window>

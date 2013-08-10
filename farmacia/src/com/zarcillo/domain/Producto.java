@@ -59,11 +59,15 @@ public class Producto implements Serializable {
     
      @Column(name = "creseta")
     private String creseta;
+     
+    @Column(name = "bpsicotropico")
+    private Boolean bpsicotropico;
 
     public Producto() {
         binafecto=false;
+        bpsicotropico=false;
     }
-
+    
     public Producto(String idproducto) {
         this.idproducto = idproducto;
     }
@@ -148,6 +152,15 @@ public class Producto implements Serializable {
         this.creseta = creseta;
     }
 
+    public Boolean getBpsicotropico() {
+        return bpsicotropico;
+    }
+
+    public void setBpsicotropico(Boolean bpsicotropico) {
+        this.bpsicotropico = bpsicotropico;
+    }
+
+    
     
     
     @Override

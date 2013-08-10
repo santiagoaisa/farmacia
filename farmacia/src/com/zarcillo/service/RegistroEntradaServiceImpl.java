@@ -36,25 +36,33 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     private MovimientoDAO movimientodao;
     @Autowired
     private CuentaPagarDAO cuentapagardao;
-     @Autowired
+    @Autowired
     private PeriodoDAO periododao;
-     
 
     @Override
     @Transactional
     public RegistroEntrada registrarIngreso(RegistroEntrada regentrada, CuentaPagar cuentapagar) {
-        
-        super.registrar(regentrada);
 
-        cuentapagar.setIdproveedor(regentrada.getIdproveedor());
-        cuentapagar.setNsaldo(cuentapagar.getNimporte().add(cuentapagar.getNpercepcion()));
-        cuentapagar.setNtotalreclamo(cuentapagar.getNimporte().subtract(regentrada.getNimporte()));        
-        cuentapagar.setNingreso(regentrada.getNimporte());
-        cuentapagar.setIdperiodo(periododao.buscarPorFecha(cuentapagar.getDfecemi()));
-        cuentapagar.setDfecreg(new Date());
-        cuentapagar.setIdregentrada(regentrada);
+        try {
 
-        cruddao.registrar(cuentapagar);
+            super.registrar(regentrada);
+
+            cuentapagar.setIdproveedor(regentrada.getIdproveedor());
+            cuentapagar.setNsaldo(cuentapagar.getNimporte().add(cuentapagar.getNpercepcion()));
+            cuentapagar.setNtotalreclamo(cuentapagar.getNimporte().subtract(regentrada.getNimporte()));
+            cuentapagar.setNingreso(regentrada.getNimporte());
+            cuentapagar.setIdperiodo(periododao.buscarPorFecha(cuentapagar.getDfecemi()));
+            cuentapagar.setDfecreg(new Date());
+            cuentapagar.setIdregentrada(regentrada);
+
+            cruddao.registrar(cuentapagar);
+
+        } catch (Exception e) {
+            if (e.getCause().getMessage().contains("ConstraintViolationException")) {
+                throw new ExceptionZarcillo("El documento ya esta registrado:" + cuentapagar.getCserie() +"-"+cuentapagar.getCnumero());
+            }
+        }
+
 
         return regentrada;
     }
