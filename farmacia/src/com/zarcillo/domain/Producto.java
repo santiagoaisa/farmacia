@@ -56,8 +56,12 @@ public class Producto implements Serializable {
     @JoinColumn(name = "idfamilia", referencedColumnName = "idfamilia")
     @ManyToOne(fetch = FetchType.EAGER)
     private Familia idfamilia;
+    
+     @Column(name = "creseta")
+    private String creseta;
 
     public Producto() {
+        binafecto=false;
     }
 
     public Producto(String idproducto) {
@@ -136,6 +140,16 @@ public class Producto implements Serializable {
         this.idfamilia = idfamilia;
     }
 
+    public String getCreseta() {
+        return creseta;
+    }
+
+    public void setCreseta(String creseta) {
+        this.creseta = creseta;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

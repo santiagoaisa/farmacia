@@ -354,9 +354,9 @@ public class NuevoIngreso extends SelectorComposer {
             } else {
                 DetalleIngreso deting = (DetalleIngreso) modeloIngreso.getElementAt(index);
                 deting.setBneto(true);
-                deting.calculaNeto();
-                deting.getNsubtot();
-                lstIngreso.renderAll();                
+                deting.calculaNeto();                
+                lstIngreso.setModel(modeloIngreso);
+                lstIngreso.onInitRender();
             }
         }
     }
