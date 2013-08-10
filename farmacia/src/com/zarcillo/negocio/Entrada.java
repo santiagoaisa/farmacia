@@ -5,6 +5,7 @@ import com.zarcillo.dao.CuentaPagarDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.LoteDAO;
 import com.zarcillo.dao.PeriodoDAO;
+import com.zarcillo.dao.ProductoDAO;
 import com.zarcillo.dao.RegistroEntradaDAO;
 import com.zarcillo.domain.CuentaPagar;
 import com.zarcillo.domain.Existencia;
@@ -12,6 +13,7 @@ import com.zarcillo.domain.ExistenciaPK;
 import com.zarcillo.domain.Lote;
 import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Periodo;
+import com.zarcillo.domain.Producto;
 import com.zarcillo.domain.RegistroEntrada;
 import com.zarcillo.service.ExceptionZarcillo;
 import java.math.BigDecimal;
@@ -38,6 +40,8 @@ public class Entrada extends Salida {
     private RegistroEntradaDAO registroentradadao;
     @Autowired
     private CuentaPagarDAO cuentapagardao;
+   @Autowired
+    private ProductoDAO productodao;
 
     public void registrar(RegistroEntrada regentrada) {
         // inicio se establece el periodo
@@ -50,12 +54,15 @@ public class Entrada extends Salida {
 
         Movimiento detalle;
         Existencia existencia;
+        Producto producto;
         for (Movimiento d : listaMovimientos) {
             detalle = new Movimiento();
             existencia = existenciadao.buscarPorIdalmacenPorIdproducto(d.getIdalmacen().getIdalmacen(), d.getIdproducto().getIdproducto());
             existencia.setIdproducto(d.getIdproducto());
             existencia.setIdalmacen(regentrada.getIdalmacen());
             detalle.setIdproducto(d.getIdproducto());
+            producto=detalle.getIdproducto();            
+            cruddao.actualizar(producto);
 
             detalle.setIdalmacen(regentrada.getIdalmacen());
             detalle.setIdregentrada(regentrada);
@@ -82,7 +89,7 @@ public class Entrada extends Salida {
 
                 if (detalle.getNcantidad() != 0) {
                     BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
-                    BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                    BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
                     BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
 
 
@@ -92,10 +99,10 @@ public class Entrada extends Salida {
                 } else {
 
                     BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
-                    BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                    BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
                     BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
 
-                    BigDecimal ningresofraccioningreso=new BigDecimal(detalle.getNcantidadm()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                    BigDecimal ningresofraccioningreso=new BigDecimal(detalle.getNcantidadm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
 
                     BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(),ningresofraccioningreso , neto);
                     existencia.setNcosuni(costo);
