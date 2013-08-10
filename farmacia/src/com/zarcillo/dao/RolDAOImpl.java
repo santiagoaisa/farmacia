@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RolDAOImpl implements RolDAO {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     @Override

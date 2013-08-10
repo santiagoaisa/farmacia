@@ -3,6 +3,7 @@ package modmantenimiento;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Lote;
+import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Producto;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.AlmacenService;
@@ -217,10 +218,10 @@ public class ManttoLote  extends SelectorComposer  {
         wincrea.doModal();
         Boolean rest = (Boolean) wincrea.getAttribute("REST");
         if (rest) {
-            Lote clote;
-            clote = (Lote) wincrea.getAttribute("LOTE");
+            Lote clote;            
+            clote = (Lote) wincrea.getAttribute("LOTE");            
             clote.setIdalmacen(almacen);
-            clote.setIdproducto(existencia.getIdproducto());
+            clote.setIdproducto(producto);
             clote = loteService.registrar(clote);
             modeloLote.add(clote);
         }

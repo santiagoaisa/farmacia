@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DetalleAutorizacionDAOImpl implements DetalleAutorizacionDAO{
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
     
     @Override

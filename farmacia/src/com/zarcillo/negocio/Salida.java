@@ -56,7 +56,7 @@ public class Salida extends DescargaLote {
             Collections.sort(listaMovimiento, new OrdenarPorIdproductoMovimiento());
             for (OrdenLinea ol : listaOrdenLinea) {
                 for (Movimiento m : listaMovimiento) {
-                    //ARREGLAR
+                    //zARREGLAR
 //                    if (m.getExistencia().getIdproducto().getIdsublinea().getIdlinea().getIdlinea().equals(ol.getIdlinea().getIdlinea())) {
 //                        m.setNorden(ol.getNorden());
 //                    } else {

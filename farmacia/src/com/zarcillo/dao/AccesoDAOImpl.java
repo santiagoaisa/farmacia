@@ -6,14 +6,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import org.springframework.stereotype.Repository;
-
 /**
  *
  * @author saisa
  */
 @Repository
 public class AccesoDAOImpl implements AccesoDAO{
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     @Override

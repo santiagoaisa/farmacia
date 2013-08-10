@@ -1,6 +1,7 @@
 
 package modalmacen.consulta;
 
+
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.Proveedor;
@@ -31,6 +32,7 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
@@ -40,13 +42,17 @@ import org.zkoss.zul.Window;
 public class TarjetaProveedor extends SelectorComposer implements PeriodoListener {
     private Usuario usuario;
     private Proveedor proveedor=new Proveedor();
-    private MenuPeriodo menuperiodo;
-    private MenuResultado menuresultado;
+   
     private Periodo periodo;
     
     private ListModelList modeloIngresos;
     private ListModelList modeloCanjes;
     private ListModelList modeloAlmacen;
+    
+  
+     private MenuPeriodo menuperiodo;
+  
+    private MenuResultado menuresultado;
     
     
     @Wire
@@ -79,6 +85,8 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
     @Wire
     private Listbox lstCanjes;
     
+    
+    
     @WireVariable
     AlmacenService almacenService;
     
@@ -96,11 +104,11 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
     
     @Listen("onCreate=window#winTarjeta")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winTarjeta/mperiodo");
+        HtmlMacroComponent macro = (HtmlMacroComponent) winTarjeta.getFellow("mperiodo");
         menuperiodo = (MenuPeriodo) macro.getChildren().get(0);
         menuperiodo.setPeriodolistener(this);
 
-        HtmlMacroComponent macro2 = (HtmlMacroComponent) Path.getComponent("/winTarjeta/mresultado");
+        HtmlMacroComponent macro2 = (HtmlMacroComponent) winTarjeta.getFellow("mresultado");
         menuresultado = (MenuResultado) macro2.getChildren().get(0);
         initComponets();
      }

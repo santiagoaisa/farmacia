@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AlmacenDAOImpl implements AlmacenDAO {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     @Override
@@ -30,7 +30,7 @@ public class AlmacenDAOImpl implements AlmacenDAO {
     }
 
     @Override
-    public List<Almacen> listaGeneral() {
+    public List<Almacen> listaGeneral() {        
         return em.createNamedQuery("Almacen.findAll").getResultList();
     }
     

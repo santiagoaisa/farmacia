@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CrudDAOImpl implements CrudDAO {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     @Override

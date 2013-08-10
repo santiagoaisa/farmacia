@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class MotivoNotaboProveedorDAOImpl implements MotivoNotaboProveedorDAO{
-     @PersistenceContext(type = PersistenceContextType.EXTENDED)
+     @PersistenceContext
     private EntityManager em;
 
     @Override

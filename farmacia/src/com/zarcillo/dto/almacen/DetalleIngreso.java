@@ -2,8 +2,10 @@ package com.zarcillo.dto.almacen;
 
 import com.zarcillo.domain.Producto;
 import com.zarcillo.negocio.Igv;
+import com.zarcillo.negocio.Numero;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class DetalleIngreso implements Serializable {
 
@@ -163,19 +165,29 @@ public class DetalleIngreso implements Serializable {
 
     public BigDecimal getNsubtot() {
 
-        if (this.bneto) {
-            ncosuni = Igv.valorVentaDetalleVenta(ncosuni, this.getIdproducto().getBinafecto());
-            ndesc1 = new BigDecimal("0");
-            ndesc2 = new BigDecimal("0");
-            nsubtot = ncosuni.multiply(new BigDecimal(this.ncantidad));
-        } else {
-            nsubtot = ncosuni.multiply(BigDecimal.valueOf(ncantidad));
-            nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc1.divide(new BigDecimal("100"))));
-            nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc2.divide(new BigDecimal("100"))));
-        }
+        nsubtot = ncosuni.multiply(BigDecimal.valueOf(ncantidad));
+        nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc1.divide(new BigDecimal("100"))));
+        nsubtot = nsubtot.subtract(nsubtot.multiply(ndesc2.divide(new BigDecimal("100"))));
+
 
 
         return nsubtot.setScale(4, BigDecimal.ROUND_HALF_UP);
+    }
+
+    public void calculaNeto() {
+        if (this.bneto) {
+            BigDecimal valorventa = Igv.valorVentaDetalleVenta(nsubtot, this.getIdproducto().getBinafecto());
+
+            if (!Numero.isCero(nsubtot)) {
+                setNcosuni(valorventa.divide(new BigDecimal(ncantidad), 4, BigDecimal.ROUND_HALF_EVEN));
+                setNdesc1(new BigDecimal("0"));
+                setNdesc2(new BigDecimal("0"));
+                setNsubtot(ncosuni.multiply(new BigDecimal(this.ncantidad)));
+                setBneto(false);
+            }
+
+        }
+
     }
 
     public void setNsubtot(BigDecimal nsubtot) {

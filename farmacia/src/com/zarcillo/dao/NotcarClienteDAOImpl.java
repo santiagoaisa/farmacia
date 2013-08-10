@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class NotcarClienteDAOImpl implements NotcarClienteDAO {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext
     private EntityManager em;
 
     @Override

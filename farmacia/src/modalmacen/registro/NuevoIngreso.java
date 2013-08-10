@@ -134,7 +134,9 @@ public class NuevoIngreso extends SelectorComposer {
 
     @Listen("onOK = #d4")
     public void onCalcularNeto(Event event) {
-        actualizarNeto();
+        Decimalbox sub=(Decimalbox) event.getTarget();
+        Listitem item=(Listitem) (sub.getParent().getParent());        
+        actualizarNeto(item.getIndex());
     }
 
     @Listen("onOK = #txtSerie")
@@ -343,15 +345,18 @@ public class NuevoIngreso extends SelectorComposer {
         }
     }
 
-    private void actualizarNeto() {
+    private void actualizarNeto(int index) {
         int resp2 = 0;
         resp2 = Messagebox.show("¿Valor Inc. IGV?", "Ingreso", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
         if (resp2 == Messagebox.YES) {
             if (lstIngreso.getItemCount() < 1) {
                 throw new ExceptionZarcillo("La Lista no tiene elementos Seleccionados");
             } else {
-                DetalleIngreso deting = (DetalleIngreso) modeloIngreso.getElementAt(lstIngreso.getSelectedIndex());
+                DetalleIngreso deting = (DetalleIngreso) modeloIngreso.getElementAt(index);
                 deting.setBneto(true);
+                deting.calculaNeto();
+                deting.getNsubtot();
+                lstIngreso.renderAll();                
             }
         }
     }

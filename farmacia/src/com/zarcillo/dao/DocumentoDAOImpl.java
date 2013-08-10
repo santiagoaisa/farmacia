@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DocumentoDAOImpl implements DocumentoDAO{
     
-     @PersistenceContext(type = PersistenceContextType.EXTENDED)
+     @PersistenceContext
     private EntityManager em;
 
     @Override

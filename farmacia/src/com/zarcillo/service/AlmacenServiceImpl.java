@@ -78,7 +78,13 @@ public class AlmacenServiceImpl implements AlmacenService {
     @Override
    
     public List<Almacen> listaGeneral() {
-        return almacendao.listaGeneral();
+        List<Almacen> lista=almacendao.listaGeneral();
+        System.out.println("FECHA:"+new Date());
+        for(Almacen a:lista){
+            System.out.println(a.getCnomalmacen());
+        }
+        
+        return lista;
     }
 
     @Override
