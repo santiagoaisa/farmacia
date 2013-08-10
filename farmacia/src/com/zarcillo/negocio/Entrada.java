@@ -40,112 +40,119 @@ public class Entrada extends Salida {
     private RegistroEntradaDAO registroentradadao;
     @Autowired
     private CuentaPagarDAO cuentapagardao;
-   @Autowired
+    @Autowired
     private ProductoDAO productodao;
 
     public void registrar(RegistroEntrada regentrada) {
         // inicio se establece el periodo
 
-        regentrada.setIdperiodo(periododao.buscarPorFecha(new Date()));
-        // fin se establece el periodo
-        cruddao.registrar(regentrada);
+        try {
 
-        List<Movimiento> listaMovimientos = regentrada.getMovimientoCollection();
+            regentrada.setIdperiodo(periododao.buscarPorFecha(new Date()));
+            // fin se establece el periodo
 
-        Movimiento detalle;
-        Existencia existencia;
-        Producto producto;
-        for (Movimiento d : listaMovimientos) {
-            detalle = new Movimiento();
-            existencia = existenciadao.buscarPorIdalmacenPorIdproducto(d.getIdalmacen().getIdalmacen(), d.getIdproducto().getIdproducto());
-            existencia.setIdproducto(d.getIdproducto());
-            existencia.setIdalmacen(regentrada.getIdalmacen());
-            detalle.setIdproducto(d.getIdproducto());
-            producto=detalle.getIdproducto();            
-            cruddao.actualizar(producto);
+            cruddao.registrar(regentrada);
 
-            detalle.setIdalmacen(regentrada.getIdalmacen());
-            detalle.setIdregentrada(regentrada);
-            detalle.setNvaluni(d.getNvaluni());
-            detalle.setNdesfin(d.getNdesfin());
-            detalle.setNdesbon(d.getNdesbon());
-            detalle.setNdeslab(d.getNdeslab());
-            detalle.setNsubtot(d.getNsubtot());
-            detalle.setNcantidad(d.getNcantidad());
-            detalle.setNcantidadm(d.getNcantidadm());
-            detalle.setNcosuni(d.getNcosuni());
-            detalle.setClote(d.getClote());
-            detalle.setCfecven(d.getCfecven());
-            detalle.setCtipmov("E");
+            List<Movimiento> listaMovimientos = regentrada.getMovimientoCollection();
 
-            //SI EL MOTIVO DEL INGRESO SE COSTEA
-            if (regentrada.getIdmotivo().getBcosteo()) {
-                BigDecimal neto = detalle.getNcosuni();
-                neto = detalle.getNsubtot().divide(new BigDecimal(detalle.getNcantidad()), 4, RoundingMode.HALF_EVEN);
-                detalle.setNcosuni(neto);
-                detalle.setNdesfin(new BigDecimal(0));
-                detalle.setNdesbon(new BigDecimal(0));
-                detalle.setNdeslab(new BigDecimal(0));
+            Movimiento detalle;
+            Existencia existencia;
+            Producto producto;
+            for (Movimiento d : listaMovimientos) {
+                detalle = new Movimiento();
+                existencia = existenciadao.buscarPorIdalmacenPorIdproducto(d.getIdalmacen().getIdalmacen(), d.getIdproducto().getIdproducto());
+                existencia.setIdproducto(d.getIdproducto());
+                existencia.setIdalmacen(regentrada.getIdalmacen());
+                detalle.setIdproducto(d.getIdproducto());
+                producto = detalle.getIdproducto();
+                cruddao.actualizar(producto);
 
-                if (detalle.getNcantidad() != 0) {
-                    BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
-                    BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
-                    BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
+                detalle.setIdalmacen(regentrada.getIdalmacen());
+                detalle.setIdregentrada(regentrada);
+                detalle.setNvaluni(d.getNvaluni());
+                detalle.setNdesfin(d.getNdesfin());
+                detalle.setNdesbon(d.getNdesbon());
+                detalle.setNdeslab(d.getNdeslab());
+                detalle.setNsubtot(d.getNsubtot());
+                detalle.setNcantidad(d.getNcantidad());
+                detalle.setNcantidadm(d.getNcantidadm());
+                detalle.setNcosuni(d.getNcosuni());
+                detalle.setClote(d.getClote());
+                detalle.setCfecven(d.getCfecven());
+                detalle.setCtipmov("E");
 
+                //SI EL MOTIVO DEL INGRESO SE COSTEA
+                if (regentrada.getIdmotivo().getBcosteo()) {
+                    BigDecimal neto = detalle.getNcosuni();
+                    neto = detalle.getNsubtot().divide(new BigDecimal(detalle.getNcantidad()), 4, RoundingMode.HALF_EVEN);
+                    detalle.setNcosuni(neto);
+                    detalle.setNdesfin(new BigDecimal(0));
+                    detalle.setNdesbon(new BigDecimal(0));
+                    detalle.setNdeslab(new BigDecimal(0));
 
-                    BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(), new BigDecimal(detalle.getNcantidad()), neto);
-                    existencia.setNcosuni(costo);
-                    existencia.setNultcos(detalle.getNcosuni());
-                } else {
+                    if (detalle.getNcantidad() != 0) {
+                        BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
+                        BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                        BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
 
-                    BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
-                    BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
-                    BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
+                        BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(), new BigDecimal(detalle.getNcantidad()), neto);
+                        existencia.setNcosuni(costo);
+                        existencia.setNultcos(detalle.getNcosuni());
+                    } else {
 
-                    BigDecimal ningresofraccioningreso=new BigDecimal(detalle.getNcantidadm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                        BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
+                        BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                        BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
 
-                    BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(),ningresofraccioningreso , neto);
-                    existencia.setNcosuni(costo);
-                    existencia.setNultcos(detalle.getNcosuni());
+                        BigDecimal ningresofraccioningreso = new BigDecimal(detalle.getNcantidadm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+
+                        BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(), ningresofraccioningreso, neto);
+                        existencia.setNcosuni(costo);
+                        existencia.setNultcos(detalle.getNcosuni());
+
+                    }
+
 
                 }
 
+                existencia.setNstock(existencia.getNstock() + detalle.getNcantidad());
+                existencia.setNstock(existencia.getNstockm() + detalle.getNcantidadm());
 
+                detalle.setNstock(existencia.getNstock());
+                detalle.setNstockm(existencia.getNstockm());
+                existencia.setBactivo(true);
+                //Actualizo la existencia en caso de no existir se crea
+                existenciadao.registrar(existencia);
+                // se graba el detalle
+                cruddao.registrar(detalle);
+                //para todo concidero lote
+                Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaIngreso(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto(), detalle.getClote().trim());
+
+                if (lote.getIdlote() == null) {
+                    lote.setIdalmacen(d.getIdalmacen());
+                    lote.setIdproducto(d.getIdproducto());
+                    lote.setNstock(detalle.getNcantidad());
+                    lote.setNstockm(detalle.getNcantidadm());
+                    lote.setClote(detalle.getClote().trim());
+                    lote.setCfecven(detalle.getCfecven().trim());
+                    lote.setIdmotivo(regentrada.getIdmotivo());
+                    lote.setIdusuario(regentrada.getIdusuario());
+                    lote.setDfecreg(regentrada.getDfecreg());
+                    lote.setDfecha(regentrada.getDfecha());
+                    cruddao.registrar(lote);
+                } else {
+                    lote.setDfecha(regentrada.getDfecha());
+                    lote.setNstock(lote.getNstock() + detalle.getNcantidad());
+                    lote.setNstockm(lote.getNstockm() + detalle.getNcantidadm());
+                    lote.setCfecven(detalle.getCfecven());
+                    cruddao.actualizar(lote);
+                }
             }
-
-            existencia.setNstock(existencia.getNstock() + detalle.getNcantidad());
-            existencia.setNstock(existencia.getNstockm() + detalle.getNcantidadm());
-
-            detalle.setNstock(existencia.getNstock());
-            detalle.setNstockm(existencia.getNstockm());
-            existencia.setBactivo(true);
-            //Actualizo la existencia en caso de no existir se crea
-            existenciadao.registrar(existencia);
-            // se graba el detalle
-            cruddao.registrar(detalle);
-            //para todo concidero lote
-            Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaIngreso(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto(), detalle.getClote().trim());
-
-            if (lote.getIdlote() == null) {
-                lote.setIdalmacen(d.getIdalmacen());
-                lote.setIdproducto(d.getIdproducto());
-                lote.setNstock(detalle.getNcantidad());
-                lote.setNstockm(detalle.getNcantidadm());
-                lote.setClote(detalle.getClote().trim());
-                lote.setCfecven(detalle.getCfecven().trim());
-                lote.setIdmotivo(regentrada.getIdmotivo());
-                lote.setIdusuario(regentrada.getIdusuario());
-                lote.setDfecreg(regentrada.getDfecreg());
-                lote.setDfecha(regentrada.getDfecha());
-                cruddao.registrar(lote);
-            } else {
-                lote.setDfecha(regentrada.getDfecha());
-                lote.setNstock(lote.getNstock() + detalle.getNcantidad());
-                lote.setNstockm(lote.getNstockm() + detalle.getNcantidadm());
-                lote.setCfecven(detalle.getCfecven());
-                cruddao.actualizar(lote);
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
 
 
     }
