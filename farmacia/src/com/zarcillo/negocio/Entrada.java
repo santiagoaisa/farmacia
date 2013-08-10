@@ -95,9 +95,9 @@ public class Entrada extends Salida {
                     BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
                     BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
 
-                    BigDecimal nstockfraccion=new BigDecimal(detalle.getNcantidadm()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                    BigDecimal ningresofraccioningreso=new BigDecimal(detalle.getNcantidadm()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
 
-                    BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(),nstocfraccion , neto);
+                    BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(),ningresofraccioningreso , neto);
                     existencia.setNcosuni(costo);
                     existencia.setNultcos(detalle.getNcosuni());
 
