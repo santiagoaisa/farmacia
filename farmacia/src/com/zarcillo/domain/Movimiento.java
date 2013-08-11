@@ -86,6 +86,9 @@ public class Movimiento implements Serializable {
     
     @Column(name = "norden")
     private Integer norden;
+    
+      @Column(name = "nmenudeo")
+    private Integer nmenudeo;
 
     public Movimiento() {
         ncantidad = 0;
@@ -100,6 +103,7 @@ public class Movimiento implements Serializable {
         nvaluni = new BigDecimal("0");
         binafecto = false;
         norden=0;
+        nmenudeo=0;
     }
 
     public Movimiento(Integer idmovimiento) {
@@ -263,11 +267,31 @@ public class Movimiento implements Serializable {
     public void setNorden(Integer norden) {
         this.norden = norden;
     }
+
+    public Integer getNmenudeo() {
+        return nmenudeo;
+    }
+
+    public void setNmenudeo(Integer nmenudeo) {
+        this.nmenudeo = nmenudeo;
+    }
+    
+    
+    
     
      //se usara para el descargo de lotes
     public BigDecimal calculaSubtotal() {
         BigDecimal nvalorunitario = nvaluni.setScale(4, BigDecimal.ROUND_HALF_UP);
-        nsubtot = nvalorunitario.multiply(new BigDecimal(this.ncantidad));
+        
+         BigDecimal cantidadsalida = new BigDecimal(ncantidad);
+        if (ncantidad == 0) {
+            if (ncantidadm > 0) {
+                cantidadsalida = new BigDecimal(ncantidadm).divide(new BigDecimal(this.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+            }
+        }
+        
+        
+        nsubtot = nvalorunitario.multiply(cantidadsalida);
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndesfin.divide(new BigDecimal("100"))));
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndesbon.divide(new BigDecimal("100"))));
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndeslab.divide(new BigDecimal("100"))));        

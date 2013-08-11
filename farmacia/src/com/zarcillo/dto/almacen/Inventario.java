@@ -11,10 +11,12 @@ public class Inventario implements Serializable {
 
     private Producto idproducto;
     private Integer nstock;    
+    private Integer nstockm;    
     private String cubicacion;
 
     public Inventario() {
         nstock = 0;        
+         nstockm = 0;   
     }
 
     public Producto getIdproducto() {
@@ -41,6 +43,14 @@ public class Inventario implements Serializable {
 
     public void setNstock(Integer nstock) {
         this.nstock = nstock;
+    }
+
+    public Integer getNstockm() {
+        return nstockm;
+    }
+
+    public void setNstockm(Integer nstockm) {
+        this.nstockm = nstockm;
     }
 
   

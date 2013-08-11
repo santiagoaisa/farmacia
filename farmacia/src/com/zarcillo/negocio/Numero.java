@@ -20,4 +20,12 @@ public class Numero {
     public static boolean isIgual(BigDecimal nmonto1,BigDecimal nmonto2) {
         return nmonto1.compareTo(nmonto2) == 0;
     }
+    
+    public static boolean isMayorIgual(BigDecimal nnumero,BigDecimal ncomparado) {        
+        return nnumero.compareTo(ncomparado)>= 0;
+    }
+    
+    public static boolean isMayor(BigDecimal nnumero,BigDecimal ncomparado) {        
+        return nnumero.compareTo(ncomparado)> 0;
+    }
 }

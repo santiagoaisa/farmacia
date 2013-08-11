@@ -51,6 +51,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
             inventario.setIdproducto(e.getIdproducto());
             inventario.setCubicacion(e.getCubicacion());
             inventario.setNstock(e.getNstock());
+            inventario.setNstockm(e.getNstockm());
             listaInventario.add(inventario);
         }
         return listaInventario;

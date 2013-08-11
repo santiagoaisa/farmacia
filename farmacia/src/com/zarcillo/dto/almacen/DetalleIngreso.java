@@ -176,8 +176,8 @@ public class DetalleIngreso implements Serializable {
     public BigDecimal getNsubtot() {
         Integer cantidadentrada = ncantidad;
         if (ncantidad == 0) {
-            if (ncantidadm != 0) {
-                cantidadentrada = ncantidadm;
+            if (getIdproducto().getNmenudeo() > 0) {
+                cantidadentrada = getIdproducto().getNmenudeo();
             }
         }
 
@@ -198,7 +198,7 @@ public class DetalleIngreso implements Serializable {
 
                 Integer cantidadentrada = ncantidad;
                 if (ncantidad == 0) {
-                    if (getIdproducto().getNmenudeo()>0) {
+                    if (getIdproducto().getNmenudeo() > 0) {
                         cantidadentrada = getIdproducto().getNmenudeo();
                     }
                 }
@@ -221,11 +221,19 @@ public class DetalleIngreso implements Serializable {
 
         this.nsubtot = nsubtot;
 
-        if (ncantidad == 0) {
+
+        Integer cantidadentrada = ncantidad;
+        if (cantidadentrada == 0) {
             this.ncosuni = new BigDecimal("0");
+            if (getIdproducto().getNmenudeo() > 0) {
+                cantidadentrada = getIdproducto().getNmenudeo();
+                this.ncosuni = nsubtot.divide(new BigDecimal(cantidadentrada), 4, BigDecimal.ROUND_HALF_UP);
+            }
         } else {
-            this.ncosuni = nsubtot.divide(BigDecimal.valueOf(ncantidad), 4, BigDecimal.ROUND_HALF_UP);
+            this.ncosuni = nsubtot.divide(new BigDecimal(cantidadentrada), 4, BigDecimal.ROUND_HALF_UP);
         }
+
+
 
         this.ndesc1 = new BigDecimal("0");
         this.ndesc2 = new BigDecimal("0");
