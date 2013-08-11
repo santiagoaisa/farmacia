@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.naming.NamingException;
+import modalmacen.util.ConstraintMenudeoFraccion;
 import modalmacen.util.ConstraintMenudeoIngreso;
 import modmantenimiento.util.ConstraintAñoLote;
 import modmantenimiento.util.ConstraintCamposObligatorios;
@@ -30,6 +31,7 @@ import modmantenimiento.util.ConstraintCantidadValida;
 import modmantenimiento.util.ConstraintMesLote;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.KeyEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -116,6 +118,7 @@ public class NuevoIngreso extends SelectorComposer {
     @Listen("onOK = #txtCodigo")
     public void onFocoNombre(Event event) {
         buscarProducto();
+        focoCantidad();
     }
 
     @Listen("onClick = #btnGrabar")
@@ -134,12 +137,61 @@ public class NuevoIngreso extends SelectorComposer {
     public void onSeleccionarLista(Event event) {
         llenarpie(lstIngreso.getSelectedIndex());
     }
-
-    @Listen("onOK = #d4")
-    public void onCalcularNeto(Event event) {
+    
+    @Listen("onOK = #i0")
+    public void onFocoCantidad(Event event) {
+        Intbox sub = (Intbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
+        Listcell celda5 = (Listcell) item.getChildren().get(5);
+        Intbox cantidad = (Intbox) celda5.getFirstChild();
+        cantidad.focus();
+        cantidad.select();
+    }
+    
+    @Listen("onOK = #i1 , #i2  ")
+    public void onFocoSubtotal1(Event event) {
+        Intbox sub = (Intbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
+        Listcell celda10 = (Listcell) item.getChildren().get(10);
+        Decimalbox subtot =  (Decimalbox) celda10.getFirstChild();
+        subtot.focus();
+        subtot.select();
+    }
+    
+    @Listen("onOK =  #d1 , #d2 , #d3  ")
+    public void onFocoSubtotal2(Event event) {
         Decimalbox sub = (Decimalbox) event.getTarget();
         Listitem item = (Listitem) (sub.getParent().getParent());
-        actualizarNeto(item.getIndex());
+        Listcell celda10 = (Listcell) item.getChildren().get(10);
+        Decimalbox subtot =  (Decimalbox) celda10.getFirstChild();
+        subtot.focus();
+        subtot.select();
+    }
+
+    @Listen("onOK = #d4")
+    public void onFocoAño(Event event) {
+        Decimalbox sub = (Decimalbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
+        Listcell celda11 = (Listcell) item.getChildren().get(11);
+        Intbox año = (Intbox) celda11.getFirstChild();
+        año.focus();
+    }
+    @Listen("onOK = #i3")
+    public void onFocoMes(Event event) {
+        Intbox sub = (Intbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
+        Listcell celda11 = (Listcell) item.getChildren().get(11);
+        Intbox mes = (Intbox) celda11.getLastChild();
+        mes.focus();     
+        mes.select();
+    }
+    @Listen("onOK = #i4")
+    public void onFocoLote(Event event) {
+        Intbox sub = (Intbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
+        Listcell celda12 = (Listcell) item.getChildren().get(12);
+        Textbox lote = (Textbox) celda12.getFirstChild();
+        lote.focus();
     }
 
     @Listen("onOK = #txtSerie")
@@ -147,14 +199,18 @@ public class NuevoIngreso extends SelectorComposer {
         txtNumero.focus();
     }
 
-    @Listen("onOK = #txtNumero")
+    @Listen("onOK = #txtNumero , #txtLote")
     public void onFocoCodigo(Event event) {
         txtCodigo.focus();
     }
-
-    @Listen("onOK = #txtLote")
-    public void onFocoLote(Event event) {
-        txtCodigo.focus();
+    
+    @Listen("onCtrlKey = #d4")
+    public void onRecalcula(Event event) {
+        if (((KeyEvent)event).getKeyCode() == 119){
+            Decimalbox sub = (Decimalbox) event.getTarget();
+            Listitem item = (Listitem) (sub.getParent().getParent());
+            actualizarNeto(item.getIndex());
+        }        
     }
 
     @Listen("  onBlur = intbox#i1,intbox#i1 , decimalbox#d1 , decimalbox#d2, decimalbox#d3 , decimalbox#d4 ")
@@ -190,7 +246,6 @@ public class NuevoIngreso extends SelectorComposer {
     public void buscarProducto() {
         Producto producto = new Producto();
         if (txtCodigo.getValue().isEmpty()) {
-            try {
                 Window winbuscaprod = (Window) Executions.createComponents("/modulos/mantenimiento/util/busquedaproducto.zul", null, null);
                 winbuscaprod.setAttribute("REST", true);
                 winbuscaprod.doModal();
@@ -202,23 +257,28 @@ public class NuevoIngreso extends SelectorComposer {
                     DetalleIngreso dingreso = new DetalleIngreso();
                     dingreso.setIdproducto(producto);
                     modeloIngreso.add(dingreso);
+                    lstIngreso.onInitRender();
                     txtCodigo.setValue("");
-                    txtCodigo.focus();
                     btnGrabar.setVisible(true);
+                    
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
         } else {
             producto = productoService.buscar(txtCodigo.getValue());
             DetalleIngreso dingreso = new DetalleIngreso();
             dingreso.setIdproducto(producto);
             modeloIngreso.add(dingreso);
             txtCodigo.setValue("");
-            txtCodigo.focus();
             btnGrabar.setVisible(true);
+            lstIngreso.onInitRender();
+            
         }
-
+    }
+    private void focoCantidad(){
+        Listitem fila = lstIngreso.getItemAtIndex(modeloIngreso.getSize() - 1);
+            Listcell celda5 = (Listcell) fila.getChildren().get(5);
+            Intbox cantidad = (Intbox) celda5.getFirstChild();
+            cantidad.focus();
+            cantidad.select();
     }
 
     private void validar() {
@@ -288,6 +348,7 @@ public class NuevoIngreso extends SelectorComposer {
         for (Listitem item : ldatos) {
             detalleingreso = (DetalleIngreso) modeloIngreso.getElementAt(item.getIndex());
             producto = detalleingreso.getIdproducto();
+            producto.setNmenudeo(detalleingreso.getIdproducto().getNmenudeo());
             movimiento = new Movimiento();
             movimiento.setBinafecto(producto.getBinafecto());
             movimiento.setIdproducto(producto);
@@ -313,6 +374,9 @@ public class NuevoIngreso extends SelectorComposer {
             Listcell celda5 = (Listcell) item.getChildren().get(5);
             Intbox cantidad = (Intbox) celda5.getFirstChild();
             cantidad.setConstraint("");
+            Listcell celda6 = (Listcell) item.getChildren().get(6);
+            Intbox cantidadm = (Intbox) celda6.getFirstChild();
+            cantidadm.setConstraint("");
 
         }
     }
@@ -344,12 +408,16 @@ public class NuevoIngreso extends SelectorComposer {
         } else {
             List<Listitem> ldatos = lstIngreso.getItems();
             for (Listitem item : ldatos) {
+                Listcell celda2 = (Listcell) item.getChildren().get(2);
+                Intbox fraccion = (Intbox) celda2.getFirstChild();
+                fraccion.setConstraint(new ConstraintCantidadValida());
                 Listcell celda5 = (Listcell) item.getChildren().get(5);
                 Intbox cantidad = (Intbox) celda5.getFirstChild();
                 Listcell celda6 = (Listcell) item.getChildren().get(6);
                 Intbox cantidadm = (Intbox) celda6.getFirstChild();
                 cantidad.setConstraint(new ConstraintMenudeoIngreso(cantidad.getValue(), cantidadm.getValue()));
                 cantidad.getValue();
+                cantidadm.setConstraint(new ConstraintMenudeoFraccion(fraccion.getValue(), cantidadm.getValue()));
                 Listcell celda12 = (Listcell) item.getChildren().get(12);
                 Textbox lote = (Textbox) celda12.getFirstChild();
                 lote.setConstraint("");

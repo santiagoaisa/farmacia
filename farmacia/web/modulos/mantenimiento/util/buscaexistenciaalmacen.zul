@@ -25,6 +25,7 @@
         <listheader label="Codigo" width="9%" sort="auto(producto.idproducto)"/>
 		<listheader label="Unidad" width="9%" align="center" sort="auto(producto.idunimed.cabrev)"/>
 		<listheader label="Stock" width="7%" align="center" />
+                <listheader label="Fracc." width="7%" align="center" />
         <listheader label="Linea" width="35%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
 		</listhead>
 
@@ -33,6 +34,7 @@
         <listcell label="@{existencias.idproducto.idproducto}"/>
         <listcell label="@{existencias.idproducto.idpresentacion.cabrev}"/>
         <listcell label="@{existencias.nstock}"  />
+        <listcell label="@{existencias.nstockm}"  />
         <listcell label="@{existencias.idproducto.idsublinea.idlinea}"/>
         
     </listitem>

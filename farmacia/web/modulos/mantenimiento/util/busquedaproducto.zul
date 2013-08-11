@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBproducto"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="WinBproducto" title="Buscando Producto..." border="2" width="500px" position="center"
+<window id="WinBproducto" title="Buscando Producto..." border="2" width="700px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaProducto" >
     <zscript>{
         void doCancel()
@@ -30,17 +30,27 @@
         </rows>
     </grid>
     
-    <listbox id="lstProducto" mold="paging"   pageSize="50" width="99%" height="350px"  >
+    <listbox id="lstProducto" mold="paging"   pageSize="200" width="99%" height="350px"  >
         <listhead>
-            <listheader label="Cod" width="20%" sort="auto(idproducto)"/>
+            <listheader label="Codigo" width="8%" sort="auto(idproducto)"/>
             <listheader label="Nombre" width="50%" sort="auto(cnomproducto)"/>
             <listheader label="Linea" width="30%" sort="auto(idsublinea.idlinea.cnomlinea)"/>
+            <listheader label="Fraccion" width="4%" align="right" sort="auto(nmenudeo)"/>
+            <listheader label="Controlado" width="4%" sort="auto(idproducto)"/>
+            <listheader label="Inafecto" width="4%" sort="auto(idproducto)"/>
             
         </listhead>
         <listitem self="@{each=producto}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
             <listcell label="@{producto.idproducto}"/>
             <listcell label="@{producto.cnomproducto}"/>
             <listcell label="@{producto.idsublinea.idlinea.cnomlinea}"/>
+            <listcell label="@{producto.nmenudeo}"/>
+            <listcell >
+                            <checkbox checked="@{producto.bpsicotropico}" disabled="true" />
+                        </listcell>
+                        <listcell >
+                            <checkbox checked="@{producto.binafecto}" disabled="true" />
+                        </listcell>
          </listitem>
     </listbox>
     <menu id="mresultado" width="100%"></menu>

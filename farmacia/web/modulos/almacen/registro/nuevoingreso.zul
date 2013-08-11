@@ -1,7 +1,7 @@
 
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winIngreso"?>
 <window id="winIngreso" title="Registro de Ingresos..." border="0" apply="modalmacen.registro.NuevoIngreso"
-        width="980px" onCancel="doCancel()" mode="overlapped" closable="false">
+        width="1050px" onCancel="doCancel()" mode="overlapped" closable="false">
     <zscript>{
         void doCancel() {
         winIngreso.setAttribute("REST",false);
@@ -50,17 +50,17 @@
             <auxheader label="Detalle de Ingreso" colspan="12"/>
         </auxhead>
         <listhead sizable="true" >
-            <listheader label="No" width="3%" align="right"/>
+            <listheader label="No" width="2%" align="right"/>
             <listheader label="Codigo" width="5%" sort="auto(idproducto.idproducto)" />
             <listheader label="F/" width="4%" />
             <listheader label="Und" width="4%" />
-            <listheader label="Descripcion" width="30%" sort="auto(idproducto.cnomart)" />
+            <listheader label="Descripcion" width="26%" sort="auto(idproducto.cnomart)" />
             <listheader label="Cantidad" width="5%" />
             <listheader label="Menudeo" width="5%" />
-            <listheader label="Costo Uni." width="6%" />
+            <listheader label="Costo Uni." width="8%" />
             <listheader label="Dcto.1" width="5%" />
             <listheader label="Dcto.2" width="5%" />
-            <listheader label="C.Total" width="6%" />
+            <listheader label="C.Total" width="9%" />
             <listheader label="(aaaa-mm)" width="10%" />
             <listheader label="Lote" width="8%" />
             <listheader width="4%" />
@@ -93,9 +93,9 @@
                 <decimalbox id="d4" value="@{detalleIngreso.nsubtot}" format="0.0000"  width="80%" />
             </listcell>
             <listcell>
-                <intbox width="40%" value="@{detalleIngreso.naño}" maxlength="4"/>
+                <intbox id="i3" width="40%" value="@{detalleIngreso.naño}" maxlength="4"/>
                 <label value="-"/>
-                <intbox width="25%" format="00" value="@{detalleIngreso.nmes}" maxlength="2" />
+                <intbox id="i4" width="25%" format="00" value="@{detalleIngreso.nmes}" maxlength="2" />
             </listcell>
             <listcell>
                 <textbox id="txtLote" value="@{detalleIngreso.clote}" maxlength="15" width="90%" />
@@ -123,7 +123,7 @@
                 <label value="TOTALES "/>
                  <label value="Inafecto "/>
                 <decimalbox id="nInafecto" format="0.00" width="90%" readonly="true"/>
-                <label value="Afecto "/>
+                <label value="Valor Venta "/>
                 <decimalbox id="nAfecto" format="0.00" width="90%" readonly="true"/>
                 <hbox widths="40%,60%">
                     <label value="Igv"/>

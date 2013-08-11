@@ -80,6 +80,12 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
     @Wire
     private Intbox nSaldo;
     @Wire
+    private Intbox nCompram;
+    @Wire
+    private Intbox nVentam;
+    @Wire
+    private Intbox nSaldom;
+    @Wire
     private Jasperreport rptinventario;
     
     @WireVariable
@@ -198,13 +204,20 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
         TotalKardex total=kardexService.busquedaKardex(almacen.getIdalmacen(),txtCodigo.getText() , periodo.getIdperiodo());
         Integer tcompra=0;
         Integer tventa=0;
+        Integer tcompram=0;
+        Integer tventam=0;
         for(Kardex k:listakardex){
             tcompra=tcompra+k.getNcompra();
             tventa=tventa+k.getNventa();
+            tcompram=tcompram+k.getNcompram();
+            tventam=tventam+k.getNventam();
         }
         nCompra.setValue(tcompra);
         nVenta.setValue(tventa);
+        nCompram.setValue(tcompram);
+        nVentam.setValue(tventam);
         nSaldo.setValue(total.getNstock());
+        nSaldom.setValue(total.getNstockm());
         lstKardex.onInitRender();
         if (modeloKardex.size() > 0) {
             lstKardex.setSelectedIndex(0);
@@ -300,6 +313,9 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
         nCompra.setValue(0);
         nVenta.setValue(0);
         nSaldo.setValue(0);
+        nCompram.setValue(0);
+        nVentam.setValue(0);
+        nSaldom.setValue(0);
         producto = new Producto();
         txtCodigo.focus();
 

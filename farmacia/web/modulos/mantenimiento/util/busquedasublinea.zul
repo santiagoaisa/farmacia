@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBsublinea"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="WinBsublinea" title="Buscando SubLinea..." border="2" width="300px" position="center"
+<window id="WinBsublinea" title="Buscando SubLinea..." border="2" width="350px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaSublinea" >
     <zscript>{
         void doCancel()
@@ -16,7 +16,7 @@
         }
     </zscript>
     
-    <listbox id="lstSublinea" mold="paging"   pageSize="50" width="99%" height="150px"  >
+    <listbox id="lstSublinea" mold="paging"   pageSize="100" width="99%" height="350px"  >
                     <listhead>
                         <listheader label="Nombre" width="50%" sort="auto(cnomsublinea)"/>
                         <listheader label="Linea" width="50%" sort="auto(idlinea.cnomlinea)"/>

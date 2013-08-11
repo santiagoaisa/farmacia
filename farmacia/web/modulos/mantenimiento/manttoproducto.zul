@@ -17,7 +17,7 @@
             </row>
             <row  >
                 <checkbox id="bInafecto"  label="Inafecto" disabled="true" />
-                 <checkbox id="bPsicotropico"  label="Inafecto" disabled="true" />
+                 <checkbox id="bPsicotropico"  label="Psicotropico" disabled="true" />
                 <label value="Fraccion:" />
                 <intbox id="nFraccion" width="95%" />
             </row>

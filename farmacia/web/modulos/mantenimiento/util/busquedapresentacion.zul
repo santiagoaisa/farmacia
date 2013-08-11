@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBpresentacion"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="WinBpresentacion" title="Buscando Presentacion..." border="2" width="250px" position="center"
+<window id="WinBpresentacion" title="Buscando Presentacion..." border="2" width="350px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaPresentacion" >
     <zscript>{
         void doCancel()
@@ -16,7 +16,7 @@
         }
     </zscript>
     
-    <listbox id="lstPresentacion" mold="paging"   pageSize="50" width="99%" height="150px"  >
+    <listbox id="lstPresentacion" mold="paging"   pageSize="150" width="99%" height="350px"  >
                     <listhead>
                         <listheader label="Nombre" width="65%" sort="auto(cnompresentacion)"/>
                         <listheader label="Abrev" width="20%" sort="auto(cabrev)"/>

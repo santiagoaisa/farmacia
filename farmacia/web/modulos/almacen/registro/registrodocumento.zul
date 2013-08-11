@@ -74,9 +74,9 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="500px"  >
         </columns>
         <rows>
             <row>                
-                <label value="V.V. Afecto: " />
+                <label value="Valor Venta: " />
                 <decimalbox id="nAfecto" value="0.00" format="###,###,##0.00"  width="85%" />
-                <label value="V.V. Inafecto:" />
+                <label value="V.Inafecto:" />
                 <decimalbox id="nInafecto" value="0.00" format="###,###,##0.00" width="85%" />
             </row>
     

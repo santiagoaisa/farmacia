@@ -1,7 +1,7 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winTarjeta"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuperiodo.zul"?>
 <?component name="menu2" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="winTarjeta" border="0" width="1000px" title="Tarjeta Proveedor..."
+<window id="winTarjeta" border="0" width="100%" title="Tarjeta Proveedor..."
  apply="modalmacen.consulta.TarjetaProveedor"    >
 
     <grid fixedLayout="true" width="100%">

@@ -190,9 +190,9 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         producto.setIdpresentacion(presentacion);
         producto.setIdusuario(usuario);
         producto.setCcodigobarra(txtBarras.getText());
-        producto.setCreseta(txtReceta.getText());
+        producto.setCreseta(txtReceta.getText().toUpperCase());
         producto.setBinafecto(bInafecto.isChecked());
-        producto.setBpsicotropico(bInafecto.isChecked());
+        producto.setBpsicotropico(bPsicotropico.isChecked());
         producto.setNmenudeo(nFraccion.getValue());
     }
     
@@ -317,7 +317,6 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         cboPresentacion.setConstraint(new ConstraintCamposObligatorios());
         cboSublinea.setConstraint(new ConstraintCamposObligatorios());
         cboFamilia.setConstraint(new ConstraintCamposObligatorios());
-        nFraccion.setConstraint(new ConstraintCamposObligatorios());
     }
 
     public void quitarConstraint() {
@@ -325,7 +324,6 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         cboFamilia.setConstraint("");
         cboPresentacion.setConstraint("");
         cboSublinea.setConstraint("");
-        nFraccion.setConstraint("");
     }   
 }
 
