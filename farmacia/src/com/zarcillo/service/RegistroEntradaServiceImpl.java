@@ -59,11 +59,10 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
         } catch (Exception e) {
             e.printStackTrace();
             if (e.getMessage().contains("ConstraintViolationException")) {
-                throw new ExceptionZarcillo("El documento ya esta registrado:" + cuentapagar.getCserie() + "-" + cuentapagar.getCnumero());
+                throw new ExceptionZarcillo("ERROR: El ya EXISTE:" + cuentapagar.getCserie() + "-" + cuentapagar.getCnumero() +" \nrevise por favor");
             }
             throw new ExceptionZarcillo(e.getMessage());
         }
-
 
         return regentrada;
     }

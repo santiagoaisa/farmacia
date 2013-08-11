@@ -79,6 +79,9 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "idtipo", referencedColumnName = "idtipo")
     @ManyToOne(fetch = FetchType.EAGER)
     private TipoPersona idtipo;
+    
+    public static Cliente TRANSFERENCIA=new Cliente(0);
+    
 
     public Cliente() {
         bagenteretencion = false;

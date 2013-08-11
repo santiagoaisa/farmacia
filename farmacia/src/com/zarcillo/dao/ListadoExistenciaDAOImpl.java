@@ -20,7 +20,7 @@ public class ListadoExistenciaDAOImpl implements ListadoExistenciaDAO {
 
     @Override
     public List<InventarioValorizado> listaPorIdalmacenConStock(Integer idalmacen) {
-        String sql = "select s.idlinea ,sum(e.nstock*e.ncosuni) as ncosto,0.00 as pcosto,0.00 as nporcentaje  "
+        String sql = "select s.idlinea ,sum((e.nstock+(e.nstockm/p.nmenudeo ))   *e.ncosuni) as ncosto,0.00 as pcosto,0.00 as nporcentaje  "
                 + "   from existencia e,producto p,sublinea s "
                 + "   where e.idproducto=p.idproducto and p.idsublinea=s.idsublinea and e.idalmacen=:idalmacen and nstock>0  "
                 + "   group by s.idlinea order by s.idlinea ";
@@ -30,10 +30,10 @@ public class ListadoExistenciaDAOImpl implements ListadoExistenciaDAO {
 
     @Override
     public List<InventarioLote> listaPorIdalmacenPorLineasConStock(Integer idalmacen, List<Integer> lista) {
-        String sql = "select random() as id,e.idproducto,e.nstock,e.cubicacion,l.nstock as ncanart,l.clote,l.cfecven "
+        String sql = "select random() as id,e.idproducto,e.nstock,e.cubicacion,l.nstock as ncanart,l.clote,l.cfecven,e.nstockm,l.nstockm as ncanartm "
                 + "  from existencia e left join lote l on e.idproducto=l.idproducto "
                 + "  and e.idalmacen=l.idalmacen and l.nstock>0,producto p,sublinea s "
-                + "  where e.idproducto=p.idproducto and p.idsublinea=s.idsublinea and e.idalmacen=:idalmacen and s.idlinea in (:lista) and e.nstock>0 "
+                + "  where e.idproducto=p.idproducto and p.idsublinea=s.idsublinea and e.idalmacen=:idalmacen and s.idlinea in (:lista) and ( e.nstock>0 or e.nstockm>0)  "
                 + "   order by s.idlinea,p.idproducto";
 
         return em.createNativeQuery(sql, InventarioLote.class).setParameter("idalmacen", idalmacen).setParameter("lista", lista).getResultList();

@@ -21,14 +21,18 @@ public class InventarioLote implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Producto idproducto;
     private Integer nstock;
+     private Integer nstockm;
     private String cubicacion;
     private Integer ncanart;
+    private Integer ncanartm;
     private String clote;
     private String cfecven;
 
     public InventarioLote() {       
         nstock = 0;
         ncanart = 0;
+        nstockm = 0;
+        ncanartm = 0;
     }
 
     public String getCfecven() {
@@ -45,6 +49,22 @@ public class InventarioLote implements Serializable {
 
     public void setClote(String clote) {
         this.clote = clote;
+    }
+
+    public Integer getNstockm() {
+        return nstockm;
+    }
+
+    public void setNstockm(Integer nstockm) {
+        this.nstockm = nstockm;
+    }
+
+    public Integer getNcanartm() {
+        return ncanartm;
+    }
+
+    public void setNcanartm(Integer ncanartm) {
+        this.ncanartm = ncanartm;
     }
 
    

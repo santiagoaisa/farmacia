@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "RegistroSalida.findAll", query = "SELECT r FROM RegistroSalida r"),
     @NamedQuery(name = "RegistroSalida.findByIdregsalida", query = "SELECT r FROM RegistroSalida r WHERE r.idregsalida=:idregsalida"),
-        @NamedQuery(name = "RegistroSalida.findByIdunidadByIdregsalida", query = "SELECT r FROM RegistroSalida r WHERE r.idunidad.idunidad=:idunidad and r.idregsalida=:idregsalida")
+    @NamedQuery(name = "RegistroSalida.findByIdunidadByIdregsalida", query = "SELECT r FROM RegistroSalida r WHERE r.idunidad.idunidad=:idunidad and r.idregsalida=:idregsalida")
 })
 public class RegistroSalida implements Serializable {
 
@@ -81,15 +81,12 @@ public class RegistroSalida implements Serializable {
     private String cglosa;
     @Column(name = "cobservacion")
     private String cobservacion;
-    
-     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
+    @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cliente idcliente;
-    
-     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
-     
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
@@ -117,25 +114,19 @@ public class RegistroSalida implements Serializable {
     private List<Movimiento> movimientoCollection;
     @Column(name = "nfleven")
     private BigDecimal nfleven;
-    
     @JoinColumn(name = "idsituacion", referencedColumnName = "idsituacion")
     @ManyToOne(fetch = FetchType.EAGER)
     private SituacionPedido idsituacion;
-    
-      @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
     @ManyToOne(fetch = FetchType.EAGER)
     private Moneda idmoneda;
-      
-      @Column(name = "ntipocambio")
+    @Column(name = "ntipocambio")
     private BigDecimal ntipocambio;
-      
-       @Column(name = "cdni")
+    @Column(name = "cdni")
     private String cdni;
-       
-       @Column(name = "cnomcli")
+    @Column(name = "cnomcli")
     private String cnomcli;
-       
-        @Column(name = "banulado")
+    @Column(name = "banulado")
     private Boolean banulado;
 
     public RegistroSalida() {
@@ -148,8 +139,8 @@ public class RegistroSalida implements Serializable {
         nredondeo = new BigDecimal("0");
         movimientoCollection = new ArrayList<Movimiento>();
         nfleven = new BigDecimal("0");
-        ntipocambio= new BigDecimal("1");
-        banulado=false;
+        ntipocambio = new BigDecimal("1");
+        banulado = false;
 
     }
 
@@ -317,8 +308,6 @@ public class RegistroSalida implements Serializable {
         this.idusuario = idusuario;
     }
 
-    
-
     public Date getDfecreg() {
         return dfecreg;
     }
@@ -406,11 +395,11 @@ public class RegistroSalida implements Serializable {
     public void setIdsituacion(SituacionPedido idsituacion) {
         this.idsituacion = idsituacion;
     }
-    
+
     public void calcula(BigDecimal nmontoigv) {
         //Calculo los totales de la cabecera        
         BigDecimal tvalornogra = new BigDecimal("0.00");
-        BigDecimal tvalorventa = new BigDecimal("0.00");        
+        BigDecimal tvalorventa = new BigDecimal("0.00");
         /////////////////
         BigDecimal tcosto = new BigDecimal("0.00");
 
@@ -419,8 +408,16 @@ public class RegistroSalida implements Serializable {
         for (Movimiento m : lista) {
             //valido y elimino detalle nulos
             if (m.getIdproducto() != null) {
-                //Acumulo el valor Bruto                
-                tcosto = tcosto.add(m.getNcosuni().multiply(new BigDecimal(m.getNcantidad())));
+                //Acumulo el valor Bruto             
+
+                BigDecimal cantidadsalida = new BigDecimal(m.getNcantidad());
+                if (m.getNcantidad() == 0) {
+                    if (m.getNcantidadm() > 0) {
+                        cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                    }
+                }
+                
+                tcosto = tcosto.add(m.getNcosuni().multiply(cantidadsalida));
                 //Acumulo los totales
                 if (m.getIdproducto().getBinafecto()) {
                     //si es inafecto
@@ -440,7 +437,7 @@ public class RegistroSalida implements Serializable {
 
         this.nigv = Igv.Igv(nmontoigv, tvalorventa);
         //Importe total=(valorventa*igv)+valorsinigv
-        this.nimporte = Igv.Importe(nmontoigv,tvalorventa).add(tvalornogra);
+        this.nimporte = Igv.Importe(nmontoigv, tvalorventa).add(tvalornogra);
         //calculo el redondeo
         BigDecimal preciofinal = this.nimporte.divide(Numero.diez, 2, BigDecimal.ROUND_HALF_UP);
         preciofinal = preciofinal.multiply(Numero.diez);
@@ -488,9 +485,6 @@ public class RegistroSalida implements Serializable {
     public void setBanulado(Boolean banulado) {
         this.banulado = banulado;
     }
-    
-    
-    
 
     @Override
     public int hashCode() {

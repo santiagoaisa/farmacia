@@ -69,6 +69,8 @@ public class Proveedor implements Serializable {
     
      @Column(name = "nplazo")
     private Integer nplazo;
+     
+     public static Proveedor TRANSFERENCIA=new Proveedor(0);
 
     public Proveedor() {
         bretencion = false;

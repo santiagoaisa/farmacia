@@ -47,6 +47,8 @@ public class MotivoEntrada implements Serializable {
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
+    
+    public static MotivoEntrada FRACCION=new MotivoEntrada(0,false);
 
     public MotivoEntrada() {
         bcosteo=false;        
@@ -56,6 +58,13 @@ public class MotivoEntrada implements Serializable {
         this.idmotivo = idmotivo;
     }
 
+    public MotivoEntrada(Integer idmotivo, Boolean bcosteo) {
+        this.idmotivo = idmotivo;
+        this.bcosteo = bcosteo;
+    }
+
+    
+    
     public Integer getIdmotivo() {
         return idmotivo;
     }

@@ -27,7 +27,9 @@ import javax.persistence.TemporalType;
 @Table(name = "lote")
 @NamedQueries({
     @NamedQuery(name = "Lote.findAll", query = "SELECT l FROM Lote l"),
-    @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByVenta", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and l.nstock>0 and l.bbloqueado=false ORDER BY l.cfecven,l.clote "),    
+    @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByVentaEntero", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and l.nstock>0 and l.bbloqueado=false ORDER BY l.cfecven,l.clote "),    
+    @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByVentaFraccion", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and l.nstockm>0 and l.bbloqueado=false ORDER BY l.cfecven,l.clote "),    
+    
     @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByCloteByIngreso", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and l.clote=:clote and l.bbloqueado=false and l.nstock>=0 "),    
     @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByCloteByAnulacion", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and l.clote=:clote and l.nstock>=0 "),
     @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByCloteByVenta", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and l.nstock>0 and l.bbloqueado=false  "),    

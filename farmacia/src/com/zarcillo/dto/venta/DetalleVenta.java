@@ -13,9 +13,11 @@ public class DetalleVenta implements Serializable {
     private Date dfecha;
     private Integer id;
     private Integer ncanart;
+    private Integer ncanartm;
     private BigDecimal ncosuni;
     // nstock maximo que se puede digitar super importante cuando se digita
     private Integer nstock;    //
+    private Integer nstockm;    //
     private BigDecimal nvaluni;
     private BigDecimal nigv;
     private BigDecimal nimporte;
@@ -42,8 +44,7 @@ public class DetalleVenta implements Serializable {
     //referencia documento de origen
     private String corigen;
     //id regsalida
-    private Integer nidregsalida;    
-    
+    private Integer nidregsalida;
     //inafecto
     private boolean binafec;
     private BigDecimal ndesfinmax;
@@ -51,6 +52,7 @@ public class DetalleVenta implements Serializable {
     public DetalleVenta() {
         dfecha = new Date();
         ncanart = 0;
+        ncanartm = 0;
         nvaluni = new BigDecimal("0");
         ndesfin = new BigDecimal("0");
         ndeslab = new BigDecimal("0");
@@ -58,6 +60,7 @@ public class DetalleVenta implements Serializable {
 
         ncosuni = new BigDecimal("0");
         nstock = 0;
+        nstockm = 0;
         nsubtot = new BigDecimal("0");
         nstktemporal = 0;
         bneto = false;
@@ -147,6 +150,13 @@ public class DetalleVenta implements Serializable {
     public BigDecimal getSubtotal() {
         //Si tiene descuento Neto quito los descuentos
         //recalculo el nuevo subtotal
+        BigDecimal cantidadsalida = new BigDecimal(ncanart);
+        if (ncanart == 0) {
+            if (ncanartm > 0) {
+                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+            }
+        }
+
         if (this.bneto) {
             nvaluni = Igv.valorVentaDetalleVenta(nvaluni, this.getExistencia().getIdproducto().getBinafecto());
             ndesfin = new BigDecimal("0.0");
@@ -156,9 +166,14 @@ public class DetalleVenta implements Serializable {
             descuento.setNdesc2(new BigDecimal("0"));
             descuento.setNdesc3(new BigDecimal("0"));
             descuento.setNdesc4(new BigDecimal("0"));
-            nsubtot = nvaluni.multiply(new BigDecimal(this.ncanart));
+
+            nsubtot = nvaluni.multiply(cantidadsalida);
+            bneto = false;
         } else {
-            nsubtot = nvaluni.multiply(new BigDecimal(this.ncanart));
+
+
+
+            nsubtot = nvaluni.multiply(cantidadsalida);
             nsubtot = nsubtot.subtract(nsubtot.multiply(ndesfin.divide(new BigDecimal("100"))));
             nsubtot = nsubtot.subtract(nsubtot.multiply(ndesbon.divide(new BigDecimal("100"))));
             nsubtot = nsubtot.subtract(nsubtot.multiply(ndeslab.divide(new BigDecimal("100"))));
@@ -170,7 +185,16 @@ public class DetalleVenta implements Serializable {
 
     public MargenVenta verificaMargen() {
         MargenVenta margenventa = new MargenVenta();
-        BigDecimal valunineto = nsubtot.divide(new BigDecimal(ncanart), 4, BigDecimal.ROUND_HALF_UP);
+        BigDecimal cantidadsalida = new BigDecimal(ncanart);
+        if (ncanart == 0) {
+            if (ncanartm > 0) {
+                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+            }
+        }
+
+
+
+        BigDecimal valunineto = nsubtot.divide(cantidadsalida, 4, BigDecimal.ROUND_HALF_UP);
         BigDecimal utilidad = valunineto.subtract(ncosuni);
         BigDecimal margen = utilidad.multiply(Numero.cien);
 
@@ -257,7 +281,15 @@ public class DetalleVenta implements Serializable {
     }
 
     public BigDecimal getNsubtot() {
-        nsubtot = nvaluni.multiply(new BigDecimal(this.ncanart));
+
+        BigDecimal cantidadsalida = new BigDecimal(ncanart);
+        if (ncanart == 0) {
+            if (ncanartm > 0) {
+                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+            }
+        }
+
+        nsubtot = nvaluni.multiply(cantidadsalida);
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndesfin.divide(new BigDecimal("100"))));
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndesbon.divide(new BigDecimal("100"))));
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndeslab.divide(new BigDecimal("100"))));
@@ -266,7 +298,14 @@ public class DetalleVenta implements Serializable {
     }
 
     public BigDecimal getNsubcos() {
-        nsubtot = ncosuni.multiply(new BigDecimal(this.ncanart));
+        BigDecimal cantidadsalida = new BigDecimal(ncanart);
+        if (ncanart == 0) {
+            if (ncanartm > 0) {
+                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+            }
+        }
+
+        nsubtot = ncosuni.multiply(cantidadsalida);
         return nsubtot.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
@@ -341,8 +380,6 @@ public class DetalleVenta implements Serializable {
         this.binafec = binafec;
     }
 
-  
-
     public BigDecimal getNigv() {
         if (this.isBinafec()) {
             return this.getNsubtot();
@@ -400,7 +437,6 @@ public class DetalleVenta implements Serializable {
         this.nidregsalida = nidregsalida;
     }
 
-
     public Date getDfecha() {
         return dfecha;
     }
@@ -417,6 +453,26 @@ public class DetalleVenta implements Serializable {
         this.ndesfinmax = ndesfinmax;
     }
 
+    public Integer getNcanartm() {
+        return ncanartm;
+    }
+
+    public void setNcanartm(Integer ncanartm) {
+        this.ncanartm = ncanartm;
+    }
+
+    public Integer getNstockm() {
+        return nstockm;
+    }
+
+    public void setNstockm(Integer nstockm) {
+        this.nstockm = nstockm;
+    }
+
+    
+    
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

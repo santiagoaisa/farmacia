@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "familia")
 @NamedQueries({
-    @NamedQuery(name = "Familia.findAll", query = "SELECT f FROM Familia f ORDER BY f.cnomfamilia "),
+    @NamedQuery(name = "Familia.findAll", query = "SELECT f FROM Familia f ORDER BY f.cnomfamilia  "),
     @NamedQuery(name = "Familia.findByIdfamilia", query = "SELECT f FROM Familia f WHERE f.idfamilia=:idfamilia")
 })
 public class Familia implements Serializable {

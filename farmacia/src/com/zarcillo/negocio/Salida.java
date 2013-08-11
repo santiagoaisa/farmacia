@@ -1,20 +1,32 @@
 package com.zarcillo.negocio;
 
 import com.zarcillo.dao.CrudDAO;
+import com.zarcillo.dao.DocumentoDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.LoteDAO;
+import com.zarcillo.dao.NumeracionDAO;
 import com.zarcillo.dao.OrdenLineaDAO;
 import com.zarcillo.dao.PeriodoDAO;
+import com.zarcillo.domain.Cliente;
+import com.zarcillo.domain.CondicionVenta;
+import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Lote;
+import com.zarcillo.domain.MotivoEntrada;
+import com.zarcillo.domain.MotivoSalida;
 import com.zarcillo.domain.Movimiento;
+import com.zarcillo.domain.Numeracion;
 import com.zarcillo.domain.OrdenLinea;
 import com.zarcillo.domain.Periodo;
+import com.zarcillo.domain.Proveedor;
+import com.zarcillo.domain.RegistroEntrada;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.SituacionPedido;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.util.OrdenarPorIdproductoMovimiento;
 import com.zarcillo.util.OrdenarPorNordenMovimiento;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -36,6 +48,7 @@ public class Salida extends DescargaLote {
     private LoteDAO lotedao;
     @Autowired
     private OrdenLineaDAO ordenlineadao;
+       
 
     public Integer registrar(RegistroSalida regsalida) {
         try {
@@ -57,13 +70,13 @@ public class Salida extends DescargaLote {
             for (OrdenLinea ol : listaOrdenLinea) {
                 for (Movimiento m : listaMovimiento) {
                     //zARREGLAR
-//                    if (m.getExistencia().getIdproducto().getIdsublinea().getIdlinea().getIdlinea().equals(ol.getIdlinea().getIdlinea())) {
-//                        m.setNorden(ol.getNorden());
-//                    } else {
-//                        if (m.getNorden().equals(999)) {
-//                            m.setNorden(999);
-//                        }
-//                    }
+                    if (m.getIdproducto().getIdsublinea().getIdlinea().getIdlinea().equals(ol.getIdlinea().getIdlinea())) {
+                        m.setNorden(ol.getNorden());
+                    } else {
+                        if (m.getNorden().equals(999)) {
+                            m.setNorden(999);
+                        }
+                    }
                 }
             }
             Collections.sort(listaMovimiento, new OrdenarPorNordenMovimiento());
@@ -78,14 +91,35 @@ public class Salida extends DescargaLote {
                 // CONTROL DE STOCK DE BONIFICACION
                 existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
                 //Descargo del Stock
-                existencia.setNstock(existencia.getNstock() - m.getNcantidad());
+                // si solo es entero
+                if (m.getNcantidad() > 0) {
+                    existencia.setNstock(existencia.getNstock() - m.getNcantidad());
+                } else {
+                    // si es menudeo y tengo stock de menudeo
+                    if (existencia.getNstockm() > m.getNcantidadm()) {
+                        existencia.setNstockm(existencia.getNstockm() - m.getNcantidadm());
+                    } else {
+                        BigDecimal cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                        if (Numero.isMayor(cantidadsalida, Numero.uno)) {
+                            throw new ExceptionZarcillo("La cantidad vendida en fraccion es mayor a la cantidad de menudeo asignada");
+                        } else {
+                            existencia.setNstockm(existencia.getNstockm() - m.getNcantidadm());
+                            /// cantidad de salida
+                        }
+                    }
+                }
+
+
+
                 //Descargo del temporal
-                existencia.setNtemporal(existencia.getNtemporal() - m.getNcantidad());
+                //existencia.setNtemporal(existencia.getNtemporal() - m.getNcantidad());
                 cruddao.actualizar(existencia);
 
                 m.setIdregsalida(regsalida);
                 m.setCtipmov("S");
                 m.setNstock(existencia.getNstock());
+                m.setNstockm(existencia.getNstockm());
+                m.setNmenudeo(existencia.getIdproducto().getNmenudeo());
                 m.setIdmovimiento(null);
                 cruddao.registrar(m);
             }
@@ -102,6 +136,7 @@ public class Salida extends DescargaLote {
 //                logusuariodao.eliminar(logusuario);
 //            }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ExceptionZarcillo(e.getCause().getMessage());
         }
         return regsalida.getIdregsalida();
@@ -125,6 +160,7 @@ public class Salida extends DescargaLote {
                             throw new ExceptionZarcillo("El Lote " + m.getClote() + "\ndel Producto:" + m.getIdproducto() + "\n ¡No existe!");
                         } else {
                             lote.setNstock(lote.getNstock() - m.getNcantidad());
+                            lote.setNstockm(lote.getNstockm() - m.getNcantidadm());
                             cruddao.actualizar(lote);
                         }
                     } else {

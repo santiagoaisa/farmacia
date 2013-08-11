@@ -56,9 +56,16 @@ public class LoteDAOImpl implements LoteDAO {
     }
 
     @Override
-    public List<Lote> listaPorIdalmacenPorIdproductoParaVenta(Integer idalmacen, String idproducto) {
-        return em.createNamedQuery("Lote.findByIdalmacenByIdproductoByVenta").setParameter("idalmacen", idalmacen).setParameter("idproducto", idproducto).getResultList();
+    public List<Lote> listaPorIdalmacenPorIdproductoParaVentaEntero(Integer idalmacen, String idproducto) {
+        return em.createNamedQuery("Lote.findByIdalmacenByIdproductoByVentaEntero").setParameter("idalmacen", idalmacen).setParameter("idproducto", idproducto).getResultList();
     }
+
+    @Override
+    public List<Lote> listaPorIdalmacenPorIdproductoParaVentaFraccion(Integer idalmacen, String idproducto) {
+        return em.createNamedQuery("Lote.findByIdalmacenByIdproductoByVentaFraccion").setParameter("idalmacen", idalmacen).setParameter("idproducto", idproducto).getResultList();
+    }
+    
+    
 
     @Override
     public List<Lote> listaPorIdalmacenPorIdproductoParaListado(Integer idalmacen, String idproducto) {
