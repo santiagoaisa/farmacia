@@ -19,6 +19,7 @@ import java.util.List;
 public interface VentaService {
     
     public List<DetalleVenta> busquedaListaPorIdalmacenPorDescripcion(Integer idalmacen,String criterio);
+    public List<DetalleVenta> busquedaListaPorIdalmacenPorReceta(Integer idalmacen,String criterio);
     public DetalleVenta detalleVenta(Integer idalmacen, Existencia existencia,Usuario idusuario);
     public Integer registrar(RegistroSalida regsalida,Almacen almacen);
     public List<Documento> listaDocumento(Integer idcliente);

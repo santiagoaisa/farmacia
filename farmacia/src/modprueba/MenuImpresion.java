@@ -1,6 +1,7 @@
 package modprueba;
 
 import java.util.HashMap;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.zkoss.zul.Applet;
@@ -21,16 +22,16 @@ public class MenuImpresion extends Window {
 
     private void initcomponentes() {
         applet = (Applet) getFellow("applet");
-        applet.setCode("impresora.Impresion.class");
-        applet.setCodebase("/modulos/");
-        applet.setArchive("impresora.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
+        applet.setCode("Impresion.class");
+        applet.setCodebase("/applet");
+        applet.setArchive("impresion.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
 
-        applet.setParam("code", "impresora.Impresion.class");
-        applet.setParam("codebase", "/farmacia/modulos/");
-        applet.setParam("archive", "impresora.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
+        applet.setParam("code", "Impresion.class");
+        applet.setParam("codebase", "/applet");
+        applet.setParam("archive","impresion.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
 
         applet.setParam("type", "application/x-java-applet");
-        applet.setParam("scriptable", "true");
+        applet.setParam("scriptable", "false");
         
         
     }
@@ -41,8 +42,8 @@ public class MenuImpresion extends Window {
             //String destino = "/usr/local/jboss/server/default/deploy/jboss-web.deployer/ROOT.war/reporte/" + idreporte + ".jrprint";
             String destino="C:/Program Files/Apache Software Foundation/Tomcat 7.0/webapps/ROOT/reporte";
             //se crea un archivo .jrprint
-            //JasperFillManager.fillReportToFile(reportecompilado, destino, parametro, data);
-            String reporte = "../../reporte/" + idreporte + ".jrprint";
+            JasperFillManager.fillReportToFile(reportecompilado, destino, parametro, data);
+            String reporte = "/reporte/" + idreporte + ".jrprint";
 
             applet.invoke("imprimir", reporte);
 

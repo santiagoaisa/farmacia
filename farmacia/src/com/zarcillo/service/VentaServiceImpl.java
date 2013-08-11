@@ -96,6 +96,28 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
     @Override
     @Transactional
+    public List<DetalleVenta> busquedaListaPorIdalmacenPorReceta(Integer idalmacen, String criterio) {
+        List<DetalleVenta> listaRetorno = new ArrayList<>();
+
+        try {
+            List<Existencia> listaExistencia = existenciadao.busquedaListaPorIdalmacenPorReceta(idalmacen, criterio);
+            // Logica de Descuentos
+            DetalleVenta detalle;
+            for (Existencia e : listaExistencia) {
+                detalle = detalleParaVenta(idalmacen, e);
+                listaRetorno.add(detalle);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionZarcillo(e.getMessage());
+        }
+        /// controlo los negativos del temporal
+        return listaRetorno;
+    }
+
+    @Override
+    @Transactional
     public List<DetalleVenta> busquedaListaPorIdalmacenPorDescripcion(Integer idalmacen, String criterio) {
 
         List<DetalleVenta> listaRetorno = new ArrayList<>();

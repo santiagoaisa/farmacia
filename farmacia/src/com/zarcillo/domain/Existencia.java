@@ -31,6 +31,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Existencia.findByIdalmacenByIdlinea", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.idsublinea.idlinea.idlinea=:idlinea ORDER BY e.idproducto.cnomproducto "),
     @NamedQuery(name = "Existencia.findByIdalmacenByBinafecto", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.binafecto=true ORDER BY e.idproducto.cnomproducto "),
     @NamedQuery(name = "Existencia.findByIdalmacenByCnomproducto", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.cnomproducto LIKE :ccriterio ORDER BY e.idproducto.cnomproducto "),
+   @NamedQuery(name = "Existencia.findByIdalmacenByCreseta", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.creseta LIKE :ccriterio ORDER BY e.idproducto.cnomproducto "),
     @NamedQuery(name = "Existencia.findByIdalmacenByIdproducto", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.idproducto=:idproducto")
 })
 public class Existencia implements Serializable {
