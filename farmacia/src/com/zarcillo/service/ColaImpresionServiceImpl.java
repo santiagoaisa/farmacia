@@ -109,6 +109,7 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
 
             return comprobante;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ExceptionZarcillo(e.getMessage());
         }
     }

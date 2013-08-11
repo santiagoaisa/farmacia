@@ -13,4 +13,5 @@
  <button id="btnCargar" label="Cargar" >
      </button>
     
+    <menu id="mimpresion" width="100%"></menu>
 </window>

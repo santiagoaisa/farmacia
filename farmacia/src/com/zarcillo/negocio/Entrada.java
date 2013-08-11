@@ -62,9 +62,6 @@ public class Entrada extends Salida {
 
     public void registrar(RegistroEntrada regentrada) {
         // inicio se establece el periodo
-
-
-
         try {
             regentrada.setIdregentrada(null);
             regentrada.setIdperiodo(periododao.buscarPorFecha(new Date()));
@@ -72,9 +69,8 @@ public class Entrada extends Salida {
             // fin se establece el periodo
 
             cruddao.registrar(regentrada);
-
             List<Movimiento> listaMovimientos = regentrada.getMovimientoCollection();
-            System.out.println("MOVIMIENTOS:" + listaMovimientos.size());
+            
             Movimiento detalle;
             Existencia existencia;
             Producto producto;
@@ -111,9 +107,11 @@ public class Entrada extends Salida {
                     detalle.setNdesfin(new BigDecimal(0));
                     detalle.setNdesbon(new BigDecimal(0));
                     detalle.setNdeslab(new BigDecimal(0));
-
+                    //SI LA CANTIDAD INGRESADA ES ENTERA
                     if (detalle.getNcantidad() > 0) {
+                        //NETO DIVISION ENTRE EL SUBTOTAL Y LA CANTIDAD INGRESADA
                         neto = detalle.getNsubtot().divide(new BigDecimal(detalle.getNcantidad()), 4, RoundingMode.HALF_EVEN);
+                        //STOCK ACTUAL QUE TENEMOS EN ENTERO Y FRACCION
                         BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
                         BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
                         BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
@@ -249,7 +247,7 @@ public class Entrada extends Salida {
             regsalidafraccion.setDfecdig(regsalida.getDfecdig());
             regsalidafraccion.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.TRANSFERENCIA_SUNAT.getCcodigosunat()));
             regsalidafraccion.setIdmoneda(regsalida.getIdmoneda());
-            regsalidafraccion.setIdmotivo(MotivoSalida.FRACCION);
+            regsalidafraccion.setIdmotivo(MotivoSalida.TRANSFERENCIA);
             regsalidafraccion.setIdunidad(regsalida.getIdunidad());
             regsalidafraccion.setIdusuario(regsalida.getIdusuario());
             regsalidafraccion.setIdvendedor(regsalida.getIdvendedor());
@@ -282,7 +280,7 @@ public class Entrada extends Salida {
             regentradafraccion.setDfecha(new Date());
             regentradafraccion.setIdalmacen(m.getIdalmacen());
             regentradafraccion.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.TRANSFERENCIA_SUNAT.getCcodigosunat()));
-            regentradafraccion.setIdmotivo(MotivoEntrada.FRACCION);
+            regentradafraccion.setIdmotivo(MotivoEntrada.TRANSFERENCIA);
             regentradafraccion.setIdproveedor(Proveedor.TRANSFERENCIA);
             regentradafraccion.setIdusuario(regsalida.getIdusuario());
 
@@ -296,12 +294,13 @@ public class Entrada extends Salida {
                 movimiento = new Movimiento();
                 movimiento.setIdalmacen(ms.getIdalmacen());
                 movimiento.setIdproducto(ms.getIdproducto());
-
-                Integer nentrada = 1 * ms.getIdproducto().getNmenudeo();
-                BigDecimal nstocfraccion = new BigDecimal(1).divide(new BigDecimal(ms.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                //ENTRADA DE FRACCION
+                Integer nentradafraccion = 1 * ms.getIdproducto().getNmenudeo();
+                // EL STOCK QUE REPRESENTA 1 UNIDAD EN FRACCION EJEMPLO 0.01
+                BigDecimal nstocfraccion = new BigDecimal("1").divide(new BigDecimal(ms.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                // EL STOCK ENFRACCION ME SIRVE PARA SACAR EL COSTO FRACCIONADO
                 BigDecimal ncosuni = ms.getNcosuni().multiply(nstocfraccion);
-
-                movimiento.setNcantidadm(nentrada);
+                movimiento.setNcantidadm(nentradafraccion);
                 movimiento.setNcosuni(ncosuni);
                 movimiento.setNsubtot(ms.getNcosuni());
                 movimiento.setClote(ms.getClote());

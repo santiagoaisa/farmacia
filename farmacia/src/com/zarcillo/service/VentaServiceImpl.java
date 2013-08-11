@@ -28,6 +28,7 @@ import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.negocio.Entrada;
 import com.zarcillo.negocio.Numero;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,7 +57,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
     @Autowired
     private NumeracionDAO numeraciondao;
     @Autowired
-    private CondicionVentaDAO condicionventadao;    
+    private CondicionVentaDAO condicionventadao;
     @Autowired
     private DescuentoDAO descuentodao;
     @Autowired
@@ -172,13 +173,20 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
         detalle.setExistencia(existencia);
         detalle.setNcosuni(existencia.getNcosuni());
+
         detalle.setBinafec(existencia.getIdproducto().getBinafecto());
 
         //ESTABLESCO EL INCREMENTO
         if (Numero.isCero(detalle.getNvaluni())) {
             detalle.setNvaluni(existencia.getNvalven());
+
+            BigDecimal nvalorunitariofraccion = detalle.getNvaluni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), idalmacen, 2);
+            detalle.setNvalunim(nvalorunitariofraccion);
         } else {
             detalle.setNvaluni(existencia.getNcosuni().add(detalle.getNcosuni().multiply(existencia.getIdproducto().getIdsublinea().getIdlinea().getNincremento().divide(Numero.cien))));
+
+            BigDecimal nvalorunitariofraccion = detalle.getNvaluni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), idalmacen, 2);
+            detalle.setNvalunim(nvalorunitariofraccion);
         }
 
         //detalle.setNvaluni(existencia.getNvalven());

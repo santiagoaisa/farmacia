@@ -16,6 +16,7 @@ import jxl.Workbook;
 
 import net.sf.jasperreports.engine.JRException;
 import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -45,9 +46,8 @@ public class Prueba extends SelectorComposer {
 
     @Listen("onCreate=window#winPrueba")
     public void onCreate() throws InterruptedException, JRException, NamingException {
-//        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winPrueba/mimpresion");
-//        menuimpresion = (MenuImpresion) macro.getChildren().get(0);
-// esto es prueba
+        HtmlMacroComponent macro = (HtmlMacroComponent) winPrueba.getFellow("mimpresion");
+        menuimpresion = (MenuImpresion) macro.getChildren().get(0);
     }
 
     @Listen("onClick = button#btnImprimir")
@@ -72,7 +72,7 @@ public class Prueba extends SelectorComposer {
         Linea linea;
         Sublinea sublinea;
         DecimalFormat formato = new DecimalFormat("000");
-        for (int i = 1; i < sheet.getRows(); i++) {            
+        for (int i = 1; i < sheet.getRows(); i++) {
             Cell celda = sheet.getCell(0, i);
             if (celda.getContents().trim().isEmpty()) {
                 continue;
@@ -83,11 +83,11 @@ public class Prueba extends SelectorComposer {
 
             //sublinea 
             celda = sheet.getCell(0, i);
-            linea=new Linea(new Integer(celda.getContents().trim()));
-            sublinea=new Sublinea(linea.getIdlinea());
+            linea = new Linea(new Integer(celda.getContents().trim()));
+            sublinea = new Sublinea(linea.getIdlinea());
             sublinea.setIdlinea(linea);;
-                    
-            producto.setIdsublinea(sublinea);            
+
+            producto.setIdsublinea(sublinea);
             //presentaqcion
             celda = sheet.getCell(3, i);
             producto.setIdpresentacion(new Presentacion(new Integer(celda.getContents().trim())));
@@ -95,32 +95,32 @@ public class Prueba extends SelectorComposer {
             producto.setCnomproducto(celda.getContents().trim());
             //iafecto
             celda = sheet.getCell(4, i);
-            if(celda.getContents().trim().contains("true")){
+            if (celda.getContents().trim().contains("true")) {
                 producto.setBinafecto(true);
             }
-            
+
             celda = sheet.getCell(5, i);
-            if(celda.getContents().trim().contains("true")){
+            if (celda.getContents().trim().contains("true")) {
                 producto.setBinafecto(true);
             }
-            
-            
-             //id
-             
+
+
+            //id
+
             celda = sheet.getCell(6, i);
-            Integer id=new Integer(celda.getContents().trim());
-            String cid =formato.format(linea.getIdlinea())+formato.format(id);
-           producto.setIdproducto(cid);
-            
-            
+            Integer id = new Integer(celda.getContents().trim());
+            String cid = formato.format(linea.getIdlinea()) + formato.format(id);
+            producto.setIdproducto(cid);
+
+
             celda = sheet.getCell(7, i);
-            if(celda.getContents()!=null){
+            if (celda.getContents() != null) {
                 producto.setCreseta(celda.getContents().trim().toUpperCase());
             }
-            
+
             celda = sheet.getCell(8, i);
             producto.setIdfamilia(new Familia(new Integer(celda.getContents().trim())));
-            
+
             productoService.registrar(producto);
 
         }

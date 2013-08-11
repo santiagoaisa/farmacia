@@ -48,7 +48,7 @@ public class MotivoEntrada implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
     
-    public static MotivoEntrada FRACCION=new MotivoEntrada(0,false);
+    public static MotivoEntrada TRANSFERENCIA=new MotivoEntrada(0,false);
 
     public MotivoEntrada() {
         bcosteo=false;        
