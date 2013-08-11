@@ -21,11 +21,11 @@ public class MenuImpresion extends Window {
 
     private void initcomponentes() {
         applet = (Applet) getFellow("applet");
-        applet.setCode("impresion");
+        applet.setCode("impresora.Impresion.class");
         applet.setCodebase("/modulos/");
         applet.setArchive("impresora.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
 
-        applet.setParam("code", "impresora");
+        applet.setParam("code", "impresora.Impresion.class");
         applet.setParam("codebase", "/farmacia/modulos/");
         applet.setParam("archive", "impresora.jar,commons-collections-2.1.1.jar,commons-logging-1.1.1.jar,jasperreports-applet-5.1.0.jar");
 

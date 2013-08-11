@@ -48,6 +48,7 @@ public class Prueba extends SelectorComposer {
     public void onCreate() throws InterruptedException, JRException, NamingException {
         HtmlMacroComponent macro = (HtmlMacroComponent) winPrueba.getFellow("mimpresion");
         menuimpresion = (MenuImpresion) macro.getChildren().get(0);
+        
     }
 
     @Listen("onClick = button#btnImprimir")
