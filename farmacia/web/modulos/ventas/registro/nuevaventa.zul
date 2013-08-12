@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winVenta"?>
-<window id="winVenta" title="Registro de Ventas..."  width="920px"  border="0"
- apply="modventas.registro.NuevaVenta" >
+<window id="winVenta" title="Registro de Ventas..."  width="950px"  border="0"
+        apply="modventas.registro.NuevaVenta" >
 
     <grid>
         <columns>
@@ -17,76 +17,87 @@
                 <combobox id="cboAlmacen" readonly="true" width="98%"/>
                 <label value="Condicion:"/>
                 <combobox id="cboCondicion" readonly="true" width="98%"/>
+                <label value="Fecha:"/>
                 <datebox id="dFecha" width="85%" readonly="true" format="yyyy-MM-dd" />
+                               
+            </row>
+            <row spans="1,1,1,1,2" >
+                <label value="Motivo Venta:"/>
+                <combobox id="cboMotivo" readonly="true" width="98%"/>
+                <label value="Vendedor:"/>
+                <combobox id="cboVendedor" readonly="true" width="98%"/>
                 <button id="btnAgregar" label="Agregar"  />                
             </row>
         </rows>
     </grid>
     <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
         <listhead>
-                        <listheader label="Descripción" width="30%" sort="auto(producto.cnomart)" />
-                        <listheader label="F/" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>                        
-                        <listheader label="Unidad" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>
-                        <listheader label="Stock" width="7%" align="center" />
-                         <listheader label="Menudeo" width="7%" align="center" />
-                          <listheader label="Cant." width="7%" align="center" />
-                        <listheader label="Fracc." width="7%" align="center" />
-                        <listheader label="Linea" width="18%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
-                        <listheader label="ValUni" width="7%" align="center" />
-                        <listheader label="Val" width="7%" align="center" />
-                        <listheader label="Subtot" width="7%" align="center" />
-                    </listhead>
-
-                    <listitem self="@{each=detalle}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
-                        <listcell label="@{detalle.existencia.idproducto.cnomart}" />
-                        <listcell label="@{detalle.existencia.idproducto.nmenudeo}"/>
-                        <listcell label="@{detalle.existencia.idproducto.idpresentacion.cabrev}"/>
-                        <listcell label="@{detalle.nstock}"  />
-                        <listcell label="@{detalle.nstockm}"  />
-                        <listcell>
-                            <intbox id="i0" value="@{detalle.ncanart}"  width="70%" />
-                        </listcell>
-                        <listcell>
-                            <intbox id="i1" value="@{detalle.ncanartm}"  width="70%" />
-                        </listcell>
-                        <listcell label="@{detalle.existencia.idproducto.idsublinea.idlinea}"/>
-                        <listcell decimal="@{detalle.nvalunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                        <listcell decimal="@{detalle.nvaluni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                        <listcell decimal="@{detalle.getSubtotal}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                    </listitem>
+            <listheader label="Descripción" width="30%" sort="auto(producto.cnomart)" />
+            <listheader label="F/" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>                        
+            <listheader label="Unidad" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>
+            <listheader label="Stock" width="6%" align="center" />
+            <listheader label="Menudeo" width="6%" align="center" />
+            <listheader label="Cant." width="7%" align="center" />
+            <listheader label="Fracc." width="7%" align="center" />
+            <listheader label="Linea" width="18%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
+            <listheader label="ValUni" width="5%" align="center" />
+            <listheader label="Val" width="5%" align="center" />
+            <listheader label="Subtot" width="7%" align="center" />
+            <listheader label="Importe" width="7%" align="center" />
+            <listheader  width="4%" align="center" />
+        </listhead>
+        <listitem self="@{each=detalle}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
+            <listcell label="@{detalle.existencia.idproducto.cnomart}" />
+            <listcell label="@{detalle.existencia.idproducto.nmenudeo}"/>
+            <listcell label="@{detalle.existencia.idproducto.idpresentacion.cabrev}"/>
+            <listcell label="@{detalle.nstock}"  />
+            <listcell label="@{detalle.nstockm}"  />
+            <listcell>
+                <intbox id="i0" value="@{detalle.ncanart}"  width="70%" />
+            </listcell>
+            <listcell>
+                <intbox id="i1" value="@{detalle.ncanartm}" readonly="@{detalle.bfraccion}"  width="70%" />
+            </listcell>
+            <listcell label="@{detalle.existencia.idproducto.idsublinea.idlinea}"/>
+            <listcell decimal="@{detalle.npreunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.npreuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell>
+                <toolbarbutton id="btnQuitar" image="/img/eliminadetalleingreso.png" width="70%"   />
+            </listcell>
+        </listitem>
     </listbox>
     <grid fixedLayout="true" >
         <columns>
-            <column width="65%"/>
-            <column width="20%"/>
+            <column width="60%"/>
+            <column width="25%"/>
             <column width="15%"/>
             
         </columns>
         <rows>
             <row  >            
                 <label />
-                <label value="IMPORTE TOTAL" style=" font-size:20px; " />
-                <decimalbox id="nImporte" style=" font-size:20px; " format="0.00" width="90%" value="0" readonly="true" />
+                <label value="IMPORTE TOTAL" style=" font-size:22px; " />
+                <decimalbox id="nImporte" style=" font-size:22px; " format="0.00" width="90%" value="0" readonly="true" />
               
             </row>
 
         </rows>
     </grid>
 
-        <toolbar id="tb"  height="25px" align="end" >
-            <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"
-				  />
-            <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png"
-				onClick="doCancel()" />
-        </toolbar>
+    <toolbar id="tb"  height="25px" align="end" >
+        <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"
+        />
+        <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png"
+                           onClick="doCancel()" />
+    </toolbar>
 
 
     <zscript>{
         void doCancel() {
         winVenta.setAttribute("REST",false);
         winVenta.onClose();
-  }
- }
+        }
+        }
     </zscript>
-
 </window>

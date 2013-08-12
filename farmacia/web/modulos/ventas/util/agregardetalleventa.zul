@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDetalleVenta"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="winDetalleVenta" title="agregar Detalle Venta..." border="0" width="850px" position="center"
+<window id="winDetalleVenta" title="agregar Detalle Venta..." border="0" width="900px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modventas.util.AgregarDetalleVenta" >
     <zscript>{
         void doCancel() {
@@ -21,17 +21,18 @@
             <row spans="2" >
                 <listbox id="lstExistencia" width="99%" mold="paging" pageSize="500"  height="400px">
                     <listhead>
-                        <listheader label="Descripción" width="30%" sort="auto(producto.cnomart)" />
+                        <listheader label="Descripción" width="28%" sort="auto(producto.cnomart)" />
                         <listheader label="F/" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>                        
                         <listheader label="Unidad" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>
-                        <listheader label="Stock" width="7%" align="center" />
-                         <listheader label="Menudeo" width="7%" align="center" />
-                          <listheader label="Cant." width="7%" align="center" />
+                        <listheader label="Stock" width="5%" align="center" />
+                        <listheader label="Menudeo" width="5%" align="center" />
+                        <listheader label="Cant." width="7%" align="center" />
                         <listheader label="Fracc." width="7%" align="center" />
                         <listheader label="Linea" width="18%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
-                        <listheader label="ValUni" width="7%" align="center" />
-                        <listheader label="Val" width="7%" align="center" />
+                        <listheader label="ValUni" width="6%" align="center" />
+                        <listheader label="Val" width="6%" align="center" />
                         <listheader label="Subtot" width="7%" align="center" />
+                        <listheader label="Importe" width="7%" align="center" />
                     </listhead>
 
                     <listitem self="@{each=detalle}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
@@ -44,12 +45,12 @@
                             <intbox id="i0" value="@{detalle.ncanart}"  width="70%" />
                         </listcell>
                         <listcell>
-                            <intbox id="i1" value="@{detalle.ncanartm}"  width="70%" />
+                            <intbox id="i1" value="@{detalle.ncanartm}" readonly="@{detalle.bfraccion}"   width="70%" />
                         </listcell>
                         <listcell label="@{detalle.existencia.idproducto.idsublinea.idlinea}"/>
-                        <listcell decimal="@{detalle.nvalunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                        <listcell decimal="@{detalle.nvaluni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                        <listcell decimal="@{detalle.getSubtotal}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{detalle.npreunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{detalle.npreuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
                     </listitem>
                 </listbox>
             </row>

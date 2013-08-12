@@ -91,7 +91,7 @@
                 <decimalbox id="d3" value="@{detalleIngreso.ndesc2}" format="0.00" width="80%" />
             </listcell>
             <listcell>
-                <decimalbox id="d4" value="@{detalleIngreso.nsubtot}" format="0.0000"  width="80%" />
+                <decimalbox id="d4" value="@{detalleIngreso.nsubtot}" ctrlKeys="@c^a#f8" format="0.0000"  width="80%" />
             </listcell>
             <listcell>
                 <intbox id="i3" width="40%" value="@{detalleIngreso.naño}" maxlength="4"/>

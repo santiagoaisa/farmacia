@@ -210,6 +210,7 @@ public class NuevoIngreso extends SelectorComposer {
         txtCodigo.focus();
     }
     
+      
     @Listen("onCtrlKey = #d4")
     public void onRecalcula(Event event) {
         if (((KeyEvent)event).getKeyCode() == 119){

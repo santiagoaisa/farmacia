@@ -1,17 +1,24 @@
 package modventas.registro;
 
 import com.zarcillo.domain.Almacen;
+import com.zarcillo.domain.CondicionVenta;
 import com.zarcillo.domain.Lote;
+import com.zarcillo.domain.MotivoSalida;
+import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.Usuario;
+import com.zarcillo.domain.Vendedor;
+import com.zarcillo.dto.almacen.DetalleIngreso;
 import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.CondicionVentaService;
+import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.UsuarioService;
 import com.zarcillo.service.VentaService;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.naming.NamingException;
@@ -31,18 +38,20 @@ import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class NuevaVenta extends SelectorComposer{
     
-    private Lote lote=new Lote();
     private Usuario usuario;   
-    private RegistroSalida regsalida;
+    private RegistroSalida regsalida=new RegistroSalida();
     private ListModelList modeloAlmacen;
     private ListModelList modeloDetalle;
     private ListModelList modeloCondicion;
+    private ListModelList modeloMotivo;
+    private ListModelList modeloVendedor;
     
     @Wire
     private Window winVenta;
@@ -52,6 +61,12 @@ public class NuevaVenta extends SelectorComposer{
     
     @Wire
     private Combobox cboCondicion;
+    
+    @Wire
+    private Combobox cboMotivo;
+    
+    @Wire
+    private Combobox cboVendedor;
     
     @Wire
     private Datebox dFecha;
@@ -81,8 +96,7 @@ public class NuevaVenta extends SelectorComposer{
     CondicionVentaService condicionVentaService;
     
     private String user_login;
-    final Execution exec= Executions.getCurrent();
-    
+    final Execution exec= Executions.getCurrent();   
     
     
     @Listen("onCreate=window#winVenta")
@@ -99,13 +113,23 @@ public class NuevaVenta extends SelectorComposer{
     public void onAgregarImprimir(Event event) {
         registrar();
     } 
+    @Listen("  onBlur = intbox#i0,intbox#i1 ")
+    public void calcular() {
+        cargarPie();                
+    }
+    
+    @Listen("onClick = #btnQuitar")
+    public void onQuitarDetalle(Event event) {
+        Toolbarbutton btn = (Toolbarbutton) event.getTarget();
+        Listitem item = (Listitem) (btn.getParent().getParent());
+        borrarProducto(item.getIndex());
+    }
      
     
     
     public void initComponets(){
         user_login = exec.getUserPrincipal().getName();
-        usuario=usuarioService.buscarPorLogin(user_login);  
-        
+        usuario=usuarioService.buscarPorLogin(user_login);         
         
         modeloAlmacen=new ListModelList(almacenService.listaGeneral());
         cboAlmacen.setModel(modeloAlmacen);
@@ -121,11 +145,34 @@ public class NuevaVenta extends SelectorComposer{
             cboCondicion.close();
             cboCondicion.setSelectedIndex(0);
         }
+        modeloMotivo=new ListModelList(ventaService.listaMotivo());
+        cboMotivo.setModel(modeloMotivo);
+        if (modeloMotivo.size() > 0) {
+            cboMotivo.onInitRender(new Event("", cboMotivo));
+            cboMotivo.close();
+            cboMotivo.setSelectedIndex(0);
+        }
+        modeloVendedor=new ListModelList(ventaService.listaVendedorActivo());
+        cboVendedor.setModel(modeloVendedor);
+        if (modeloVendedor.size() > 0) {
+            cboVendedor.onInitRender(new Event("", cboVendedor));
+            cboVendedor.close();
+            cboVendedor.setSelectedIndex(0);
+        }
         modeloDetalle=new ListModelList();
         lstDetalle.setModel(modeloDetalle);
         dFecha.setValue(new Date());
-        
+        btnAgregar.focus();
     }    
+    private void borrarProducto(int index) {
+        int resp2 = 0;
+        resp2 = Messagebox.show("¿Desea eliminar registro?", "Venta", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
+        if (resp2 == Messagebox.YES) {
+            DetalleVenta detalle = (DetalleVenta) modeloDetalle.getElementAt(index);
+            modeloDetalle.remove(detalle);
+        }
+        cargarPie();
+    }
     private void agregarDetalle(){
         Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         Window winbuscaprod = (Window) Executions.createComponents("/modulos/ventas/util/agregardetalleventa.zul", null, null);
@@ -151,11 +198,43 @@ public class NuevaVenta extends SelectorComposer{
         DetalleVenta detalleventa;
         for (Listitem item : ldatos) {
             detalleventa=(DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
+            if(detalleventa.getNcanart()>0&&detalleventa.getNcanartm()>0){
+                throw new ExceptionZarcillo("No se puede vender en unidades y menudeo...");
+            }
             nsubtot=nsubtot.add(detalleventa.getNsubtot());
             nigv=nigv.add(detalleventa.getNigv());
             nprecio=nprecio.add(detalleventa.getNimporte());
         }
         nImporte.setValue(nprecio);
+    }
+    
+    private List<Movimiento> llenarDetalle() {
+        List<Movimiento> coldetalle = new ArrayList<Movimiento>();
+        List<Listitem> ldatos = lstDetalle.getItems();
+        DetalleVenta detalleventa;
+        Movimiento movimiento;
+        for (Listitem item : ldatos) {
+            movimiento = new Movimiento();
+            detalleventa = new DetalleVenta();
+            detalleventa = (DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
+            if (detalleventa.getExistencia() != null &&( !(detalleventa.getNcanart().equals(0))|| !(detalleventa.getNcanartm().equals(0)))) {
+                movimiento.setIdproducto(detalleventa.getExistencia().getIdproducto());
+                movimiento.setIdalmacen(detalleventa.getExistencia().getIdalmacen());
+                movimiento.setNcosuni(detalleventa.getNcosuni());
+                movimiento.setNvaluni(detalleventa.getNvaluni());
+                movimiento.setNcantidad(detalleventa.getNcanart());
+                movimiento.setNcantidadm(detalleventa.getNcanartm());
+                movimiento.setNstock(detalleventa.getNstock());
+                movimiento.setNstockm(detalleventa.getNstockm());
+                movimiento.setNdesfin(detalleventa.getNdesfin());
+                movimiento.setNdeslab(detalleventa.getNdeslab());
+                movimiento.setNdesbon(detalleventa.getNdesbon());
+                movimiento.setNsubtot(detalleventa.getNsubtot());
+                movimiento.setBinafecto(detalleventa.isBinafec());
+                coldetalle.add(movimiento);
+            }
+        }
+        return coldetalle;
     }
     
    
@@ -164,8 +243,22 @@ public class NuevaVenta extends SelectorComposer{
         cboAlmacen.getValue();
     }
     public void registrar() {
-        DecimalFormat formato=new DecimalFormat("00");
         validar();
+        Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+        CondicionVenta condicion=(CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
+        MotivoSalida motivo=(MotivoSalida) modeloMotivo.getElementAt(cboMotivo.getSelectedIndex());
+        Vendedor vendedor=(Vendedor) modeloVendedor.getElementAt(cboVendedor.getSelectedIndex());
+        regsalida.setIdusuario(usuario);
+        regsalida.setIdunidad(almacen.getIdunidad());
+        regsalida.setIdcondicion(condicion);
+        regsalida.setIdmotivo(motivo);
+        regsalida.setIdvendedor(vendedor);
+        regsalida.setDfecha(dFecha.getValue());
+        regsalida.setMovimientoCollection(llenarDetalle());
+        int operacion=ventaService.registrar(regsalida, almacen);
+        Messagebox.show("OPERACION: " +operacion, "REGISTRO SATISFACTORIO", Messagebox.OK, Messagebox.INFORMATION);
+            
+        
     }
 }
 

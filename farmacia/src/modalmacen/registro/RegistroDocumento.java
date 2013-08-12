@@ -132,7 +132,6 @@ public class RegistroDocumento extends SelectorComposer {
       dFecven.setValue(cuentapagar.calculaVencimiento());
     }
     public void cargarDatos(){
-        // mostrando datos
         txtNombre.setText(rentrada.getIdproveedor().getCnomprovee());
         txtRuc.setText(rentrada.getIdproveedor().getCruc());
         //
@@ -140,8 +139,7 @@ public class RegistroDocumento extends SelectorComposer {
         txtNumfac.setText(rentrada.getCnumero());
         dFecemi.setValue(new Date());
         dFecven.setValue(new Date());
-        nPlazo.setValue(0);
-        // Calculo la fecha de vencimiento de acuerdo al plazo del proveedor
+        nPlazo.setValue(rentrada.getIdproveedor().getNplazo());
         calculaFechaVen();
         //
         nAfecto.setValue(rentrada.getNafecto());

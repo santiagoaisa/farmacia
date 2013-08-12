@@ -4,6 +4,7 @@ package modventas.util;
 import modmantenimiento.util.MenuResultado;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.dto.venta.DetalleVenta;
+import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.VentaService;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.HtmlMacroComponent;
@@ -64,6 +65,9 @@ public class AgregarDetalleVenta extends SelectorComposer {
         Intbox sub = (Intbox) event.getTarget();
         Listitem item = (Listitem) (sub.getParent().getParent());
         DetalleVenta detven =  (DetalleVenta) modeloExistencia.getElementAt(item.getIndex());
+        if(detven.getNcanart()>0&&detven.getNcanartm()>0){
+                throw new ExceptionZarcillo("No se puede vender en unidades y menudeo...");
+         }
         winDetalleVenta.setAttribute("DETALLEVENTA",detven );
         winDetalleVenta.setAttribute("REST",true );
         winDetalleVenta.onClose();
