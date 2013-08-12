@@ -44,8 +44,6 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     public RegistroEntrada registrarIngreso(RegistroEntrada regentrada, CuentaPagar cuentapagar) {
 
         try {
-
-
             super.registrar(regentrada);
             cuentapagar.setIdproveedor(regentrada.getIdproveedor());
             cuentapagar.setNsaldo(cuentapagar.getNimporte().add(cuentapagar.getNpercepcion()));
@@ -67,6 +65,21 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
         return regentrada;
     }
 
+    @Override
+     @Transactional
+    public void anular(Integer idregentrada) {
+        try {            
+            RegistroEntrada regentrada=registroentradadao.busqueda(idregentrada);
+            super.anular(regentrada);            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionZarcillo("Error al anular");
+        }
+    }
+
+    
+    
+    
     @Override
     @Transactional
     public void anularIngreso(Integer idregentrada) {

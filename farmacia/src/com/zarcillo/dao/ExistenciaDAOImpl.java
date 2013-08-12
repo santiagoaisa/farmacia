@@ -57,7 +57,7 @@ public class ExistenciaDAOImpl implements ExistenciaDAO {
     
     @Override
     public List<Existencia> busquedaListaPorIdalmacenPorReceta(Integer idalmacen, String ccriterio) {
-        return em.createNamedQuery("Existencia.findByIdalmacenByCreseta").setParameter("idalmacen", idalmacen).setParameter("ccriterio", ccriterio.trim().toUpperCase().concat("%")).getResultList();
+        return em.createNamedQuery("Existencia.findByIdalmacenByCreseta").setParameter("idalmacen", idalmacen).setParameter("ccriterio", "%".concat(ccriterio.trim().toUpperCase().concat("%"))).getResultList();
     }
 
     @Override

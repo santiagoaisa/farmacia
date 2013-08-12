@@ -8,6 +8,7 @@ import com.zarcillo.domain.AmortizacionProveedor;
 import com.zarcillo.domain.CuentaPagar;
 import com.zarcillo.negocio.Numero;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,7 +90,9 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
                 throw new ExceptionZarcillo("El periodo ya esta cerrado imposible eliminar ");
             }
 
-            if (!Numero.isIgual(cuentapagar.getNimporte(), cuentapagar.getNsaldo())) {
+            List<AmortizacionProveedor> listaAmortizaciones=amortizaciondao.listaPorIdcuenta(cp.getIdcuenta());
+            
+            if (listaAmortizaciones.size()>0) {
                 throw new ExceptionZarcillo("El documento tiene amortizaciones imposible eliminar");
             }
 

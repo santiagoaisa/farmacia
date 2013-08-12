@@ -74,6 +74,9 @@ public class Existencia implements Serializable {
     private Integer nminimo;
     @Column(name = "nmaximo")
     private Integer nmaximo;
+    
+      @Column(name = "nultcosuni")
+    private BigDecimal nultcosuni;
 
     public Existencia() {
         bactivo = false;
@@ -86,6 +89,7 @@ public class Existencia implements Serializable {
         nminimo = 0;
         nmaximo = 0;
         nstockm = 0;
+        nultcosuni=new BigDecimal("0");
     }
 
     public Existencia(ExistenciaPK existenciaPK) {
@@ -100,6 +104,7 @@ public class Existencia implements Serializable {
         nminimo = 0;
         nmaximo = 0;
         nstockm = 0;
+         nultcosuni=new BigDecimal("0");
     }
 
     public Integer getNstockm() {
@@ -122,6 +127,7 @@ public class Existencia implements Serializable {
         nminimo = 0;
         nmaximo = 0;
         nstockm = 0;
+         nultcosuni=new BigDecimal("0");
     }
 
     public ExistenciaPK getExistenciaPK() {
@@ -275,6 +281,18 @@ public class Existencia implements Serializable {
         nutilidad = valven.multiply(Numero.cien.divide(this.getNcosuni(), 4, BigDecimal.ROUND_HALF_UP)).subtract(Numero.cien);
         return nutilidad.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
+
+    public BigDecimal getNultcosuni() {
+        return nultcosuni;
+    }
+
+    public void setNultcosuni(BigDecimal nultcosuni) {
+        this.nultcosuni = nultcosuni;
+    }
+    
+    
+    
+    
 
     public BigDecimal getUtilidad(Descuento descuento, BigDecimal costo) {
         // valor de venta y utilidad

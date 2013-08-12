@@ -21,6 +21,10 @@ public class DetalleVenta implements Serializable {
     private BigDecimal nvaluni;
     //valor auxiliar para menudeo
     private BigDecimal nvalunim;
+    
+    private BigDecimal npreuni;
+    private BigDecimal npreunim;
+    
     private BigDecimal nigv;
     private BigDecimal nimporte;
     private BigDecimal ndesfin;
@@ -60,6 +64,10 @@ public class DetalleVenta implements Serializable {
         ncanartm = 0;
         nvaluni = new BigDecimal("0");
         nvalunim = new BigDecimal("0");
+        
+        npreuni = new BigDecimal("0");
+        npreunim = new BigDecimal("0");
+        
         ndesfin = new BigDecimal("0");
         ndeslab = new BigDecimal("0");
         ndesbon = new BigDecimal("0");
@@ -126,6 +134,26 @@ public class DetalleVenta implements Serializable {
         this.ncanart = ncanart;
     }
 
+    public BigDecimal getNpreuni() {
+        return npreuni;
+    }
+
+    public void setNpreuni(BigDecimal npreuni) {
+        this.npreuni = npreuni;
+    }
+
+    public BigDecimal getNpreunim() {
+        return npreunim;
+    }
+
+    public void setNpreunim(BigDecimal npreunim) {
+        this.npreunim = npreunim;
+    }
+
+    
+    
+    
+    
     private void calculaDescuentoEscala(Integer cantidad) {
         //Busco la escala que corresponda
         this.ndesbon = descuento.getDescuento();

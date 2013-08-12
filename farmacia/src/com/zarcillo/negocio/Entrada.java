@@ -1,6 +1,7 @@
 package com.zarcillo.negocio;
 
 import com.zarcillo.dao.AmortizacionClienteDAO;
+import com.zarcillo.dao.AmortizacionProveedorDAO;
 import com.zarcillo.dao.ComprobanteEmitidoDAO;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.CuentaPagarDAO;
@@ -13,6 +14,7 @@ import com.zarcillo.dao.PeriodoDAO;
 import com.zarcillo.dao.ProductoDAO;
 import com.zarcillo.dao.RegistroEntradaDAO;
 import com.zarcillo.domain.AmortizacionCliente;
+import com.zarcillo.domain.AmortizacionProveedor;
 import com.zarcillo.domain.Anulacion;
 import com.zarcillo.domain.Cliente;
 import com.zarcillo.domain.ComprobanteEmitido;
@@ -67,13 +69,14 @@ public class Entrada extends Salida {
     private DocumentoDAO documentodao;
     @Autowired
     private NumeracionDAO numeraciondao;
-     @Autowired
+    @Autowired
     private ComprobanteEmitidoDAO comprobantedao;
     @Autowired
-    private AmortizacionClienteDAO amortizaciondao;
+    private AmortizacionClienteDAO amortizacionclientedao;
+    @Autowired
+    private AmortizacionProveedorDAO amortizacionproveedordao;
     @Autowired
     private MovimientoDAO movimientodao;
-    
     private DecimalFormat formato = new DecimalFormat("000000");
 
     public void registrar(RegistroEntrada regentrada) {
@@ -86,7 +89,7 @@ public class Entrada extends Salida {
 
             cruddao.registrar(regentrada);
             List<Movimiento> listaMovimientos = regentrada.getMovimientoCollection();
-            
+
             Movimiento detalle;
             Existencia existencia;
             Producto producto;
@@ -133,6 +136,7 @@ public class Entrada extends Salida {
                         BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
 
                         BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(), new BigDecimal(detalle.getNcantidad()), neto);
+                        existencia.setNultcosuni(existencia.getNcosuni());
                         existencia.setNcosuni(costo);
                         existencia.setNultcos(neto);
                     } else {
@@ -147,6 +151,7 @@ public class Entrada extends Salida {
 
 
                         BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(), ningresofraccioningreso, neto);
+                        existencia.setNultcosuni(existencia.getNcosuni());
                         existencia.setNcosuni(costo);
                         existencia.setNultcos(neto);
 
@@ -328,9 +333,9 @@ public class Entrada extends Salida {
             Periodo periodo = periododao.buscarPorFecha(regentradafraccion.getDfecha());
             regentradafraccion.calcula(periodo.getNigv());
             registrar(regentradafraccion);
-            
-            
-            Transferencia transferencia=new Transferencia();
+
+
+            Transferencia transferencia = new Transferencia();
             transferencia.setDfecreg(new Date());
             transferencia.setCserie(numeracion.getCserie());
             transferencia.setCnumero(cnumero);
@@ -339,15 +344,54 @@ public class Entrada extends Salida {
             transferencia.setIdregsalida(regsalidafraccion);
             transferencia.setIdregentrada(regentradafraccion);
             cruddao.registrar(transferencia);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new ExceptionZarcillo(e.getMessage());
         }
     }
-    
-    
-     public void anular(RegistroSalida regsalida, MotivoAnulacion motivo, Usuario usuario) {
+
+    public void anular(RegistroEntrada regentrada) {
+        try {
+            CuentaPagar cuentaPagar = cuentapagardao.buscarPorIdregentrada(regentrada.getIdregentrada());
+            List<AmortizacionProveedor> listaAmortizacion = amortizacionproveedordao.listaPorIdcuenta(cuentaPagar.getIdcuenta());
+
+            if (listaAmortizacion.size() > 0) {
+                throw new ExceptionZarcillo("Imposible eliminar Ingreso la Factura de Proveedor" + cuentaPagar.getCserie() + "-" + cuentaPagar.getCnumero() + " tiene amortizaciones imposible eliminar");
+            }
+
+            List<Movimiento> listaMovimientos = movimientodao.listaPorIdregentrada(regentrada.getIdregentrada());
+            Existencia existencia;
+            Lote lote;
+            for (Movimiento m : listaMovimientos) {
+                existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
+                existencia.setNstock(existencia.getNstock() - m.getNcantidad());
+                existencia.setNstockm(existencia.getNstockm() - m.getNcantidadm());
+                cruddao.actualizar(existencia);
+
+                lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaAnulacion(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto(), m.getClote());
+
+                if (lote.getIdlote() == null) {
+                    
+                } else {
+                    lote.setNstock(lote.getNstock() - m.getNstock());
+                    lote.setNstockm(lote.getNstockm() - m.getNstockm());
+                    lote.setDfecreg(new Date());
+                    cruddao.actualizar(lote);
+                }
+
+                cruddao.eliminar(m);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionZarcillo(e.getMessage());
+        }
+
+    }
+
+    public void anular(RegistroSalida regsalida, MotivoAnulacion motivo, Usuario usuario) {
         try {
             if (regsalida.getBanulado()) {
                 throw new ExceptionZarcillo("El documento Ya fue anulado");
@@ -359,7 +403,7 @@ public class Entrada extends Salida {
             Periodo periodo = periododao.buscarPorFecha(new Date());
             // SIEMPRE SE ELIMINA EL DOCUMENTO
             ComprobanteEmitido comprobante = comprobantedao.buscarPorIdregsalida(regsalida.getIdregsalida());
-            List<AmortizacionCliente> listaAmortizacion = amortizaciondao.listaPorIdcomprobante(comprobante.getIdcomprobante());
+            List<AmortizacionCliente> listaAmortizacion = amortizacionclientedao.listaPorIdcomprobante(comprobante.getIdcomprobante());
             if (listaAmortizacion.size() > 0) {
                 throw new ExceptionZarcillo("El Documento tiene amortizaciones, imposible eliminar");
             } else {
@@ -464,5 +508,4 @@ public class Entrada extends Salida {
             throw new ExceptionZarcillo(e.getMessage());
         }
     }
-    
 }

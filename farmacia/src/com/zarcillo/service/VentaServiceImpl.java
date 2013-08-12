@@ -26,6 +26,7 @@ import com.zarcillo.domain.Usuario;
 import com.zarcillo.domain.Vendedor;
 import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.negocio.Entrada;
+import com.zarcillo.negocio.Igv;
 import com.zarcillo.negocio.Numero;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -193,11 +194,11 @@ public class VentaServiceImpl extends Entrada implements VentaService {
         detalle.setNstockm(existencia.getNstockm());
 //     
         detalle.setBactivo(existencia.getBactivo());
-        
-        if(existencia.getIdproducto().getNmenudeo()>1){
+
+        if (existencia.getIdproducto().getNmenudeo() > 1) {
             detalle.setBfraccion(true);
         }
-        
+
         detalle.setExistencia(existencia);
         detalle.setNcosuni(existencia.getNcosuni());
 
@@ -214,6 +215,9 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             BigDecimal nvalorunitariofraccion = detalle.getNvaluni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
             detalle.setNvalunim(nvalorunitariofraccion);
         }
+
+        detalle.setNpreuni(Igv.importeDetalleVenta(detalle.getNvaluni(), detalle.getExistencia().getIdproducto().getBinafecto()));
+        detalle.setNpreunim(Igv.importeDetalleVenta(detalle.getNvalunim(), detalle.getExistencia().getIdproducto().getBinafecto()));
 
         //detalle.setNvaluni(existencia.getNvalven());
 
