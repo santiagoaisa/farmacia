@@ -15,8 +15,8 @@
     
     <menu id="mimpresion" width="100%"></menu>
     
-    <label value = "Producto:" ctrlKeys="@c^a#f10^#f3" />
-    <textbox id="txtDescripcion" width="95%" />
+    <label value = "Producto:"  />
+    <textbox id="txtDescripcion" width="95%" ctrlKeys="@c^a#f2^#f3" />
     <listbox id="lstDetalle" mold="paging"    pageSize="500" height="300px" >
         <auxhead>
             <auxheader label="Detalle de Ingreso" colspan="12"/>
