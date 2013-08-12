@@ -312,7 +312,7 @@ public class Entrada extends Salida {
             regentradafraccion.setIdusuario(regsalida.getIdusuario());
             
             
-            List<Movimiento> listaMovimientoSalida = movimientodao.listaPorIdregsalida(regsalida.getIdregsalida());
+            List<Movimiento> listaMovimientoSalida = movimientodao.listaPorIdregsalida(regsalidafraccion.getIdregsalida());
             
 
             List<Movimiento> listaMovimientoFraccionEntrada = new ArrayList<>();
