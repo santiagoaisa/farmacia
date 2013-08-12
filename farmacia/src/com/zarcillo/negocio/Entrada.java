@@ -427,7 +427,7 @@ public class Entrada extends Salida {
             anulacion.setIdunidad(regsalida.getIdunidad());
             anulacion.setIdusuario(usuario);
             anulacion.setIdvendedor(regsalida.getIdvendedor());
-            anulacion.setCserie(regsalida.getCsergui());
+            anulacion.setCserie(regsalida.getCserie());
             anulacion.setCnumero(regsalida.getCnumero());
             anulacion.setCsergui(regsalida.getCsergui());
             anulacion.setCnumgui(regsalida.getCnumgui());
@@ -493,13 +493,13 @@ public class Entrada extends Salida {
                     lote.setClote(m.getClote());
                     lote.setCfecven(m.getCfecven());
                     lote.setCobservacion("ANULACION " + regsalida.getIddocumento().getCabrev() + ":" + regsalida.getCserie() + "-" + regsalida.getCnumero());
-                    lote.setNstock(m.getNstock());
-                    lote.setNstockm(m.getNstockm());
+                    lote.setNstock(m.getNcantidad());
+                    lote.setNstockm(m.getNcantidadm());
                     lote.setDfecreg(new Date());
                     cruddao.registrar(lote);
                 } else {
-                    lote.setNstock(lote.getNstock() + m.getNstock());
-                    lote.setNstockm(lote.getNstockm() + m.getNstockm());
+                    lote.setNstock(lote.getNstock() + m.getNcantidad());
+                    lote.setNstockm(lote.getNstockm() + m.getNcantidadm());
                     lote.setDfecreg(new Date());
                     cruddao.actualizar(lote);
                 }

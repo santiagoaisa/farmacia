@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author saisa
  */
-@Service("registroSalidadService")
+@Service("registroSalidaService")
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaService {
 
@@ -45,7 +45,7 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
 
     @Override
     public List<DetalleVenta> listaDetalleSalida(Integer idregsalida) {
-        List<Movimiento> listaMovimientos = movimientodao.listaPorIdregentrada(idregsalida);
+        List<Movimiento> listaMovimientos = movimientodao.listaPorIdregsalida(idregsalida);
         List<DetalleVenta> listaDetalle = new ArrayList<>();
 
         DetalleVenta d;
@@ -61,16 +61,16 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
             d.setExistencia(e);
             //Utilizo setncantidad para que no se mezcle con setncanart que
             //se utiliza para calcular descuentos
+
             d.setNcantidad(m.getNcantidad());
-            d.setNcosuni(m.getNcosuni());
+            d.setNcanartm(m.getNcantidadm());
+            d.setNcosuni(m.getNcosuni());            
             d.setNdesfin(m.getNdesfin());
             d.setNdesbon(m.getNdesbon());
             d.setNdeslab(m.getNdeslab());
             d.setBinafec(m.getBinafecto());
-
             d.setNvaluni(m.getNvaluni());
             d.setNsubtot(m.getNsubtot());
-
             d.setClote(m.getClote());
             d.setCfecven(m.getCfecven());
             listaDetalle.add(d);
@@ -103,6 +103,4 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
 
         return regsalida;
     }
-
-    
 }

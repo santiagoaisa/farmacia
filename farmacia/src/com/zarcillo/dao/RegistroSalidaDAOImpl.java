@@ -18,7 +18,7 @@ public class RegistroSalidaDAOImpl implements RegistroSalidaDAO{
 
     @Override
     public RegistroSalida buscarPorIdregsalida(Integer idregsalida) {
-        return (RegistroSalida) em.createNamedQuery("RegistroSalida.findByIdregsalida").setParameter("idregaslida", idregsalida).getSingleResult();
+        return (RegistroSalida) em.createNamedQuery("RegistroSalida.findByIdregsalida").setParameter("idregsalida", idregsalida).getSingleResult();
     }
 
     @Override

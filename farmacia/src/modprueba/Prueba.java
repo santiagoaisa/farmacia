@@ -2,11 +2,18 @@ package modprueba;
 
 import com.zarcillo.domain.Familia;
 import com.zarcillo.domain.Linea;
+import com.zarcillo.domain.MotivoAnulacion;
 import com.zarcillo.domain.Presentacion;
 import com.zarcillo.domain.Producto;
+import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.Sublinea;
+import com.zarcillo.domain.TipoPago;
+import com.zarcillo.domain.Usuario;
 import com.zarcillo.dto.venta.DetalleVenta;
+import com.zarcillo.service.AnulacionService;
+import com.zarcillo.service.ColaImpresionService;
 import com.zarcillo.service.ProductoService;
+import com.zarcillo.service.RegistroSalidaService;
 import com.zarcillo.service.VentaService;
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
@@ -55,6 +62,13 @@ public class Prueba extends SelectorComposer {
     private ProductoService productoService;
     @WireVariable
     private VentaService ventaService;
+    @WireVariable
+    private AnulacionService anulacionService;
+    @WireVariable
+    private ColaImpresionService colaImpresionService;
+    @WireVariable
+    private RegistroSalidaService registroSalidaService;
+    
     private MenuImpresion menuimpresion;
 
     @Listen("onCreate=window#winPrueba")
@@ -64,10 +78,22 @@ public class Prueba extends SelectorComposer {
 
     }
 
+      @Listen("onClick = button#btnAnular")
+    public void onAnular(Event event) {
+          
+        anulacionService.anular(36,new MotivoAnulacion(1), new Usuario(2));
+    }
+    
     @Listen("onClick = button#btnImprimir")
     public void onRegistrar(Event event) {
-        menuimpresion.dialogoImpresion(true);
-        menuimpresion.imprimirReporte(null, 20933648, null, null);
+        
+        RegistroSalida regasalida=registroSalidaService.buscarPorIdunidadPorIdregsalida(1, 36);
+        TipoPago tipo=new TipoPago();        
+        tipo.setIdtipo(6);
+        
+        colaImpresionService.crearDocumento(regasalida,tipo, new Usuario(2));
+        //menuimpresion.dialogoImpresion(true);
+        //menuimpresion.imprimirReporte(null, 20933648, null, null);
     }
 
     @Listen("onValidar = #winPrueba")

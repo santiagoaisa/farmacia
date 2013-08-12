@@ -13,6 +13,9 @@
     <button id="btnCargar" label="Cargar" >
     </button>
     
+    <button id="btnAnular" label="Anular" >
+    </button>
+    
     <menu id="mimpresion" width="100%"></menu>
     
     <label value = "Producto:"  />

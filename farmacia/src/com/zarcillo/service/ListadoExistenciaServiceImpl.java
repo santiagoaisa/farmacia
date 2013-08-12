@@ -71,6 +71,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
                 listado.setNincremento(new BigDecimal("0"));
             }
 
+            listado.setNprecos(Igv.importeDetalleVenta(listado.getNcosuni(), e.getIdproducto().getBinafecto()));
             listado.setNpreuni(Igv.importeDetalleVenta(listado.getNvaluni(), e.getIdproducto().getBinafecto()));
             listado.setNpreunim(Igv.importeDetalleVenta(listado.getNvalunim(), e.getIdproducto().getBinafecto()));
             listado.calculaUtilidad();
@@ -168,7 +169,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
     }
 
     @Override
-     @Transactional
+    @Transactional
     public void actualizarPrecio(ActualizarExistencia actualizar) {
         try {
             Existencia existencia=existenciadao.buscarPorIdalmacenPorIdproducto(actualizar.getIdalmacen().getIdalmacen(), actualizar.getIdproducto().getIdproducto());

@@ -16,6 +16,7 @@ public class ListadoPrecio implements Serializable {
     private Integer nstockm;
     private BigDecimal nincremento;
     private BigDecimal ncosuni;    
+    private BigDecimal nprecos;    
     private BigDecimal nvaluni;
     private BigDecimal nvalunim;
     private BigDecimal npreuni;
@@ -32,6 +33,7 @@ public class ListadoPrecio implements Serializable {
         nvaluni=new BigDecimal("0");
         nutilidad=new BigDecimal("0");
         nvalunim=new BigDecimal("0");
+        nprecos=new BigDecimal("0");
     }
 
     public BigDecimal getNvalunim() {
@@ -120,6 +122,16 @@ public class ListadoPrecio implements Serializable {
         this.nutilidad = nutilidad;
     }
 
+    public BigDecimal getNprecos() {
+        return nprecos;
+    }
+
+    public void setNprecos(BigDecimal nprecos) {
+        this.nprecos = nprecos;
+    }
+
+    
+    
    
     public void calculaUtilidad(){
         if(Numero.isCero(ncosuni)){
