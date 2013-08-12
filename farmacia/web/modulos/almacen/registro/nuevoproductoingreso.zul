@@ -1,0 +1,49 @@
+<window id="winProducto" width="650px" title="Nuevo Producto"
+        apply="modalmacen.registro.NuevoProductoIngreso"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="23%"/>
+            <column width="23%"/>
+            <column width="23%"/>
+            <column width="31%"/>
+        </columns>
+        <rows  >
+            <row spans="1,3" >
+                <label value="Producto:" />
+                <textbox id="txtNomPro" width="95%" constraint="no empty" />
+            </row>
+            <row  >
+                <checkbox id="bInafecto"  label="Inafecto" disabled="true" />
+                <checkbox id="bPsicotropico"  label="Psicotropico" disabled="true" />
+                <label value="Fraccion:" />
+                <intbox id="nFraccion" value="1" width="95%" />
+            </row>
+            <row  >
+                <label value="Sublinea:" />
+                <combobox id="cboSublinea" autodrop="true" mold="rounded" width="95%" readonly="true"  />
+                <label value="Familia:" />
+                <combobox id="cboFamilia" autodrop="true" mold="rounded"  width="95%" readonly="true"   />
+            </row>
+            <row  >
+                <label value="Presentacion:" />
+                <combobox id="cboPresentacion" autodrop="true" mold="rounded" width="95%" readonly="true"    />
+                <label value="Cod.Barras:" />
+                <textbox id="txtBarras" width="95%" />
+            </row>
+            
+            <row spans="4">
+                <groupbox >
+                    <caption>Receta</caption>
+                    <textbox id="txtReceta" multiline="true" height="40px" width="99%"/>
+                </groupbox>
+            </row>  
+                  
+        </rows>
+    </grid>  
+    <toolbar id="tb"  height="25px"	 align="end">
+        <toolbarbutton id="btnRegistrar3" image="/img/Save.png" label="Registrar"    />
+        <toolbarbutton id="btnActualizar3" image="/img/Save.png" label="Actualizar"  />
+        <toolbarbutton id="btnIgnorar3" image="/img/Undo.png" label="Ignorar"        />
+    </toolbar>                   
+</window>

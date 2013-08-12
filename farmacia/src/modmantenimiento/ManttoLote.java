@@ -71,9 +71,15 @@ public class ManttoLote  extends SelectorComposer  {
         
     @Wire
     private Intbox nStkart;
+    
+    @Wire
+    private Intbox nStkartm;
         
     @Wire
     private Intbox nStklot;
+    
+    @Wire
+    private Intbox nStklotm;
     
     @Wire
     private Toolbarbutton btnNuevo;
@@ -184,6 +190,7 @@ public class ManttoLote  extends SelectorComposer  {
         txtLinea.setText(existencia.getIdproducto().getIdsublinea().getIdlinea().getCnomlinea());
         txtSublinea.setText(existencia.getIdproducto().getIdsublinea().getCnomsublinea());
         nStkart.setValue(existencia.getNstock());
+        nStkartm.setValue(existencia.getNstockm());
         List<Lote> listaLote = loteService.listaPorIdalmacenPorIdproducto(existencia.getExistenciaPK().getIdalmacen(), existencia.getExistenciaPK().getIdproducto());
         modeloLote = new ListModelList(listaLote);
         lstLote.setModel(modeloLote);
@@ -193,11 +200,14 @@ public class ManttoLote  extends SelectorComposer  {
     public void ActualizaStock() {
         lstLote.onInitRender();
         Integer stocklote = 0;
+        Integer stocklotem = 0;
         List<Lote> listaLote = new ArrayList<Lote>(modeloLote);
         for (Lote l : listaLote) {
             stocklote = stocklote + l.getNstock();
+            stocklotem=stocklotem+l.getNstockm();
         }
         nStklot.setValue(stocklote);
+        nStklotm.setValue(stocklotem);
     }
     private void validar(){
         cboAlmacen.getValue();
@@ -241,9 +251,11 @@ public class ManttoLote  extends SelectorComposer  {
         txtLinea.setText("");
         txtSublinea.setText("");
         nStkart.setValue(0);
+        nStkartm.setValue(0);
         modeloLote=new ListModelList();
         lstLote.setModel(modeloLote);
         nStklot.setValue(0);
+        nStklotm.setValue(0);
         
     }
     

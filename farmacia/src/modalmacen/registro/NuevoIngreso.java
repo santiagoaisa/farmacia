@@ -125,6 +125,12 @@ public class NuevoIngreso extends SelectorComposer {
     public void onGrabar(Event event) {
         grabar();
     }
+    
+    @Listen("onClick = #btnProducto")
+    public void onNuevoProducto(Event event) {
+        nuevoProducto();
+    }
+    
 
     @Listen("onClick = #btnQuitar")
     public void onQuitarDetalle(Event event) {
@@ -241,6 +247,27 @@ public class NuevoIngreso extends SelectorComposer {
         periodo = periodoService.buscarPorDfecha(new Date());
         txtIgv.setText(periodo.getNigv() + " %");
         txtSerie.focus();
+    }
+    
+    private void nuevoProducto(){
+        Window winbuscaprod = (Window) Executions.createComponents("/modulos/almacen/registro/nuevoproductoingreso.zul", null, null);
+                winbuscaprod.setAttribute("REST", true);
+                winbuscaprod.doModal();
+                Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
+                if (rest) {
+                    Producto producto =  (Producto) winbuscaprod.getAttribute("PRODUCTO");
+                    DetalleIngreso dingreso = new DetalleIngreso();
+                    dingreso.setIdproducto(producto);
+                    modeloIngreso.add(dingreso);
+                    lstIngreso.onInitRender();
+                    txtCodigo.setValue("");
+                    btnGrabar.setVisible(true);
+                    focoCantidad();
+                }
+                else{
+                    txtCodigo.focus();
+                }
+    
     }
 
     public void buscarProducto() {

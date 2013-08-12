@@ -7,13 +7,13 @@
 
         <grid >
                 <columns>
-                    <column width="65%"/>
-                    <column width="35%"/>
+                    <column width="40%"/>
+                    <column width="60%"/>
                 </columns>
                 <rows  >
                     <row >
-                        <image  height="70px" />
-                        <image src="/img/Vidfarma.png" height="70px"/>
+                        <image  height="75px" />
+                        <image src="/img/Vidfarma.png" height="75px"/>
                     </row>
                 </rows>
         </grid>

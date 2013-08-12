@@ -40,6 +40,9 @@ public class CreaLote extends SelectorComposer{
     private Intbox nLote;
     
     @Wire
+    private Intbox nLotem;
+    
+    @Wire
     private Intbox nAño;
     
     @Wire
@@ -105,6 +108,7 @@ public class CreaLote extends SelectorComposer{
             nAño.setValue(Integer.valueOf(lote.getCfecven().substring(0,4)));
             nMes.setValue(Integer.valueOf(lote.getCfecven().substring(5,7)));
             nLote.setValue(lote.getNstock());
+            nLotem.setValue(lote.getNstockm());
             if(lote.getCobservacion()!=null){
                 if(lote.getCobservacion().isEmpty()){
                     txtObservacion.setText(lote.getCobservacion());
@@ -162,6 +166,7 @@ public class CreaLote extends SelectorComposer{
         lote.setClote(txtLote.getText());
         lote.setCfecven(nAño.getValue()+"-"+numero);
         lote.setNstock(nLote.getValue());
+        lote.setNstockm(nLotem.getValue());
         lote.setIdusuario(usuario);
         lote.setCobservacion(txtObservacion.getText());
         winNlote.setAttribute("LOTE", lote);

@@ -32,6 +32,10 @@
                 <label value="Stock:"/>
                 <intbox id="nLote" constraint="no empty: Debe Ingresar Stock" value="0" width="96%"/>
             </row>
+            <row  spans="1,2" >
+                <label value="Fraccion:"/>
+                <intbox id="nLotem"  value="0" width="96%"/>
+            </row>
 
             <row  spans="1,2" >
                 <label value="Observacion:"/>

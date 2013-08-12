@@ -1,0 +1,67 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDetalleVenta"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="winDetalleVenta" title="agregar Detalle Venta..." border="0" width="850px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modventas.util.AgregarDetalleVenta" >
+    <zscript>{
+        void doCancel() {
+        winDetalleVenta.setAttribute("REST",false);
+        winDetalleVenta.onClose();
+        }        
+        }</zscript>
+    <grid width="100%">
+        <columns>
+            <column width="40%"/>
+            <column width="60%" />
+        </columns>
+        <rows>
+            <row>
+                <textbox id="txtDescripcion" value="" focus="true" width="94%"  onCancel="doCancel()" />
+                <textbox id="txtReseta" value="" focus="true" width="94%"  onCancel="doCancel()" />
+            </row>
+            <row spans="2" >
+                <listbox id="lstExistencia" width="99%" mold="paging" pageSize="500"  height="400px">
+                    <listhead>
+                        <listheader label="Descripción" width="30%" sort="auto(producto.cnomart)" />
+                        <listheader label="F/" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>                        
+                        <listheader label="Unidad" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>
+                        <listheader label="Stock" width="7%" align="center" />
+                         <listheader label="Menudeo" width="7%" align="center" />
+                          <listheader label="Cant." width="7%" align="center" />
+                        <listheader label="Fracc." width="7%" align="center" />
+                        <listheader label="Linea" width="18%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
+                        <listheader label="ValUni" width="7%" align="center" />
+                        <listheader label="Val" width="7%" align="center" />
+                        <listheader label="Subtot" width="7%" align="center" />
+                    </listhead>
+
+                    <listitem self="@{each=detalle}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
+                        <listcell label="@{detalle.existencia.idproducto.cnomart}" />
+                        <listcell label="@{detalle.existencia.idproducto.nmenudeo}"/>
+                        <listcell label="@{detalle.existencia.idproducto.idpresentacion.cabrev}"/>
+                        <listcell label="@{detalle.nstock}"  />
+                        <listcell label="@{detalle.nstockm}"  />
+                        <listcell>
+                            <intbox id="i0" value="@{detalle.ncanart}"  width="70%" />
+                        </listcell>
+                        <listcell>
+                            <intbox id="i1" value="@{detalle.ncanartm}"  width="70%" />
+                        </listcell>
+                        <listcell label="@{detalle.existencia.idproducto.idsublinea.idlinea}"/>
+                        <listcell decimal="@{detalle.nvalunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{detalle.nvaluni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{detalle.getSubtotal}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                    </listitem>
+                </listbox>
+            </row>
+        </rows>
+    </grid>
+
+    <menu id="mresultado" width="100%"></menu>
+
+    <toolbar id="tb"  height="25px"	 align="end">
+        <toolbarbutton id="btnRegistra" image="/img/Save.png" label="Registrar"
+                           onClick="doRegistrar()" />
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                           onClick="doCancel()" />
+    </toolbar>
+</window>

@@ -3,7 +3,7 @@
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="69"/>
+	<property name="ireport.x" value="320"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
@@ -20,6 +20,8 @@
 	<field name="nstock" class="java.lang.Integer"/>
 	<field name="idproducto.idsublinea.idlinea.idlinea" class="java.lang.Integer"/>
 	<field name="idproducto.idpresentacion.cabrev" class="java.lang.String"/>
+	<field name="ncanartm" class="java.lang.Integer"/>
+	<field name="nstockm" class="java.lang.Integer"/>
 	<group name="LINEAS" isStartNewPage="true" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{idproducto.idsublinea.idlinea.idlinea}]]></groupExpression>
 		<groupHeader>
@@ -72,11 +74,11 @@
 					<text><![CDATA[Descripcion]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="05b8e2c0-2532-46e5-8e3f-25bc7f63d6ed" key="staticText-26" x="486" y="18" width="63" height="11"/>
+					<reportElement uuid="05b8e2c0-2532-46e5-8e3f-25bc7f63d6ed" key="staticText-26" x="486" y="18" width="37" height="11"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 					</textElement>
-					<text><![CDATA[Sistema]]></text>
+					<text><![CDATA[Entero]]></text>
 				</staticText>
 				<line>
 					<reportElement uuid="6e0e78c9-7fe2-42a9-92bb-72d939bab4d8" key="line-13" x="1" y="15" width="255" height="1"/>
@@ -118,6 +120,13 @@
 					</textElement>
 					<textFieldExpression><![CDATA["Pag " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement uuid="4da6cbc2-8f71-4521-b31d-f79875c7753f" key="staticText-26" x="523" y="18" width="26" height="11"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Fracc.]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -142,11 +151,11 @@
 		<groupHeader>
 			<band height="11">
 				<textField pattern="###0">
-					<reportElement uuid="2c9a706c-1670-4a33-8106-6677ce90f16a" x="493" y="0" width="56" height="11"/>
+					<reportElement uuid="2c9a706c-1670-4a33-8106-6677ce90f16a" x="523" y="0" width="26" height="11"/>
 					<textElement textAlignment="Right">
 						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{nstock}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{nstockm}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="false">
 					<reportElement uuid="b2952567-08b0-48b3-86d7-276ab73143bd" key="textField-10" x="282" y="0" width="33" height="11"/>
@@ -156,7 +165,7 @@
 					<textFieldExpression><![CDATA[""+$F{idproducto.idproducto}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="false">
-					<reportElement uuid="60fc3945-1ec3-4bf8-a3a0-2de7ef7a4568" key="textField-9" x="314" y="0" width="179" height="11"/>
+					<reportElement uuid="60fc3945-1ec3-4bf8-a3a0-2de7ef7a4568" key="textField-9" x="314" y="0" width="172" height="11"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 					</textElement>
@@ -175,6 +184,13 @@
 						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[""+$F{idproducto.cnomproducto}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0">
+					<reportElement uuid="07c8d502-3cda-4343-8384-a6649d9d5d44" x="486" y="0" width="37" height="11"/>
+					<textElement textAlignment="Right">
+						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nstock}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -339,7 +355,14 @@
 				<textFieldExpression><![CDATA[""+$F{cfecven}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement uuid="f3714278-36f9-4cd3-8950-e4e070070e4d" x="501" y="0" width="48" height="11"/>
+				<reportElement uuid="f3714278-36f9-4cd3-8950-e4e070070e4d" x="523" y="0" width="26" height="11"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ncanartm}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement uuid="7b9a8a9b-749c-41bb-99e7-deb32ec80399" x="486" y="0" width="37" height="11"/>
 				<textElement textAlignment="Right">
 					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>

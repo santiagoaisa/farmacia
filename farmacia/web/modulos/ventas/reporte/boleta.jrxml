@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="boleta-400" pageWidth="609" pageHeight="453" whenNoDataType="AllSectionsNoDetail" columnWidth="609" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="982bc95b-d371-4e8c-8ef6-badb76ed2a87">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="27"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CLIENTE" class="java.lang.String"/>
+	<parameter name="DIRECCION" class="java.lang.String"/>
+	<parameter name="DNI" class="java.lang.String"/>
+	<parameter name="FECHA" class="java.util.Date"/>
+	<parameter name="IMPORTE" class="java.math.BigDecimal"/>
+	<parameter name="NUMERO" class="java.lang.String"/>
+	<parameter name="LETRAS" class="java.lang.String"/>
+	<parameter name="SERIE" class="java.lang.String"/>
+	<parameter name="HORADIG" class="java.util.Date"/>
+	<parameter name="HORAIMP" class="java.util.Date"/>
+	<parameter name="VALORVENTA" class="java.math.BigDecimal"/>
+	<parameter name="IGV" class="java.math.BigDecimal"/>
+	<parameter name="OPERACION" class="java.lang.Integer"/>
+	<parameter name="USUARIO" class="java.lang.String"/>
+	<field name="existencias.producto.idproducto" class="java.lang.String"/>
+	<field name="ncanart" class="java.lang.Integer"/>
+	<field name="existencias.producto.cnomart" class="java.lang.String"/>
+	<field name="existencias.producto.idunimed.cabrev" class="java.lang.String"/>
+	<field name="nvaluni" class="java.math.BigDecimal"/>
+	<field name="ndesfin" class="java.math.BigDecimal"/>
+	<field name="ndes4" class="java.math.BigDecimal"/>
+	<field name="nsubtot" class="java.math.BigDecimal"/>
+	<field name="nigv" class="java.math.BigDecimal"/>
+	<field name="nimporte" class="java.math.BigDecimal"/>
+	<field name="bbonificacion" class="java.lang.Boolean"/>
+	<variable name="total" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{ncanart}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="106" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c1b776e6-ce5a-41de-80a1-f551b835ee39" x="389" y="43" width="100" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{OPERACION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm" isBlankWhenNull="true">
+				<reportElement uuid="a0c9c891-9b02-475e-a77b-4b33411e8024" x="489" y="43" width="37" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{HORADIG}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c982cb72-f949-43f5-a0ac-562def32222e" x="526" y="43" width="17" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField pattern="yyyy.MM.dd" isBlankWhenNull="true">
+				<reportElement uuid="3902ca05-a562-4aa4-8034-35af04febc6c" x="489" y="52" width="87" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{HORADIG}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="49" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="55bdd148-a837-414b-a9c8-4c4fed651295" x="72" y="27" width="235" height="13"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DIRECCION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d745d415-2b42-4a29-b417-9996355044cd" x="328" y="28" width="100" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DNI}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd" isBlankWhenNull="true">
+				<reportElement uuid="4a7fede8-880f-44b5-a132-8aaab570046c" x="457" y="27" width="17" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4e131ba6-1439-45d9-ab07-018f179cbf9d" x="72" y="15" width="246" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isStrikeThrough="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CLIENTE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c7f4fcd2-1782-467e-8435-b15631439f1c" x="520" y="1" width="58" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NUMERO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c7b39ec1-af02-4831-a088-a5393890338d" x="510" y="1" width="9" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="ab9c373b-471c-4a55-a259-d285ceecf5eb" x="474" y="1" width="36" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SERIE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM" isBlankWhenNull="true">
+				<reportElement uuid="cf1be5f0-019e-478b-a4f7-da6fefddbd2c" x="489" y="27" width="46" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="01ab91bb-c74c-4115-8e6d-df8f4de0b83a" x="550" y="27" width="26" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="45eb8d2b-bc3e-448c-9197-3d565f3837fd" x="489" y="15" width="46" height="11"/>
+				<textElement textAlignment="Center">
+					<font size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{HORAIMP}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Immediate">
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="e6bb3986-cff0-4947-891f-f1bb57421aee" x="418" y="2" width="71" height="11">
+					<printWhenExpression><![CDATA[!$F{bbonificacion}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nvaluni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e657f8c3-ea0f-4a7a-bb55-0667977b5915" x="111" y="2" width="207" height="11"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{existencias.producto.cnomart}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e3a76da4-7d51-46ba-9899-a97a6e181cfc" x="54" y="2" width="38" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ncanart}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="8e8bba60-74bb-4903-b3ef-90618059b611" x="510" y="2" width="66" height="11">
+					<printWhenExpression><![CDATA[!$F{bbonificacion}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nimporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="64" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="213e257d-6c6e-423c-b1da-bcfd84a8ce59" x="510" y="20" width="66" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif" size="11" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{IMPORTE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="798c6694-20de-47d1-aec6-02d92debb7cb" x="54" y="43" width="100" height="11"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USUARIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="26">
+			<textField>
+				<reportElement uuid="f99efa19-b4d9-45f3-ab49-8acb40cc889f" x="92" y="0" width="443" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="true" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SON:"+ $P{LETRAS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="29341f9b-f932-4eb3-aa65-0eb8c7777416" x="58" y="0" width="34" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

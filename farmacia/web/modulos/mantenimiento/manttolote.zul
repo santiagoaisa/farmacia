@@ -33,10 +33,12 @@ apply="modmantenimiento.ManttoLote"  >
                 
             </row>
             
-            <row spans="4,1,1">
+            <row spans="2,1,1,1,1">
                     <label value=""/>
                     <label value="Stock:"/>
                     <intbox id="nStkart" readonly="true" value="0" width="95%" />
+                    <label value="Fracc.:"/>
+                    <intbox id="nStkartm" readonly="true" value="0" width="95%" />
                     
             </row>
 
@@ -51,7 +53,8 @@ apply="modmantenimiento.ManttoLote"  >
                         <listheader label="Lote" width="15%"/>
                         <listheader label="Vencimiento"  width="15%"/>
                         <listheader label="Stock" width="8%" align="right" />
-                        <listheader label="Tipo Movimiento"  width="40%"/>
+                        <listheader label="Fracc" width="8%" align="right" />
+                        <listheader label="Tipo Movimiento"  width="32%"/>
                         <listheader label="Fec.Mov."  width="14%"/>
                         <listheader label="Bloq."  width="8%"/>
                     </listhead>
@@ -59,6 +62,7 @@ apply="modmantenimiento.ManttoLote"  >
                         <listcell label="@{lote.clote}"/>
                         <listcell label="@{lote.cfecven}"/>
                         <listcell label="@{lote.nstock}"/>
+                        <listcell label="@{lote.nstockm}"/>
                         <listcell label="@{lote.idmotivo}"/>
                         <listcell date="@{lote.dfecreg}"  format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
                         <listcell >
@@ -74,6 +78,9 @@ apply="modmantenimiento.ManttoLote"  >
                         </listfooter>
                         <listfooter >
                             <intbox id="nStklot" readonly="true" width="97%" value="0" />
+                        </listfooter>
+                        <listfooter >
+                            <intbox id="nStklotm" readonly="true" width="97%" value="0" />
                         </listfooter>
                         <listfooter />
                     </listfoot>
