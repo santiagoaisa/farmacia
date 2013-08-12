@@ -128,7 +128,7 @@ public class NotcarClienteServiceImpl implements NotcarClienteService{
                     } else {
                         //SI LETRA ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
                         if (amortizacion.getIdmoneda().getBnacional()) {
-                            nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                            nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_UP);
                             amortizacion.setIdmoneda(letracliente.getIdmoneda());
                             amortizacion.setNimportes(amortizacion.getNimporte());
                             amortizacion.setNimporte(nimporteamortizar);
@@ -162,7 +162,7 @@ public class NotcarClienteServiceImpl implements NotcarClienteService{
                     } else {
                         //SI COMPROBANTE ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
                         if (amortizacion.getIdmoneda().getBnacional()) {
-                            nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                            nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_UP);
                             amortizacion.setIdmoneda(comprobante.getIdmoneda());
                             amortizacion.setNimportes(amortizacion.getNimporte());
                             amortizacion.setNimporte(nimporteamortizar);
@@ -232,7 +232,7 @@ public class NotcarClienteServiceImpl implements NotcarClienteService{
                     } else {
                         //SI LETRA ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
                         if (amortizacion.getIdmoneda().getBnacional()) {
-                            nimportedesamortizar = amortizacion.getNimportes().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                            nimportedesamortizar = amortizacion.getNimportes().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_UP);
                         }
                     }//FIN SI LETRA ES SOLES
                 }//FIN SI MONEDAS SONIGUALES
@@ -260,7 +260,7 @@ public class NotcarClienteServiceImpl implements NotcarClienteService{
                     } else {
                         //SI COMPROBANTE ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
                         if (amortizacion.getIdmoneda().getBnacional()) {
-                            nimportedesamortizar = amortizacion.getNimportes().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                            nimportedesamortizar = amortizacion.getNimportes().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_UP);
                         }
                     }//FIN SI COMPROBANTE ES SOLES
                 }//FIN SI MONEDAS SONIGUALES

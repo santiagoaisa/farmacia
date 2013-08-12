@@ -40,9 +40,11 @@ public class MenuImpresion extends Window {
         try {
             //ruta donde se crea archivo .jrprint
             //String destino = "/usr/local/jboss/server/default/deploy/jboss-web.deployer/ROOT.war/reporte/" + idreporte + ".jrprint";
-            String destino="C:/Program Files/Apache Software Foundation/Tomcat 7.0/webapps/ROOT/reporte";
+            //descomentar
+            //String destino="C:/Program Files/Apache Software Foundation/Tomcat 7.0/webapps/ROOT/reporte";            
             //se crea un archivo .jrprint
-            JasperFillManager.fillReportToFile(reportecompilado, destino, parametro, data);
+            //descomentar
+            //JasperFillManager.fillReportToFile(reportecompilado, destino, parametro, data);
             String reporte = "/reporte/" + idreporte + ".jrprint";
 
             applet.invoke("imprimir", reporte);

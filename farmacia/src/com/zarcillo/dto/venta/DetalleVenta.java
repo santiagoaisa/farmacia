@@ -50,6 +50,9 @@ public class DetalleVenta implements Serializable {
     //inafecto
     private boolean binafec;
     private BigDecimal ndesfinmax;
+    private boolean bfraccion;
+    private boolean bactivo;
+    
 
     public DetalleVenta() {
         dfecha = new Date();
@@ -74,6 +77,8 @@ public class DetalleVenta implements Serializable {
 
         binafec = false;
         ndesfinmax = new BigDecimal("0");
+        bactivo=false;
+        bfraccion=false;
     }
 
     public Existencia getExistencia() {
@@ -116,15 +121,8 @@ public class DetalleVenta implements Serializable {
         return ncanart;
     }
 
-    public void setNcanart(Integer ncanart) {
-        // diferencia entre el nuevo valor y el viejo valor
-        if (ncanart == null) {
-            ncanart = 0;
-            this.ncanart = 0;
-        }
-
-        this.nstktemporal = ncanart - this.ncanart;
-        calculaDescuentoEscala(ncanart);
+    public void setNcanart(Integer ncanart) {        
+//        calculaDescuentoEscala(ncanart);
         this.ncanart = ncanart;
     }
 
@@ -156,7 +154,7 @@ public class DetalleVenta implements Serializable {
         BigDecimal cantidadsalida = new BigDecimal(ncanart);
         if (ncanart == 0) {
             if (ncanartm > 0) {
-                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
             }
         }
 
@@ -194,7 +192,7 @@ public class DetalleVenta implements Serializable {
         BigDecimal cantidadsalida = new BigDecimal(ncanart);
         if (ncanart == 0) {
             if (ncanartm > 0) {
-                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
             }
         }
 
@@ -300,7 +298,7 @@ public class DetalleVenta implements Serializable {
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndesfin.divide(new BigDecimal("100"))));
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndesbon.divide(new BigDecimal("100"))));
         nsubtot = nsubtot.subtract(nsubtot.multiply(ndeslab.divide(new BigDecimal("100"))));
-
+        
         return nsubtot.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
@@ -308,7 +306,7 @@ public class DetalleVenta implements Serializable {
         BigDecimal cantidadsalida = new BigDecimal(ncanart);
         if (ncanart == 0) {
             if (ncanartm > 0) {
-                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                cantidadsalida = new BigDecimal(ncanartm).divide(new BigDecimal(this.getExistencia().getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
             }
         }
 
@@ -464,7 +462,8 @@ public class DetalleVenta implements Serializable {
         return ncanartm;
     }
 
-    public void setNcanartm(Integer ncanartm) {
+    public void setNcanartm(Integer ncanartm) {    
+//        calculaDescuentoEscala(ncanartm);
         this.ncanartm = ncanartm;
     }
 
@@ -484,6 +483,24 @@ public class DetalleVenta implements Serializable {
         this.nvalunim = nvalunim;
     }
 
+    public boolean isBfraccion() {
+        return bfraccion;
+    }
+
+    public void setBfraccion(boolean bfraccion) {
+        this.bfraccion = bfraccion;
+    }
+
+    public boolean isBactivo() {
+        return bactivo;
+    }
+
+    public void setBactivo(boolean bactivo) {
+        this.bactivo = bactivo;
+    }
+
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

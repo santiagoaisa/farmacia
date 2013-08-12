@@ -1,17 +1,25 @@
 package com.zarcillo.negocio;
 
+import com.zarcillo.dao.AmortizacionClienteDAO;
+import com.zarcillo.dao.ComprobanteEmitidoDAO;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.DocumentoDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.LoteDAO;
+import com.zarcillo.dao.MovimientoDAO;
 import com.zarcillo.dao.NumeracionDAO;
 import com.zarcillo.dao.OrdenLineaDAO;
 import com.zarcillo.dao.PeriodoDAO;
+import com.zarcillo.domain.AmortizacionCliente;
+import com.zarcillo.domain.Anulacion;
 import com.zarcillo.domain.Cliente;
+import com.zarcillo.domain.ComprobanteEmitido;
 import com.zarcillo.domain.CondicionVenta;
+import com.zarcillo.domain.DetalleAnulacion;
 import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Lote;
+import com.zarcillo.domain.MotivoAnulacion;
 import com.zarcillo.domain.MotivoEntrada;
 import com.zarcillo.domain.MotivoSalida;
 import com.zarcillo.domain.Movimiento;
@@ -22,6 +30,7 @@ import com.zarcillo.domain.Proveedor;
 import com.zarcillo.domain.RegistroEntrada;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.SituacionPedido;
+import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.util.OrdenarPorIdproductoMovimiento;
 import com.zarcillo.util.OrdenarPorNordenMovimiento;
@@ -48,7 +57,7 @@ public class Salida extends DescargaLote {
     private LoteDAO lotedao;
     @Autowired
     private OrdenLineaDAO ordenlineadao;
-       
+   
 
     public Integer registrar(RegistroSalida regsalida) {
         try {
@@ -99,7 +108,7 @@ public class Salida extends DescargaLote {
                     if (existencia.getNstockm() > m.getNcantidadm()) {
                         existencia.setNstockm(existencia.getNstockm() - m.getNcantidadm());
                     } else {
-                        BigDecimal cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                        BigDecimal cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
                         if (Numero.isMayor(cantidadsalida, Numero.uno)) {
                             throw new ExceptionZarcillo("La cantidad vendida en fraccion es mayor a la cantidad de menudeo asignada");
                         } else {
@@ -198,4 +207,6 @@ public class Salida extends DescargaLote {
         return regsalida;
 
     }
+
+   
 }

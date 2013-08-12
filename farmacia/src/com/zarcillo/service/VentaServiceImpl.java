@@ -192,22 +192,26 @@ public class VentaServiceImpl extends Entrada implements VentaService {
         detalle.setNstock(existencia.getNstock());
         detalle.setNstockm(existencia.getNstockm());
 //     
-
+        detalle.setBactivo(existencia.getBactivo());
+        
+        if(existencia.getIdproducto().getNmenudeo()>1){
+            detalle.setBfraccion(true);
+        }
+        
         detalle.setExistencia(existencia);
         detalle.setNcosuni(existencia.getNcosuni());
 
         detalle.setBinafec(existencia.getIdproducto().getBinafecto());
 
         //ESTABLESCO EL INCREMENTO
-        if (Numero.isCero(detalle.getNvaluni())) {
+        if (!Numero.isCero(existencia.getNvalven())) {
             detalle.setNvaluni(existencia.getNvalven());
 
-            BigDecimal nvalorunitariofraccion = detalle.getNvaluni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), idalmacen, 2);
+            BigDecimal nvalorunitariofraccion = detalle.getNvaluni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
             detalle.setNvalunim(nvalorunitariofraccion);
         } else {
             detalle.setNvaluni(existencia.getNcosuni().add(detalle.getNcosuni().multiply(existencia.getIdproducto().getIdsublinea().getIdlinea().getNincremento().divide(Numero.cien))));
-
-            BigDecimal nvalorunitariofraccion = detalle.getNvaluni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), idalmacen, 2);
+            BigDecimal nvalorunitariofraccion = detalle.getNvaluni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
             detalle.setNvalunim(nvalorunitariofraccion);
         }
 
@@ -269,7 +273,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
                 if (existencia.getNstockm() > m.getNcantidadm()) {
                     //no se hace nada
                 } else {
-                    BigDecimal cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                    BigDecimal cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
                     if (Numero.isMayor(cantidadsalida, Numero.uno)) {
                         throw new ExceptionZarcillo("La cantidad vendida en fraccion es mayor a la cantidad de menudeo asignada");
                     } else {

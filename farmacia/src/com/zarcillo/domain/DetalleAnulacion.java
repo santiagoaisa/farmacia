@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,46 +20,37 @@ import javax.persistence.Table;
  * @author saisa
  */
 @Entity
-@Table(name = "movimiento")
+@Table(name = "detalle_anulacion")
 @NamedQueries({
-    @NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m"),
-    @NamedQuery(name = "Movimiento.findByIdregsalida", query = "SELECT m FROM Movimiento m WHERE m.idregsalida.idregsalida=:idregsalida"),
-    @NamedQuery(name = "Movimiento.findByIdregentrada", query = "SELECT m FROM Movimiento m WHERE m.idregentrada.idregentrada=:idregentrada")
+    @NamedQuery(name = "DetalleAnulacion.findAll", query = "SELECT d FROM DetalleAnulacion d"),
+    @NamedQuery(name = "DetalleAnulacion.findByIdanulacion", query = "SELECT d FROM DetalleAnulacion d WHERE d.idanulacion.idanulacion=:idanulacion")
 })
-public class Movimiento implements Serializable {
+public class DetalleAnulacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idmovimiento")
-    private Integer idmovimiento;
-    
-
+    @Column(name = "iddetalle")
+    private Integer iddetalle;
     @JoinColumn(name = "idalmacen", referencedColumnName = "idalmacen")
     @ManyToOne(fetch = FetchType.EAGER)
     private Almacen idalmacen;
-    
     @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne(fetch = FetchType.EAGER)
     private Producto idproducto;
-    
-    
+    @JoinColumn(name = "idanulacion", referencedColumnName = "idanulacion")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Anulacion idanulacion;
     @Column(name = "ncantidad")
     private Integer ncantidad;
-    
-    @Column(name = "ncantidadm")
-    private Integer ncantidadm;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    
     @Column(name = "ncosuni")
     private BigDecimal ncosuni;
     @Column(name = "ctipmov")
     private String ctipmov;
     @Column(name = "nstock")
     private Integer nstock;
-        @Column(name = "nstockm")
-    private Integer nstockm;
     @Column(name = "nvaluni")
     private BigDecimal nvaluni;
     @Column(name = "ndesfin")
@@ -77,20 +67,20 @@ public class Movimiento implements Serializable {
     private String cfecven;
     @Column(name = "clote")
     private String clote;
-    @JoinColumn(name = "idregentrada", referencedColumnName = "idregentrada")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private RegistroEntrada idregentrada;
-    @JoinColumn(name = "idregsalida", referencedColumnName = "idregsalida")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private RegistroSalida idregsalida;
-    
+    @Column(name = "nidregsalida")
+    private Integer nidregsalida;
+    @Column(name = "nidregentrada")
+    private Integer nidregentrada;
     @Column(name = "norden")
     private Integer norden;
-    
-      @Column(name = "nmenudeo")
+    @Column(name = "ncantidadm")
+    private Integer ncantidadm;
+    @Column(name = "nstockm")
+    private Integer nstockm;
+    @Column(name = "nmenudeo")
     private Integer nmenudeo;
 
-    public Movimiento() {
+    public DetalleAnulacion() {
         ncantidad = 0;
         ncantidadm = 0;
         ncosuni = new BigDecimal("0");
@@ -102,32 +92,21 @@ public class Movimiento implements Serializable {
         nsubtot = new BigDecimal("0");
         nvaluni = new BigDecimal("0");
         binafecto = false;
-        norden=0;
-        nmenudeo=0;
+        norden = 0;
+        nmenudeo = 0;
     }
 
-    public Movimiento(Integer idmovimiento) {
-        this.idmovimiento = idmovimiento;
+    public DetalleAnulacion(Integer iddetalle) {
+        this.iddetalle = iddetalle;
     }
 
-    public Integer getIdmovimiento() {
-        return idmovimiento;
+    public Integer getIddetalle() {
+        return iddetalle;
     }
 
-    public void setIdmovimiento(Integer idmovimiento) {
-        this.idmovimiento = idmovimiento;
+    public void setIddetalle(Integer iddetalle) {
+        this.iddetalle = iddetalle;
     }
-
-    public Integer getNcantidadm() {
-        return ncantidadm;
-    }
-
-    public void setNcantidadm(Integer ncantidadm) {
-        this.ncantidadm = ncantidadm;
-    }
-    
-    
-    
 
     public Integer getNcantidad() {
         return ncantidad;
@@ -152,6 +131,9 @@ public class Movimiento implements Serializable {
     public void setCtipmov(String ctipmov) {
         this.ctipmov = ctipmov;
     }
+
+    
+    
 
     public Integer getNstock() {
         return nstock;
@@ -225,6 +207,62 @@ public class Movimiento implements Serializable {
         this.clote = clote;
     }
 
+    public Integer getNidregsalida() {
+        return nidregsalida;
+    }
+
+    public void setNidregsalida(Integer nidregsalida) {
+        this.nidregsalida = nidregsalida;
+    }
+
+    public Integer getNidregentrada() {
+        return nidregentrada;
+    }
+
+    public void setNidregentrada(Integer nidregentrada) {
+        this.nidregentrada = nidregentrada;
+    }
+
+    public Integer getNorden() {
+        return norden;
+    }
+
+    public void setNorden(Integer norden) {
+        this.norden = norden;
+    }
+
+    public Integer getNcantidadm() {
+        return ncantidadm;
+    }
+
+    public void setNcantidadm(Integer ncantidadm) {
+        this.ncantidadm = ncantidadm;
+    }
+
+    public Integer getNstockm() {
+        return nstockm;
+    }
+
+    public void setNstockm(Integer nstockm) {
+        this.nstockm = nstockm;
+    }
+
+    public Integer getNmenudeo() {
+        return nmenudeo;
+    }
+
+    public void setNmenudeo(Integer nmenudeo) {
+        this.nmenudeo = nmenudeo;
+    }
+
+    public Anulacion getIdanulacion() {
+        return idanulacion;
+    }
+
+    public void setIdanulacion(Anulacion idanulacion) {
+        this.idanulacion = idanulacion;
+    }
+
     public Almacen getIdalmacen() {
         return idalmacen;
     }
@@ -241,91 +279,21 @@ public class Movimiento implements Serializable {
         this.idproducto = idproducto;
     }
 
-
-    
-    
-    public RegistroEntrada getIdregentrada() {
-        return idregentrada;
-    }
-
-    public void setIdregentrada(RegistroEntrada idregentrada) {
-        this.idregentrada = idregentrada;
-    }
-
-    public RegistroSalida getIdregsalida() {
-        return idregsalida;
-    }
-
-    public void setIdregsalida(RegistroSalida idregsalida) {
-        this.idregsalida = idregsalida;
-    }
-
-    public Integer getNorden() {
-        return norden;
-    }
-
-    public void setNorden(Integer norden) {
-        this.norden = norden;
-    }
-
-    public Integer getNmenudeo() {
-        return nmenudeo;
-    }
-
-    public void setNmenudeo(Integer nmenudeo) {
-        this.nmenudeo = nmenudeo;
-    }
-    
-    
-    
-    
-     //se usara para el descargo de lotes
-    public BigDecimal calculaSubtotal() {
-        BigDecimal nvalorunitario = nvaluni.setScale(4, BigDecimal.ROUND_HALF_UP);
-        
-         BigDecimal cantidadsalida = new BigDecimal(ncantidad);
-        if (ncantidad == 0) {
-            if (ncantidadm > 0) {
-                cantidadsalida = new BigDecimal(ncantidadm).divide(new BigDecimal(this.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
-            }
-        }
-        
-        
-        nsubtot = nvalorunitario.multiply(cantidadsalida);
-        nsubtot = nsubtot.subtract(nsubtot.multiply(ndesfin.divide(new BigDecimal("100"))));
-        nsubtot = nsubtot.subtract(nsubtot.multiply(ndesbon.divide(new BigDecimal("100"))));
-        nsubtot = nsubtot.subtract(nsubtot.multiply(ndeslab.divide(new BigDecimal("100"))));        
-        nsubtot = nsubtot.setScale(2, BigDecimal.ROUND_HALF_UP);
-        return nsubtot;
-    }
-
-    public Integer getNstockm() {
-        return nstockm;
-    }
-
-    public void setNstockm(Integer nstockm) {
-        this.nstockm = nstockm;
-    }
-    
-    
-    
-    
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idmovimiento != null ? idmovimiento.hashCode() : 0);
+        hash += (iddetalle != null ? iddetalle.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Movimiento)) {
+        if (!(object instanceof DetalleAnulacion)) {
             return false;
         }
-        Movimiento other = (Movimiento) object;
-        if ((this.idmovimiento == null && other.idmovimiento != null) || (this.idmovimiento != null && !this.idmovimiento.equals(other.idmovimiento))) {
+        DetalleAnulacion other = (DetalleAnulacion) object;
+        if ((this.iddetalle == null && other.iddetalle != null) || (this.iddetalle != null && !this.iddetalle.equals(other.iddetalle))) {
             return false;
         }
         return true;
@@ -333,6 +301,6 @@ public class Movimiento implements Serializable {
 
     @Override
     public String toString() {
-        return "com.zarcillo.domain.Movimiento[ idmovimiento=" + idmovimiento + " ]";
+        return "com.zarcillo.domain.DetalleAnulacion[ iddetalle=" + iddetalle + " ]";
     }
 }

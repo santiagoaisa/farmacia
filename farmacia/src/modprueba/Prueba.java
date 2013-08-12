@@ -5,9 +5,12 @@ import com.zarcillo.domain.Linea;
 import com.zarcillo.domain.Presentacion;
 import com.zarcillo.domain.Producto;
 import com.zarcillo.domain.Sublinea;
+import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.service.ProductoService;
+import com.zarcillo.service.VentaService;
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
+import java.util.List;
 import javax.naming.NamingException;
 import jxl.Cell;
 import jxl.Sheet;
@@ -26,7 +29,11 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Fileupload;
+import org.zkoss.zul.ListModel;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 /**
@@ -40,15 +47,21 @@ public class Prueba extends SelectorComposer {
     private Window winPrueba;
     @Wire
     private Button btnImprimir;
-    private MenuImpresion menuimpresion;
+    @Wire
+    private Textbox txtDescripcion;
+    @Wire
+    private Listbox lstDetalle;
     @WireVariable
-    ProductoService productoService;
+    private ProductoService productoService;
+    @WireVariable
+    private VentaService ventaService;
+    private MenuImpresion menuimpresion;
 
     @Listen("onCreate=window#winPrueba")
     public void onCreate() throws InterruptedException, JRException, NamingException {
         HtmlMacroComponent macro = (HtmlMacroComponent) winPrueba.getFellow("mimpresion");
         menuimpresion = (MenuImpresion) macro.getChildren().get(0);
-        
+
     }
 
     @Listen("onClick = button#btnImprimir")
@@ -60,6 +73,24 @@ public class Prueba extends SelectorComposer {
     @Listen("onValidar = #winPrueba")
     public void doSave(ForwardEvent event) { //signature if you care about event
         Messagebox.show("Prueba");
+    }
+
+    @Listen("onOK = #txtDescripcion")
+    public void buscar(Event event) { //signature if you care about event
+       buscar();
+
+    }
+    
+    @Listen("onCtrlKey = #txtDescripcion")
+    public void buscarTecla(Event event) { //signature if you care about event
+       buscar();
+    }
+    
+    private void buscar(){
+         List<DetalleVenta> listaDetalleVenta = ventaService.busquedaListaPorIdalmacenPorDescripcion(1, txtDescripcion.getText().trim());
+        ListModelList modelo = new ListModelList(listaDetalleVenta);
+        lstDetalle.setModel(modelo);
+        lstDetalle.onInitRender();
     }
 
     @Listen("onClick = button#btnCargar")

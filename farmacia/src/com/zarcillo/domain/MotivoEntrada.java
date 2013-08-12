@@ -49,6 +49,7 @@ public class MotivoEntrada implements Serializable {
     private Usuario idusuario;
     
     public static MotivoEntrada TRANSFERENCIA=new MotivoEntrada(0,false);
+    public static MotivoEntrada ANULACION=new MotivoEntrada(2,false);
 
     public MotivoEntrada() {
         bcosteo=false;        

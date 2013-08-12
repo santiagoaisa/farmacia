@@ -1,20 +1,28 @@
 package com.zarcillo.negocio;
 
+import com.zarcillo.dao.AmortizacionClienteDAO;
+import com.zarcillo.dao.ComprobanteEmitidoDAO;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.CuentaPagarDAO;
 import com.zarcillo.dao.DocumentoDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.LoteDAO;
+import com.zarcillo.dao.MovimientoDAO;
 import com.zarcillo.dao.NumeracionDAO;
 import com.zarcillo.dao.PeriodoDAO;
 import com.zarcillo.dao.ProductoDAO;
 import com.zarcillo.dao.RegistroEntradaDAO;
+import com.zarcillo.domain.AmortizacionCliente;
+import com.zarcillo.domain.Anulacion;
 import com.zarcillo.domain.Cliente;
+import com.zarcillo.domain.ComprobanteEmitido;
 import com.zarcillo.domain.CuentaPagar;
+import com.zarcillo.domain.DetalleAnulacion;
 import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.ExistenciaPK;
 import com.zarcillo.domain.Lote;
+import com.zarcillo.domain.MotivoAnulacion;
 import com.zarcillo.domain.MotivoEntrada;
 import com.zarcillo.domain.MotivoSalida;
 import com.zarcillo.domain.Movimiento;
@@ -25,6 +33,7 @@ import com.zarcillo.domain.Proveedor;
 import com.zarcillo.domain.RegistroEntrada;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.Transferencia;
+import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.ExceptionZarcillo;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -58,6 +67,13 @@ public class Entrada extends Salida {
     private DocumentoDAO documentodao;
     @Autowired
     private NumeracionDAO numeraciondao;
+     @Autowired
+    private ComprobanteEmitidoDAO comprobantedao;
+    @Autowired
+    private AmortizacionClienteDAO amortizaciondao;
+    @Autowired
+    private MovimientoDAO movimientodao;
+    
     private DecimalFormat formato = new DecimalFormat("000000");
 
     public void registrar(RegistroEntrada regentrada) {
@@ -113,7 +129,7 @@ public class Entrada extends Salida {
                         neto = detalle.getNsubtot().divide(new BigDecimal(detalle.getNcantidad()), 4, RoundingMode.HALF_EVEN);
                         //STOCK ACTUAL QUE TENEMOS EN ENTERO Y FRACCION
                         BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
-                        BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                        BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
                         BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
 
                         BigDecimal costo = costeo(nstocktotalactual, existencia.getNcosuni(), new BigDecimal(detalle.getNcantidad()), neto);
@@ -122,11 +138,11 @@ public class Entrada extends Salida {
                     } else {
 
                         BigDecimal nstockentero = new BigDecimal(existencia.getNstock());
-                        BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                        BigDecimal nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
                         BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
 
 
-                        BigDecimal ningresofraccioningreso = new BigDecimal(detalle.getNcantidadm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                        BigDecimal ningresofraccioningreso = new BigDecimal(detalle.getNcantidadm()).divide(new BigDecimal(producto.getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
                         neto = detalle.getNsubtot().divide(ningresofraccioningreso, 4, RoundingMode.HALF_EVEN);
 
 
@@ -297,7 +313,7 @@ public class Entrada extends Salida {
                 //ENTRADA DE FRACCION
                 Integer nentradafraccion = 1 * ms.getIdproducto().getNmenudeo();
                 // EL STOCK QUE REPRESENTA 1 UNIDAD EN FRACCION EJEMPLO 0.01
-                BigDecimal nstocfraccion = new BigDecimal("1").divide(new BigDecimal(ms.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+                BigDecimal nstocfraccion = new BigDecimal("1").divide(new BigDecimal(ms.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
                 // EL STOCK ENFRACCION ME SIRVE PARA SACAR EL COSTO FRACCIONADO
                 BigDecimal ncosuni = ms.getNcosuni().multiply(nstocfraccion);
                 movimiento.setNcantidadm(nentradafraccion);
@@ -328,9 +344,125 @@ public class Entrada extends Salida {
             e.printStackTrace();
             throw new ExceptionZarcillo(e.getMessage());
         }
-
-
-
-
     }
+    
+    
+     public void anular(RegistroSalida regsalida, MotivoAnulacion motivo, Usuario usuario) {
+        try {
+            if (regsalida.getBanulado()) {
+                throw new ExceptionZarcillo("El documento Ya fue anulado");
+            }
+            if (regsalida.getIdperiodo().getBinactivo()) {
+                throw new ExceptionZarcillo("El periodo ya esta cerrado\n imposible eliminar ");
+            }
+
+            Periodo periodo = periododao.buscarPorFecha(new Date());
+            // SIEMPRE SE ELIMINA EL DOCUMENTO
+            ComprobanteEmitido comprobante = comprobantedao.buscarPorIdregsalida(regsalida.getIdregsalida());
+            List<AmortizacionCliente> listaAmortizacion = amortizaciondao.listaPorIdcomprobante(comprobante.getIdcomprobante());
+            if (listaAmortizacion.size() > 0) {
+                throw new ExceptionZarcillo("El Documento tiene amortizaciones, imposible eliminar");
+            } else {
+                cruddao.eliminar(comprobante);
+            }
+
+
+            Anulacion anulacion = new Anulacion();
+            anulacion.setNidregsalida(regsalida.getIdregsalida());
+            anulacion.setIdcliente(regsalida.getIdcliente());
+            anulacion.setIdcondicion(regsalida.getIdcondicion());
+            anulacion.setIddocumento(regsalida.getIddocumento());
+            anulacion.setIdmotivo(regsalida.getIdmotivo());
+            anulacion.setIdunidad(regsalida.getIdunidad());
+            anulacion.setIdusuario(usuario);
+            anulacion.setIdvendedor(regsalida.getIdvendedor());
+            anulacion.setCserie(regsalida.getCsergui());
+            anulacion.setCnumero(regsalida.getCnumero());
+            anulacion.setCsergui(regsalida.getCsergui());
+            anulacion.setCnumgui(regsalida.getCnumgui());
+            anulacion.setDfecha(new Date());
+            anulacion.setDfecreg(new Date());
+            anulacion.setDfecemi(regsalida.getDfecha());
+            anulacion.setIdperiodo(periodo);
+
+            anulacion.setNafecto(regsalida.getNafecto());
+            anulacion.setNinafecto(regsalida.getNinafecto());
+            anulacion.setNfleven(regsalida.getNfleven());
+            anulacion.setNigv(regsalida.getNigv());
+            anulacion.setNimporte(regsalida.getNimporte());
+            anulacion.setNplazo(regsalida.getNplazo());
+            anulacion.setIdmotanu(motivo);
+            anulacion.setIdusuario(usuario);
+            anulacion.setNcosto(regsalida.getNcosto());
+            anulacion.setIdmoneda(regsalida.getIdmoneda());
+            anulacion.setNtipocambio(regsalida.getNtipocambio());
+            cruddao.registrar(anulacion);
+
+            List<Movimiento> listaMovimientos = movimientodao.listaPorIdregsalida(regsalida.getIdregsalida());
+
+            DetalleAnulacion detalleanulacion;
+            Existencia existencia;
+            Lote lote;
+            for (Movimiento m : listaMovimientos) {
+                /////// detalle de anulacion
+                detalleanulacion = new DetalleAnulacion();
+                detalleanulacion.setIdanulacion(anulacion);
+                detalleanulacion.setIdalmacen(m.getIdalmacen());
+                detalleanulacion.setIdproducto(m.getIdproducto());
+                detalleanulacion.setNidregsalida(m.getIdregsalida().getIdregsalida());
+                detalleanulacion.setBinafecto(m.getBinafecto());
+                detalleanulacion.setCfecven(m.getCfecven());
+                detalleanulacion.setClote(m.getClote());
+                detalleanulacion.setNcantidad(m.getNcantidad());
+                detalleanulacion.setNcantidadm(m.getNcantidadm());
+                detalleanulacion.setNmenudeo(m.getNmenudeo());
+                detalleanulacion.setNorden(m.getNorden());
+                detalleanulacion.setNcosuni(m.getNcosuni());
+                detalleanulacion.setNdesfin(m.getNdesfin());
+                detalleanulacion.setNdeslab(m.getNdeslab());
+                detalleanulacion.setNdesbon(m.getNdesbon());
+                detalleanulacion.setNsubtot(m.getNsubtot());
+                detalleanulacion.setNvaluni(m.getNvaluni());
+                detalleanulacion.setIdanulacion(anulacion);
+                detalleanulacion.setCtipmov(m.getCtipmov());
+                cruddao.registrar(detalleanulacion);
+
+                existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
+                existencia.setNstock(existencia.getNstock() + m.getNcantidad());
+                existencia.setNstockm(existencia.getNstockm() + m.getNcantidadm());
+                cruddao.actualizar(existencia);
+
+                lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaAnulacion(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto(), m.getClote());
+
+                if (lote.getIdlote() == null) {
+                    lote.setIdalmacen(m.getIdalmacen());
+                    lote.setIdproducto(m.getIdproducto());
+                    lote.setIdusuario(usuario);
+                    lote.setIdmotivo(MotivoEntrada.ANULACION);
+                    lote.setClote(m.getClote());
+                    lote.setCfecven(m.getCfecven());
+                    lote.setCobservacion("ANULACION " + regsalida.getIddocumento().getCabrev() + ":" + regsalida.getCserie() + "-" + regsalida.getCnumero());
+                    lote.setNstock(m.getNstock());
+                    lote.setNstockm(m.getNstockm());
+                    lote.setDfecreg(new Date());
+                    cruddao.registrar(lote);
+                } else {
+                    lote.setNstock(lote.getNstock() + m.getNstock());
+                    lote.setNstockm(lote.getNstockm() + m.getNstockm());
+                    lote.setDfecreg(new Date());
+                    cruddao.actualizar(lote);
+                }
+
+                cruddao.eliminar(m);
+            }
+
+
+            cruddao.eliminar(regsalida);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionZarcillo(e.getMessage());
+        }
+    }
+    
 }

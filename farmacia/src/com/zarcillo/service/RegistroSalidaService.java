@@ -1,6 +1,8 @@
 package com.zarcillo.service;
 
+import com.zarcillo.domain.MotivoAnulacion;
 import com.zarcillo.domain.RegistroSalida;
+import com.zarcillo.domain.Usuario;
 import com.zarcillo.dto.venta.DetalleVenta;
 import java.util.List;
 

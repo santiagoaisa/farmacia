@@ -147,7 +147,7 @@ public class KardexServiceImpl implements KardexService {
 
 
 //            BigDecimal nstockentero = new BigDecimal(k.getNsaldo());
-//            BigDecimal nstocfraccion = new BigDecimal(k.getNsaldom()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+//            BigDecimal nstocfraccion = new BigDecimal(k.getNsaldom()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
 //            BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
 //
 //            k.setNimportesaldo(k.getNcosuni().multiply(new BigDecimal(k.getNsaldo())));

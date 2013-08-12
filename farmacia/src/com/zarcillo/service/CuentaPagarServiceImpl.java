@@ -127,7 +127,7 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
                 } else {
                     //SI CUENTAS PAGAR ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
                     if (amortizacion.getIdmoneda().getBnacional()) {
-                        nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                        nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_UP);
                         amortizacion.setIdmoneda(cuentapagar.getIdmoneda());
                         amortizacion.setNimportes(amortizacion.getNimporte());
                         amortizacion.setNimporte(nimporteamortizar);
@@ -186,7 +186,7 @@ public class CuentaPagarServiceImpl implements CuentaPagarService {
                 } else {
                     //SI CUENTAS PAGAR ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
                     if (amortizacion.getIdmoneda().getBnacional()) {
-                        nimportedesamortizar = amortizacion.getNimportes().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_EVEN);
+                        nimportedesamortizar = amortizacion.getNimportes().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_UP);
                     }
                 }//FIN SI CUENTAS PAGAR ES SOLES
             }//FIN SI MONEDAS SONIGUALES

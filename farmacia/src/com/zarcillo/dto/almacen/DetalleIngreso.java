@@ -203,7 +203,7 @@ public class DetalleIngreso implements Serializable {
                     }
                 }
 
-                setNcosuni(valorventa.divide(new BigDecimal(cantidadentrada), 4, BigDecimal.ROUND_HALF_EVEN));
+                setNcosuni(valorventa.divide(new BigDecimal(cantidadentrada), 4, BigDecimal.ROUND_HALF_UP));
                 setNdesc1(new BigDecimal("0"));
                 setNdesc2(new BigDecimal("0"));
                 setNsubtot(ncosuni.multiply(new BigDecimal(cantidadentrada)));
