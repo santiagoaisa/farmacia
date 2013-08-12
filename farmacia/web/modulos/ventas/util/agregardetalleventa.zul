@@ -33,8 +33,8 @@
                         <listheader label="Cant." width="7%" align="center" />
                         <listheader label="Fracc." width="7%" align="center" />
                         <listheader label="Linea" width="18%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
-                        <listheader label="ValUni" width="6%" align="center" />
-                        <listheader label="Val" width="6%" align="center" />
+                        <listheader label="PVF(/F)" width="6%" align="center" />
+                        <listheader label="P.V.F" width="6%" align="center" />
                         <listheader label="Subtot" width="7%" align="center" />
                         <listheader label="Importe" width="7%" align="center" />
                     </listhead>

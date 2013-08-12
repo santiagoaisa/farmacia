@@ -58,7 +58,7 @@ public class ListadoPrecios extends SelectorComposer {
     final Execution exec = Executions.getCurrent();
     private String user_login;
 
-    @Listen("onCreate=window#winInventario")
+    @Listen("onCreate=window#winPrecios")
     public void onCreate() throws NamingException {
         initComponets();
     }
@@ -129,7 +129,7 @@ public class ListadoPrecios extends SelectorComposer {
         parametro.put("ALMACEN", almacen.getCnomalmacen());
         parametro.put("USUARIO", usuario.getCnomusuario());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listadoPrecio(almacen.getIdalmacen(), listaIdlinea));
-        rptreporte.setSrc("/modulos/almacen/reporte/listainventarioproducto.jasper");
+        rptreporte.setSrc("/modulos/compras/reporte/listadoprecios.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);
         rptreporte.setType("pdf");        

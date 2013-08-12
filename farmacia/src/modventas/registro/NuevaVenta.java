@@ -2,14 +2,12 @@ package modventas.registro;
 
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.CondicionVenta;
-import com.zarcillo.domain.Lote;
 import com.zarcillo.domain.MotivoSalida;
 import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.domain.Vendedor;
-import com.zarcillo.dto.almacen.DetalleIngreso;
 import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.CondicionVentaService;
@@ -19,7 +17,6 @@ import com.zarcillo.service.UsuarioService;
 import com.zarcillo.service.VentaService;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -94,6 +91,9 @@ public class NuevaVenta extends SelectorComposer{
     
     @Wire
     private Decimalbox nImporte;
+    
+    @Wire
+    private Decimalbox nRedondeo;    
     
     @WireVariable
     UsuarioService usuarioService;
@@ -227,6 +227,7 @@ public class NuevaVenta extends SelectorComposer{
         nInafecto.setValue(regsalida.getNinafecto());
         nValven.setValue(regsalida.getNafecto());
         nIgv.setValue(regsalida.getNigv());
+        nRedondeo.setValue(regsalida.getNredondeo());
         nImporte.setValue(regsalida.getNimporte());
     }
     

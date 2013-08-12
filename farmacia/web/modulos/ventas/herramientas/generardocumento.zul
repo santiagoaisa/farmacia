@@ -1,32 +1,26 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winVenta"?>
 <window id="winVenta" title="Registro de Ventas..."  width="950px"  border="0"
-        apply="modventas.registro.NuevaVenta" >
+        apply="modventas.herramientas.GenerarDocumento" >
 
     <grid>
         <columns>
-            <column width="15%"/>
+            <column width="10%"/>
             <column width="15%" />
-            <column width="15%"/>
+            <column width="10%"/>
             <column width="15%" />
+            <column width="23%"/>
+            <column width="12%" />
             <column width="15%"/>
-            <column width="20%" />
         </columns>
         <rows>
             <row >
-                <label value="Almacen:"/>
-                <combobox id="cboAlmacen" readonly="true" width="98%"/>
-                <label value="Condicion:"/>
-                <combobox id="cboCondicion" readonly="true" width="98%"/>
+                <label value="Uni.Negocio:"/>
+                <combobox id="cboUnidad" readonly="true" width="98%"/>                
                 <label value="Fecha:"/>
                 <datebox id="dFecha" width="85%" readonly="true" format="yyyy-MM-dd" />
-                               
-            </row>
-            <row spans="1,1,1,1,2" >
-                <label value="Motivo Venta:"/>
-                <combobox id="cboMotivo" readonly="true" width="98%"/>
-                <label value="Vendedor:"/>
-                <combobox id="cboVendedor" readonly="true" width="98%"/>
-                <button id="btnAgregar" label="Agregar"  />                
+                 <label value=""/>
+                 <label value="Operacion:"/>
+                <intbox id="nOperacion" width="85%"  />                               
             </row>
         </rows>
     </grid>
