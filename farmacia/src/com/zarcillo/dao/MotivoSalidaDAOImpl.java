@@ -26,6 +26,11 @@ public class MotivoSalidaDAOImpl implements MotivoSalidaDAO{
     public List<MotivoSalida> listaGeneral() {
         return em.createNamedQuery("MotivoSalida.findAll").getResultList();
     }
+
+    @Override
+    public List<MotivoSalida> listaVenta() {
+         return em.createNamedQuery("MotivoSalida.findByVenta").getResultList();
+    }
     
     
     

@@ -17,7 +17,7 @@
     
     <label value = "Producto:"  />
     <textbox id="txtDescripcion" width="95%" ctrlKeys="@c^a#f2^#f3" />
-    <listbox id="lstDetalle" mold="paging"    pageSize="500" height="300px" >
+    <listbox id="lstDetalle" mold="paging" multiple="true" checkmark="true"    pageSize="500" height="300px" >
         <auxhead>
             <auxheader label="Detalle de Ingreso" colspan="12"/>
         </auxhead>

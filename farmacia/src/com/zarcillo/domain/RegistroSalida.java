@@ -141,6 +141,7 @@ public class RegistroSalida implements Serializable {
         nfleven = new BigDecimal("0");
         ntipocambio = new BigDecimal("1");
         banulado = false;
+        bimpreso=false;
 
     }
 

@@ -71,25 +71,29 @@ public class VentaServiceImpl extends Entrada implements VentaService {
     @Transactional
     public Integer registrar(RegistroSalida regsalida, Almacen almacen) {
         try {
-            int tamaño_pedido = regsalida.getIddocumento().getNitems();
-
-            //////////VALIDAR STOCK DE FRACCION
+            
+            System.out.println("tamaño:"+regsalida.getMovimientoCollection().size());
+            //////////VALIDAR STOCK DE FRACCION            
             validarStock(regsalida);
             regsalida.setIdmoneda(Moneda.SOLES);
             regsalida.setIdcliente(Cliente.BOLETA);
             regsalida.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.BOLETA_SUNAT.getCcodigosunat()));
             ///////////
-
+            
             // llaves ,le asigna una llave temporal id a cada movimiento
             super.llaves(regsalida);
+            
             // descargo lotes y el pedido crece
             super.lotes(regsalida);
+            
             // llaves ,le asigna una llave temporal id a cada movimiento
             super.llaves(regsalida);
+            
 
             //1ro grabo el docmento original
             // si no es prestamos           
             super.registrar(regsalida);
+            
 
 
         } catch (Exception e) {
@@ -263,7 +267,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
     @Override
     public List<MotivoSalida> listaMotivo() {
-        return motivosalidadao.listaGeneral();
+        return motivosalidadao.listaVenta();
     }
 
     @Override
@@ -272,30 +276,34 @@ public class VentaServiceImpl extends Entrada implements VentaService {
     }
 
     private void validarStock(RegistroSalida regsalida) {
-        List<Movimiento> listaMovimiento = regsalida.getMovimientoCollection();
-        Existencia existencia;
-        for (Movimiento m : listaMovimiento) {
-            existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
+        try {
+            List<Movimiento> listaMovimiento = regsalida.getMovimientoCollection();
+            Existencia existencia;
+            for (Movimiento m : listaMovimiento) {
+                existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
 
-            if (m.getNcantidadm() > 0) {
-                // si es menudeo y tengo stock de menudeo
-                if (existencia.getNstockm() > m.getNcantidadm()) {
-                    //no se hace nada
-                } else {
-                    BigDecimal cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
-                    if (Numero.isMayor(cantidadsalida, Numero.uno)) {
-                        throw new ExceptionZarcillo("La cantidad vendida en fraccion es mayor a la cantidad de menudeo asignada");
+                if (m.getNcantidadm() > 0) {
+                    // si es menudeo y tengo stock de menudeo
+                    if (existencia.getNstockm() > m.getNcantidadm()) {
+                        //no se hace nada
                     } else {
-                        //EN EL CASO QUE NO TENGA STOCK EN MENUDEO
-                        //SE TIENE QUE REALIZAR UNA TRANSFERENCIA
-                        super.transferenciaFraccion(regsalida, m);
+                        BigDecimal cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
+                        if (Numero.isMayor(cantidadsalida, Numero.uno)) {
+                            throw new ExceptionZarcillo("La cantidad vendida en fraccion es mayor a la cantidad de menudeo asignada");
+                        } else {
+                            //EN EL CASO QUE NO TENGA STOCK EN MENUDEO
+                            //SE TIENE QUE REALIZAR UNA TRANSFERENCIA
+                            super.transferenciaFraccion(regsalida, m);
+                        }
+                    }
+                } else {
+                    if (m.getNcantidad() > existencia.getNstock()) {
+                        throw new ExceptionZarcillo("La cantidad vendida en entero es mayor a la cantidad vendida");
                     }
                 }
-            } else {
-                if (m.getNcantidad() > existencia.getNstock()) {
-                    throw new ExceptionZarcillo("La cantidad vendida en entero es mayor a la cantidad vendida");
-                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
