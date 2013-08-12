@@ -30,6 +30,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Moneda.findByIdmoneda", query = "SELECT m FROM Moneda m WHERE m.idmoneda=:idmoneda ")
 })
 public class Moneda implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,16 +46,19 @@ public class Moneda implements Serializable {
     private Date dfecreg;
     @Column(name = "bnacional")
     private Boolean bnacional;
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
-    
-    
+    public static Moneda SOLES = new Moneda(1, true);
 
     public Moneda() {
-        bnacional=false;
-        
+        bnacional = false;
+
+    }
+
+    public Moneda(Integer idmoneda, Boolean bnacional) {
+        this.idmoneda = idmoneda;
+        this.bnacional = bnacional;
     }
 
     public Moneda(Integer idmoneda) {
@@ -101,8 +105,6 @@ public class Moneda implements Serializable {
         this.bnacional = bnacional;
     }
 
-   
-
     public Usuario getIdusuario() {
         return idusuario;
     }
@@ -110,8 +112,6 @@ public class Moneda implements Serializable {
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
-
-   
 
     @Override
     public int hashCode() {
@@ -137,5 +137,4 @@ public class Moneda implements Serializable {
     public String toString() {
         return cnommoneda;
     }
-    
 }

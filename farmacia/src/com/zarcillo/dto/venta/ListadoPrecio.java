@@ -1,6 +1,7 @@
 package com.zarcillo.dto.venta;
 
 import com.zarcillo.domain.Producto;
+import com.zarcillo.negocio.Numero;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -13,22 +14,32 @@ public class ListadoPrecio implements Serializable {
     private Producto idproducto;
     private Integer nstock;
     private Integer nstockm;
-    private BigDecimal nmargen;
+    private BigDecimal nincremento;
     private BigDecimal ncosuni;    
     private BigDecimal nvaluni;
+    private BigDecimal nvalunim;
     private BigDecimal npreuni;
     private BigDecimal npreunim;
     private BigDecimal nutilidad;
 
     public ListadoPrecio() {
         ncosuni=new BigDecimal("0");
-        nmargen=new BigDecimal("0");
+        nincremento=new BigDecimal("0");
         npreuni=new BigDecimal("0");
         npreunim=new BigDecimal("0");
         nstock=0;
         nstockm=0;
         nvaluni=new BigDecimal("0");
         nutilidad=new BigDecimal("0");
+        nvalunim=new BigDecimal("0");
+    }
+
+    public BigDecimal getNvalunim() {
+        return nvalunim;
+    }
+
+    public void setNvalunim(BigDecimal nvalunim) {
+        this.nvalunim = nvalunim;
     }
     
     
@@ -58,13 +69,16 @@ public class ListadoPrecio implements Serializable {
         this.nstockm = nstockm;
     }
 
-    public BigDecimal getNmargen() {
-        return nmargen;
+    public BigDecimal getNincremento() {
+        return nincremento;
     }
 
-    public void setNmargen(BigDecimal nmargen) {
-        this.nmargen = nmargen;
+    public void setNincremento(BigDecimal nincremento) {
+        this.nincremento = nincremento;
     }
+
+   
+    
 
     public BigDecimal getNcosuni() {
         return ncosuni;
@@ -108,7 +122,11 @@ public class ListadoPrecio implements Serializable {
 
    
     public void calculaUtilidad(){
-        
+        if(Numero.isCero(ncosuni)){
+            nutilidad=Numero.cien;            
+        }else{
+            nutilidad = nvaluni.multiply(Numero.cien.divide(ncosuni, 4, BigDecimal.ROUND_HALF_UP)).subtract(Numero.cien);
+        }
     }
     
     

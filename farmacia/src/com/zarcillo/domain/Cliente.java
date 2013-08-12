@@ -81,6 +81,7 @@ public class Cliente implements Serializable {
     private TipoPersona idtipo;
     
     public static Cliente TRANSFERENCIA=new Cliente(0);
+    public static Cliente BOLETA=new Cliente(1);
     
 
     public Cliente() {

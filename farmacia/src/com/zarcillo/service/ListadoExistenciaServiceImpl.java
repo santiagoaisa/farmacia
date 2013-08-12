@@ -10,6 +10,7 @@ import com.zarcillo.domain.Periodo;
 import com.zarcillo.dto.almacen.Inventario;
 import com.zarcillo.dto.almacen.InventarioLote;
 import com.zarcillo.dto.almacen.InventarioValorizado;
+import com.zarcillo.dto.venta.ListadoPrecio;
 import com.zarcillo.negocio.Igv;
 import com.zarcillo.negocio.Numero;
 import java.math.BigDecimal;
@@ -39,6 +40,40 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
     private PeriodoDAO periododao;
     @Autowired
     private LoteDAO lotedao;
+
+    @Override
+    public List<ListadoPrecio> listadoPrecio(Integer idalmacen, List<Integer> lista) {
+        List<ListadoPrecio> listaPrecio = new ArrayList<>();
+        Periodo periodo = periododao.buscarPorFecha(new Date());
+
+        List<Existencia> listaExistencia = existenciadao.listaPorIdalmacenPorLineasConStock(idalmacen, lista);
+        ListadoPrecio listado;
+        for (Existencia e : listaExistencia) {
+            listado = new ListadoPrecio();
+            listado.setIdproducto(e.getIdproducto());
+            listado.setNcosuni(e.getNcosuni());
+            listado.setNincremento(e.getIdproducto().getIdsublinea().getIdlinea().getNincremento());
+            
+
+            if (!Numero.isCero(e.getNvalven())) {
+                listado.setNvaluni(e.getNvalven());
+                BigDecimal nvalorunitariofraccion = listado.getNvaluni().divide(new BigDecimal(e.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
+                listado.setNvalunim(nvalorunitariofraccion);
+            } else {
+                listado.setNvaluni(e.getNcosuni().add(listado.getNcosuni().multiply(e.getIdproducto().getIdsublinea().getIdlinea().getNincremento().divide(Numero.cien))));
+                BigDecimal nvalorunitariofraccion = listado.getNvaluni().divide(new BigDecimal(e.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
+                listado.setNvalunim(nvalorunitariofraccion);
+                listado.setNincremento(new BigDecimal("0"));
+            }
+
+            
+
+
+
+        }
+
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public List<Inventario> listaInventarioPorIdalmacenPorLineas(Integer idalmacen, List<Integer> lista) {

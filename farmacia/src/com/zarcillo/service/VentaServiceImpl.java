@@ -16,6 +16,7 @@ import com.zarcillo.domain.CondicionVenta;
 import com.zarcillo.domain.Descuento;
 import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.Existencia;
+import com.zarcillo.domain.Moneda;
 import com.zarcillo.domain.MotivoSalida;
 import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Numeracion;
@@ -74,6 +75,9 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
             //////////VALIDAR STOCK DE FRACCION
             validarStock(regsalida);
+            regsalida.setIdmoneda(Moneda.SOLES);
+            regsalida.setIdcliente(Cliente.BOLETA);
+            regsalida.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.BOLETA_SUNAT.getCcodigosunat()));
             ///////////
 
             // llaves ,le asigna una llave temporal id a cada movimiento
