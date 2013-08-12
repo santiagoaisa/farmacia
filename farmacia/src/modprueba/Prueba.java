@@ -91,7 +91,7 @@ public class Prueba extends SelectorComposer {
         ListModelList modelo = new ListModelList(listaDetalleVenta);
         
         lstDetalle.setModel(modelo);
-       
+        lstDetalle.onInitRender();
         lstDetalle.setMultiple(true);
         lstDetalle.setCheckmark(true);
     }

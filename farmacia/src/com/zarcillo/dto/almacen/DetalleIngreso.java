@@ -226,7 +226,7 @@ public class DetalleIngreso implements Serializable {
         if (cantidadentrada == 0) {
             this.ncosuni = new BigDecimal("0");
             if (getIdproducto().getNmenudeo() > 0) {
-                cantidadentrada = getIdproducto().getNmenudeo();
+                cantidadentrada = ncantidadm;
                 this.ncosuni = nsubtot.divide(new BigDecimal(cantidadentrada), 4, BigDecimal.ROUND_HALF_UP);
             }
         } else {

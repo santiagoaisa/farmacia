@@ -63,6 +63,7 @@ public class Documento implements Serializable {
     
      @Column(name = "nitems")
     private Integer nitems;
+     public static Documento TRANSFERENCIA=new Documento(0);
     public static Documento TRANSFERENCIA_SUNAT=new Documento("00");
     public static Documento LETRA_SUNAT=new Documento("99");
     public static Documento FACTURA_SUNAT=new Documento("01");
@@ -77,8 +78,7 @@ public class Documento implements Serializable {
         bcompra = false;
         bpago = false;
         bventa = false;
-    }
-    
+    }   
     
     
 

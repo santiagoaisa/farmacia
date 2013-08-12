@@ -1,5 +1,6 @@
 package com.zarcillo.service;
 
+import com.zarcillo.compra.ActualizarExistencia;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.ListadoExistenciaDAO;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -131,4 +133,54 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
         return listaRetorno;
 
     }
+
+    @Override
+    public List<ActualizarExistencia> listaActualizarPrecioPorDescripcion(Integer idalmacen, String criterio) {
+        List<Existencia> listaExistencias = existenciadao.busquedaListaPorIdalmacenPorDescripcion(idalmacen, criterio);
+        List<ActualizarExistencia> listaRetorno=new ArrayList<>();
+        ActualizarExistencia a;
+        for (Existencia e : listaExistencias) {
+            a=new ActualizarExistencia();
+            a.setIdproducto(e.getIdproducto());
+            a.setIdalmacen(e.getIdalmacen());
+            a.setNstock(e.getNstock());
+            a.setNstockm(e.getNstockm());
+            a.setNcosuni(e.getNcosuni());
+            a.setNcospre(Igv.importeDetalleVenta(e.getNcosuni(), e.getIdproducto().getBinafecto()));
+            a.setNincremento(e.getIdproducto().getIdsublinea().getIdlinea().getNincremento());
+            
+             if (!Numero.isCero(e.getNvalven())) {
+                a.setNvaluni(e.getNvalven());                
+            } else {
+                a.setNvaluni(e.getNcosuni().add(a.getNcosuni().multiply(e.getIdproducto().getIdsublinea().getIdlinea().getNincremento().divide(Numero.cien))));
+                a.setNincremento(new BigDecimal("0"));
+            }
+
+            a.setNpreuni(Igv.importeDetalleVenta(a.getNvaluni(), e.getIdproducto().getBinafecto()));            
+            a.calculaUtilidad();
+            
+            listaRetorno.add(a);
+        }
+        
+        return listaRetorno;
+        
+        
+    }
+
+    @Override
+     @Transactional
+    public void actualizarPrecio(ActualizarExistencia actualizar) {
+        try {
+            Existencia existencia=existenciadao.buscarPorIdalmacenPorIdproducto(actualizar.getIdalmacen().getIdalmacen(), actualizar.getIdproducto().getIdproducto());
+            BigDecimal nvaluni=Igv.valorVentaDetalleVenta(actualizar.getNpreuni(), existencia.getIdproducto().getBinafecto());
+            existencia.setNvalven(nvaluni);
+            cruddao.actualizar(existencia);            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionZarcillo(e.getMessage());
+        }
+    }
+    
+    
+    
 }

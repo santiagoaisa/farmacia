@@ -261,12 +261,13 @@ public class Entrada extends Salida {
     public void transferenciaFraccion(RegistroSalida regsalida, Movimiento m) {
 
         try {
+            
             RegistroSalida regsalidafraccion = new RegistroSalida();
             regsalidafraccion.setIdcliente(Cliente.TRANSFERENCIA);
             regsalidafraccion.setIdcondicion(regsalida.getIdcondicion());
             regsalidafraccion.setDfecha(regsalida.getDfecha());
             regsalidafraccion.setDfecdig(regsalida.getDfecdig());
-            regsalidafraccion.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.TRANSFERENCIA_SUNAT.getCcodigosunat()));
+            regsalidafraccion.setIddocumento(Documento.TRANSFERENCIA);
             regsalidafraccion.setIdmoneda(regsalida.getIdmoneda());
             regsalidafraccion.setIdmotivo(MotivoSalida.TRANSFERENCIA);
             regsalidafraccion.setIdunidad(regsalida.getIdunidad());
@@ -300,12 +301,14 @@ public class Entrada extends Salida {
             RegistroEntrada regentradafraccion = new RegistroEntrada();
             regentradafraccion.setDfecha(new Date());
             regentradafraccion.setIdalmacen(m.getIdalmacen());
-            regentradafraccion.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.TRANSFERENCIA_SUNAT.getCcodigosunat()));
+            regentradafraccion.setIddocumento(Documento.TRANSFERENCIA);
+            regentradafraccion.setCserie(numeracion.getCserie());
+            regentradafraccion.setCnumero(cnumero);
             regentradafraccion.setIdmotivo(MotivoEntrada.TRANSFERENCIA);
             regentradafraccion.setIdproveedor(Proveedor.TRANSFERENCIA);
             regentradafraccion.setIdusuario(regsalida.getIdusuario());
-
-
+            
+            
             listaMovimientoFraccionSalida = regsalida.getMovimientoCollection();
 
             List<Movimiento> listaMovimientoFraccionEntrada = new ArrayList<>();
@@ -332,13 +335,14 @@ public class Entrada extends Salida {
             regentradafraccion.setMovimientoCollection(listaMovimientoFraccionEntrada);
             Periodo periodo = periododao.buscarPorFecha(regentradafraccion.getDfecha());
             regentradafraccion.calcula(periodo.getNigv());
+
             registrar(regentradafraccion);
 
 
             Transferencia transferencia = new Transferencia();
             transferencia.setDfecreg(new Date());
             transferencia.setCserie(numeracion.getCserie());
-            transferencia.setCnumero(cnumero);
+            transferencia.setCnumero(cnumero);            
             transferencia.setIdusuario(regsalida.getIdusuario());
             transferencia.setIdalmacen(regentradafraccion.getIdalmacen());
             transferencia.setIdregsalida(regsalidafraccion);
@@ -372,7 +376,6 @@ public class Entrada extends Salida {
                 lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaAnulacion(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto(), m.getClote());
 
                 if (lote.getIdlote() == null) {
-                    
                 } else {
                     lote.setNstock(lote.getNstock() - m.getNstock());
                     lote.setNstockm(lote.getNstockm() - m.getNstockm());

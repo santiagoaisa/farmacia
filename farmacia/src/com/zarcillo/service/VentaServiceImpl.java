@@ -72,7 +72,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
     public Integer registrar(RegistroSalida regsalida, Almacen almacen) {
         try {
             
-            System.out.println("tamaño:"+regsalida.getMovimientoCollection().size());
+            System.out.println("tamaño 0:"+regsalida.getMovimientoCollection().size());
             //////////VALIDAR STOCK DE FRACCION            
             validarStock(regsalida);
             regsalida.setIdmoneda(Moneda.SOLES);
@@ -82,23 +82,23 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             
             // llaves ,le asigna una llave temporal id a cada movimiento
             super.llaves(regsalida);
-            
+            System.out.println("tamaño 1:"+regsalida.getMovimientoCollection().size());
             // descargo lotes y el pedido crece
             super.lotes(regsalida);
-            
+            System.out.println("tamaño 2:"+regsalida.getMovimientoCollection().size());
             // llaves ,le asigna una llave temporal id a cada movimiento
             super.llaves(regsalida);
-            
+            System.out.println("tamaño 3:"+regsalida.getMovimientoCollection().size());
 
             //1ro grabo el docmento original
             // si no es prestamos           
             super.registrar(regsalida);
-            
+            System.out.println("tamaño 4:"+regsalida.getMovimientoCollection().size());
 
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ExceptionZarcillo(e.getMessage());
+            throw new ExceptionZarcillo(e.getCause().getMessage());
         }
 
         return regsalida.getIdregsalida();

@@ -91,13 +91,7 @@ public class Salida extends DescargaLote {
             Collections.sort(listaMovimiento, new OrdenarPorNordenMovimiento());
 
             Existencia existencia;
-            for (Movimiento m : listaMovimiento) {
-                ///CONTROL PARA QUE NO JALE CANTIDADES CERO (O)                
-                if (m.getNcantidad() == 0) {
-                    System.out.println("STOCK CERO:" + m.getNsubtot());
-                    continue;
-                }
-                // CONTROL DE STOCK DE BONIFICACION
+            for (Movimiento m : listaMovimiento) {                                
                 existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
                 //Descargo del Stock
                 // si solo es entero
