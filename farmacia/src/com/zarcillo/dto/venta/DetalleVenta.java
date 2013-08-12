@@ -85,8 +85,8 @@ public class DetalleVenta implements Serializable {
 
         binafec = false;
         ndesfinmax = new BigDecimal("0");
-        bactivo=false;
-        bfraccion=false;
+        bactivo=true;
+        bfraccion=true;
     }
 
     public Existencia getExistencia() {
