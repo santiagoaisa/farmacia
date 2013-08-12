@@ -10,4 +10,5 @@ import java.util.List;
 public interface MotivoSalidaDAO {
     MotivoSalida busqueda(Integer idmotivo);
     List<MotivoSalida> listaGeneral();
+    List<MotivoSalida> listaVenta();
 }

@@ -191,6 +191,7 @@ public class Salida extends DescargaLote {
             regsalida.setMovimientoCollection(listaMovimientos);
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ExceptionZarcillo(e.getMessage());
         }
         return regsalida;
