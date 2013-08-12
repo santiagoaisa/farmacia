@@ -14,10 +14,12 @@ import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.dto.venta.DetalleVenta;
+import com.zarcillo.negocio.Igv;
 import com.zarcillo.negocio.Salida;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.crypto.spec.IvParameterSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -69,10 +71,23 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
             d.setNdesbon(m.getNdesbon());
             d.setNdeslab(m.getNdeslab());
             d.setBinafec(m.getBinafecto());
-            d.setNvaluni(m.getNvaluni());
+            d.setNvaluni(m.getNvaluni());            
+            d.setNpreuni(Igv.importeDetalleVenta(m.getNvaluni(), m.getIdproducto().getBinafecto()));
+            d.setNimporte(Igv.importeDetalleVenta(m.getNsubtot(), m.getIdproducto().getBinafecto()));
             d.setNsubtot(m.getNsubtot());
             d.setClote(m.getClote());
             d.setCfecven(m.getCfecven());
+            
+            if(m.getNcantidad()>0){
+                d.setBfraccion(false);
+            }else{
+                if(m.getNcantidadm()>0){
+                    d.setBfraccion(true);
+                }
+            }
+            
+            
+            
             listaDetalle.add(d);
         }
 
