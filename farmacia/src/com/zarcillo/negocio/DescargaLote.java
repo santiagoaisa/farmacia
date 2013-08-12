@@ -5,6 +5,7 @@ import com.zarcillo.dao.LoteDAO;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Lote;
 import com.zarcillo.domain.Movimiento;
+import com.zarcillo.service.ExceptionZarcillo;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,24 +23,22 @@ public class DescargaLote {
     private LoteDAO lotedao;
 
     public List<Movimiento> descargar(Movimiento m) {
-         List<Movimiento> listaMovimientos = new ArrayList<>();
+        List<Movimiento> listaMovimientos = new ArrayList<>();
         try {
-            Existencia existencia = null;
-           
 
             if (m.getNcantidad() > 0) {
                 //Lista de los lotes disponibles de la existencia enteros
-                List<Lote> listaLote = lotedao.listaPorIdalmacenPorIdproductoParaVentaEntero(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto());
+                List<Lote> listaLote = lotedao.listaPorIdalmacenPorIdproductoParaVentaEntero(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
 
                 Movimiento movimiento;
                 for (Lote l : listaLote) {
                     //Si la cantidad del lote es mayor o igual a la cantidad que se pide
                     if (l.getNstock() >= m.getNcantidad()) {
                         movimiento = new Movimiento();
-                        /// le asigno un id temporal
-                        //AREGLAR
-                        movimiento.setIdmovimiento(l.getIdlote());
-                        //movimiento.setExistencia(m.getExistencia());
+                        /// le asigno un id temporal                        
+                        movimiento.setIdmovimiento(l.getIdlote().hashCode());
+                        movimiento.setIdalmacen(m.getIdalmacen());
+                        movimiento.setIdproducto(m.getIdproducto());
                         movimiento.setNcosuni(m.getNcosuni());
                         movimiento.setNvaluni(m.getNvaluni());
                         movimiento.setNdesfin(m.getNdesfin());
@@ -66,9 +65,9 @@ public class DescargaLote {
                         m.setNcantidad(m.getNcantidad() - l.getNstock());
                         movimiento = new Movimiento();
                         /// le asigno un id temporal
-                        movimiento.setIdmovimiento(l.getIdlote());
-                        //AREGLAR
-                        //movimiento.setExistencia(null);
+                        movimiento.setIdmovimiento(l.getIdlote().hashCode());                        
+                        movimiento.setIdalmacen(m.getIdalmacen());
+                        movimiento.setIdproducto(m.getIdproducto());
                         movimiento.setNcosuni(m.getNcosuni());
                         movimiento.setNvaluni(m.getNvaluni());
                         movimiento.setNdesfin(m.getNdesfin());
@@ -93,10 +92,11 @@ public class DescargaLote {
                 //la cantidad sobrante no descarga lotes
                 if (m.getNcantidad() > 0) {
                     movimiento = new Movimiento();
-                    //AREGLAR     
-                    //movimiento.setExistencia(m.getExistencia());
+                    //AREGLAR                         
                     /// le asigno un id temporal
-                    //movimiento.setIdmovimiento(m.getExistencia().hashCode());
+                    movimiento.setIdmovimiento(m.getIdproducto().hashCode());
+                    movimiento.setIdalmacen(m.getIdalmacen());
+                    movimiento.setIdproducto(m.getIdproducto());
                     movimiento.setNcosuni(m.getNcosuni());
                     movimiento.setNvaluni(m.getNvaluni());
                     movimiento.setNdesfin(m.getNdesfin());
@@ -116,7 +116,7 @@ public class DescargaLote {
 
             } else {
                 //Lista de los lotes disponibles de la existencia fraccion
-                List<Lote> listaLote = lotedao.listaPorIdalmacenPorIdproductoParaVentaFraccion(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto());
+                List<Lote> listaLote = lotedao.listaPorIdalmacenPorIdproductoParaVentaFraccion(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
 
                 Movimiento movimiento;
                 for (Lote l : listaLote) {
@@ -125,8 +125,9 @@ public class DescargaLote {
                         movimiento = new Movimiento();
                         /// le asigno un id temporal
                         //AREGLAR
-                        movimiento.setIdmovimiento(l.getIdlote());
-                        //movimiento.setExistencia(m.getExistencia());
+                        movimiento.setIdmovimiento(l.getIdlote().hashCode());
+                        movimiento.setIdalmacen(m.getIdalmacen());
+                        movimiento.setIdproducto(m.getIdproducto());
                         movimiento.setNcosuni(m.getNcosuni());
                         movimiento.setNvaluni(m.getNvaluni());
                         movimiento.setNdesfin(m.getNdesfin());
@@ -152,9 +153,9 @@ public class DescargaLote {
                         m.setNcantidadm(m.getNcantidadm() - l.getNstockm());
                         movimiento = new Movimiento();
                         /// le asigno un id temporal
-                        movimiento.setIdmovimiento(l.getIdlote());
-                        //AREGLAR
-                        //movimiento.setExistencia(null);
+                        movimiento.setIdmovimiento(l.getIdlote().hashCode());                        
+                        movimiento.setIdalmacen(m.getIdalmacen());
+                        movimiento.setIdproducto(m.getIdproducto());
                         movimiento.setNcosuni(m.getNcosuni());
                         movimiento.setNvaluni(m.getNvaluni());
                         movimiento.setNdesfin(m.getNdesfin());
@@ -179,10 +180,10 @@ public class DescargaLote {
                 //la cantidad sobrante no descarga lotes
                 if (m.getNcantidadm() > 0) {
                     movimiento = new Movimiento();
-                    //AREGLAR     
-                    //movimiento.setExistencia(m.getExistencia());
                     /// le asigno un id temporal
-                    //movimiento.setIdmovimiento(m.getExistencia().hashCode());
+                    movimiento.setIdmovimiento(m.getIdproducto().hashCode());
+                    movimiento.setIdalmacen(m.getIdalmacen());
+                    movimiento.setIdproducto(m.getIdproducto());
                     movimiento.setNcosuni(m.getNcosuni());
                     movimiento.setNvaluni(m.getNvaluni());
                     movimiento.setNdesfin(m.getNdesfin());
@@ -202,6 +203,7 @@ public class DescargaLote {
 
         } catch (Exception e) {
             e.printStackTrace();
+            throw new ExceptionZarcillo(e.getMessage());
         }
 
         return listaMovimientos;

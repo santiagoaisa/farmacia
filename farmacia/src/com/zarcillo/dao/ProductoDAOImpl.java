@@ -31,7 +31,7 @@ public class ProductoDAOImpl implements ProductoDAO {
     
     @Override
     public List<Producto> busquedaListaPorDescripcion(String ccriterio) {
-        return em.createNamedQuery("Producto.findByCnomproducto").setParameter("ccriterio", ccriterio.trim().toUpperCase().concat("%")).getResultList();        
+        return em.createNamedQuery("Producto.findByCnomproducto").setParameter("ccriterio", "%".concat(ccriterio.trim().toUpperCase().concat("%"))).getResultList();        
     }
     
     @Override

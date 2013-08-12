@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
     
     @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByCloteByIngreso", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and l.clote=:clote and l.bbloqueado=false and (l.nstock>=0 or l.nstockm>=0)  "),    
     @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByCloteByAnulacion", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and l.clote=:clote and (l.nstock>=0 or l.nstockm>=0) "),
-    @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByCloteByVenta", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and (l.nstock>0 or l.nstockm>0) and l.bbloqueado=false  "),    
+    @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByCloteByVenta", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and l.clote=:clote and  (l.nstock>0 or l.nstockm>0) and l.bbloqueado=false  "),    
     @NamedQuery(name = "Lote.findByIdalmacenByIdproductoByListado", query = "SELECT l FROM Lote l WHERE  l.idalmacen.idalmacen=:idalmacen and l.idproducto.idproducto = :idproducto and (l.nstock>0 or l.nstockm>0) ORDER BY l.cfecven,l.clote ")
 
 })

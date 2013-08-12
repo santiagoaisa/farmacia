@@ -1,5 +1,6 @@
 package com.zarcillo.service;
 
+import com.zarcillo.compra.ActualizarExistencia;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.DescuentoDAO;
 import com.zarcillo.dao.ExistenciaDAO;
@@ -104,6 +105,11 @@ public class ExistenciaServiceImpl implements ExistenciaService {
         return existenciadao.buscarPorIdalmacenPorIdproducto(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto());
     }
 
+
+
+    
+    
+    
     @Override
     @Transactional
     public Integer actualizaTemporal(Existencia existencia) {

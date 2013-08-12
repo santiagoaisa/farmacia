@@ -1,5 +1,6 @@
 package com.zarcillo.service;
 
+import com.zarcillo.compra.ActualizarExistencia;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Descuento;
 import com.zarcillo.domain.Existencia;
@@ -21,4 +22,5 @@ public interface ExistenciaService {
     
     public List<Existencia> listaPorIdalmacenInafectos(Integer idalmacen);
     public List<Existencia> listaPorIdalmacenPorIdlinea(Integer idalmacen, Integer idlinea);
+    
 }
