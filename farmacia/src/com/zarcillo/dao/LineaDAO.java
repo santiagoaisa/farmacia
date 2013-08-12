@@ -11,4 +11,5 @@ public interface LineaDAO {
      Linea busqueda(Integer idlinea);
      List<Linea> listaActivos();
      List<Linea> listaGeneral();
+     List<Linea> listaConStock(Integer idalmacen);
 }

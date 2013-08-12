@@ -52,8 +52,11 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
             listado = new ListadoPrecio();
             listado.setIdproducto(e.getIdproducto());
             listado.setNcosuni(e.getNcosuni());
+            listado.setNstock(e.getNstock());
+            listado.setNstockm(e.getNstockm());
+
             listado.setNincremento(e.getIdproducto().getIdsublinea().getIdlinea().getNincremento());
-            
+
 
             if (!Numero.isCero(e.getNvalven())) {
                 listado.setNvaluni(e.getNvalven());
@@ -66,13 +69,13 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
                 listado.setNincremento(new BigDecimal("0"));
             }
 
-            
-
-
-
+            listado.setNpreuni(Igv.importeDetalleVenta(listado.getNvaluni(), e.getIdproducto().getBinafecto()));
+            listado.setNpreunim(Igv.importeDetalleVenta(listado.getNvalunim(), e.getIdproducto().getBinafecto()));
+            listado.calculaUtilidad();
+            listaPrecio.add(listado);
         }
 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return listaPrecio;
     }
 
     @Override

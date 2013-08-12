@@ -93,6 +93,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ExceptionZarcillo(e.getMessage());
         }
 

@@ -15,4 +15,5 @@ public interface ListadoExistenciaService {
     public List<Inventario> listaInventarioPorIdalmacenPorLineas(Integer idalmacen,List<Integer> lista);
     public List<InventarioLote> listaInventarioLotePorIdalmacenPorLineas(Integer idalmacen,List<Integer> lista);
     public List<InventarioValorizado> listaInventarioValorizadoPorIdalmacen(Integer idalmacen);
+    
 }

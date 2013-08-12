@@ -94,6 +94,13 @@ public class LineaServiceImpl implements LineaService {
     public List<Linea> listaActivos() {
         return lineadao.listaActivos();
     }
+
+    @Override
+    public List<Linea> listaConStock(Integer idalmacen) {
+        return lineadao.listaConStock(idalmacen);
+    }
+    
+    
     
     
     

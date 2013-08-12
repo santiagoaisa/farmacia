@@ -15,5 +15,6 @@ public interface LineaService {
     public Linea buscar(Integer idlinea);
     public List<Linea> listaGeneral();
     public List<Linea> listaActivos();
+    public List<Linea> listaConStock(Integer idalmacen);
     
 }

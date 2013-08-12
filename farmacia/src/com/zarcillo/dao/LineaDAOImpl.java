@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
  * @author saisa
  */
 @Repository
-public class LineaDAOImpl implements LineaDAO{
-    
+public class LineaDAOImpl implements LineaDAO {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -31,8 +31,13 @@ public class LineaDAOImpl implements LineaDAO{
     public List<Linea> listaGeneral() {
         return em.createNamedQuery("Linea.findAll").getResultList();
     }
- 
-    
-    
-    
+
+    @Override
+    public List<Linea> listaConStock(Integer idalmacen) {
+        String sql = "select distinct l.* from linea l,sublinea s,producto p,existencia e "
+                + " where l.idlinea=s.idlinea and s.idsublinea=p.idsublinea "
+                + " and p.idproducto=e.idproducto and (e.nstock>0 or e.nstockm>0 ) and e.idalmacen=1  "
+                + " order by l.cnomlinea ";
+        return em.createNativeQuery(sql, Linea.class).setParameter("idlinea", idalmacen).getResultList();
+    }
 }
