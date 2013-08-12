@@ -118,6 +118,7 @@ public class ListaInventarioProducto extends SelectorComposer {
         parametro.put("EMPRESA", almacen.getIdunidad().getIdempresa().getCnomempresa());
         parametro.put("UNIDADNEGOCIO", almacen.getIdunidad().getCnomunidad());
         parametro.put("ALMACEN", almacen.getCnomalmacen());
+        parametro.put("USUARIO", usuario.getCnomusuario());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listaInventarioPorIdalmacenPorLineas(almacen.getIdalmacen(), listaIdlinea));
         rptreporte.setSrc("/modulos/almacen/reporte/listainventarioproducto.jasper");
         rptreporte.setDatasource(data);

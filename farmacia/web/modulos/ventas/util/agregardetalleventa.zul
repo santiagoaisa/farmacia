@@ -22,7 +22,7 @@
                 <label value = "Receta:" />
                 <textbox id="txtReseta" value="" focus="true" width="94%"  onCancel="doCancel()" />
             </row>
-            <row spans="2" >
+            <row spans="4" >
                 <listbox id="lstExistencia" width="99%" mold="paging" pageSize="500"  height="400px">
                     <listhead>
                         <listheader label="Descripción" width="28%" sort="auto(producto.cnomart)" />

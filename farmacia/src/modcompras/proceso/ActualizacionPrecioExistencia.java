@@ -1,8 +1,20 @@
-package modmantenimiento.util;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modcompras.proceso;
+
 
 import com.zarcillo.domain.Almacen;
+import com.zarcillo.domain.Existencia;
+import com.zarcillo.domain.Usuario;
+import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.ExistenciaService;
+import com.zarcillo.service.UsuarioService;
 import javax.naming.NamingException;
+import modmantenimiento.util.MenuResultado;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
@@ -11,13 +23,22 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class BuscaExistenciaAlmacen extends SelectorComposer {
+public class ActualizacionPrecioExistencia extends SelectorComposer {
+    
+    private Usuario usuario;
+    private MenuResultado menuresultado;
+    private ListModelList modeloExistencia;
+    private ListModelList modeloAlmacen;
+    
     
     @Wire
     private Window winExistencia;
@@ -28,12 +49,22 @@ public class BuscaExistenciaAlmacen extends SelectorComposer {
     @Wire
     private Textbox txtCriterio;
     
+    @Wire
+    private Combobox cboAlmacen;
+    
     @WireVariable
     ExistenciaService existenciaService;
     
-    private MenuResultado menuresultado;
-    private ListModelList modeloExistencia;
-    private Almacen almacen;
+    @WireVariable
+    AlmacenService almacenService;
+    
+    @WireVariable
+    UsuarioService usuarioService;
+    
+    final Execution exec = Executions.getCurrent();
+    private String user_login;
+    
+    
     
     @Listen("onCreate=window#winExistencia")
     public void onCreate() throws NamingException {
@@ -47,15 +78,37 @@ public class BuscaExistenciaAlmacen extends SelectorComposer {
         buscar(txtCriterio.getText().trim());
     }
     
+    @Listen("onClick = #btnActualizar")
+    public void onactualizarExistencia(Event event) {
+        Toolbarbutton btn = (Toolbarbutton) event.getTarget();
+        Listitem item = (Listitem) (btn.getParent().getParent());
+        Existencia existencia=(Existencia) modeloExistencia.getElementAt(item.getIndex());
+        modeloExistencia=new ListModelList();
+        lstExistencia.setModel(modeloExistencia);
+        menuresultado.setSize(modeloExistencia.getSize());
+        txtCriterio.setText("");
+        txtCriterio.focus();
+        
+    }
+    
     
     public void initComponets(){
-        almacen=(Almacen) winExistencia.getAttribute("ALMACEN");
+        user_login = exec.getUserPrincipal().getName();
+        usuario = usuarioService.buscarPorLogin(user_login);
+        modeloAlmacen = new ListModelList(almacenService.listaGeneral());
+        cboAlmacen.setModel(modeloAlmacen);
+        if (modeloAlmacen.size() > 0) {
+            cboAlmacen.onInitRender(new Event("", cboAlmacen));
+            cboAlmacen.close();
+            cboAlmacen.setSelectedIndex(0);
+        }
         modeloExistencia=new ListModelList();
         lstExistencia.setModel(modeloExistencia);
         lstExistencia.onInitRender();
         menuresultado.setSize(modeloExistencia.getSize());
     }      
     public void buscar(String criterio) {
+        Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         if (criterio.length() >= 3) {
             modeloExistencia=new ListModelList(existenciaService.busquedaListaPorIdalmacenPorDescripcion(almacen.getIdalmacen(),criterio));
             lstExistencia.setModel(modeloExistencia);
@@ -70,3 +123,5 @@ public class BuscaExistenciaAlmacen extends SelectorComposer {
         }
     }
 }
+
+

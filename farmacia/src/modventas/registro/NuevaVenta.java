@@ -5,6 +5,7 @@ import com.zarcillo.domain.CondicionVenta;
 import com.zarcillo.domain.Lote;
 import com.zarcillo.domain.MotivoSalida;
 import com.zarcillo.domain.Movimiento;
+import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.domain.Vendedor;
@@ -13,6 +14,7 @@ import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.CondicionVentaService;
 import com.zarcillo.service.ExceptionZarcillo;
+import com.zarcillo.service.PeriodoService;
 import com.zarcillo.service.UsuarioService;
 import com.zarcillo.service.VentaService;
 import java.math.BigDecimal;
@@ -52,6 +54,7 @@ public class NuevaVenta extends SelectorComposer{
     private ListModelList modeloCondicion;
     private ListModelList modeloMotivo;
     private ListModelList modeloVendedor;
+    private Periodo periodo;
     
     @Wire
     private Window winVenta;
@@ -81,6 +84,15 @@ public class NuevaVenta extends SelectorComposer{
     private Listbox lstDetalle;
     
     @Wire
+    private Decimalbox nInafecto;
+    
+    @Wire
+    private Decimalbox nIgv;
+    
+    @Wire
+    private Decimalbox nValven;
+    
+    @Wire
     private Decimalbox nImporte;
     
     @WireVariable
@@ -91,6 +103,9 @@ public class NuevaVenta extends SelectorComposer{
     
     @WireVariable
     AlmacenService almacenService;
+    
+    @WireVariable
+    PeriodoService periodoService;
     
     @WireVariable
     CondicionVentaService condicionVentaService;
@@ -161,6 +176,7 @@ public class NuevaVenta extends SelectorComposer{
         }
         modeloDetalle=new ListModelList();
         lstDetalle.setModel(modeloDetalle);
+        periodo=periodoService.buscarPorDfecha(new Date());
         dFecha.setValue(new Date());
         btnAgregar.focus();
     }    
@@ -205,7 +221,13 @@ public class NuevaVenta extends SelectorComposer{
             nigv=nigv.add(detalleventa.getNigv());
             nprecio=nprecio.add(detalleventa.getNimporte());
         }
-        nImporte.setValue(nprecio);
+        
+        regsalida.setMovimientoCollection(llenarDetalle());
+        regsalida.calcula(periodo.getNigv());
+        nInafecto.setValue(regsalida.getNinafecto());
+        nValven.setValue(regsalida.getNafecto());
+        nIgv.setValue(regsalida.getNigv());
+        nImporte.setValue(regsalida.getNimporte());
     }
     
     private List<Movimiento> llenarDetalle() {

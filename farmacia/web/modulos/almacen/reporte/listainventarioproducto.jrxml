@@ -15,7 +15,7 @@
 	<field name="idproducto.idsublinea.idlinea.cnomlinea" class="java.lang.String"/>
 	<field name="idproducto.idproducto" class="java.lang.String"/>
 	<field name="nstock" class="java.lang.Integer"/>
-	<field name="idproducto.idsublinea.idlinea.idlinea" class="java.lang.String"/>
+	<field name="idproducto.idsublinea.idlinea.idlinea" class="java.lang.Integer"/>
 	<field name="idproducto.idpresentacion.cabrev" class="java.lang.String"/>
 	<field name="nstockm" class="java.lang.Integer"/>
 	<group name="LINEAS" isStartNewPage="true" isReprintHeaderOnEachPage="true">

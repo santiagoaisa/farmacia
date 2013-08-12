@@ -1,0 +1,64 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winExistencia"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="winExistencia" title="Buscando Productos..." border="0" width="600px" position="center"
+        onCancel="doCancel()" mode="overlapped"  apply="modcompras.proceso.ActualizacionPrecioExistencia" >
+    <zscript>{
+        void doCancel() {
+        winExistencia.setAttribute("REST",false);
+        winExistencia.onClose();
+        }
+        }</zscript>
+    <grid width="100%">
+        <columns>
+            <column width="10%"/>
+            <column width="15%"/>
+            <column width="10%"/>
+            <column width="65%"/>
+        </columns>
+        <rows>
+            <row>
+                <label value="Almacen:" />
+                 <combobox id="cboAlmacen" constraint="no empty:Debe Seleccionar un Almacen" width="95%" readonly="true"/>
+                 <label value="Descr.:" />
+                <textbox id="txtCriterio" value="" focus="true" width="99%"  onCancel="doCancel()" />
+            </row>
+            <row spans="4" >
+                <listbox id="lstExistencia" width="99%" mold="paging" pageSize="500"  height="400px">
+                    <listhead>
+                        <listheader label="Descripción" width="40%" sort="auto(producto.cnomart)" />
+                        <listheader label="Codigo" width="9%" sort="auto(producto.idproducto)"/>
+                        <listheader label="Unidad" width="9%" align="center" sort="auto(producto.idunimed.cabrev)"/>
+                        <listheader label="Stock" width="7%" align="center" />
+                        <listheader label="Fracc." width="7%" align="center" />
+                        <listheader label="Linea" width="7%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
+                        <listheader label="Stock" width="7%" align="center" />
+                    </listhead>
+
+                    <listitem self="@{each=existencias}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
+                        <listcell label="@{existencias.idproducto.cnomart}" />
+                        <listcell label="@{existencias.idproducto.idproducto}"/>
+                        <listcell label="@{existencias.idproducto.idpresentacion.cabrev}"/>
+                        <listcell label="@{existencias.nstock}"  />
+                        <listcell label="@{existencias.nstockm}"  />
+                        <listcell label="@{existencias.idproducto.idsublinea.idlinea}"/>
+                        <listcell>
+                            <decimalbox id="d4" value="@{existencias.npreven}" ctrlKeys="@c^a#f8" format="0.0000"  width="80%" />
+                        </listcell>
+                        <listcell>
+                            <toolbarbutton id="btnActualizar" image="/img/actualizar.png" width="70%"   />
+                        </listcell>
+                    </listitem>
+                </listbox>
+            </row>
+        </rows>
+    </grid>
+
+    <menu id="mresultado" width="100%"></menu>
+
+    <toolbar id="tb"  height="25px"	 align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+                           onClick="doRegistrar()" />
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+                           onClick="doCancel()" />
+    </toolbar>
+</window>

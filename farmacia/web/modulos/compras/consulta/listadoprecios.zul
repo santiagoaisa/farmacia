@@ -1,6 +1,6 @@
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winInventario"?>
-<window id="winInventario" border="0" width="400px"  title="Lista Inventario..."
- apply="modalmacen.consulta.ListaInventarioProducto"   mode="overlapped" >
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winPrecios"?>
+<window id="winPrecios" border="0" width="400px"  title="Lista Inventario..."
+ apply="modcompras.consulta.ListadoPrecios"   mode="overlapped" >
 
     <grid width="99%">
         <columns>
@@ -33,6 +33,7 @@
 
         <toolbar id="tb"  height="25px" align="end" >
             <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
-            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winInventario.onClose()" />
+            <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winPrecios.onClose()" />
         </toolbar>
 </window>

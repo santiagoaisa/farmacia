@@ -69,13 +69,21 @@
     </listbox>
     <grid fixedLayout="true" >
         <columns>
-            <column width="60%"/>
+            <column width="8%"/>
+            <column width="8%"/>
             <column width="25%"/>
             <column width="15%"/>
             
         </columns>
         <rows>
-            <row  >            
+            <row  > 
+                <label value="Inafecto"  />
+                <decimalbox id="nInafecto" format="0.00" width="90%" value="0" readonly="true" />           
+                <label value="Val.venta"  />
+                <decimalbox id="nValven" format="0.00" width="90%" value="0" readonly="true" />           
+                <label value="IGV"  />
+                <decimalbox id="nIgv" format="0.00" width="90%" value="0" readonly="true" />           
+                
                 <label />
                 <label value="IMPORTE TOTAL" style=" font-size:22px; " />
                 <decimalbox id="nImporte" style=" font-size:22px; " format="0.00" width="90%" value="0" readonly="true" />
