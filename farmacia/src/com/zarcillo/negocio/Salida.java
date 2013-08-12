@@ -57,7 +57,6 @@ public class Salida extends DescargaLote {
     private LoteDAO lotedao;
     @Autowired
     private OrdenLineaDAO ordenlineadao;
-   
 
     public Integer registrar(RegistroSalida regsalida) {
         try {
@@ -91,7 +90,7 @@ public class Salida extends DescargaLote {
             Collections.sort(listaMovimiento, new OrdenarPorNordenMovimiento());
 
             Existencia existencia;
-            for (Movimiento m : listaMovimiento) {                                
+            for (Movimiento m : listaMovimiento) {
                 existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
                 //Descargo del Stock
                 // si solo es entero
@@ -154,29 +153,30 @@ public class Salida extends DescargaLote {
             for (Movimiento m : listaMovimientos) {
                 //Descarga de lote
                 // si es nulo descargo lote
-                if (m.getClote() != null) {
-                    // si esta vacio descargo lote
-                    if (!m.getClote().isEmpty()) {
-                        // cuando el lote es ingresado manualmente
-                        Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaVenta(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto(), m.getClote().trim());
-                        if (lote.getIdlote() == null) {
-                            throw new ExceptionZarcillo("El Lote " + m.getClote() + "\ndel Producto:" + m.getIdproducto() + "\n ¡No existe!");
-                        } else {
-                            lote.setNstock(lote.getNstock() - m.getNcantidad());
-                            lote.setNstockm(lote.getNstockm() - m.getNcantidadm());
-                            cruddao.actualizar(lote);
-                        }
-                    } else {
-                        List<Movimiento> listaMovimientosLotes = super.descargar(m);
-                        listaBorrarMovimientos.add(m);
-                        listaLotesAgregados.addAll(listaMovimientosLotes);
-                    }
-
-                } else {
-                    List<Movimiento> listaMovimientosLotes = super.descargar(m);
-                    listaBorrarMovimientos.add(m);
-                    listaLotesAgregados.addAll(listaMovimientosLotes);
-                }
+//                if (m.getClote() != null) {
+//                    // si esta vacio descargo lote
+//                    if (!m.getClote().isEmpty()) {
+//                        // cuando el lote es ingresado manualmente
+//                        Lote lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaVenta(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto(), m.getClote().trim());
+//                        if (lote.getIdlote() == null) {
+//                            throw new ExceptionZarcillo("El Lote " + m.getClote() + "\ndel Producto:" + m.getIdproducto() + "\n ¡No existe!");
+//                        } else {
+//                            lote.setNstock(lote.getNstock() - m.getNcantidad());
+//                            lote.setNstockm(lote.getNstockm() - m.getNcantidadm());
+//                            cruddao.actualizar(lote);
+//                        }
+//                    } else {
+//                        List<Movimiento> listaMovimientosLotes = super.descargar(m);
+//                        listaBorrarMovimientos.add(m);
+//                        listaLotesAgregados.addAll(listaMovimientosLotes);
+//                    }
+//
+//                } else {
+                List<Movimiento> listaMovimientosLotes = super.descargar(m);
+                System.out.println("MOVIMIENTO:"+m.getClote());
+                listaBorrarMovimientos.add(m);
+                listaLotesAgregados.addAll(listaMovimientosLotes);
+//                }
 
             }
 
@@ -202,6 +202,4 @@ public class Salida extends DescargaLote {
         return regsalida;
 
     }
-
-   
 }

@@ -284,7 +284,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
                 if (m.getNcantidadm() > 0) {
                     // si es menudeo y tengo stock de menudeo
-                    if (existencia.getNstockm() > m.getNcantidadm()) {
+                    if (existencia.getNstockm() >= m.getNcantidadm()) {
                         //no se hace nada
                     } else {
                         BigDecimal cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
