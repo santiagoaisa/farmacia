@@ -217,7 +217,7 @@ public class NuevaVenta extends SelectorComposer{
             movimiento = new Movimiento();
             detalleventa = new DetalleVenta();
             detalleventa = (DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
-            if (detalleventa.getExistencia() != null &&( !(detalleventa.getNcanart().equals(0))|| !(detalleventa.getNcanartm().equals(0)))) {
+            if (!((detalleventa.getNcanart()==0)&& (detalleventa.getNcanartm()==0))) {
                 movimiento.setIdproducto(detalleventa.getExistencia().getIdproducto());
                 movimiento.setIdalmacen(detalleventa.getExistencia().getIdalmacen());
                 movimiento.setNcosuni(detalleventa.getNcosuni());
@@ -254,6 +254,7 @@ public class NuevaVenta extends SelectorComposer{
         regsalida.setIdmotivo(motivo);
         regsalida.setIdvendedor(vendedor);
         regsalida.setDfecha(dFecha.getValue());
+        regsalida.setDfecdig(dFecha.getValue());
         regsalida.setMovimientoCollection(llenarDetalle());
         int operacion=ventaService.registrar(regsalida, almacen);
         Messagebox.show("OPERACION: " +operacion, "REGISTRO SATISFACTORIO", Messagebox.OK, Messagebox.INFORMATION);

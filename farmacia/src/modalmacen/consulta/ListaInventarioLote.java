@@ -60,6 +60,11 @@ public class ListaInventarioLote extends SelectorComposer {
     public void onImprimir(Event event) {
         imprimir();
     }
+    
+    @Listen("onSelect = #cboAlmacen")
+    public void onLlenarLinea(Event event) {
+        llenarLinea();
+    }
 
     private void initComponets() {
         user_login = exec.getUserPrincipal().getName();
@@ -70,10 +75,17 @@ public class ListaInventarioLote extends SelectorComposer {
             cboAlmacen.onInitRender(new Event("", cboAlmacen));
             cboAlmacen.close();
             cboAlmacen.setSelectedIndex(0);
+            llenarLinea();
         }
-        modeloInventario = new ListModelList(lineaService.listaGeneral());
+        
+    }
+    private void llenarLinea(){
+        Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+        modeloInventario = new ListModelList(lineaService.listaConStock(almacen.getIdalmacen()));
         lstInventario.setModel(modeloInventario);
+        lstInventario.onInitRender();
         lstInventario.setMultiple(true);
+        lstInventario.setCheckmark(true);
     }
 
     private void validar() {

@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDetalleVenta"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="winDetalleVenta" title="agregar Detalle Venta..." border="0" width="900px" position="center"
+<window id="winDetalleVenta" title="AGREGAR DETALLE VENTA..." border="0" width="900px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modventas.util.AgregarDetalleVenta" >
     <zscript>{
         void doCancel() {
@@ -10,12 +10,16 @@
         }</zscript>
     <grid width="100%">
         <columns>
+            <column width="5%"/>
             <column width="40%"/>
-            <column width="60%" />
+            <column width="5%"/>
+            <column width="50%" />
         </columns>
         <rows>
             <row>
+                <label value = "Descr.:" />
                 <textbox id="txtDescripcion" value="" focus="true" width="94%"  onCancel="doCancel()" />
+                <label value = "Receta:" />
                 <textbox id="txtReseta" value="" focus="true" width="94%"  onCancel="doCancel()" />
             </row>
             <row spans="2" >
@@ -35,7 +39,7 @@
                         <listheader label="Importe" width="7%" align="center" />
                     </listhead>
 
-                    <listitem self="@{each=detalle}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
+                    <listitem self="@{each=detalle}"   >
                         <listcell label="@{detalle.existencia.idproducto.cnomart}" />
                         <listcell label="@{detalle.existencia.idproducto.nmenudeo}"/>
                         <listcell label="@{detalle.existencia.idproducto.idpresentacion.cabrev}"/>
@@ -60,8 +64,7 @@
     <menu id="mresultado" width="100%"></menu>
 
     <toolbar id="tb"  height="25px"	 align="end">
-        <toolbarbutton id="btnRegistra" image="/img/Save.png" label="Registrar"
-                           onClick="doRegistrar()" />
+        
         <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
                            onClick="doCancel()" />
     </toolbar>
