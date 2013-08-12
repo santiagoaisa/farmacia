@@ -13,6 +13,7 @@ import com.zarcillo.dao.NumeracionDAO;
 import com.zarcillo.dao.PeriodoDAO;
 import com.zarcillo.dao.ProductoDAO;
 import com.zarcillo.dao.RegistroEntradaDAO;
+import com.zarcillo.dao.RegistroSalidaDAO;
 import com.zarcillo.domain.AmortizacionCliente;
 import com.zarcillo.domain.AmortizacionProveedor;
 import com.zarcillo.domain.Anulacion;
@@ -77,6 +78,9 @@ public class Entrada extends Salida {
     private AmortizacionProveedorDAO amortizacionproveedordao;
     @Autowired
     private MovimientoDAO movimientodao;
+    @Autowired
+    private RegistroSalidaDAO regsalidadao;
+    
     private DecimalFormat formato = new DecimalFormat("000000");
 
     public void registrar(RegistroEntrada regentrada) {
@@ -291,11 +295,10 @@ public class Entrada extends Salida {
             listaMovimientoFraccionSalida.add(movimientoFraccionSalida);
             regsalidafraccion.setMovimientoCollection(listaMovimientoFraccionSalida);
 
-            super.llaves(regsalida);
+            super.llaves(regsalidafraccion);
 
-            super.lotes(regsalida);
-
-
+            super.lotes(regsalidafraccion);
+            super.llaves(regsalidafraccion);
             super.registrar(regsalidafraccion);
 
             RegistroEntrada regentradafraccion = new RegistroEntrada();
@@ -309,12 +312,13 @@ public class Entrada extends Salida {
             regentradafraccion.setIdusuario(regsalida.getIdusuario());
             
             
-            listaMovimientoFraccionSalida = regsalida.getMovimientoCollection();
+            List<Movimiento> listaMovimientoSalida = movimientodao.listaPorIdregsalida(regsalida.getIdregsalida());
+            
 
             List<Movimiento> listaMovimientoFraccionEntrada = new ArrayList<>();
 
             Movimiento movimiento;
-            for (Movimiento ms : listaMovimientoFraccionSalida) {
+            for (Movimiento ms : listaMovimientoSalida) {
                 movimiento = new Movimiento();
                 movimiento.setIdalmacen(ms.getIdalmacen());
                 movimiento.setIdproducto(ms.getIdproducto());
