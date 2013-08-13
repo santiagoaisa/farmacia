@@ -35,8 +35,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     public Cliente registrarClienteVenta(Cliente cliente) {
         try {
-            //bolera
-            
+            //boleta            
             if(cliente.getCruc()==null && cliente.getCdni()==null){
                 throw new ExceptionZarcillo("El cliente no tiene documento de identidad rebice por favor");
             }
@@ -134,10 +133,6 @@ public class ClienteServiceImpl implements ClienteService {
         }
         
     }
-    
-    
-    
-    
 
     @Override
     public Cliente buscar(Integer idcliente) {
