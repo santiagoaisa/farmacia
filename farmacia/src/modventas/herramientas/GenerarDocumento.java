@@ -209,12 +209,12 @@ public class GenerarDocumento extends SelectorComposer{
             parametro.put("PIEDOCUMENTO", regsalida.getCglosa());
             parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));
            
-            if(regsalida.getIddocumento().getIddocumento().equals(Documento.BOLETA_SUNAT.getIddocumento())){
-                 reporteFuente = "modulos/ventas/reporte/boleta.jrxml";
+            if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.BOLETA_SUNAT.getCcodigosunat())){
+                 reporteFuente = "/resources/boleta.jrxml";
             }
             else
             {
-                reporteFuente = "modulos/ventas/reporte/factura.jrxml";
+                reporteFuente = "/modulos/ventas/reporte/factura.jrxml";
             }
             
             InputStream is = this.getClass().getClassLoader().getResourceAsStream(reporteFuente);

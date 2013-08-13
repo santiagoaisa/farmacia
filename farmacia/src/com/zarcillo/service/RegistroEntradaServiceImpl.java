@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -71,9 +72,11 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
         try {            
             RegistroEntrada regentrada=registroentradadao.busqueda(idregentrada);
             super.anular(regentrada);            
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ExceptionZarcillo("Error al anular");
+        } catch (NoResultException e) {
+            throw new ExceptionZarcillo("No existe la operacion:" +idregentrada);
+        }catch(Exception er){
+            er.printStackTrace();
+            throw new ExceptionZarcillo(er.getMessage());
         }
     }
 
@@ -90,8 +93,11 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     public RegistroEntrada buscarPorIdalmacenPorIdregentrada(Integer idalmacen, Integer idregentrada) {
         try {
             return registroentradadao.buscarPorIdalmacenPorIdregentrada(idalmacen, idregentrada);
-        } catch (Exception e) {
-            throw new ExceptionZarcillo("No existe el Ingreso :" + idregentrada);
+        } catch (NoResultException e) {
+            throw new ExceptionZarcillo("No existe la operacion:" +idregentrada);
+        }catch(Exception er){
+            er.printStackTrace();
+            throw new ExceptionZarcillo(er.getMessage());
         }
     }
 
@@ -106,6 +112,7 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
             detalle.setId(m.getIdmovimiento());
             detalle.setIdproducto(m.getIdproducto());
             detalle.setNcantidad(m.getNcantidad());
+            detalle.setNcantidadm(m.getNcantidadm());
             detalle.setBinafec(m.getBinafecto());
             detalle.setNcosuni(m.getNcosuni());
             detalle.setNvalven(m.getNvaluni());

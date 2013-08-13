@@ -10,6 +10,7 @@ import com.zarcillo.domain.Usuario;
 import com.zarcillo.negocio.Entrada;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -39,9 +40,11 @@ public class AnulacionServiceImpl extends Entrada implements AnulacionService {
             RegistroSalida regsalida = registrosalidadao.buscarPorIdregsalida(idregsalida);
             super.anular(regsalida, motivo, usuario);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ExceptionZarcillo(e.getMessage());
+        } catch (NoResultException e) {
+            throw new ExceptionZarcillo("No existe la operacion:" +idregsalida);
+        }catch(Exception er){
+            er.printStackTrace();
+            throw new ExceptionZarcillo(er.getMessage());
         }
     }
 

@@ -1,5 +1,6 @@
 package modmantenimiento.util;
 
+import com.zarcillo.service.ExceptionZarcillo;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperReport;
@@ -40,7 +41,7 @@ public class MenuImpresion extends Window {
             //ruta donde se crea archivo .jrprint
             //String destino = "/usr/local/jboss/server/default/deploy/jboss-web.deployer/ROOT.war/reporte/" + idreporte + ".jrprint";
             //descomentar
-            String destino="C:/Program Files/Apache Software Foundation/Tomcat 7.0/webapps/ROOT/reporte";            
+            String destino="/reporte/";            
             //se crea un archivo .jrprint
             //descomentar
             JasperFillManager.fillReportToFile(reportecompilado, destino, parametro, data);
@@ -56,6 +57,7 @@ public class MenuImpresion extends Window {
 //        fin de borrar el archivo
         } catch (Exception e) {
             e.printStackTrace();
+            throw new ExceptionZarcillo(e.getMessage());
         }
 
     }
