@@ -42,9 +42,11 @@ onCancel="doCancel()" mode="overlapped" apply="modalmacen.consulta.DetalleIngres
     <listbox id="lstDetalle"  fixedLayout="true" multiple="true" height="300px"  >
         <listhead>
             <listheader label="Codigo" width="7%" />
-            <listheader label="Cantidad" width="6%" align="right" />
+           
             <listheader label="Unid" width="4%" />
             <listheader label="Descripcion" width="40%" />
+            <listheader label="Entero" width="6%" align="right" />
+             <listheader label="Fraccion" width="6%" align="right" />
             <listheader label="C.Uni" width="8%" align="right" />
             
             <listheader label="Dcto1" width="4%" align="right"/>
@@ -55,9 +57,11 @@ onCancel="doCancel()" mode="overlapped" apply="modalmacen.consulta.DetalleIngres
         </listhead>
         <listitem self="@{each=detalle}">
             <listcell label="@{detalle.idproducto.idproducto}"/>
-            <listcell label="@{detalle.ncantidad}"/>
+            
             <listcell label="@{detalle.idproducto.idpresentacion.cabrev}"/>
             <listcell label="@{detalle.idproducto.cnomproducto}"/>
+            <listcell label="@{detalle.ncantidad}"/>
+            <listcell label="@{detalle.ncantidadm}"/>
             <listcell decimal="@{detalle.ncosuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.ndesc1}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.ndesc2}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />

@@ -17,17 +17,14 @@
 	<parameter name="IGV" class="java.math.BigDecimal"/>
 	<parameter name="OPERACION" class="java.lang.Integer"/>
 	<parameter name="USUARIO" class="java.lang.String"/>
-	<field name="existencias.producto.idproducto" class="java.lang.String"/>
+	<field name="existencias.idproducto.idproducto" class="java.lang.String"/>
 	<field name="ncanart" class="java.lang.Integer"/>
-	<field name="existencias.producto.cnomart" class="java.lang.String"/>
-	<field name="existencias.producto.idunimed.cabrev" class="java.lang.String"/>
-	<field name="nvaluni" class="java.math.BigDecimal"/>
-	<field name="ndesfin" class="java.math.BigDecimal"/>
-	<field name="ndes4" class="java.math.BigDecimal"/>
-	<field name="nsubtot" class="java.math.BigDecimal"/>
-	<field name="nigv" class="java.math.BigDecimal"/>
+	<field name="existencias.idproducto.cnomproducto" class="java.lang.String"/>
+	<field name="existencias.producto.idpresentacion.cabrev" class="java.lang.String"/>
+	<field name="npreuni" class="java.math.BigDecimal"/>
 	<field name="nimporte" class="java.math.BigDecimal"/>
-	<field name="bbonificacion" class="java.lang.Boolean"/>
+	<field name="ncanartm" class="java.lang.Integer"/>
+	<field name="bfraccion" class="java.lang.Boolean"/>
 	<variable name="total" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{ncanart}]]></variableExpression>
 	</variable>
@@ -143,36 +140,43 @@
 	<detail>
 		<band height="15" splitType="Immediate">
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement uuid="e6bb3986-cff0-4947-891f-f1bb57421aee" x="418" y="2" width="71" height="11">
-					<printWhenExpression><![CDATA[!$F{bbonificacion}]]></printWhenExpression>
-				</reportElement>
+				<reportElement uuid="e6bb3986-cff0-4947-891f-f1bb57421aee" x="418" y="2" width="71" height="11"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nvaluni}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{npreuni}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="e657f8c3-ea0f-4a7a-bb55-0667977b5915" x="111" y="2" width="207" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{existencias.producto.cnomart}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{existencias.idproducto.cnomproducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e3a76da4-7d51-46ba-9899-a97a6e181cfc" x="54" y="2" width="38" height="11"/>
+				<reportElement uuid="e3a76da4-7d51-46ba-9899-a97a6e181cfc" x="54" y="2" width="38" height="11">
+					<printWhenExpression><![CDATA[!$F{bfraccion}]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ncanart}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement uuid="8e8bba60-74bb-4903-b3ef-90618059b611" x="510" y="2" width="66" height="11">
-					<printWhenExpression><![CDATA[!$F{bbonificacion}]]></printWhenExpression>
-				</reportElement>
+				<reportElement uuid="8e8bba60-74bb-4903-b3ef-90618059b611" x="510" y="2" width="66" height="11"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nimporte}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="41ffe14e-e92e-49d0-aaff-660eb3cfbbcb" x="54" y="2" width="38" height="11">
+					<printWhenExpression><![CDATA[$F{bfraccion}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["F"+$F{ncanartm}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

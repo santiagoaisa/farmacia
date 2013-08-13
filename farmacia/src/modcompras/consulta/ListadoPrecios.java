@@ -153,7 +153,7 @@ public class ListadoPrecios extends SelectorComposer {
     public void EsportaExcel3( String nomeFile,List<ListadoPrecio> listaPrecio) throws IOException {
         
         HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("DIMEXAERP");
+        HSSFSheet sheet = workbook.createSheet("ZARCILLO");
         HSSFRow row = sheet.createRow(0);
         HSSFFont fontRedBold = workbook.createFont();
         HSSFFont fontNormal = workbook.createFont();
@@ -197,19 +197,23 @@ public class ListadoPrecios extends SelectorComposer {
         HSSFCell cell6 = row.createCell(6);
         cell6.setCellStyle(cellStyleRedBold);
         cell6.setCellType(HSSFCell.CELL_TYPE_STRING);
-        cell6.setCellValue("Precio");
+        cell6.setCellValue("costo");
         HSSFCell cell7 = row.createCell(7);
         cell7.setCellStyle(cellStyleRedBold);
         cell7.setCellType(HSSFCell.CELL_TYPE_STRING);
-        cell7.setCellValue("Precio(/F)");
+        cell7.setCellValue("Precio");
         HSSFCell cell8 = row.createCell(8);
         cell8.setCellStyle(cellStyleRedBold);
         cell8.setCellType(HSSFCell.CELL_TYPE_STRING);
-        cell8.setCellValue("Inafecto");  
+        cell8.setCellValue("Precio(/F)");
         HSSFCell cell9 = row.createCell(9);
         cell9.setCellStyle(cellStyleRedBold);
         cell9.setCellType(HSSFCell.CELL_TYPE_STRING);
-        cell9.setCellValue("Utilidad(%)"); 
+        cell9.setCellValue("Inafecto");  
+        HSSFCell cell10 = row.createCell(10);
+        cell10.setCellStyle(cellStyleRedBold);
+        cell10.setCellType(HSSFCell.CELL_TYPE_STRING);
+        cell10.setCellValue("Utilidad(%)"); 
 
         // detalle
         int x = 1;
@@ -252,19 +256,24 @@ public class ListadoPrecios extends SelectorComposer {
             cell = row.createCell(6);
             cell.setCellStyle(cellStyleNormal);
             cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
-            cell.setCellValue(r.getNpreuni().doubleValue());
+            cell.setCellValue(r.getNprecos().doubleValue());
             
             cell = row.createCell(7);
             cell.setCellStyle(cellStyleNormal);
             cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
-            cell.setCellValue(r.getNpreunim().doubleValue());
+            cell.setCellValue(r.getNpreuni().doubleValue());
             
             cell = row.createCell(8);
+            cell.setCellStyle(cellStyleNormal);
+            cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+            cell.setCellValue(r.getNpreunim().doubleValue());
+            
+            cell = row.createCell(9);
             cell.setCellStyle(cellStyleNormal);
             cell.setCellType(HSSFCell.CELL_TYPE_BOOLEAN);
             cell.setCellValue(r.getIdproducto().getBinafecto());
             
-            cell = row.createCell(9);
+            cell = row.createCell(10);
             cell.setCellStyle(cellStyleNormal);
             cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
             cell.setCellValue(r.getNutilidad().doubleValue());

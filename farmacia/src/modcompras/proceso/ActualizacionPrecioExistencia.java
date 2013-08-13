@@ -1,15 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package modcompras.proceso;
 
 
+import com.zarcillo.compra.ActualizarExistencia;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.ExistenciaService;
+import com.zarcillo.service.ListadoExistenciaService;
+import com.zarcillo.service.ListadoProductoService;
 import com.zarcillo.service.UsuarioService;
 import javax.naming.NamingException;
 import modmantenimiento.util.MenuResultado;
@@ -56,6 +55,9 @@ public class ActualizacionPrecioExistencia extends SelectorComposer {
     ExistenciaService existenciaService;
     
     @WireVariable
+    ListadoExistenciaService listadoExistenciaService;
+    
+    @WireVariable
     AlmacenService almacenService;
     
     @WireVariable
@@ -82,13 +84,13 @@ public class ActualizacionPrecioExistencia extends SelectorComposer {
     public void onactualizarExistencia(Event event) {
         Toolbarbutton btn = (Toolbarbutton) event.getTarget();
         Listitem item = (Listitem) (btn.getParent().getParent());
-        Existencia existencia=(Existencia) modeloExistencia.getElementAt(item.getIndex());
+        ActualizarExistencia existencia= (ActualizarExistencia) modeloExistencia.getElementAt(item.getIndex());
+        listadoExistenciaService.actualizarPrecio(existencia);
         modeloExistencia=new ListModelList();
         lstExistencia.setModel(modeloExistencia);
         menuresultado.setSize(modeloExistencia.getSize());
         txtCriterio.setText("");
         txtCriterio.focus();
-        
     }
     
     
@@ -110,7 +112,7 @@ public class ActualizacionPrecioExistencia extends SelectorComposer {
     public void buscar(String criterio) {
         Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         if (criterio.length() >= 3) {
-            modeloExistencia=new ListModelList(existenciaService.busquedaListaPorIdalmacenPorDescripcion(almacen.getIdalmacen(),criterio));
+            modeloExistencia=new ListModelList(listadoExistenciaService.listaActualizarPrecioPorDescripcion(almacen.getIdalmacen(),criterio));
             lstExistencia.setModel(modeloExistencia);
             lstExistencia.onInitRender();
             menuresultado.setSize(modeloExistencia.getSize());

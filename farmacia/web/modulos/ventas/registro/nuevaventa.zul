@@ -37,8 +37,8 @@
             <listheader label="Unidad" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>
             <listheader label="Stock" width="6%" align="center" />
             <listheader label="Menudeo" width="6%" align="center" />
-            <listheader label="Cant." width="7%" align="center" />
-            <listheader label="Fracc." width="7%" align="center" />
+            <listheader label="Entero" width="7%" align="center" />
+            <listheader label="Fraccion" width="7%" align="center" />
             <listheader label="Linea" width="18%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
             <listheader label="PVF(/F)" width="5%" align="center" />
             <listheader label="P.V.F" width="5%" align="center" />            

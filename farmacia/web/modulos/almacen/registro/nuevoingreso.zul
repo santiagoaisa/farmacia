@@ -56,8 +56,8 @@
             <listheader label="F/" width="4%" />
             <listheader label="Und" width="4%" />
             <listheader label="Descripcion" width="26%" sort="auto(idproducto.cnomart)" />
-            <listheader label="Cantidad" width="5%" />
-            <listheader label="Menudeo" width="5%" />
+            <listheader label="Entero" width="5%" />
+            <listheader label="Fraccion" width="5%" />
             <listheader label="Costo Uni." width="8%" />
             <listheader label="Dcto.1" width="5%" />
             <listheader label="Dcto.2" width="5%" />

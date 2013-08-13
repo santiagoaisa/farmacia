@@ -1,4 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winVenta"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuimpresion.zul"?>
+
 <window id="winVenta" title="Registro de Ventas..."  width="950px"  border="0"
         apply="modventas.herramientas.GenerarDocumento" >
 
@@ -8,8 +10,9 @@
             <column width="15%" />
             <column width="10%"/>
             <column width="15%" />
-            <column width="23%"/>
-            <column width="12%" />
+            <column width="10%"/>
+             <column width="15%"/>
+            <column width="10%" />
             <column width="15%"/>
         </columns>
         <rows>
@@ -18,7 +21,9 @@
                 <combobox id="cboUnidad" readonly="true" width="98%"/>                
                 <label value="Fecha:"/>
                 <datebox id="dFecha" width="85%" readonly="true" format="yyyy-MM-dd" />
-                 <label value=""/>
+                <label value="Tipo Pago:"/>
+                <combobox id="cboPago" readonly="true" width="98%"/>                
+                
                  <label value="Operacion:"/>
                 <intbox id="nOperacion" width="85%"  />                               
             </row>
@@ -40,7 +45,7 @@
             <listheader  width="4%" align="center" />
         </listhead>
         <listitem self="@{each=detalle}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
-            <listcell label="@{detalle.existencia.idproducto.cnomart}" />
+            <listcell label="@{detalle.existencia.idproducto.cnomproducto}" />
             <listcell label="@{detalle.existencia.idproducto.nmenudeo}"/>
             <listcell label="@{detalle.existencia.idproducto.idpresentacion.cabrev}"/>
             <listcell label="@{detalle.nstock}"  />
@@ -89,15 +94,24 @@
                 <decimalbox id="nImporte" style=" font-size:22px; " format="0.00" width="90%" value="0" readonly="true" />
               
             </row>
+            <row spans="1,3,1,2,1,2">
+                <label value="Cliente"  />
+                <textbox id="txtCliente" width="90%"  /> 
+                <label value="RUC / DNI"  />
+                <textbox id="txtDocumento" width="85%"  /> 
+                <label value="Direccion"  />
+                <textbox id="txtDireccion" width="95%"  /> 
+            </row>
 
         </rows>
     </grid>
+    
+    <menu id="mimpresion" width="100%"></menu>
 
     <toolbar id="tb"  height="25px" align="end" >
-        <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"
-        />
-        <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png"
-                           onClick="doCancel()" />
+        <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"        />
+        <toolbarbutton id="btnImprimir" label="Imprimir" image="/img/Imprimir.png"        />
+        <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png"                           onClick="doCancel()" />
     </toolbar>
 
 
