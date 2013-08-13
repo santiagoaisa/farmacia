@@ -191,6 +191,10 @@ public class NuevaVenta extends SelectorComposer {
     }
 
     private void agregarDetalle() {
+        if(modeloDetalle.getSize()==8)
+        {
+            throw new  ExceptionZarcillo("Tope de Items");
+        }
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         Window winbuscaprod = (Window) Executions.createComponents("/modulos/ventas/util/agregardetalleventa.zul", null, null);
         winbuscaprod.setAttribute("ALMACEN", almacen);
