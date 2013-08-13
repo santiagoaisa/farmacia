@@ -2,6 +2,7 @@ package com.zarcillo.service;
 
 import com.zarcillo.dao.AnulacionDAO;
 import com.zarcillo.dao.CrudDAO;
+import com.zarcillo.dao.MotivoAnulacionDAO;
 import com.zarcillo.dao.RegistroSalidaDAO;
 import com.zarcillo.domain.Anulacion;
 import com.zarcillo.domain.MotivoAnulacion;
@@ -31,6 +32,8 @@ public class AnulacionServiceImpl extends Entrada implements AnulacionService {
     private RegistroSalidaDAO registrosalidadao;
     @Autowired
     private AnulacionDAO anulaciondao;
+    @Autowired
+    private MotivoAnulacionDAO motivoanulaciondao;
 
     @Override
     @Transactional
@@ -52,4 +55,11 @@ public class AnulacionServiceImpl extends Entrada implements AnulacionService {
     public List<Anulacion> listaPorFechas(Date dfecha1, Date dfecha2) {
         return anulaciondao.listaPorFechas(dfecha1, dfecha2);
     }
+
+    @Override
+    public List<MotivoAnulacion> listaMotivoAnulacion() {
+        return motivoanulaciondao.listaGeneral();
+    }
+    
+    
 }

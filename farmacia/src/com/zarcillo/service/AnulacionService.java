@@ -14,5 +14,6 @@ public interface AnulacionService {
     
     public void anular(Integer idregsalida,MotivoAnulacion motivo,Usuario usuario);
     public List<Anulacion> listaPorFechas(Date dfecha1,Date dfecha2);
+    public List<MotivoAnulacion> listaMotivoAnulacion();
     
 }
