@@ -44,6 +44,8 @@ public class CondicionVenta implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "ndescuento")
     private BigDecimal ndescuento;
+    @Column(name = "nincremento")
+    private BigDecimal nincremento;
     @Column(name = "dfecreg")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dfecreg;
@@ -56,6 +58,7 @@ public class CondicionVenta implements Serializable {
     public CondicionVenta() {
         bcontado=false;
         ndescuento=new BigDecimal("0");
+        nincremento=new BigDecimal("0");
         nplazo=0;
     }
 
@@ -120,6 +123,17 @@ public class CondicionVenta implements Serializable {
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
+
+    public BigDecimal getNincremento() {
+        return nincremento;
+    }
+
+    public void setNincremento(BigDecimal nincremento) {
+        this.nincremento = nincremento;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {

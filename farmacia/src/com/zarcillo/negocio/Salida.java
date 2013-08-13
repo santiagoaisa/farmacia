@@ -67,6 +67,7 @@ public class Salida extends DescargaLote {
             String cglosa = "";
             regsalida.setCglosa(cglosa);
             regsalida.calcula(regsalida.getIdperiodo().getNigv());
+            regsalida.setNplazo(regsalida.getIdcondicion().getNplazo());
             //////// SITUACION PEDIDO
             regsalida.setIdsituacion(SituacionPedido.DIGITADO);
             //////// SITUACION PEDIDO

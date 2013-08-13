@@ -108,7 +108,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
     @Override
     @Transactional
-    public List<DetalleVenta> busquedaListaPorIdalmacenPorReceta(Integer idalmacen, String criterio) {
+    public List<DetalleVenta> busquedaListaPorIdalmacenPorReceta(Integer idalmacen, String criterio,CondicionVenta condicion) {
         List<DetalleVenta> listaRetorno = new ArrayList<>();
 
         try {
@@ -116,7 +116,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             // Logica de Descuentos
             DetalleVenta detalle;
             for (Existencia e : listaExistencia) {
-                detalle = detalleParaVenta(idalmacen, e);
+                detalle = detalleParaVenta(idalmacen, e,condicion);
                 listaRetorno.add(detalle);
             }
 
@@ -130,7 +130,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
     @Override
     @Transactional
-    public List<DetalleVenta> busquedaListaPorIdalmacenPorDescripcion(Integer idalmacen, String criterio) {
+    public List<DetalleVenta> busquedaListaPorIdalmacenPorDescripcion(Integer idalmacen, String criterio,CondicionVenta condicion) {
 
         List<DetalleVenta> listaRetorno = new ArrayList<>();
 
@@ -139,7 +139,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             // Logica de Descuentos
             DetalleVenta detalle;
             for (Existencia e : listaExistencia) {
-                detalle = detalleParaVenta(idalmacen, e);
+                detalle = detalleParaVenta(idalmacen, e,condicion);
                 listaRetorno.add(detalle);
             }
 
@@ -151,60 +151,61 @@ public class VentaServiceImpl extends Entrada implements VentaService {
         return listaRetorno;
     }
 
-    @Override
-    @Transactional
-    public DetalleVenta detalleVenta(Integer idalmacen, Existencia existencia, Usuario idusuario) {
-        // Logica de Descuentos
-        DetalleVenta detalle = new DetalleVenta();
-
-        try {
-            /// controlo los negativos del temporal
-//            if (existencia.getNtemporal() < 0) {
-//                existencia.setNtemporal(0);
+//    @Override
+//    @Transactional
+//    public DetalleVenta detalleVenta(Integer idalmacen, Existencia existencia, Usuario idusuario) {
+//        // Logica de Descuentos
+//        DetalleVenta detalle = new DetalleVenta();
+//
+//        try {
+//            /// controlo los negativos del temporal
+////            if (existencia.getNtemporal() < 0) {
+////                existencia.setNtemporal(0);
+////            }
+//
+//            detalle = detalleParaVenta(idalmacen, existencia);
+//
+//            ////// CONTROL DE PRODUCTOS SIN VALOR DE VENTA
+//            int rpta1 = detalle.getNvaluni().compareTo(new BigDecimal("0"));
+//            int rpta2 = detalle.getNcosuni().compareTo(new BigDecimal("0"));
+//
+//            if (rpta1 < 1 && rpta2 >= 1) {
+//                throw new ExceptionZarcillo("El Producto " + existencia.getIdproducto().getIdproducto() + "-" + existencia.getIdproducto().getCnomproducto().trim() + " no tiene PRECIO");
 //            }
+//
+//
+//            if (detalle.getNstock() <= 0) {
+//                // productos no vendidos
+//                throw new ExceptionZarcillo("El Producto " + existencia.getIdproducto().getCnomproducto().trim() + " tiene STOCK 0");
+//            }
+//
+//
+//        } catch (Exception e) {
+//            if (e.getMessage().contains("STOCK")) {
+//                // productos no vendidos
+//                ProductoNoVendido producto = new ProductoNoVendido();
+//                producto.setIdalmacen(existencia.getIdalmacen());
+//                producto.setIdproducto(existencia.getIdproducto());
+//                producto.setIdunidad(new UnidadNegocio(idalmacen));
+//                producto.setNcantidad(detalle.getNcantidad());
+//                producto.setIdusuario(idusuario);
+//                producto.setDfecreg(new Date());
+//                cruddao.registrar(producto);
+//            }
+//            throw new ExceptionZarcillo(e.getMessage());
+//        }
+//
+//        return detalle;
+//    }
 
-            detalle = detalleParaVenta(idalmacen, existencia);
-
-            ////// CONTROL DE PRODUCTOS SIN VALOR DE VENTA
-            int rpta1 = detalle.getNvaluni().compareTo(new BigDecimal("0"));
-            int rpta2 = detalle.getNcosuni().compareTo(new BigDecimal("0"));
-
-            if (rpta1 < 1 && rpta2 >= 1) {
-                throw new ExceptionZarcillo("El Producto " + existencia.getIdproducto().getIdproducto() + "-" + existencia.getIdproducto().getCnomproducto().trim() + " no tiene PRECIO");
-            }
-
-
-            if (detalle.getNstock() <= 0) {
-                // productos no vendidos
-                throw new ExceptionZarcillo("El Producto " + existencia.getIdproducto().getCnomproducto().trim() + " tiene STOCK 0");
-            }
-
-
-        } catch (Exception e) {
-            if (e.getMessage().contains("STOCK")) {
-                // productos no vendidos
-                ProductoNoVendido producto = new ProductoNoVendido();
-                producto.setIdalmacen(existencia.getIdalmacen());
-                producto.setIdproducto(existencia.getIdproducto());
-                producto.setIdunidad(new UnidadNegocio(idalmacen));
-                producto.setNcantidad(detalle.getNcantidad());
-                producto.setIdusuario(idusuario);
-                producto.setDfecreg(new Date());
-                cruddao.registrar(producto);
-            }
-            throw new ExceptionZarcillo(e.getMessage());
-        }
-
-        return detalle;
-    }
-
-    private DetalleVenta detalleParaVenta(Integer idalmacen, Existencia existencia) {
+    private DetalleVenta detalleParaVenta(Integer idalmacen, Existencia existencia,CondicionVenta condicion) {
         DetalleVenta detalle = new DetalleVenta();
         //Integer lote_bloqueado = lotedao.cantidadBloqueadaPorIdalmacenPorIdproductoBloqueados(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto());
         detalle.setNstock(existencia.getNstock());
-        detalle.setNstockm(existencia.getNstockm());
-//     
+        detalle.setNstockm(existencia.getNstockm());//     
         detalle.setBactivo(!existencia.getBactivo());
+        
+        
 
         if (existencia.getIdproducto().getNmenudeo() > 1) {
             detalle.setBfraccion(false);
@@ -230,6 +231,13 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             detalle.setNvalunim(nvalorunitariofraccion);
         }
 
+        //INREMENTO POR SER AL CREDITO
+        //si no es contado
+        if(!condicion.getBcontado()){
+            detalle.setNvaluni(detalle.getNvaluni().add(detalle.getNvaluni().multiply( condicion.getNincremento().divide(Numero.cien))));
+            detalle.setNvalunim(detalle.getNvalunim().add(detalle.getNvalunim().multiply( condicion.getNincremento().divide(Numero.cien))));
+        }
+        
         detalle.setNpreuni(Igv.importeDetalleVenta(detalle.getNvaluni(), detalle.getExistencia().getIdproducto().getBinafecto()));
         detalle.setNpreunim(Igv.importeDetalleVenta(detalle.getNvalunim(), detalle.getExistencia().getIdproducto().getBinafecto()));
 

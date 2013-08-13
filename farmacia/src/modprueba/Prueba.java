@@ -113,7 +113,7 @@ public class Prueba extends SelectorComposer {
     }
     
     private void buscar(){
-         List<DetalleVenta> listaDetalleVenta = ventaService.busquedaListaPorIdalmacenPorReceta(1, txtDescripcion.getText().trim());
+         List<DetalleVenta> listaDetalleVenta = ventaService.busquedaListaPorIdalmacenPorReceta(1, txtDescripcion.getText().trim(),null);
         ListModelList modelo = new ListModelList(listaDetalleVenta);
         
         lstDetalle.setModel(modelo);
