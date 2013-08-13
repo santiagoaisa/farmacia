@@ -9,7 +9,11 @@ import java.util.List;
  */
 public interface ClienteService {
     
-      public Cliente registrar(Cliente cliente);
+    public Cliente registrarClienteVenta(Cliente cliente);
+    public Cliente buscarPorCdni(String cdni);
+    public Cliente buscarPorCruc(String cruc);
+    
+    public Cliente registrar(Cliente cliente);
     public Cliente actualizar(Cliente cliente);
     public void eliminar(Cliente cliente);
     public Cliente buscar(Integer idcliente);

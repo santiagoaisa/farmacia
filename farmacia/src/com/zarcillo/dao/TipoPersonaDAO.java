@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface TipoPersonaDAO {
     TipoPersona busqueda(Integer idtipo);
+    TipoPersona buscarPorCcodigoSunat(String ccodigo);
     List<TipoPersona> listaGeneral();
 }

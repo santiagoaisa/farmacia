@@ -27,6 +27,8 @@ import javax.persistence.TemporalType;
 @Table(name = "cliente")
 @NamedQueries({
     @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
+    @NamedQuery(name = "Cliente.findByCdni", query = "SELECT c FROM Cliente c WHERE c.cdni=:cdni"),
+    @NamedQuery(name = "Cliente.findByCruc", query = "SELECT c FROM Cliente c WHERE c.cruc=:cruc"),
     @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente=:idcliente"),
     @NamedQuery(name = "Cliente.findByIdunidadByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idunidad.idunidad=:idunidad and c.idcliente=:idcliente"),
     @NamedQuery(name = "Cliente.findByIdunidad", query = "SELECT c FROM Cliente c WHERE c.idunidad.idunidad=:idunidad "),

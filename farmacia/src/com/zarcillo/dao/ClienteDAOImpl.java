@@ -3,6 +3,7 @@ package com.zarcillo.dao;
 import com.zarcillo.domain.Cliente;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,34 @@ public class ClienteDAOImpl implements ClienteDAO {
     @PersistenceContext
     private EntityManager em;
 
+    @Override
+    public Cliente buscarPorCdni(String cdni) {
+        Cliente cliente;        
+        try {
+            cliente = (Cliente) em.createNamedQuery("Cliente.findByCdni").setParameter("cdni", cdni).getSingleResult();
+        } catch (NoResultException e) {
+            cliente=new Cliente();
+        }
+        
+        return cliente;
+        
+    }
+
+    @Override
+    public Cliente buscarPorCruc(String cruc) {
+        Cliente cliente;        
+        try {
+            cliente = (Cliente) em.createNamedQuery("Cliente.findByCruc").setParameter("cruc", cruc).getSingleResult();
+        } catch (NoResultException e) {
+            cliente=new Cliente();
+        }
+        
+        return cliente;
+    }
+
+    
+    
+    
     @Override
     public Cliente buscarPorIdcliente(Integer idcliente) {
         return (Cliente) em.createNamedQuery("Cliente.findByIdcliente").setParameter("idcliente", idcliente).getSingleResult();

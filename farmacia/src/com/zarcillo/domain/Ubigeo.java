@@ -48,6 +48,8 @@ public class Ubigeo implements Serializable {
     private String cnomdepartamento;
     @Column(name = "cnomprovincia")
     private String cnomprovincia;
+    
+    public static Ubigeo AREQUIPA=new Ubigeo("040101");
 
     public Ubigeo() {
     }

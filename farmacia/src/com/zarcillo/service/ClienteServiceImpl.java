@@ -2,7 +2,10 @@ package com.zarcillo.service;
 
 import com.zarcillo.dao.ClienteDAO;
 import com.zarcillo.dao.CrudDAO;
+import com.zarcillo.dao.TipoPersonaDAO;
 import com.zarcillo.domain.Cliente;
+import com.zarcillo.domain.TipoPersona;
+import com.zarcillo.domain.Ubigeo;
 import com.zarcillo.estado.MotivoLog;
 import com.zarcillo.log.LogCliente;
 import java.util.Date;
@@ -25,6 +28,51 @@ public class ClienteServiceImpl implements ClienteService {
     private CrudDAO cruddao;
     @Autowired
     private ClienteDAO clientedao;
+    @Autowired
+    private TipoPersonaDAO  tipopersonadao;
+
+    @Override
+    @Transactional
+    public Cliente registrarClienteVenta(Cliente cliente) {
+        try {
+            //bolera
+            
+            if(cliente.getCruc()==null && cliente.getCdni()==null){
+                throw new ExceptionZarcillo("El cliente no tiene documento de identidad rebice por favor");
+            }
+            
+            TipoPersona tipo_persona_natural=tipopersonadao.buscarPorCcodigoSunat(TipoPersona.NATURAL_SUNAT.getCcodigosunat());
+            TipoPersona tipo_persona_juridica=tipopersonadao.buscarPorCcodigoSunat(TipoPersona.JURIDICA_SUNAT.getCcodigosunat());
+            
+            if(cliente.getCdni()!=null ){
+                if(!cliente.getCruc().isEmpty()){
+                    cliente.setIdtipo(tipo_persona_natural);
+                }                
+            }
+            
+            
+            if(cliente.getCruc()!=null ){
+                if(!cliente.getCruc().isEmpty()){
+                    String cadena=cliente.getCruc().substring(0, 1);
+                    if(cadena.contains("2")){
+                        cliente.setIdtipo(tipo_persona_juridica);
+                    }else{
+                        cliente.setIdtipo(tipo_persona_natural);
+                    }
+                }
+            }
+            
+            cliente.setIdubigeo(Ubigeo.AREQUIPA);
+            cliente.setDfecreg(new Date());
+            cruddao.registrar(cliente);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionZarcillo(e.getMessage());
+        }
+        
+        return cliente;
+    }
 
     @Override
     @Transactional
@@ -58,7 +106,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     @Transactional
     public void eliminar(Cliente cliente) {
-          try {
+        try {
             cruddao.eliminar(cliente);
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al eliminar un Cliente");
@@ -66,8 +114,22 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
+    public Cliente buscarPorCdni(String cdni) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Cliente buscarPorCruc(String cruc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
+    
+
+    @Override
     public Cliente buscar(Integer idcliente) {
-         try {
+        try {
             return clientedao.buscarPorIdcliente(idcliente);
         } catch (Exception e) {
             throw new ExceptionZarcillo("No exite el cliente con id:" + idcliente);
@@ -76,7 +138,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente buscarPorIdunidadPorIdcliente(Integer idunidad, Integer idcliente) {
-         try {
+        try {
             return clientedao.buscarPorIdunidadPorIdcliente(idunidad, idcliente);
         } catch (Exception e) {
             throw new ExceptionZarcillo("No exite el cliente con id:" + idcliente);
@@ -84,13 +146,11 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-   
     public List<Cliente> listaPorIdunidad(Integer idunidad) {
         return clientedao.listaPorIdunidad(idunidad);
     }
 
     @Override
-   
     public List<Cliente> busquedaListaPorIdunidadPorCnomcli(Integer idunidad, String cnomcli) {
         return clientedao.busquedaListaPorIdunidadPorCnomcli(idunidad, cnomcli);
     }
