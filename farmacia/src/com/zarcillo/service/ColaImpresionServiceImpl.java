@@ -57,6 +57,11 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
     public ComprobanteEmitido crearDocumento(RegistroSalida regsalida, TipoPago tipo, Usuario usuario) {
         try {
             //////// SITUACION PEDIDO
+            RegistroSalida r=regsalidadao.buscarPorIdregsalida(regsalida.getIdregsalida());
+            if(r.getBimpreso()){
+                throw new ExceptionZarcillo("La Operacion ya fue Impresa");
+            }
+            
             Periodo periodo=periododao.buscarPorFecha(new Date());
             regsalida.setIdsituacion(SituacionPedido.IMPRESO);
             //////// SITUACION PEDIDO
@@ -91,7 +96,7 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
             comprobante.setIdperiodo(periodo);
             comprobante.setDfecreg(new Date());
             comprobante.setDfecven(Dia.sumarDias(regsalida.getDfecha(), regsalida.getNplazo()));
-            comprobante.setNinafecto(regsalida.getNinafecto());
+             comprobante.setNinafecto(regsalida.getNinafecto());
             comprobante.setNafecto(regsalida.getNafecto());
             comprobante.setNigv(regsalida.getNigv());
             comprobante.setNimporte(regsalida.getNimporte());

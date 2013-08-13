@@ -71,7 +71,7 @@ public class ClienteServiceImpl implements ClienteService {
             throw new ExceptionZarcillo(e.getMessage());
         }
         
-        return cliente;
+        return clientedao.buscarPorIdcliente(cliente.getIdcliente());
     }
 
     @Override

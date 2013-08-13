@@ -7,6 +7,7 @@ import com.zarcillo.dao.DescuentoDAO;
 import com.zarcillo.dao.DocumentoDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.LoteDAO;
+import com.zarcillo.dao.MonedaDAO;
 import com.zarcillo.dao.MotivoSalidaDAO;
 import com.zarcillo.dao.NumeracionDAO;
 import com.zarcillo.dao.VendedorDAO;
@@ -66,6 +67,8 @@ public class VentaServiceImpl extends Entrada implements VentaService {
     private MotivoSalidaDAO motivosalidadao;
     @Autowired
     private ExistenciaDAO existenciadao;
+    @Autowired
+    private MonedaDAO monedadao;
 
     @Override
     @Transactional
@@ -75,8 +78,8 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             
             //////////VALIDAR STOCK DE FRACCION            
             
-            regsalida.setIdmoneda(Moneda.SOLES);
-            regsalida.setIdcliente(Cliente.BOLETA);
+            regsalida.setIdmoneda(monedadao.busqueda(Moneda.SOLES.getIdmoneda()));
+            regsalida.setIdcliente(clientedao.buscarPorIdcliente(Cliente.BOLETA.getIdcliente()));
             regsalida.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.BOLETA_SUNAT.getCcodigosunat()));
             ///////////
             validarStock(regsalida);
@@ -94,8 +97,6 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             //1ro grabo el docmento original
             // si no es prestamos           
             super.registrar(regsalida);
-            System.out.println("tamaño 4:"+regsalida.getMovimientoCollection().size());
-
 
         } catch (Exception e) {
             e.printStackTrace();
