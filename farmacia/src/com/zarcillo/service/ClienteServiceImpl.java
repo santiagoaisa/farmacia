@@ -45,7 +45,7 @@ public class ClienteServiceImpl implements ClienteService {
             TipoPersona tipo_persona_juridica=tipopersonadao.buscarPorCcodigoSunat(TipoPersona.JURIDICA_SUNAT.getCcodigosunat());
             
             if(cliente.getCdni()!=null ){
-                if(!cliente.getCruc().isEmpty()){
+                if(!cliente.getCdni().isEmpty()){
                     cliente.setIdtipo(tipo_persona_natural);
                 }                
             }
@@ -115,12 +115,24 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente buscarPorCdni(String cdni) {
-        return clientedao.buscarPorCdni(cdni);
+        try {
+            return clientedao.buscarPorCdni(cdni);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionZarcillo("No existe un cliente con DNI:"+cdni);
+        }
+        
     }
 
     @Override
     public Cliente buscarPorCruc(String cruc) {
-        return clientedao.buscarPorCruc(cruc);
+        try {
+            return clientedao.buscarPorCruc(cruc);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionZarcillo("No existe un cliente con RUC:"+cruc);
+        }
+        
     }
     
     

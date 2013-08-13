@@ -20,32 +20,14 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public Cliente buscarPorCdni(String cdni) {
-        Cliente cliente;        
-        try {
-            cliente = (Cliente) em.createNamedQuery("Cliente.findByCdni").setParameter("cdni", cdni).getSingleResult();
-        } catch (NoResultException e) {
-            cliente=new Cliente();
-        }
-        
-        return cliente;
-        
+        return (Cliente) em.createNamedQuery("Cliente.findByCdni").setParameter("cdni", cdni).getSingleResult();
     }
 
     @Override
     public Cliente buscarPorCruc(String cruc) {
-        Cliente cliente;        
-        try {
-            cliente = (Cliente) em.createNamedQuery("Cliente.findByCruc").setParameter("cruc", cruc).getSingleResult();
-        } catch (NoResultException e) {
-            cliente=new Cliente();
-        }
-        
-        return cliente;
+        return (Cliente) em.createNamedQuery("Cliente.findByCruc").setParameter("cruc", cruc).getSingleResult();
     }
 
-    
-    
-    
     @Override
     public Cliente buscarPorIdcliente(Integer idcliente) {
         return (Cliente) em.createNamedQuery("Cliente.findByIdcliente").setParameter("idcliente", idcliente).getSingleResult();
