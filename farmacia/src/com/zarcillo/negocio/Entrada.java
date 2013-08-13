@@ -80,7 +80,6 @@ public class Entrada extends Salida {
     private MovimientoDAO movimientodao;
     @Autowired
     private RegistroSalidaDAO regsalidadao;
-    
     private DecimalFormat formato = new DecimalFormat("000000");
 
     public void registrar(RegistroEntrada regentrada) {
@@ -265,7 +264,7 @@ public class Entrada extends Salida {
     public void transferenciaFraccion(RegistroSalida regsalida, Movimiento m) {
 
         try {
-            
+
             RegistroSalida regsalidafraccion = new RegistroSalida();
             regsalidafraccion.setIdcliente(Cliente.TRANSFERENCIA);
             regsalidafraccion.setIdcondicion(regsalida.getIdcondicion());
@@ -310,10 +309,10 @@ public class Entrada extends Salida {
             regentradafraccion.setIdmotivo(MotivoEntrada.TRANSFERENCIA);
             regentradafraccion.setIdproveedor(Proveedor.TRANSFERENCIA);
             regentradafraccion.setIdusuario(regsalida.getIdusuario());
-            
-            
+
+
             List<Movimiento> listaMovimientoSalida = movimientodao.listaPorIdregsalida(regsalidafraccion.getIdregsalida());
-            
+
 
             List<Movimiento> listaMovimientoFraccionEntrada = new ArrayList<>();
 
@@ -346,7 +345,7 @@ public class Entrada extends Salida {
             Transferencia transferencia = new Transferencia();
             transferencia.setDfecreg(new Date());
             transferencia.setCserie(numeracion.getCserie());
-            transferencia.setCnumero(cnumero);            
+            transferencia.setCnumero(cnumero);
             transferencia.setIdusuario(regsalida.getIdusuario());
             transferencia.setIdalmacen(regentradafraccion.getIdalmacen());
             transferencia.setIdregsalida(regsalidafraccion);
@@ -411,10 +410,13 @@ public class Entrada extends Salida {
             // SIEMPRE SE ELIMINA EL DOCUMENTO
             ComprobanteEmitido comprobante = comprobantedao.buscarPorIdregsalida(regsalida.getIdregsalida());
             List<AmortizacionCliente> listaAmortizacion = amortizacionclientedao.listaPorIdcomprobante(comprobante.getIdcomprobante());
-            if (listaAmortizacion.size() > 0) {
-                throw new ExceptionZarcillo("El Documento tiene amortizaciones, imposible eliminar");
-            } else {
-                cruddao.eliminar(comprobante);
+
+            for (AmortizacionCliente a : listaAmortizacion) {
+                if (a.getBregistro()) {
+                    throw new ExceptionZarcillo("Imposible anular la amortizacion ya fue reportada en CAJA");
+                }
+
+                cruddao.eliminar(a);
             }
 
 
