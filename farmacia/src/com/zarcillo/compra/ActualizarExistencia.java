@@ -2,7 +2,9 @@ package com.zarcillo.compra;
 
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Producto;
+import com.zarcillo.negocio.Igv;
 import com.zarcillo.negocio.Numero;
+import com.zarcillo.service.ExceptionZarcillo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -10,28 +12,28 @@ import java.math.BigDecimal;
  *
  * @author saisa
  */
-public class ActualizarExistencia implements Serializable{
- 
+public class ActualizarExistencia implements Serializable {
+
     private Producto idproducto;
     private Almacen idalmacen;
     private Integer nstock;
-    private Integer nstockm;     
-    private BigDecimal nvaluni;    
+    private Integer nstockm;
+    private BigDecimal nvaluni;
     private BigDecimal nincremento;
     private BigDecimal ncosuni;
     private BigDecimal ncospre;
-    private BigDecimal npreuni;   
+    private BigDecimal npreuni;
     private BigDecimal nutilidad;
 
     public ActualizarExistencia() {
-        ncospre=new BigDecimal("0");
-        ncosuni=new BigDecimal("0");
-        npreuni=new BigDecimal("0");
-        nstock=0;
-        nstockm=0;
-        nutilidad=new BigDecimal("0");
-        nincremento=new BigDecimal("0");
-        nvaluni=new BigDecimal("0");        
+        ncospre = new BigDecimal("0");
+        ncosuni = new BigDecimal("0");
+        npreuni = new BigDecimal("0");
+        nstock = 0;
+        nstockm = 0;
+        nutilidad = new BigDecimal("0");
+        nincremento = new BigDecimal("0");
+        nvaluni = new BigDecimal("0");
     }
 
     public Producto getIdproducto() {
@@ -83,14 +85,6 @@ public class ActualizarExistencia implements Serializable{
         calculaUtilidad();
     }
 
-    public BigDecimal getNutilidad() {
-        return nutilidad;
-    }
-
-    public void setNutilidad(BigDecimal nutilidad) {
-        this.nutilidad = nutilidad;
-    }
-
     public Almacen getIdalmacen() {
         return idalmacen;
     }
@@ -107,9 +101,6 @@ public class ActualizarExistencia implements Serializable{
         this.nincremento = nincremento;
     }
 
-  
-    
-
     public BigDecimal getNvaluni() {
         return nvaluni;
     }
@@ -118,15 +109,23 @@ public class ActualizarExistencia implements Serializable{
         this.nvaluni = nvaluni;
     }
 
-   
-     public void calculaUtilidad(){
-        if(Numero.isCero(ncosuni)){
-            nutilidad=Numero.cien;            
-        }else{
+    public BigDecimal getNutilidad() {
+        return nutilidad;
+    }
+
+    public void setNutilidad(BigDecimal nutilidad) {
+        BigDecimal nvalor = ((nutilidad.add(Numero.cien)).multiply(ncosuni)).divide(Numero.cien, 4, BigDecimal.ROUND_HALF_UP);
+        nvaluni = nvalor;
+        npreuni = Igv.importeDetalleVenta(nvalor, this.getIdproducto().getBinafecto());
+
+        this.nutilidad = nutilidad;
+    }
+
+    public void calculaUtilidad() {
+        if (Numero.isCero(ncosuni)) {
+            nutilidad = Numero.cien;
+        } else {
             nutilidad = nvaluni.multiply(Numero.cien.divide(ncosuni, 4, BigDecimal.ROUND_HALF_UP)).subtract(Numero.cien);
         }
     }
-    
-    
-    
 }
