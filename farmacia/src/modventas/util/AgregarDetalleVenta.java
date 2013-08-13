@@ -73,6 +73,14 @@ public class AgregarDetalleVenta extends SelectorComposer {
         winDetalleVenta.onClose();
     }
     
+    @Listen("onOK = #lstExistencia ")
+    public void onEnviarDetalle() {
+        DetalleVenta detven =  (DetalleVenta) modeloExistencia.getElementAt(lstExistencia.getSelectedIndex());        
+        winDetalleVenta.setAttribute("DETALLEVENTA",detven );
+        winDetalleVenta.setAttribute("REST",true );
+        winDetalleVenta.onClose();
+    }
+    
     
     public void initComponets(){
         almacen=(Almacen) winDetalleVenta.getAttribute("ALMACEN");

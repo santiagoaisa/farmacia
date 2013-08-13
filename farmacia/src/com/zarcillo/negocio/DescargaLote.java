@@ -21,20 +21,20 @@ public class DescargaLote {
     private CrudDAO cruddao;
     @Autowired
     private LoteDAO lotedao;
-
+ 
     public List<Movimiento> descargar(Movimiento m) {
         List<Movimiento> listaMovimientos = new ArrayList<>();
         try {
-             System.out.println("CANTIADD DE M:"+m.getNcantidad());
+             
             if (m.getNcantidad() > 0) {
                 //Lista de los lotes disponibles de la existencia enteros
                 List<Lote> listaLote = lotedao.listaPorIdalmacenPorIdproductoParaVentaEntero(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
-                System.out.println("LOTES:"+listaLote.size());
+             
                 Movimiento movimiento;
                 for (Lote l : listaLote) {
                     //Si la cantidad del lote es mayor o igual a la cantidad que se pide
                     if (l.getNstock() >= m.getNcantidad()) {
-                        System.out.println("entro en loste");
+             
                         movimiento = new Movimiento();
                         /// le asigno un id temporal                        
                         movimiento.setIdmovimiento(l.getIdlote().hashCode());

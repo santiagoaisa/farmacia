@@ -15,6 +15,7 @@ public class DetalleVenta implements Serializable {
     private Integer ncanart;
     private Integer ncanartm;
     private BigDecimal ncosuni;
+   private BigDecimal ncosunim;
     // nstock maximo que se puede digitar super importante cuando se digita
     private Integer nstock;    //
     private Integer nstockm;    //
@@ -73,6 +74,7 @@ public class DetalleVenta implements Serializable {
         ndesbon = new BigDecimal("0");
 
         ncosuni = new BigDecimal("0");
+        ncosunim = new BigDecimal("0");
         nstock = 0;
         nstockm = 0;
         nsubtot = new BigDecimal("0");
@@ -148,6 +150,14 @@ public class DetalleVenta implements Serializable {
 
     public void setNpreunim(BigDecimal npreunim) {
         this.npreunim = npreunim;
+    }
+
+    public BigDecimal getNcosunim() {
+        return ncosunim;
+    }
+
+    public void setNcosunim(BigDecimal ncosunim) {
+        this.ncosunim = ncosunim;
     }
 
     

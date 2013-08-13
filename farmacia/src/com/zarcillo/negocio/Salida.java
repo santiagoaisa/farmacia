@@ -120,7 +120,7 @@ public class Salida extends DescargaLote {
                 m.setIdregsalida(regsalida);
                 m.setCtipmov("S");
                 m.setNstock(existencia.getNstock());
-                m.setNstockm(existencia.getNstockm());
+                m.setNstockm(existencia.getNstockm());                
                 m.setNmenudeo(existencia.getIdproducto().getNmenudeo());
                 m.setIdmovimiento(null);
                 cruddao.registrar(m);
@@ -172,8 +172,7 @@ public class Salida extends DescargaLote {
 //                    }
 //
 //                } else {
-                List<Movimiento> listaMovimientosLotes = super.descargar(m);
-                System.out.println("MOVIMIENTO:"+m.getClote());
+                List<Movimiento> listaMovimientosLotes = super.descargar(m);                
                 listaBorrarMovimientos.add(m);
                 listaLotesAgregados.addAll(listaMovimientosLotes);
 //                }

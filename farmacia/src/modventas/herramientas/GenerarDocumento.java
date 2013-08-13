@@ -2,12 +2,10 @@ package modventas.herramientas;
 
 import com.zarcillo.domain.ComprobanteEmitido;
 import com.zarcillo.domain.Documento;
-import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.TipoPago;
 import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
-import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.ColaImpresionService;
 import com.zarcillo.service.PeriodoService;
 import com.zarcillo.service.RegistroSalidaService;
@@ -16,9 +14,7 @@ import com.zarcillo.service.UnidadNegocioService;
 import com.zarcillo.service.UsuarioService;
 import com.zarcillo.service.VentaService;
 import java.io.InputStream;
-import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import javax.naming.NamingException;
@@ -70,10 +66,7 @@ public class GenerarDocumento extends SelectorComposer{
     
     @Wire
     private Intbox nOperacion;
-    
-    @Wire 
-    private Toolbarbutton btnGrabar;
-    
+        
     @Wire
     private Listbox lstDetalle;
     
@@ -91,6 +84,12 @@ public class GenerarDocumento extends SelectorComposer{
     
     @Wire
     private Decimalbox nRedondeo;    
+    
+    @Wire
+    private Toolbarbutton btnGrabar;
+    
+    @Wire
+    private Toolbarbutton btnImprimir;
     
     @WireVariable
     UsuarioService usuarioService;
@@ -162,6 +161,8 @@ public class GenerarDocumento extends SelectorComposer{
         modeloDetalle=new ListModelList();
         lstDetalle.setModel(modeloDetalle);
         dFecha.setValue(new Date());
+        btnGrabar.setDisabled(true);
+        btnImprimir.setDisabled(true);
         nOperacion.focus();
     }    
    
@@ -171,6 +172,7 @@ public class GenerarDocumento extends SelectorComposer{
         modeloDetalle=new ListModelList(registroSalidaService.listaDetalleSalida(regsalida.getIdregsalida()));
         lstDetalle.setModel(modeloDetalle);
         lstDetalle.onInitRender();
+        btnGrabar.setDisabled(false);
         cargarPie();
     }
     
@@ -199,14 +201,16 @@ public class GenerarDocumento extends SelectorComposer{
             parametro.put("DEPARTAMENTO", regsalida.getIdcliente().getIdubigeo().getCnomdepartamento().trim());
             parametro.put("FECHA", regsalida.getDfecha());            
             parametro.put("VENDEDOR", regsalida.getIdvendedor().getIdvendedor());
-            parametro.put("CONVEN", regsalida.getIdcondicion().getCnomcondicion());
+            parametro.put("CONDICION", regsalida.getIdcondicion().getCnomcondicion());
             parametro.put("HORAIMP", regsalida.getDfecimp());
             parametro.put("OPERACION", regsalida.getIdregsalida());
             parametro.put("HORADIG", regsalida.getDfecreg());
             parametro.put("IMPORTE", regsalida.getNimporte());
-            parametro.put("SERIE", regsalida.getCserie());
-            parametro.put("NUMERO",regsalida.getCnumero());
+            parametro.put("SERIE", comprobante.getCserie());
+            parametro.put("NUMERO",comprobante.getCnumero());
             parametro.put("PIEDOCUMENTO", regsalida.getCglosa());
+            
+            parametro.put("USUARIO","Caja: "+ usuario.getCabrev()+" Vend.: "+regsalida.getIdvendedor().getCabrev());
             parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));
            
             if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.BOLETA_SUNAT.getCcodigosunat())){
@@ -214,7 +218,7 @@ public class GenerarDocumento extends SelectorComposer{
             }
             else
             {
-                reporteFuente = "/modulos/ventas/reporte/factura.jrxml";
+                reporteFuente = "/resources/factura.jrxml";
             }
             
             InputStream is = this.getClass().getClassLoader().getResourceAsStream(reporteFuente);
@@ -228,9 +232,10 @@ public class GenerarDocumento extends SelectorComposer{
     
     public void registrar() {
         TipoPago tpago=(TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
-        regsalida.setIdusuario(usuario);
         regsalida.setDfecimp(dFecha.getValue());
-        
+        comprobante=colaImpresionService.crearDocumento(regsalida, tpago, usuario);        
+        btnGrabar.setDisabled(true);
+        btnImprimir.setDisabled(false);                       
     }
 }
 

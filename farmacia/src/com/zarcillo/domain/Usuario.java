@@ -60,6 +60,9 @@ public class Usuario implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Rol idrol;
     
+    @Column(name = "cabrev")
+    private String cabrev;
+    
     @OneToMany(mappedBy = "idusuario", fetch = FetchType.LAZY)
     private List<DetalleAutorizacion> detalleAutorizacionCollection;
 
@@ -140,6 +143,14 @@ public class Usuario implements Serializable {
 
     public void setDetalleAutorizacionCollection(List<DetalleAutorizacion> detalleAutorizacionCollection) {
         this.detalleAutorizacionCollection = detalleAutorizacionCollection;
+    }
+
+    public String getCabrev() {
+        return cabrev;
+    }
+
+    public void setCabrev(String cabrev) {
+        this.cabrev = cabrev;
     }
 
     

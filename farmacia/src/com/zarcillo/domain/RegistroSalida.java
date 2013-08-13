@@ -414,7 +414,7 @@ public class RegistroSalida implements Serializable {
                 BigDecimal cantidadsalida = new BigDecimal(m.getNcantidad());
                 if (m.getNcantidad() == 0) {
                     if (m.getNcantidadm() > 0) {
-                        cantidadsalida = new BigDecimal(m.getNcantidadm()).divide(new BigDecimal(m.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
+                        cantidadsalida = new BigDecimal(m.getNcantidadm());
                     }
                 }
                 

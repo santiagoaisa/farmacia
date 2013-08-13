@@ -67,13 +67,15 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
             d.setNcantidad(m.getNcantidad());
             d.setNcanartm(m.getNcantidadm());
             d.setNcosuni(m.getNcosuni());            
+            d.setNcosunim(m.getNcosuni());            
             d.setNdesfin(m.getNdesfin());
             d.setNdesbon(m.getNdesbon());
             d.setNdeslab(m.getNdeslab());
             d.setBinafec(m.getBinafecto());
-            d.setNvaluni(m.getNvaluni());            
+            d.setNvaluni(m.getNvaluni());      
+            d.setNvalunim(m.getNvaluni());      
             d.setNpreuni(Igv.importeDetalleVenta(m.getNvaluni(), m.getIdproducto().getBinafecto()));
-            d.setNimporte(Igv.importeDetalleVenta(m.getNsubtot(), m.getIdproducto().getBinafecto()));
+            d.setNimporte(Igv.importeDetalleVenta(m.getNsubtot(),m.getIdproducto().getBinafecto()));
             d.setNsubtot(m.getNsubtot());
             d.setClote(m.getClote());
             d.setCfecven(m.getCfecven());

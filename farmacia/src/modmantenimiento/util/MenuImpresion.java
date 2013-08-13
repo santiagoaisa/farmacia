@@ -41,9 +41,10 @@ public class MenuImpresion extends Window {
             //ruta donde se crea archivo .jrprint
             //String destino = "/usr/local/jboss/server/default/deploy/jboss-web.deployer/ROOT.war/reporte/" + idreporte + ".jrprint";
             //descomentar
-            String destino="/reporte/";            
+            String destino="C:/Apache Software Foundation/Tomcat 7.0/webapps/ROOT/reporte/"+ idreporte + ".jrprint";            
             //se crea un archivo .jrprint
             //descomentar
+            
             JasperFillManager.fillReportToFile(reportecompilado, destino, parametro, data);
             String reporte = "/reporte/" + idreporte + ".jrprint";
 

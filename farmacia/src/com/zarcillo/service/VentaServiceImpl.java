@@ -211,7 +211,9 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
         detalle.setExistencia(existencia);
         detalle.setNcosuni(existencia.getNcosuni());
-
+        BigDecimal ncostofraccion=detalle.getNcosuni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
+        detalle.setNcosunim(ncostofraccion);
+        
         detalle.setBinafec(existencia.getIdproducto().getBinafecto());
 
         //ESTABLESCO EL INCREMENTO
@@ -219,6 +221,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             detalle.setNvaluni(existencia.getNvalven());
 
             BigDecimal nvalorunitariofraccion = detalle.getNvaluni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
+            
             detalle.setNvalunim(nvalorunitariofraccion);
         } else {
             detalle.setNvaluni(existencia.getNcosuni().add(detalle.getNcosuni().multiply(existencia.getIdproducto().getIdsublinea().getIdlinea().getNincremento().divide(Numero.cien))));

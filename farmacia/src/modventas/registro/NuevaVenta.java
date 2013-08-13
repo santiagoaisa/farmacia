@@ -34,152 +34,152 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Decimalbox;
+import org.zkoss.zul.Intbox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class NuevaVenta extends SelectorComposer{
-    
-    private Usuario usuario;   
-    private RegistroSalida regsalida=new RegistroSalida();
+public class NuevaVenta extends SelectorComposer {
+
+    private Usuario usuario;
+    private RegistroSalida regsalida = new RegistroSalida();
     private ListModelList modeloAlmacen;
     private ListModelList modeloDetalle;
     private ListModelList modeloCondicion;
     private ListModelList modeloMotivo;
     private ListModelList modeloVendedor;
     private Periodo periodo;
-    
     @Wire
     private Window winVenta;
-    
     @Wire
     private Combobox cboAlmacen;
-    
     @Wire
     private Combobox cboCondicion;
-    
     @Wire
     private Combobox cboMotivo;
-    
     @Wire
     private Combobox cboVendedor;
-    
     @Wire
     private Datebox dFecha;
-    
     @Wire
     private Button btnAgregar;
-    
-    @Wire 
+    @Wire
     private Toolbarbutton btnGrabar;
-    
     @Wire
     private Listbox lstDetalle;
-    
     @Wire
     private Decimalbox nInafecto;
-    
     @Wire
     private Decimalbox nIgv;
-    
     @Wire
     private Decimalbox nValven;
-    
     @Wire
     private Decimalbox nImporte;
-    
     @Wire
-    private Decimalbox nRedondeo;    
-    
+    private Decimalbox nRedondeo;
     @WireVariable
     UsuarioService usuarioService;
-    
     @WireVariable
     VentaService ventaService;
-    
     @WireVariable
     AlmacenService almacenService;
-    
     @WireVariable
     PeriodoService periodoService;
-    
     @WireVariable
     CondicionVentaService condicionVentaService;
-    
     private String user_login;
-    final Execution exec= Executions.getCurrent();   
-    
-    
+    final Execution exec = Executions.getCurrent();
+
     @Listen("onCreate=window#winVenta")
-    public void onCreate() throws NamingException {        
-         initComponets();
-     }
-    
+    public void onCreate() throws NamingException {
+        initComponets();
+    }
+
     @Listen("onClick = #btnAgregar")
     public void onAgregarNuevo(Event event) {
         agregarDetalle();
-    }  
-    
+    }
+
     @Listen("onClick = #btnGrabar")
     public void onAgregarImprimir(Event event) {
         registrar();
-    } 
+    }
+
     @Listen("  onBlur = intbox#i0,intbox#i1 ")
     public void calcular() {
-        cargarPie();                
+        cargarPie();
     }
     
+    
+    
+    @Listen("  onOK = intbox#i0 ")
+    public void onFocoMenudeo(Event event) {
+        Intbox sub = (Intbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
+        Listcell celda6 = (Listcell) item.getChildren().get(6);
+        Intbox cantidad = (Intbox) celda6.getFirstChild();
+        cantidad.focus();
+        cantidad.select();
+        cargarPie();
+    }
+    
+    @Listen("  onOK = intbox#i1 ")    
+    public void onFocoAgregar() {
+        cargarPie();
+        btnAgregar.focus();
+    }
+
     @Listen("onClick = #btnQuitar")
     public void onQuitarDetalle(Event event) {
         Toolbarbutton btn = (Toolbarbutton) event.getTarget();
         Listitem item = (Listitem) (btn.getParent().getParent());
         borrarProducto(item.getIndex());
     }
-     
-    
-    
-    public void initComponets(){
+
+    public void initComponets() {
         user_login = exec.getUserPrincipal().getName();
-        usuario=usuarioService.buscarPorLogin(user_login);         
-        
-        modeloAlmacen=new ListModelList(almacenService.listaGeneral());
+        usuario = usuarioService.buscarPorLogin(user_login);
+
+        modeloAlmacen = new ListModelList(almacenService.listaGeneral());
         cboAlmacen.setModel(modeloAlmacen);
         if (modeloAlmacen.size() > 0) {
             cboAlmacen.onInitRender(new Event("", cboAlmacen));
             cboAlmacen.close();
             cboAlmacen.setSelectedIndex(0);
         }
-        modeloCondicion=new ListModelList(ventaService.listaCondicion());
+        modeloCondicion = new ListModelList(ventaService.listaCondicion());
         cboCondicion.setModel(modeloCondicion);
         if (modeloCondicion.size() > 0) {
             cboCondicion.onInitRender(new Event("", cboCondicion));
             cboCondicion.close();
             cboCondicion.setSelectedIndex(0);
         }
-        modeloMotivo=new ListModelList(ventaService.listaMotivo());
+        modeloMotivo = new ListModelList(ventaService.listaMotivo());
         cboMotivo.setModel(modeloMotivo);
         if (modeloMotivo.size() > 0) {
             cboMotivo.onInitRender(new Event("", cboMotivo));
             cboMotivo.close();
             cboMotivo.setSelectedIndex(0);
         }
-        modeloVendedor=new ListModelList(ventaService.listaVendedorActivo());
+        modeloVendedor = new ListModelList(ventaService.listaVendedorActivo());
         cboVendedor.setModel(modeloVendedor);
         if (modeloVendedor.size() > 0) {
             cboVendedor.onInitRender(new Event("", cboVendedor));
             cboVendedor.close();
             cboVendedor.setSelectedIndex(0);
         }
-        modeloDetalle=new ListModelList();
+        modeloDetalle = new ListModelList();
         lstDetalle.setModel(modeloDetalle);
-        periodo=periodoService.buscarPorDfecha(new Date());
+        periodo = periodoService.buscarPorDfecha(new Date());
         dFecha.setValue(new Date());
         btnAgregar.focus();
-    }    
+    }
+
     private void borrarProducto(int index) {
         int resp2 = 0;
         resp2 = Messagebox.show("¿Desea eliminar registro?", "Venta", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
@@ -189,39 +189,49 @@ public class NuevaVenta extends SelectorComposer{
         }
         cargarPie();
     }
-    private void agregarDetalle(){
-        Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+
+    private void agregarDetalle() {
+        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         Window winbuscaprod = (Window) Executions.createComponents("/modulos/ventas/util/agregardetalleventa.zul", null, null);
         winbuscaprod.setAttribute("ALMACEN", almacen);
         winbuscaprod.setAttribute("REST", true);
         winbuscaprod.doModal();
         Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");
         if (rest) {
-            DetalleVenta detventa=(DetalleVenta) winbuscaprod.getAttribute("DETALLEVENTA");
+            DetalleVenta detventa = (DetalleVenta) winbuscaprod.getAttribute("DETALLEVENTA");
             modeloDetalle.add(detventa);
+            lstDetalle.onInitRender();
+            focoCantidad();
             cargarPie();
-        }
-        else{
+        } else {
             btnGrabar.focus();
         }
     }
     
-    private void cargarPie(){
-        BigDecimal nsubtot=new BigDecimal(BigInteger.ZERO);
-        BigDecimal nigv=new BigDecimal(BigInteger.ZERO);
-        BigDecimal nprecio=new BigDecimal(BigInteger.ZERO);
+    private void focoCantidad(){
+        Listitem fila = lstDetalle.getItemAtIndex(modeloDetalle.getSize() - 1);
+        Listcell celda5 = (Listcell) fila.getChildren().get(5);
+        Intbox cantidad = (Intbox) celda5.getFirstChild();
+        cantidad.focus();
+        cantidad.select();
+    }
+
+    private void cargarPie() {
+        BigDecimal nsubtot = new BigDecimal(BigInteger.ZERO);
+        BigDecimal nigv = new BigDecimal(BigInteger.ZERO);
+        BigDecimal nprecio = new BigDecimal(BigInteger.ZERO);
         List<Listitem> ldatos = lstDetalle.getItems();
         DetalleVenta detalleventa;
         for (Listitem item : ldatos) {
-            detalleventa=(DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
-            if(detalleventa.getNcanart()>0&&detalleventa.getNcanartm()>0){
+            detalleventa = (DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
+            if (detalleventa.getNcanart() > 0 && detalleventa.getNcanartm() > 0) {
                 throw new ExceptionZarcillo("No se puede vender en unidades y menudeo...");
             }
-            nsubtot=nsubtot.add(detalleventa.getNsubtot());
-            nigv=nigv.add(detalleventa.getNigv());
-            nprecio=nprecio.add(detalleventa.getNimporte());
+            nsubtot = nsubtot.add(detalleventa.getNsubtot());
+            nigv = nigv.add(detalleventa.getNigv());
+            nprecio = nprecio.add(detalleventa.getNimporte());
         }
-        
+
         regsalida.setMovimientoCollection(llenarDetalle());
         regsalida.calcula(periodo.getNigv());
         nInafecto.setValue(regsalida.getNinafecto());
@@ -230,7 +240,7 @@ public class NuevaVenta extends SelectorComposer{
         nRedondeo.setValue(regsalida.getNredondeo());
         nImporte.setValue(regsalida.getNimporte());
     }
-    
+
     private List<Movimiento> llenarDetalle() {
         List<Movimiento> coldetalle = new ArrayList<Movimiento>();
         List<Listitem> ldatos = lstDetalle.getItems();
@@ -240,11 +250,19 @@ public class NuevaVenta extends SelectorComposer{
             movimiento = new Movimiento();
             detalleventa = new DetalleVenta();
             detalleventa = (DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
-            if (!((detalleventa.getNcanart()==0)&& (detalleventa.getNcanartm()==0))) {
+            if (!((detalleventa.getNcanart() == 0) && (detalleventa.getNcanartm() == 0))) {
                 movimiento.setIdproducto(detalleventa.getExistencia().getIdproducto());
                 movimiento.setIdalmacen(detalleventa.getExistencia().getIdalmacen());
+
+
                 movimiento.setNcosuni(detalleventa.getNcosuni());
                 movimiento.setNvaluni(detalleventa.getNvaluni());
+
+                if (detalleventa.getNcanartm() > 0) {
+                    movimiento.setNcosuni(detalleventa.getNcosunim());
+                    movimiento.setNvaluni(detalleventa.getNvalunim());
+                }
+
                 movimiento.setNcantidad(detalleventa.getNcanart());
                 movimiento.setNcantidadm(detalleventa.getNcanartm());
                 movimiento.setNstock(detalleventa.getNstock());
@@ -259,18 +277,18 @@ public class NuevaVenta extends SelectorComposer{
         }
         return coldetalle;
     }
-    
-   
+
     private void validar() {
         cboAlmacen.setConstraint(new ConstraintCamposObligatorios());
         cboAlmacen.getValue();
     }
+
     public void registrar() {
         validar();
-        Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        CondicionVenta condicion=(CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
-        MotivoSalida motivo=(MotivoSalida) modeloMotivo.getElementAt(cboMotivo.getSelectedIndex());
-        Vendedor vendedor=(Vendedor) modeloVendedor.getElementAt(cboVendedor.getSelectedIndex());
+        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+        CondicionVenta condicion = (CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
+        MotivoSalida motivo = (MotivoSalida) modeloMotivo.getElementAt(cboMotivo.getSelectedIndex());
+        Vendedor vendedor = (Vendedor) modeloVendedor.getElementAt(cboVendedor.getSelectedIndex());
         regsalida.setIdusuario(usuario);
         regsalida.setIdunidad(almacen.getIdunidad());
         regsalida.setIdcondicion(condicion);
@@ -279,10 +297,9 @@ public class NuevaVenta extends SelectorComposer{
         regsalida.setDfecha(dFecha.getValue());
         regsalida.setDfecdig(dFecha.getValue());
         regsalida.setMovimientoCollection(llenarDetalle());
-        int operacion=ventaService.registrar(regsalida, almacen);
-        Messagebox.show("OPERACION: " +operacion, "REGISTRO SATISFACTORIO", Messagebox.OK, Messagebox.INFORMATION);
-            
-        
+        int operacion = ventaService.registrar(regsalida, almacen);
+        Messagebox.show("OPERACION: " + operacion, "REGISTRO SATISFACTORIO", Messagebox.OK, Messagebox.INFORMATION);
+
+
     }
 }
-

@@ -286,7 +286,7 @@ public class Movimiento implements Serializable {
          BigDecimal cantidadsalida = new BigDecimal(ncantidad);
         if (ncantidad == 0) {
             if (ncantidadm > 0) {
-                cantidadsalida = new BigDecimal(ncantidadm).divide(new BigDecimal(this.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
+                cantidadsalida =new BigDecimal(ncantidadm) ;
             }
         }
         
