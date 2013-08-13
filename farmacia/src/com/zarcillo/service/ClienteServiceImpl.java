@@ -115,12 +115,12 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente buscarPorCdni(String cdni) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return clientedao.buscarPorCdni(cdni);
     }
 
     @Override
     public Cliente buscarPorCruc(String cruc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return clientedao.buscarPorCruc(cruc);
     }
     
     
