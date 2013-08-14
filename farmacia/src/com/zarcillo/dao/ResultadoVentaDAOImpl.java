@@ -23,7 +23,7 @@ public class ResultadoVentaDAOImpl implements ResultadoVentaDAO {
     public List<CobroPorDocumento> listaVentaPorDocumentoPorIdunidadPorIdusuarioPorFechas(Integer idunidad, Integer idusuario, Date fecha1, Date fecha2) {
         String sql = " select random() as id,c.idregsalida,c.iddocumento,c.cserie,c.cnumero,c.idcondicion,c.dfecemi,c.nimporte,c.nacuenta,c.nsaldo,a.idtipo,a.dfecreg as dfecmov,a.nimporte as nmonto "
                 + " from registro_salida r,comprobante_emitido c,amortizacion_cliente a "
-                + " where r.idregsalida=c.idregsalida and c.idcomprobante=c.idcomprobante and c.idunidad=:idunidad  and a.dfecha between :fecha1 and :fecha2 and a.idusuario=:idusuario "
+                + " where r.idregsalida=c.idregsalida and c.idcomprobante=a.idcomprobante and c.idunidad=:idunidad  and a.dfecha between :fecha1 and :fecha2 and a.idusuario=:idusuario "
                 + " ORDER BY c.iddocumento,c.cserie,c.cnumero ";
 
         return em.createNativeQuery(sql, CobroPorDocumento.class).setParameter("idunidad", idunidad).setParameter("idusuario", idusuario).setParameter("fecha1", fecha1).setParameter("fecha2", fecha2).getResultList();

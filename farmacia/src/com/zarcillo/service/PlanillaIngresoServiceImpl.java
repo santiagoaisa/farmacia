@@ -49,7 +49,7 @@ public class PlanillaIngresoServiceImpl implements PlanillaIngresoService{
             cobro.setIdregsalida(c.getIdregsalida());
             cobro.setCserie(c.getCserie());
             cobro.setCnumero(c.getCnumero());
-            cobro.setDfecemi(c.getDfecemi());
+            cobro.setDfecemi(c.getDfecemi());            
             cobro.setNimporte(c.getNimporte());
             cobro.setNacuenta(c.getNacuenta());
             cobro.setNsaldo(c.getNsaldo());
