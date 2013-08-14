@@ -20,7 +20,7 @@ public class ListadoExistenciaDAOImpl implements ListadoExistenciaDAO {
 
     @Override
     public List<InventarioValorizado> listaPorIdalmacenConStock(Integer idalmacen) {
-        String sql = "select s.idlinea ,sum((e.nstock+(e.nstockm/p.nmenudeo ))   *e.ncosuni) as ncosto,0.00 as pcosto,0.00 as nporcentaje  "
+        String sql = "select random() as id , s.idlinea ,sum((e.nstock+(e.nstockm/p.nmenudeo ))   *e.ncosuni) as ncosto,0.00 as pcosto,0.00 as nporcentaje  "
                 + "  from existencia e,producto p,sublinea s "
                 + "  where e.idproducto=p.idproducto and p.idsublinea=s.idsublinea and e.idalmacen=:idalmacen and (nstock>0  or nstockm>0) "
                 + "  group by s.idlinea order by s.idlinea ";

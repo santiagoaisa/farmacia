@@ -15,6 +15,7 @@ import javax.persistence.Table;
 public class InventarioValorizado implements Serializable {
 
     @Id
+    private BigDecimal id;
     @JoinColumn(name = "idlinea", referencedColumnName = "idlinea")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Linea idlinea;    
@@ -22,11 +23,23 @@ public class InventarioValorizado implements Serializable {
     private BigDecimal pcosto;
     private BigDecimal nporcentaje;
 
+    
+    
     public InventarioValorizado() {        
         ncosto = new BigDecimal("0");
         pcosto = new BigDecimal("0");
         nporcentaje = new BigDecimal("0");
     }
+
+    public BigDecimal getId() {
+        return id;
+    }
+
+    public void setId(BigDecimal id) {
+        this.id = id;
+    }
+    
+    
 
     public BigDecimal getNporcentaje() {
         return nporcentaje;
