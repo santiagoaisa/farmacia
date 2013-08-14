@@ -159,10 +159,10 @@ public class VentaVendedorFecha extends SelectorComposer {
             nigv = nigv.add(vpd.getNigv());
             nprecio = nprecio.add(vpd.getNimporte());
         }
-        nInafecto.setValue(regsalida.getNinafecto());
-        nValven.setValue(regsalida.getNafecto());
-        nIgv.setValue(regsalida.getNigv());
-        nImporte.setValue(regsalida.getNimporte());
+        nInafecto.setValue(ninafecto);
+        nValven.setValue(nafecto);
+        nIgv.setValue(nigv);
+        nImporte.setValue(nprecio);
     }    
 
     private void validar() {

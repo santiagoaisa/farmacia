@@ -29,22 +29,21 @@
     </grid>
     <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
         <listhead>
-            <listheader label="Doc" width="10%" align="center" />
+            <listheader label="Doc" width="20%" align="center" />
             <listheader label="Serie" width="8%" align="center" />
             <listheader label="Numero" width="10%" align="center" />
             <listheader label="Fecha" width="12%" align="center" />
             <listheader label="Condicion" width="10%" align="center" />
-            <listheader label="V.Inafec" width="10%" align="right" />
-            <listheader label="Val.Ven" width="10%" align="right" />
-            <listheader label="IGV" width="10%" align="right" />
             <listheader label="Importe" width="10%" align="right" />
+            <listheader label="Acuenta" width="10%" align="right" />
+            <listheader label="Saldo" width="10%" align="right" />
             <listheader label="Operacion" width="10%" align="right" />
         </listhead>
         <listitem self="@{each=detalle}"   >
             <listcell label="@{detalle.iddocumento.cnomdocumento}" />
             <listcell label="@{detalle.cserie}"/>
             <listcell label="@{detalle.cnumero}"/>
-            <listcell date="@{regentrada.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+            <listcell date="@{detalle.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
             <listcell label="@{detalle.idcondicion.cnomcondicion}"  />
             <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.nacuenta}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
@@ -74,7 +73,7 @@
     <jasperreport id="rptreporte" visible="false" />        <toolbar id="tb"  height="25px" align="end" >
             <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
             <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
-            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winInventario.onClose()" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="doCancel()" />
         </toolbar>
     <zscript>{
         void doCancel() {

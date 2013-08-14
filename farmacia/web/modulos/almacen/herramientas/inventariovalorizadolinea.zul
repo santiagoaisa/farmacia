@@ -1,11 +1,12 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winInventario"?>
-<window id="winInventario" border="0" width="400px"  title="Inventario Valorizado..."
+<window id="winInventario" border="0" width="450px"  title="Inventario Valorizado..."
  apply="modalmacen.herramientas.InventarioValorizadoLinea"   mode="overlapped" >
 
     <grid width="99%">
         <columns>
+            <column width="18%"/>
+            <column width="60%"/>
             <column width="22%"/>
-            <column width="78%"/>
         </columns>
         <rows>
             <row>

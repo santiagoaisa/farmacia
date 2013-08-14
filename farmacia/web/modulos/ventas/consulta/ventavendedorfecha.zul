@@ -41,10 +41,10 @@
             <listheader label="Operacion" width="10%" align="right" />
         </listhead>
         <listitem self="@{each=detalle}"   >
-            <listcell label="@{detalle.iddocumento.cnomdocumento}" />
+            <listcell label="@{detalle.iddocumento.cabrev}" />
             <listcell label="@{detalle.cserie}"/>
             <listcell label="@{detalle.cnumero}"/>
-            <listcell date="@{regentrada.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+            <listcell date="@{detalle.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
             <listcell label="@{detalle.idcondicion.cnomcondicion}"  />
             <listcell decimal="@{detalle.ninafecto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.nafecto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
@@ -62,7 +62,7 @@
                 <decimalbox id="nInafecto" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
             </listfooter>
             <listfooter >
-                <decimalbox id="nAfecto" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+                <decimalbox id="nValven" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
             </listfooter>
             <listfooter >
                 <decimalbox id="nIgv" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
@@ -78,7 +78,7 @@
     <jasperreport id="rptreporte" visible="false" />        <toolbar id="tb"  height="25px" align="end" >
             <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
             <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
-            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winInventario.onClose()" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir"  onClick="doCancel()"  />
         </toolbar>
     <zscript>{
         void doCancel() {

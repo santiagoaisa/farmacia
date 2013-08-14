@@ -118,7 +118,7 @@ public class ReporteDiarioCaja extends SelectorComposer {
             cboUnidad.close();
             cboUnidad.setSelectedIndex(0);
         }        
-        //modeloUsuario = new ListModelList(usuarioService.listaGeneral());
+        modeloUsuario = new ListModelList(usuarioService.listaUsuario());
         cboUsuario.setModel(modeloUsuario);
         if (modeloUsuario.size() > 0) {
             cboUsuario.onInitRender(new Event("", cboUsuario));
