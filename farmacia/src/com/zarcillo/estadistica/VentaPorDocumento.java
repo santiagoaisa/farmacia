@@ -26,30 +26,35 @@ public class VentaPorDocumento implements Serializable {
     @Id
     private BigDecimal id;
     private Integer idregsalida;
-    @JoinColumn(name = "iddocumento", referencedColumnName = "idproducto")
+    @JoinColumn(name = "iddocumento", referencedColumnName = "iddocumento")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-     
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date dfecemi;
-    
     private Documento iddocumento;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+      private Date dfecemi;
+    
     private String cserie;
     private String cnumero;
+    
     @JoinColumn(name = "idcondicion", referencedColumnName = "idcondicion")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private CondicionVenta idcondicion;
+    
     private BigDecimal nafecto;
     private BigDecimal ninafecto;
     private BigDecimal nigv;
     private BigDecimal nredondeo;
     private BigDecimal nimporte;
     private BigDecimal ncosto;
+    
     @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Producto idproducto;
+    
     @JoinColumn(name = "idalmacen", referencedColumnName = "idalmacen")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Almacen idalmacen;
+    
     private Integer nentero;
     private Integer nfraccion;
     private String clote;

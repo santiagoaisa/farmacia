@@ -10,6 +10,7 @@ import com.zarcillo.dao.LoteDAO;
 import com.zarcillo.dao.MonedaDAO;
 import com.zarcillo.dao.MotivoSalidaDAO;
 import com.zarcillo.dao.NumeracionDAO;
+import com.zarcillo.dao.UsuarioVendedorDAO;
 import com.zarcillo.dao.VendedorDAO;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Cliente;
@@ -25,6 +26,7 @@ import com.zarcillo.domain.ProductoNoVendido;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
+import com.zarcillo.domain.UsuarioVendedor;
 import com.zarcillo.domain.Vendedor;
 import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.negocio.Entrada;
@@ -69,30 +71,32 @@ public class VentaServiceImpl extends Entrada implements VentaService {
     private ExistenciaDAO existenciadao;
     @Autowired
     private MonedaDAO monedadao;
+    @Autowired
+    private UsuarioVendedorDAO usuariovendedordao;
 
     @Override
     @Transactional
     public Integer registrar(RegistroSalida regsalida, Almacen almacen) {
         try {
-            
-            
+
+
             //////////VALIDAR STOCK DE FRACCION            
-            
+
             regsalida.setIdmoneda(monedadao.busqueda(Moneda.SOLES.getIdmoneda()));
             regsalida.setIdcliente(clientedao.buscarPorIdcliente(Cliente.BOLETA.getIdcliente()));
             regsalida.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.BOLETA_SUNAT.getCcodigosunat()));
             ///////////
             validarStock(regsalida);
-            
+
             // llaves ,le asigna una llave temporal id a cada movimiento
             super.llaves(regsalida);
-            
+
             // descargo lotes y el pedido crece
             super.lotes(regsalida);
-            
+
             // llaves ,le asigna una llave temporal id a cada movimiento
             super.llaves(regsalida);
-            
+
 
             //1ro grabo el docmento original
             // si no es prestamos           
@@ -108,7 +112,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
     @Override
     @Transactional
-    public List<DetalleVenta> busquedaListaPorIdalmacenPorReceta(Integer idalmacen, String criterio,CondicionVenta condicion) {
+    public List<DetalleVenta> busquedaListaPorIdalmacenPorReceta(Integer idalmacen, String criterio, CondicionVenta condicion) {
         List<DetalleVenta> listaRetorno = new ArrayList<>();
 
         try {
@@ -116,7 +120,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             // Logica de Descuentos
             DetalleVenta detalle;
             for (Existencia e : listaExistencia) {
-                detalle = detalleParaVenta(idalmacen, e,condicion);
+                detalle = detalleParaVenta(idalmacen, e, condicion);
                 listaRetorno.add(detalle);
             }
 
@@ -130,7 +134,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
     @Override
     @Transactional
-    public List<DetalleVenta> busquedaListaPorIdalmacenPorDescripcion(Integer idalmacen, String criterio,CondicionVenta condicion) {
+    public List<DetalleVenta> busquedaListaPorIdalmacenPorDescripcion(Integer idalmacen, String criterio, CondicionVenta condicion) {
 
         List<DetalleVenta> listaRetorno = new ArrayList<>();
 
@@ -139,7 +143,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             // Logica de Descuentos
             DetalleVenta detalle;
             for (Existencia e : listaExistencia) {
-                detalle = detalleParaVenta(idalmacen, e,condicion);
+                detalle = detalleParaVenta(idalmacen, e, condicion);
                 listaRetorno.add(detalle);
             }
 
@@ -197,15 +201,14 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 //
 //        return detalle;
 //    }
-
-    private DetalleVenta detalleParaVenta(Integer idalmacen, Existencia existencia,CondicionVenta condicion) {
+    private DetalleVenta detalleParaVenta(Integer idalmacen, Existencia existencia, CondicionVenta condicion) {
         DetalleVenta detalle = new DetalleVenta();
         //Integer lote_bloqueado = lotedao.cantidadBloqueadaPorIdalmacenPorIdproductoBloqueados(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto());
         detalle.setNstock(existencia.getNstock());
         detalle.setNstockm(existencia.getNstockm());//     
         detalle.setBactivo(!existencia.getBactivo());
-        
-        
+
+
 
         if (existencia.getIdproducto().getNmenudeo() > 1) {
             detalle.setBfraccion(false);
@@ -213,9 +216,9 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
         detalle.setExistencia(existencia);
         detalle.setNcosuni(existencia.getNcosuni());
-        BigDecimal ncostofraccion=detalle.getNcosuni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
+        BigDecimal ncostofraccion = detalle.getNcosuni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
         detalle.setNcosunim(ncostofraccion);
-        
+
         detalle.setBinafec(existencia.getIdproducto().getBinafecto());
 
         //ESTABLESCO EL INCREMENTO
@@ -223,7 +226,7 @@ public class VentaServiceImpl extends Entrada implements VentaService {
             detalle.setNvaluni(existencia.getNvalven());
 
             BigDecimal nvalorunitariofraccion = detalle.getNvaluni().divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 4, BigDecimal.ROUND_HALF_UP);
-            
+
             detalle.setNvalunim(nvalorunitariofraccion);
         } else {
             detalle.setNvaluni(existencia.getNcosuni().add(detalle.getNcosuni().multiply(existencia.getIdproducto().getIdsublinea().getIdlinea().getNincremento().divide(Numero.cien))));
@@ -233,11 +236,11 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
         //INREMENTO POR SER AL CREDITO
         //si no es contado
-        if(!condicion.getBcontado()){
-            detalle.setNvaluni(detalle.getNvaluni().add(detalle.getNvaluni().multiply( condicion.getNincremento().divide(Numero.cien))));
-            detalle.setNvalunim(detalle.getNvalunim().add(detalle.getNvalunim().multiply( condicion.getNincremento().divide(Numero.cien))));
+        if (!condicion.getBcontado()) {
+            detalle.setNvaluni(detalle.getNvaluni().add(detalle.getNvaluni().multiply(condicion.getNincremento().divide(Numero.cien))));
+            detalle.setNvalunim(detalle.getNvalunim().add(detalle.getNvalunim().multiply(condicion.getNincremento().divide(Numero.cien))));
         }
-        
+
         detalle.setNpreuni(Igv.importeDetalleVenta(detalle.getNvaluni(), detalle.getExistencia().getIdproducto().getBinafecto()));
         detalle.setNpreunim(Igv.importeDetalleVenta(detalle.getNvalunim(), detalle.getExistencia().getIdproducto().getBinafecto()));
 
@@ -284,8 +287,15 @@ public class VentaServiceImpl extends Entrada implements VentaService {
     }
 
     @Override
-    public List<Vendedor> listaVendedorActivo() {
-        return vendedordao.listaPorBactivo();
+    public List<Vendedor> listaVendedorPorIdusuario(Integer idusuario) {
+        List<UsuarioVendedor> listaUsuario = usuariovendedordao.listaPorIdusuario(idusuario);
+        List<Vendedor> listaRetorno = new ArrayList<>();
+
+        for (UsuarioVendedor u : listaUsuario) {
+            listaRetorno.add(u.getIdvendedor());
+        }
+
+        return listaRetorno;
     }
 
     private void validarStock(RegistroSalida regsalida) {

@@ -24,6 +24,6 @@ public interface VentaService {
     public List<Documento> listaDocumento(Integer idcliente);
     public List<CondicionVenta> listaCondicion();    
     public List<MotivoSalida> listaMotivo();  
-    public List<Vendedor> listaVendedorActivo();
+    public List<Vendedor> listaVendedorPorIdusuario(Integer idusuario);
     
 }

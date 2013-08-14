@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
-    <persistence-unit name="FarmaciaPU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <!--
+  <persistence-unit name="FarmaciaPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <!--
         <jta-data-source>java:/PostgresDS</jta-data-source>
-        -->    
-        <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.username" value="agewunue_farmacia"/>
-            <property name="hibernate.connection.password" value="postgres01"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/agewunue_farmacia"/>
-      
-            <!-- Enable Hibernate's automatic session context management
+        -->
+    
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+      <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+      <property name="hibernate.connection.username" value="agewunue_farmacia"/>
+      <property name="hibernate.connection.password" value="postgres01"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/agewunue_farmacia"/>
+      <!-- Enable Hibernate's automatic session context management
             <property name="hibernate.connection.url" value="jdbc:postgresql://199.85.212.30:5432/agewunue_farmacia"/>            
             <property name="current_session_context_class">thread</property>
             <property name="current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
             -->
-        </properties>
-    </persistence-unit>
+    </properties>
+  </persistence-unit>
 </persistence>

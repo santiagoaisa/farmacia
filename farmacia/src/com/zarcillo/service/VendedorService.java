@@ -11,5 +11,5 @@ public interface VendedorService {
     public Vendedor actualizar(Vendedor vendedor);
     public void eliminar(Vendedor vendedor);
     public Vendedor buscar(Integer idvendedor);
-    public List<Vendedor> listaGeneral();
+    public List<Vendedor> listaGeneral();    
 }

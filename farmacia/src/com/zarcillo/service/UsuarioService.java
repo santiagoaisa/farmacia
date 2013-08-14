@@ -10,6 +10,7 @@ public interface UsuarioService {
     public void eliminar(Usuario usuario);
     public Usuario buscar(Integer idusuario);
     public List<Usuario> listaPorIdrol(Integer idrol);
-    public Usuario buscarPorLogin(String clogin);
+    public Usuario buscarPorLogin(String clogin);    
     public List<DetalleAutorizacion> listaDetalleAutorizacionPorIdusuario(Integer idusuario);
+    public List<Usuario> listaUsuario();
 }

@@ -12,11 +12,14 @@ import com.zarcillo.domain.Usuario;
 import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.service.AnulacionService;
 import com.zarcillo.service.ColaImpresionService;
+import com.zarcillo.service.PlanillaIngresoService;
 import com.zarcillo.service.ProductoService;
 import com.zarcillo.service.RegistroSalidaService;
+import com.zarcillo.service.ResultadoVentaService;
 import com.zarcillo.service.VentaService;
 import java.io.FileInputStream;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.List;
 import javax.naming.NamingException;
 import jxl.Cell;
@@ -68,6 +71,11 @@ public class Prueba extends SelectorComposer {
     private ColaImpresionService colaImpresionService;
     @WireVariable
     private RegistroSalidaService registroSalidaService;
+    @WireVariable
+    private ResultadoVentaService resultadoVentaService;
+    @WireVariable
+    private PlanillaIngresoService planillaIngresoService;
+    
     
     private MenuImpresion menuimpresion;
 
@@ -75,7 +83,10 @@ public class Prueba extends SelectorComposer {
     public void onCreate() throws InterruptedException, JRException, NamingException {
         HtmlMacroComponent macro = (HtmlMacroComponent) winPrueba.getFellow("mimpresion");
         menuimpresion = (MenuImpresion) macro.getChildren().get(0);
+        
+//        resultadoVentaService.listaVentaPorDocumentoPorIdunidadPorFechas(1, 1, new Date(),new Date());
 
+        planillaIngresoService.listaCobroPorDocumentoPorIdunidadPorIdusuarioPorFechas(1, 1, new Date(),new Date());
     }
 
       @Listen("onClick = button#btnAnular")

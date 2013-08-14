@@ -3,9 +3,12 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.DetalleAutorizacionDAO;
 import com.zarcillo.dao.UsuarioDAO;
+import com.zarcillo.dao.UsuarioVendedorDAO;
 import com.zarcillo.domain.DetalleAutorizacion;
 import com.zarcillo.domain.Usuario;
+import com.zarcillo.domain.UsuarioVendedor;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     private CrudDAO cruddao;
      @Autowired
     private DetalleAutorizacionDAO detalleautorizaciondao;
+     @Autowired
+    private UsuarioVendedorDAO usuariovendedordao;
 
     @Override
     public Usuario registrar(Usuario usuario) {
@@ -142,6 +147,18 @@ public class UsuarioServiceImpl implements UsuarioService {
    
     public List<DetalleAutorizacion> listaDetalleAutorizacionPorIdusuario(Integer idusuario) {
         return detalleautorizaciondao.listaPorIdusuario(idusuario);
+    }
+
+    @Override
+    public List<Usuario> listaUsuario() {
+        List<UsuarioVendedor> lista=usuariovendedordao.listaGeneral();
+        List<Usuario> listaRetorno=new ArrayList<>();
+        for(UsuarioVendedor u:lista){
+            if(!listaRetorno.contains(u.getIdusuario())){
+                listaRetorno.add(u.getIdusuario());
+            }
+        }
+        return listaRetorno;
     }
     
     

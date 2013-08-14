@@ -25,7 +25,7 @@ public class CobroPorDocumento implements Serializable {
     @Id
     private BigDecimal id;
     private Integer idregsalida;
-    @JoinColumn(name = "iddocumento", referencedColumnName = "idproducto")
+    @JoinColumn(name = "iddocumento", referencedColumnName = "iddocumento")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Documento iddocumento;
     private String cserie;
@@ -33,6 +33,7 @@ public class CobroPorDocumento implements Serializable {
     @JoinColumn(name = "idcondicion", referencedColumnName = "idcondicion")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private CondicionVenta idcondicion;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dfecemi;
     private BigDecimal nimporte;

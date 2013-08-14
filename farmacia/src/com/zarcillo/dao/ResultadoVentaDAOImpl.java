@@ -47,7 +47,7 @@ public class ResultadoVentaDAOImpl implements ResultadoVentaDAO {
                 + " m.idproducto,m.idalmacen,m.ncantidad as nentero,m.ncantidadm as nfraccion,m.clote ,m.nsubtot,(ncosuni*(m.ncantidad +m.ncantidadm )) as nsubcos,0.00 as nprecos,0.00 as nprecio,0.00 as nutilidad "
                 + " from registro_salida r,movimiento m,comprobante_emitido c,motivo_salida mo "
                 + " where r.idregsalida=m.idregsalida and c.idregsalida=r.idregsalida and mo.idmotivo=r.idmotivo "
-                + " and mo.bventa=true and r.idvendedor=:idvendedor and r.idunidad=:idalmacen and r.dfecha between :fecha1 and :fecha2 ";
+                + " and mo.bventa=true and r.idvendedor=:idvendedor and r.idunidad=:idunidad and r.dfecha between :fecha1 and :fecha2 ";
 
         return em.createNativeQuery(sql, VentaPorDocumento.class).setParameter("idunidad", idunidad).setParameter("idvendedor", idvendedor).setParameter("fecha1", fecha1).setParameter("fecha2", fecha2).getResultList();
     }
