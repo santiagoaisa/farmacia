@@ -46,6 +46,21 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
     private PeriodoDAO periododao;
 
     @Override
+    @Transactional
+    public void correccionNumeracion(Integer idregsalida, String cserie, String cnumero) {
+        try {
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        }
+    }
+    
+    
+    
+    
+
+    @Override
     public List<DetalleVenta> listaDetalleSalida(Integer idregsalida) {
         List<Movimiento> listaMovimientos = movimientodao.listaPorIdregsalida(idregsalida);
         List<DetalleVenta> listaDetalle = new ArrayList<>();

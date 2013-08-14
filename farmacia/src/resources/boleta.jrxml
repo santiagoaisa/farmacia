@@ -208,7 +208,7 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="26">
+		<band height="16">
 			<textField>
 				<reportElement uuid="f99efa19-b4d9-45f3-ab49-8acb40cc889f" x="57" y="2" width="443" height="14"/>
 				<textElement textAlignment="Center">

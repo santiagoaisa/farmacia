@@ -25,15 +25,16 @@
             <row spans="4" >
                 <listbox id="lstExistencia" width="99%" mold="paging" pageSize="500"  height="400px">
                     <listhead>
-                        <listheader label="Descripción" width="34%" sort="auto(producto.cnomart)" />
+                        <listheader label="Descripción" width="30%" sort="auto(producto.cnomart)" />
                         <listheader label="Codigo" width="7%" sort="auto(producto.idproducto)"/>
                         <listheader label="Unidad" width="5%" align="center" sort="auto(producto.idunimed.cabrev)"/>
                         <listheader label="Stock" width="6%" align="center" />
                         <listheader label="Fracc." width="6%" align="center" />
                         <listheader label="Costo" width="10%" align="center" />
                         <listheader label="Precio" width="10%" align="center" />
-                        <listheader label="Linea" width="15%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
-                        <listheader width="7%" />
+                        <listheader label="Utilidad" width="10%" align="center" />
+                        <listheader label="Linea" width="12%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
+                        <listheader width="5%" />
                     </listhead>
 
                     <listitem self="@{each=existencias}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
@@ -46,6 +47,9 @@
                         <listcell decimal="@{existencias.ncosuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
                         <listcell>
                             <decimalbox id="d4" value="@{existencias.npreuni}"  format="0.0000"  width="80%" />
+                        </listcell>
+                        <listcell>
+                            <decimalbox id="d5" value="@{existencias.nutilidad}"  format="0.0000"  width="80%" />
                         </listcell>
                         <listcell label="@{existencias.idproducto.idsublinea.idlinea}"/>
                         <listcell>

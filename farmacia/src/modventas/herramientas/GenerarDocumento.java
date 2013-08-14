@@ -43,6 +43,7 @@ import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
@@ -99,6 +100,9 @@ public class GenerarDocumento extends SelectorComposer{
     
     @Wire
     private Textbox txtDireccion;
+    
+    @Wire
+    private Toolbarbutton btnCrear;
     
     @Wire
     private Toolbarbutton btnGrabar;
@@ -159,13 +163,18 @@ public class GenerarDocumento extends SelectorComposer{
     }
     
     @Listen("onClick = #btnGrabar")
-    public void onRegistrar(Event event) {
+    public void onRegistrar(Event event) throws JRException {
         registrar();
     } 
     
     @Listen("onClick = #btnCrear")
     public void onCrearCliente(Event event) {
         crearCliente();
+    } 
+    
+    @Listen("onClick = #btnIgnorar")
+    public void onLimpiar(Event event) {
+        limpiar();
     } 
         
     public void initComponets(){
@@ -199,11 +208,13 @@ public class GenerarDocumento extends SelectorComposer{
                 cliente=clienteService.buscarPorCruc(txtDocumento.getText());
                 txtCliente.setText(cliente.getCnomcli());
                 txtDireccion.setText(cliente.getCdircli());
+                btnCrear.setDisabled(true);
             }
             else if(txtDocumento.getText().trim().length()==8){
                 cliente=clienteService.buscarPorCdni(txtDocumento.getText());
                 txtCliente.setText(cliente.getCnomcli());
                 txtDireccion.setText(cliente.getCdircli());
+                btnCrear.setDisabled(true);
             }
             else{
                 throw new ExceptionZarcillo("RUC/DNI Incorrecto");
@@ -224,8 +235,11 @@ public class GenerarDocumento extends SelectorComposer{
     }
     
     private void crearCliente(){
+        UnidadNegocio unidad=(UnidadNegocio) modeloUnidad.getElementAt(cboUnidad.getSelectedIndex());
+        cliente.setIdunidad(unidad);
+        cliente.setIdusuario(usuario);
         cliente.setCnomcli(txtCliente.getText().toUpperCase().trim());
-        cliente.setCdircli(txtCliente.getText().toUpperCase().trim());
+        cliente.setCdircli(txtDireccion.getText().toUpperCase().trim());
         if(isNumberFloat(txtDocumento.getText().trim())){
             if(txtDocumento.getText().trim().length()==11){
                 cliente.setCruc(txtDocumento.getText());
@@ -241,6 +255,9 @@ public class GenerarDocumento extends SelectorComposer{
             throw new ExceptionZarcillo("RUC/DNI Incorrecto");
         }
         cliente=clienteService.registrarClienteVenta(cliente);
+        regsalida.setIdcliente(cliente);
+        btnCrear.setDisabled(true);
+        Messagebox.show("Registro Satisfactorio");
     }
    
     private void buscar(int operacion){
@@ -251,6 +268,18 @@ public class GenerarDocumento extends SelectorComposer{
         lstDetalle.onInitRender();
         btnGrabar.setDisabled(false);
         cargarPie();
+    }
+    public void limpiar(){
+        regsalida=new RegistroSalida();
+        cliente=new Cliente();
+        comprobante=new ComprobanteEmitido();
+        nOperacion.setText("");
+        nOperacion.focus();
+        txtDocumento.setText("");
+        txtCliente.setText("");
+        txtDireccion.setText("");
+        modeloDetalle=new ListModelList();
+        lstDetalle.setModel(modeloDetalle);
     }
     
     
@@ -291,6 +320,8 @@ public class GenerarDocumento extends SelectorComposer{
             parametro.put("HORAIMP", regsalida.getDfecimp());
             parametro.put("OPERACION", regsalida.getIdregsalida());
             parametro.put("HORADIG", regsalida.getDfecreg());
+            parametro.put("VALORVENTA", regsalida.getNafecto());
+            parametro.put("IGV", regsalida.getNigv());
             parametro.put("IMPORTE", regsalida.getNimporte());
             parametro.put("SERIE", comprobante.getCserie());
             parametro.put("NUMERO",comprobante.getCnumero());
@@ -310,23 +341,32 @@ public class GenerarDocumento extends SelectorComposer{
             InputStream is = this.getClass().getClassLoader().getResourceAsStream(reporteFuente);
             JasperReport reportecompilado = JasperCompileManager.compileReport(is);
             JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
-            menuimpresion.dialogoImpresion(true);
+            menuimpresion.dialogoImpresion(false);
             menuimpresion.imprimirReporte(reportecompilado,regsalida.hashCode() , parametro, data);
     }
     
     
     
-    public void registrar() {
+    public void registrar() throws JRException {
         TipoPago tpago=(TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
         regsalida.setDfecimp(dFecha.getValue());
         regsalida.setCnomcli(txtCliente.getText().toUpperCase());
-        regsalida.setCdni(txtDocumento.getText());
+        if(txtDocumento.getText().trim().length()==8){
+            regsalida.setCdni(txtDocumento.getText());
+        }       
+        
         if(cliente.getIdcliente()!=null){
             regsalida.setIdcliente(cliente);
         }        
         comprobante=colaImpresionService.crearDocumento(regsalida, tpago, usuario);        
+        regsalida=comprobante.getIdregsalida();
         btnGrabar.setDisabled(true);
-        btnImprimir.setDisabled(false);                       
+        btnImprimir.setDisabled(false);           
+        int resp2 = 0;
+        resp2 = Messagebox.show("¿Desea imprimir? "+comprobante.getIddocumento().getCabrev()+" "+comprobante.getCserie()+"-"+comprobante.getCnumero(), "Impresion Documento", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
+        if (resp2 == Messagebox.YES) {
+            imprimir();
+        }
     }
 }
 

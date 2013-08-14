@@ -106,6 +106,12 @@ public class Index extends SelectorComposer {
         contactWnd.doModal();
     }
     
+    @Listen("onClick = #btnDocumento")
+    public void onGenerarDocumento(Event event) {
+        Window contactWnd = (Window) Executions.createComponents("/modulos/ventas/herramientas/generardocumento.zul", null, null);
+        contactWnd.doModal();
+    }
+    
 
     private void llenarMenu(Integer idmodulo) {
         menu.detach();

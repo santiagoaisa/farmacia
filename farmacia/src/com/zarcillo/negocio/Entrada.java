@@ -419,6 +419,7 @@ public class Entrada extends Salida {
                 cruddao.eliminar(a);
             }
 
+            cruddao.eliminar(comprobante);
 
             Anulacion anulacion = new Anulacion();
             anulacion.setNidregsalida(regsalida.getIdregsalida());

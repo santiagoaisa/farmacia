@@ -195,9 +195,12 @@ public class NuevaVenta extends SelectorComposer {
         {
             throw new  ExceptionZarcillo("Tope de Items");
         }
+        cboCondicion.setDisabled(true);
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+        CondicionVenta condicion=(CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
         Window winbuscaprod = (Window) Executions.createComponents("/modulos/ventas/util/agregardetalleventa.zul", null, null);
         winbuscaprod.setAttribute("ALMACEN", almacen);
+        winbuscaprod.setAttribute("CONDICION", condicion);
         winbuscaprod.setAttribute("REST", true);
         winbuscaprod.doModal();
         Boolean rest = (Boolean) winbuscaprod.getAttribute("REST");

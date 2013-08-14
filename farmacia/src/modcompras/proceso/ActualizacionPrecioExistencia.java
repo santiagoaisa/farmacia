@@ -86,11 +86,7 @@ public class ActualizacionPrecioExistencia extends SelectorComposer {
         Listitem item = (Listitem) (btn.getParent().getParent());
         ActualizarExistencia existencia= (ActualizarExistencia) modeloExistencia.getElementAt(item.getIndex());
         listadoExistenciaService.actualizarPrecio(existencia);
-        modeloExistencia=new ListModelList();
-        lstExistencia.setModel(modeloExistencia);
-        menuresultado.setSize(modeloExistencia.getSize());
-        txtCriterio.setText("");
-        txtCriterio.focus();
+        buscar(txtCriterio.getText());
     }
     
     

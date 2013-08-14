@@ -1,0 +1,69 @@
+<?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winAnulaegreso"?>
+<window id="winAnulaegreso" title="Datos Salida Mercaderia" border="0" width="550px"
+ mode="overlapped" apply="modventas.proceso.AnulaEgresos">
+    <zscript>{
+        void doCancel() {
+        winAnulaegreso.onClose();}
+   }
+    </zscript>
+
+    <grid fixedLayout="true" width="100%">
+        <columns>            
+            <column width="14%"/>
+            <column width="22%"/>
+            <column width="14%"/>
+            <column width="20%"/>
+            <column width="14%"/>
+            <column width="15%"/>                                 
+        </columns>
+        <rows>            
+            <row spans="1,2,1,1,1">
+                <label value = "Unidad :"  />
+                <combobox id="cboUnidad" constraint="no empty: Debe Seleccionar Unidad De Negocio" width="95%" readonly="true"/>
+                <label value = ""  />
+                <label value = "Operacion:"  />
+                <intbox id="nOperacion" width="95%" />
+            </row>
+
+            <row >
+                <label value = "Documento:" />
+                <textbox id="txtComprobante" width="95%" readonly="true" />
+                <label value="Serie:" width="95%"/>
+                <textbox id="txtSerie" width="95%" readonly="true" />
+                <label value="Numero:" width="95%"/>
+                <textbox id="txtNumero" width="95%" readonly="true"/>                
+            </row>
+            
+            <row >
+                <label value="F.Emision:" width="95%"/>
+                <datebox id="dFecemi" format="yyyy-MM-dd" buttonVisible="false" width="95%" readonly="true"/>
+                <label value = "Motivo:" />
+                <combobox id="cboMotivo" constraint="no empty: Debe Seleccionar Motivo" width="95%" readonly="true" />
+                <label value="F.Anulacion:"  width="95%"/>
+                <datebox id="dFecanu" format="yyyy-MM-dd" buttonVisible="false" width="97%" readonly="true" />                
+            </row>
+            
+            <row spans="1,1,4">
+                <label value = "Cliente:" />
+                <textbox id="txtDni" width="95%" readonly="true" />
+                <textbox id="txtCliente" width="99%" readonly="true" />             
+            </row>
+
+
+            <row spans="4,1,1" >
+                <label />
+                <label value="Importe:" width="95%"/>
+                <decimalbox id="nImporte"  value="0" format="###,###,##0.00" width="95%" readonly="true" />
+            </row> 
+        </rows>
+    </grid>
+
+
+        <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnEliminar" image="/img/Delete.png" label="Eliminar"  />
+            <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Regresar"	onClick="doCancel()" />
+        </toolbar>
+
+
+</window>

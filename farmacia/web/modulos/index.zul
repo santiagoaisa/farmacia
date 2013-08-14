@@ -34,7 +34,7 @@
                                     <hbox spacing="0">
                                         <toolbarbutton id="btnVentas" image="/img/barra/Ventas.png"    tooltiptext="Venta..."/>                                            
                                         <toolbarbutton id="btnKardex" image="/img/barra/Kardex.png"   tooltiptext="Consulta Kardex..."/>  
-                                        <toolbarbutton id="btnProducto" image="/img/barra/Producto.png"   tooltiptext="Consulta Producto..."/>  
+                                        <toolbarbutton id="btnDocumento" image="/img/barra/Documento.png"   tooltiptext="Generar Documento..."/>  
                                     </hbox>
                                 </toolbar>                               
                                 

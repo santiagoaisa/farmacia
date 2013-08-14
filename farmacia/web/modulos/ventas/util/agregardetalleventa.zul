@@ -34,9 +34,9 @@
                         <listheader label="Fraccion" width="7%" align="center" />
                         <listheader label="Linea" width="18%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
                         <listheader label="PVF(/F)" width="6%" align="center" />
-                        <listheader label="P.V.F" width="6%" align="center" />
-                        <listheader label="Subtot" width="7%" align="center" />
+                        <listheader label="P.V.F" width="6%" align="center" />                        
                         <listheader label="Importe" width="7%" align="center" />
+                        <listheader label="Ubic." width="7%" align="center" />
                     </listhead>
 
                     <listitem self="@{each=detalle}"   >
@@ -55,6 +55,7 @@
                         <listcell decimal="@{detalle.npreunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
                         <listcell decimal="@{detalle.npreuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
                         <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell label="@{detalle.existencia.cubicacion}"/>
                     </listitem>
                 </listbox>
             </row>

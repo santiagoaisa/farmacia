@@ -3,6 +3,7 @@ package modventas.util;
 
 import modmantenimiento.util.MenuResultado;
 import com.zarcillo.domain.Almacen;
+import com.zarcillo.domain.CondicionVenta;
 import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.VentaService;
@@ -43,6 +44,7 @@ public class AgregarDetalleVenta extends SelectorComposer {
     private MenuResultado menuresultado;
     private ListModelList modeloExistencia;
     private Almacen almacen;
+    private CondicionVenta condicion;
     
     @Listen("onCreate=window#winDetalleVenta")
     public void onCreate() throws NamingException {
@@ -55,7 +57,7 @@ public class AgregarDetalleVenta extends SelectorComposer {
     public void onFocoNombre(Event event) {
         buscar(txtDescripcion.getText().trim());
     }
-    @Listen("onOK = #txtDescripcion")
+    @Listen("onOK = #txtReseta")
     public void onBusquedaReceta(Event event) {
         buscarReceta(txtReseta.getText().trim());
     }
@@ -84,6 +86,7 @@ public class AgregarDetalleVenta extends SelectorComposer {
     
     public void initComponets(){
         almacen=(Almacen) winDetalleVenta.getAttribute("ALMACEN");
+        condicion=(CondicionVenta) winDetalleVenta.getAttribute("CONDICION");
         modeloExistencia=new ListModelList();
         lstExistencia.setModel(modeloExistencia);
         lstExistencia.onInitRender();
@@ -92,7 +95,7 @@ public class AgregarDetalleVenta extends SelectorComposer {
     }      
     public void buscarReceta(String criterio) {
         if (criterio.length() >= 3) {
-            modeloExistencia=new ListModelList(ventaService.busquedaListaPorIdalmacenPorReceta(almacen.getIdalmacen(),criterio));
+            modeloExistencia=new ListModelList(ventaService.busquedaListaPorIdalmacenPorReceta(almacen.getIdalmacen(),criterio,condicion));
             lstExistencia.setModel(modeloExistencia);
             lstExistencia.onInitRender();
             menuresultado.setSize(modeloExistencia.getSize());
@@ -106,7 +109,7 @@ public class AgregarDetalleVenta extends SelectorComposer {
     }
     public void buscar(String criterio) {
         if (criterio.length() >= 3) {
-            modeloExistencia=new ListModelList(ventaService.busquedaListaPorIdalmacenPorDescripcion(almacen.getIdalmacen(),criterio));
+            modeloExistencia=new ListModelList(ventaService.busquedaListaPorIdalmacenPorDescripcion(almacen.getIdalmacen(),criterio,condicion));
             lstExistencia.setModel(modeloExistencia);
             lstExistencia.onInitRender();
             menuresultado.setSize(modeloExistencia.getSize());
