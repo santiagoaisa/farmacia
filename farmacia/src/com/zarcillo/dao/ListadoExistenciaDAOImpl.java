@@ -20,10 +20,10 @@ public class ListadoExistenciaDAOImpl implements ListadoExistenciaDAO {
 
     @Override
     public List<InventarioValorizado> listaPorIdalmacenConStock(Integer idalmacen) {
-        String sql = "select random() as id , s.idlinea ,sum((e.nstock+(e.nstockm/p.nmenudeo ))   *e.ncosuni) as ncosto,0.00 as pcosto,0.00 as nporcentaje  "
-                + "  from existencia e,producto p,sublinea s "
-                + "  where e.idproducto=p.idproducto and p.idsublinea=s.idsublinea and e.idalmacen=:idalmacen and (nstock>0  or nstockm>0) "
-                + "  group by s.idlinea order by s.idlinea ";
+        String sql = "select random() as id , s.idlinea ,sum( round(e.nstock+(e.nstockm/cast(p.nmenudeo as numeric))   *e.ncosuni,2))  as ncosto,0.00 as pcosto,0.00 as nporcentaje  "
+                 +" from existencia e,producto p,sublinea s "
+                 +" where e.idproducto=p.idproducto and p.idsublinea=s.idsublinea and e.idalmacen=:idalmacen and (nstock>0  or nstockm>0) "
+                 +" group by s.idlinea order by s.idlinea ";
 
         return em.createNativeQuery(sql, InventarioValorizado.class).setParameter("idalmacen", idalmacen).getResultList();
     }
