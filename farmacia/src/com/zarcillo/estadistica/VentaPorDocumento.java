@@ -7,6 +7,7 @@ import com.zarcillo.domain.Producto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -265,6 +266,29 @@ public class VentaPorDocumento implements Serializable {
     public void setDfecemi(Date dfecemi) {
         this.dfecemi = dfecemi;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.idregsalida);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final VentaPorDocumento other = (VentaPorDocumento) obj;
+        if (!Objects.equals(this.idregsalida, other.idregsalida)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
     

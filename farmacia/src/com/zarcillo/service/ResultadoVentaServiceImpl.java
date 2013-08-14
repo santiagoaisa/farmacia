@@ -53,6 +53,34 @@ public class ResultadoVentaServiceImpl implements ResultadoVentaService {
 
     @Override
     public List<VentaPorDocumento> listaVentaPorDocumentoPorIdunidadPorFechas(Integer idunidad, Integer idvendedor, Date fecha1, Date fecha2) {
-        return resultadoventadao.listaVentaPorDocumentoPorIdunidadPorIdvendedorPorFechas(idunidad, idvendedor, fecha1, fecha2);
+        List<VentaPorDocumento> listaDocumento = resultadoventadao.listaVentaPorDocumentoPorIdunidadPorIdvendedorPorFechas(idunidad, idvendedor, fecha1, fecha2);
+        List<VentaPorDocumento> listaRetorno = new ArrayList<>();
+
+        VentaPorDocumento venta;
+        for (VentaPorDocumento v : listaDocumento) {
+            venta = new VentaPorDocumento();
+            venta.setIdregsalida(v.getIdregsalida());
+            venta.setIddocumento(v.getIddocumento());
+            venta.setCserie(v.getCserie());
+            venta.setCnumero(v.getCnumero());
+            venta.setDfecemi(v.getDfecemi());
+            venta.setIdcondicion(v.getIdcondicion());
+            venta.setNafecto(v.getNafecto());
+            venta.setNinafecto(v.getNinafecto());
+            venta.setNigv(v.getNigv());
+            venta.setNimporte(v.getNimporte());
+            venta.setNredondeo(v.getNredondeo());
+            venta.setIdalmacen(v.getIdalmacen());
+            
+
+            if (!listaRetorno.contains(venta)) {
+                listaRetorno.add(venta);
+            }
+
+
+        }
+
+
+        return listaRetorno;
     }
 }
