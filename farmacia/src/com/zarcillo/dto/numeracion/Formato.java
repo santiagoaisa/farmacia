@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class Formato implements Serializable {
     private Integer id;
+    private String cserie;
     private Integer nnumero;
     private String  creporte;
     private String  cimagen;
@@ -38,6 +39,14 @@ public class Formato implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCserie() {
+        return cserie;
+    }
+
+    public void setCserie(String cserie) {
+        this.cserie = cserie;
     }
 
    

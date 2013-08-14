@@ -263,6 +263,7 @@ public class Entrada extends Salida {
 
     public void transferenciaFraccion(RegistroSalida regsalida, Movimiento m) {
 
+        Existencia existencia;
         try {
 
             RegistroSalida regsalidafraccion = new RegistroSalida();
@@ -282,15 +283,17 @@ public class Entrada extends Salida {
             regsalidafraccion.setCserie(numeracion.getCserie());
             regsalidafraccion.setCnumero(cnumero);
 
-
+            existencia=existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
+                
+            
             List<Movimiento> listaMovimientoFraccionSalida = new ArrayList<>();
             Movimiento movimientoFraccionSalida = new Movimiento();
             movimientoFraccionSalida.setIdalmacen(m.getIdalmacen());
             movimientoFraccionSalida.setIdproducto(m.getIdproducto());
             movimientoFraccionSalida.setNcantidad(1);
-            movimientoFraccionSalida.setNcosuni(m.getNcosuni());
-            movimientoFraccionSalida.setNvaluni(m.getNcosuni());
-            movimientoFraccionSalida.setNsubtot(m.getNcosuni());
+            movimientoFraccionSalida.setNcosuni(existencia.getNcosuni());
+            movimientoFraccionSalida.setNvaluni(existencia.getNcosuni());
+            movimientoFraccionSalida.setNsubtot(existencia.getNcosuni());
             listaMovimientoFraccionSalida.add(movimientoFraccionSalida);
             regsalidafraccion.setMovimientoCollection(listaMovimientoFraccionSalida);
 

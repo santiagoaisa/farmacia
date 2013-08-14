@@ -35,6 +35,7 @@ public class NumeracionServiceImpl implements NumeracionService {
             Formato formato = new Formato();
             formato.setId(numeracion.getIdnumeracion());
             ///
+            formato.setCserie(numeracion.getCserie());
             formato.setNnumero(numeracion.getNnumero());
             ///
             formato.setCimagen(numeracion.getCimagen());
@@ -60,6 +61,7 @@ public class NumeracionServiceImpl implements NumeracionService {
             Formato formato = new Formato();
             formato.setCimagen(numeracion.getCimagen());
             formato.setCreporte(numeracion.getCreporte());
+            formato.setCserie(numeracion.getCserie());
             formato.setIddocumento(documento);
             return formato;
         } catch (Exception e) {

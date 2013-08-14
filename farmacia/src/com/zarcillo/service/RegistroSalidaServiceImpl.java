@@ -2,24 +2,18 @@ package com.zarcillo.service;
 
 import com.zarcillo.dao.ComprobanteEmitidoDAO;
 import com.zarcillo.dao.CrudDAO;
-import com.zarcillo.dao.CuentaPagarDAO;
 import com.zarcillo.dao.MovimientoDAO;
-import com.zarcillo.dao.PeriodoDAO;
-import com.zarcillo.dao.RegistroEntradaDAO;
 import com.zarcillo.dao.RegistroSalidaDAO;
 import com.zarcillo.domain.ComprobanteEmitido;
 import com.zarcillo.domain.Existencia;
-import com.zarcillo.domain.MotivoAnulacion;
 import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.RegistroSalida;
-import com.zarcillo.domain.Usuario;
 import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.negocio.Igv;
 import com.zarcillo.negocio.Salida;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.crypto.spec.IvParameterSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -42,23 +36,29 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
     private MovimientoDAO movimientodao;
     @Autowired
     private ComprobanteEmitidoDAO comprobantedao;
-    @Autowired
-    private PeriodoDAO periododao;
+   
 
+     DecimalFormat formato = new DecimalFormat("000000");
+    
     @Override
     @Transactional
-    public void correccionNumeracion(Integer idregsalida, String cserie, String cnumero) {
+    public void reemplazarNumeracion(Integer idregsalida, String cserie, String cnumero) {
         try {
+            String cformato = formato.format(Integer.parseInt(cnumero.trim()));
+            ComprobanteEmitido comprobante=comprobantedao.buscarPorIdregsalida(idregsalida);
+            comprobante.setCserie(cserie);                        
+            comprobante.setCnumero(cformato);
+            cruddao.actualizar(comprobante);
             
+            RegistroSalida regsalida=registrosalidadao.buscarPorIdregsalida(idregsalida);
+            regsalida.setCserie(cserie);
+            regsalida.setCnumero(cformato);
+            cruddao.actualizar(regsalida);            
         } catch (Exception e) {
             e.printStackTrace();
-            
+            throw new ExceptionZarcillo(e.getMessage());
         }
     }
-    
-    
-    
-    
 
     @Override
     public List<DetalleVenta> listaDetalleSalida(Integer idregsalida) {
