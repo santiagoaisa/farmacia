@@ -166,7 +166,7 @@ public class NuevaVenta extends SelectorComposer {
             cboMotivo.close();
             cboMotivo.setSelectedIndex(0);
         }
-        modeloVendedor = new ListModelList(ventaService.listaVendedorActivo());
+        modeloVendedor = new ListModelList(ventaService.listaVendedorPorIdusuario(usuario.getIdusuario()));
         cboVendedor.setModel(modeloVendedor);
         if (modeloVendedor.size() > 0) {
             cboVendedor.onInitRender(new Event("", cboVendedor));

@@ -18,6 +18,7 @@
 	<parameter name="OPERACION" class="java.lang.Integer"/>
 	<parameter name="USUARIO" class="java.lang.String"/>
 	<parameter name="CONDICION" class="java.lang.String"/>
+	<parameter name="TIPOPAGO" class="java.lang.String"/>
 	<field name="existencia.idproducto.idproducto" class="java.lang.String"/>
 	<field name="ncanart" class="java.lang.Integer"/>
 	<field name="existencia.idproducto.cnomproducto" class="java.lang.String"/>
@@ -204,6 +205,13 @@
 					<font fontName="SansSerif" size="11" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{IMPORTE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7fa24082-60ad-48c9-82f7-a20c270a9604" x="268" y="25" width="105" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TIPOPAGO}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

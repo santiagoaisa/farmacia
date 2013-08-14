@@ -1,0 +1,63 @@
+<window id="winCorreccion" title="Correccion Numero Documento" width="400px"
+border="0"  apply="modventas.herramientas.CorregirOperacion" mode="overlapped">
+<zscript>{
+        void doCancel()
+        {
+        winCorreccion.setAttribute("REST",false);
+        winCorreccion.onClose();
+        }
+  }
+</zscript>
+<grid fixedLayout="true"  >
+        <columns >
+            <column width="22%" />
+            <column width="14%" />
+            <column width="14%" />
+            <column width="20%" />
+            <column width="30%" />
+        </columns>
+        <rows>            
+            <row spans="1,2,1,1">
+                <label value="Unidad de Negocio:" />
+                <combobox id="cboUnidad" width="95%" readonly="true" constraint="no empty:Debe Seleccionar unidad de negocio"/>
+                <label value="N. Operacion:" />
+                <intbox id="nOperacion" width="95%"  />
+            </row>
+            <row spans="1,2,1,1">
+                 <label value="Serie:" />
+                 <textbox id="txtSerori" readonly="true" width="95%" />
+                 <label value="Numero:" />
+                 <textbox id="txtNumori" readonly="true" width="95%" />
+            </row>
+            <row spans="1,4">
+                 <label value="Cliente:" />
+                 <textbox id="txtCliente" readonly="true" width="98%" />
+            </row>
+            <row spans="1,2,1,1">
+                 <label value="Tipo:" />
+                 <textbox id="txtTipo" readonly="true" width="95%" />
+                 <label value="Importe:" />
+                 <decimalbox id="nImporte" readonly="true" width="95%" />
+
+            </row>
+            
+            <row spans="4">
+                 <separator />
+            </row>
+            
+            <row spans="1,2,1,1">
+                 <label value="N. Serie:" />
+                 <textbox id="txtSerie" maxlength="3"   width="95%" />
+                 <label value="N. Numero:" />
+                 <textbox id="txtNumero" maxlength="6"   width="95%" />
+            </row>
+        </rows>
+    </grid>
+    
+    <toolbar id="tb"  height="25px" align="end">
+            <toolbarbutton  id="btnGrabar" image="/img/Save.png" label="Registrar"   />
+            <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"  />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir"  />
+	</toolbar>
+
+</window>

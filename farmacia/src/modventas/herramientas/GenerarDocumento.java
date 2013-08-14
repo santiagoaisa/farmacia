@@ -9,6 +9,7 @@ import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.ClienteService;
 import com.zarcillo.service.ColaImpresionService;
+import com.zarcillo.service.ComprobanteEmitidoService;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.PeriodoService;
 import com.zarcillo.service.RegistroSalidaService;
@@ -130,6 +131,10 @@ public class GenerarDocumento extends SelectorComposer{
     
     @WireVariable
     RegistroSalidaService registroSalidaService;
+    
+    @WireVariable
+    ComprobanteEmitidoService comprobanteEmitidoService;
+    
     
     @WireVariable
     UnidadNegocioService unidadNegocioService;
@@ -266,7 +271,15 @@ public class GenerarDocumento extends SelectorComposer{
         modeloDetalle=new ListModelList(registroSalidaService.listaDetalleSalida(regsalida.getIdregsalida()));
         lstDetalle.setModel(modeloDetalle);
         lstDetalle.onInitRender();
-        btnGrabar.setDisabled(false);
+        if(regsalida.getBimpreso()){
+            comprobante=comprobanteEmitidoService.buscarPorIdregsalida(regsalida.getIdregsalida());
+            btnGrabar.setDisabled(true);
+            btnImprimir.setDisabled(false);
+        }
+        else{
+            btnGrabar.setDisabled(false);
+        }
+        
         cargarPie();
     }
     public void limpiar(){
@@ -292,6 +305,7 @@ public class GenerarDocumento extends SelectorComposer{
     }
     
     public void imprimir() throws JRException{
+        TipoPago tpago=(TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
         String reporteFuente;
         DecimalFormatSymbols simbolos=new DecimalFormatSymbols();
         simbolos.setDecimalSeparator('.');
@@ -315,6 +329,7 @@ public class GenerarDocumento extends SelectorComposer{
             parametro.put("PROVINCIA", regsalida.getIdcliente().getIdubigeo().getCnomprovincia().trim());
             parametro.put("DEPARTAMENTO", regsalida.getIdcliente().getIdubigeo().getCnomdepartamento().trim());
             parametro.put("FECHA", regsalida.getDfecha());            
+            parametro.put("VENCIMIENTO", comprobante.getDfecven());    
             parametro.put("VENDEDOR", regsalida.getIdvendedor().getIdvendedor());
             parametro.put("CONDICION", regsalida.getIdcondicion().getCnomcondicion());
             parametro.put("HORAIMP", regsalida.getDfecimp());
@@ -326,6 +341,7 @@ public class GenerarDocumento extends SelectorComposer{
             parametro.put("SERIE", comprobante.getCserie());
             parametro.put("NUMERO",comprobante.getCnumero());
             parametro.put("PIEDOCUMENTO", regsalida.getCglosa());
+            parametro.put("TIPOPAGO", tpago.getCnomtipo());            
             
             parametro.put("USUARIO","Caja: "+ usuario.getCabrev()+" Vend.: "+regsalida.getIdvendedor().getCabrev());
             parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));

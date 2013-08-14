@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winExistencia"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="winExistencia" title="Buscando Productos..." border="0" width="800px" position="center"
+<window id="winExistencia" title="Buscando Productos..." border="0" width="900px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modcompras.proceso.ActualizacionPrecioExistencia" >
     <zscript>{
         void doCancel() {
@@ -19,32 +19,34 @@
             <row>
                 <label value="Almacen:" />
                  <combobox id="cboAlmacen" constraint="no empty:Debe Seleccionar un Almacen" width="95%" readonly="true"/>
-                 <label value="Descr.:" />
-                <textbox id="txtCriterio" value="" focus="true" width="99%"  onCancel="doCancel()" />
+                 <label value="Descripcion:" />
+                <textbox id="txtCriterio" value="" focus="true" width="90%"  onCancel="doCancel()" />
             </row>
             <row spans="4" >
                 <listbox id="lstExistencia" width="99%" mold="paging" pageSize="500"  height="400px">
                     <listhead>
                         <listheader label="Descripción" width="30%" sort="auto(producto.cnomart)" />
+                        <listheader label="F(/)" width="3%" align="center" />
                         <listheader label="Codigo" width="7%" sort="auto(producto.idproducto)"/>
                         <listheader label="Unidad" width="5%" align="center" sort="auto(producto.idunimed.cabrev)"/>
                         <listheader label="Stock" width="6%" align="center" />
                         <listheader label="Fracc." width="6%" align="center" />
-                        <listheader label="Costo" width="10%" align="center" />
-                        <listheader label="Precio" width="10%" align="center" />
-                        <listheader label="Utilidad" width="10%" align="center" />
+                        <listheader label="Costo" width="9%" align="center" />
+                        <listheader label="Precio" width="9%" align="center" />
+                        <listheader label="Utilidad" width="9%" align="center" />
                         <listheader label="Linea" width="12%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
                         <listheader width="5%" />
                     </listhead>
 
                     <listitem self="@{each=existencias}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
                         <listcell label="@{existencias.idproducto.cnomart}" />
+                        <listcell label="@{existencias.idproducto.nmenudeo}"/>
                         <listcell label="@{existencias.idproducto.idproducto}"/>
                         <listcell label="@{existencias.idproducto.idpresentacion.cabrev}"/>
                         <listcell label="@{existencias.nstock}"  />
                         <listcell label="@{existencias.nstockm}"  />
                         
-                        <listcell decimal="@{existencias.ncosuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+                        <listcell decimal="@{existencias.ncospre}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
                         <listcell>
                             <decimalbox id="d4" value="@{existencias.npreuni}"  format="0.0000"  width="80%" />
                         </listcell>

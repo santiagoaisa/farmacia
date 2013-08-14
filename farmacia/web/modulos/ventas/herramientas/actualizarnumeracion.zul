@@ -1,0 +1,49 @@
+<window id="winActualiza" title="Actualizacion de Numeracion" border="0" 
+apply="modventas.herramientas.ActualizarNumeracion" width="250px">
+
+<zscript>{
+        void doCancel()
+        {
+        winActualiza.onClose();
+        }
+  }
+</zscript>
+
+
+    <grid>
+        <columns>
+            <column label="" width="40%" />
+            <column label="" width="60%"/>
+
+        </columns>
+        <rows>
+            <row >
+                <label value="Unidad:"/>
+                <combobox id="cboUnidad" width="95%"  readonly="true" constraint="no empty:Debe Seleccionar una Unidad" />
+            </row>
+
+            <row>
+                <label value="Documento:"/>
+                <combobox id="cboDocumento" width="95%"  readonly="true"  />
+            </row>
+            
+            <row>
+                <label value="Serie:"/>
+                <textbox id="txtSerie" value="0" width="95%" />
+            </row>
+
+            <row>
+                <label value="Ultimo Numero Impreso:"/>
+                <intbox id="nNumero" value="0" width="95%" />
+            </row>
+
+        </rows>
+    </grid>
+
+        <toolbar id="tb" sclass="vista" height="25px"  align="end">
+            <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"  />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="doCancel()" />
+        </toolbar>
+
+
+</window>

@@ -45,7 +45,7 @@
             <listheader label="Importe" width="7%" align="center" />
             <listheader  width="4%" align="center" />
         </listhead>
-        <listitem self="@{each=detalle}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
+        <listitem self="@{each=detalle}"  >
             <listcell label="@{detalle.existencia.idproducto.cnomart}" />
             <listcell label="@{detalle.existencia.idproducto.nmenudeo}"/>
             <listcell label="@{detalle.existencia.idproducto.idpresentacion.cabrev}"/>

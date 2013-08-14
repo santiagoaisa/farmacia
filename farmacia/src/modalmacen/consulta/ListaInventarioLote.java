@@ -3,7 +3,6 @@ package modalmacen.consulta;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Linea;
 import com.zarcillo.domain.Usuario;
-import com.zarcillo.dto.almacen.InventarioLote;
 import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.LineaService;

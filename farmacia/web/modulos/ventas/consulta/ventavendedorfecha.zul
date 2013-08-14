@@ -1,0 +1,90 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winVenta"?>
+<window id="winVenta" title="Ventas por Vendedor..."  width="700px"  border="0"
+        apply="modventas.consulta.VentaVendedorFecha" >
+
+    <grid>
+        <columns>
+            <column width="15%" />
+            <column width="25%" />
+            <column width="15%" />
+            <column width="25%" />
+            <column width="20%" />
+        </columns>
+        <rows>
+            <row >
+                <label value="Unidad:"/>
+                <combobox id="cboUnidad" readonly="true" width="98%"/>
+                <label value="Vendedor:"/>
+                <combobox id="cboVendedor" readonly="true" width="98%"/>
+                <label />          
+            </row>
+            <row  >
+                <label value="Desde:"/>
+                <datebox id="dFecini" width="85%" readonly="true" format="yyyy-MM-dd" />
+                <label value="Hasta:"/>
+                <datebox id="dFecfin" width="85%" readonly="true" format="yyyy-MM-dd" />
+                <button id="btnProcesar" label="Procesar"  />              
+            </row>
+        </rows>
+    </grid>
+    <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
+        <listhead>
+            <listheader label="Doc" width="10%" align="center" />
+            <listheader label="Serie" width="8%" align="center" />
+            <listheader label="Numero" width="10%" align="center" />
+            <listheader label="Fecha" width="12%" align="center" />
+            <listheader label="Condicion" width="10%" align="center" />
+            <listheader label="V.Inafec" width="10%" align="right" />
+            <listheader label="Val.Ven" width="10%" align="right" />
+            <listheader label="IGV" width="10%" align="right" />
+            <listheader label="Importe" width="10%" align="right" />
+            <listheader label="Operacion" width="10%" align="right" />
+        </listhead>
+        <listitem self="@{each=detalle}"   >
+            <listcell label="@{detalle.iddocumento.cnomdocumento}" />
+            <listcell label="@{detalle.cserie}"/>
+            <listcell label="@{detalle.cnumero}"/>
+            <listcell date="@{regentrada.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+            <listcell label="@{detalle.idcondicion.cnomcondicion}"  />
+            <listcell decimal="@{detalle.ninafecto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nafecto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nigv}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell label="@{detalle.idregsalida}"  />
+        </listitem>
+        <listfoot>
+            <listfooter />           
+            <listfooter />
+            <listfooter />           
+            <listfooter />  
+            <listfooter />
+            <listfooter >
+                <decimalbox id="nInafecto" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nAfecto" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nIgv" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nImporte" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter />
+        </listfoot>  
+    </listbox>
+    
+
+    <jasperreport id="rptreporte" visible="false" />        <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
+            <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winInventario.onClose()" />
+        </toolbar>
+    <zscript>{
+        void doCancel() {
+        winVenta.setAttribute("REST",false);
+        winVenta.onClose();
+        }
+        }
+    </zscript>
+</window>

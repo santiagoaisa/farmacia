@@ -64,6 +64,8 @@ public class AgregarRuta extends SelectorComposer {
             lstMapa.setSelectedIndex(0);
             lstMapa.getSelectedItem().focus() ;
         }
+        lstMapa.setMultiple(true);
+        lstMapa.setCheckmark(true);
     }
     public void validar(){
         Menu menu=(Menu) modeloMapa.getElementAt(lstMapa.getSelectedIndex());

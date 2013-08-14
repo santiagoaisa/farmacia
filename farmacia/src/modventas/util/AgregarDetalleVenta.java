@@ -1,4 +1,3 @@
-
 package modventas.util;
 
 import modmantenimiento.util.MenuResultado;

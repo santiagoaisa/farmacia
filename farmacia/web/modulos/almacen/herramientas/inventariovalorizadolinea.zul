@@ -1,0 +1,51 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winInventario"?>
+<window id="winInventario" border="0" width="400px"  title="Inventario Valorizado..."
+ apply="modalmacen.herramientas.InventarioValorizadoLinea"   mode="overlapped" >
+
+    <grid width="99%">
+        <columns>
+            <column width="22%"/>
+            <column width="78%"/>
+        </columns>
+        <rows>
+            <row>
+                <label value="Almacen:" />
+                <combobox id="cboAlmacen" constraint="no empty:Debe Seleccionar un Almacen" width="95%" readonly="true"/>
+                <button id="btnProcesar"  label="Procesar"  />
+            </row>
+        </rows>
+    </grid>
+
+    <listbox id="lstInventario"  height="400px" mold="paging" pageSize="500"  >
+        <listhead >
+            <listheader label="Nombre Linea" width="70%" sort="auto(cnomlinea)"/>
+            <listheader label="valor Costo" width="15%"  align="rigth" />
+            <listheader label="Precio Costo" width="15%" align="rigth" />
+            
+        </listhead>
+        <listitem self="@{each=detalle}">
+            <listcell label="@{detalle.idlinea.cnomlinea}"/>
+            <listcell decimal="@{detalle.ncosto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.pcosto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />                       
+        </listitem>
+        <listfoot>
+            <listfooter />           
+            <listfooter >
+                <decimalbox id="nCosto" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nPcosto" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+        </listfoot>  
+    </listbox>
+
+    <jasperreport id="rptreporte" visible="false" />
+
+
+        <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
+            <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winInventario.onClose()" />
+        </toolbar>
+</window>
+
