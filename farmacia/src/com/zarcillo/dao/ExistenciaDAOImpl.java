@@ -68,9 +68,16 @@ public class ExistenciaDAOImpl implements ExistenciaDAO {
     public List<Existencia> listaPorIdalmacenPorIdlinea(Integer idalmacen, Integer idlinea) {
         return em.createNamedQuery("Existencia.findByIdalmacenByIdlinea").setParameter("idalmacen", idalmacen).setParameter("idlinea", idlinea).getResultList();
     }
+
+    @Override
+    public List<Existencia> listaPorIdalmacenPorIdlineaConStock(Integer idalmacen, Integer idlinea) {
+        return em.createNamedQuery("Existencia.findByIdalmacenByIdlineaByNstock").setParameter("idalmacen", idalmacen).setParameter("idlinea", idlinea).getResultList();
+    }
+    
+    
     
     @Override
     public List<Existencia> listaPorIdalmacenPorLineasConStock(Integer idalmacen, List<Integer> lista) {
-        return em.createNamedQuery("Existencia.findByIdalmacenByIdlineaByNstock").setParameter("idalmacen", idalmacen).setParameter("lista", lista).getResultList();
+        return em.createNamedQuery("Existencia.findByIdalmacenByIdlineasByNstock").setParameter("idalmacen", idalmacen).setParameter("lista", lista).getResultList();
     }
 }

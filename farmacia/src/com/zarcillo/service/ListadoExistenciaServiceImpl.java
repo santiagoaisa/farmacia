@@ -1,6 +1,7 @@
 package com.zarcillo.service;
 
 import com.zarcillo.compra.ActualizarExistencia;
+import com.zarcillo.compra.ExistenciaValorizada;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.ListadoExistenciaDAO;
@@ -138,10 +139,10 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
     @Override
     public List<ActualizarExistencia> listaActualizarPrecioPorDescripcion(Integer idalmacen, String criterio) {
         List<Existencia> listaExistencias = existenciadao.busquedaListaPorIdalmacenPorDescripcion(idalmacen, criterio);
-        List<ActualizarExistencia> listaRetorno=new ArrayList<>();
+        List<ActualizarExistencia> listaRetorno = new ArrayList<>();
         ActualizarExistencia a;
         for (Existencia e : listaExistencias) {
-            a=new ActualizarExistencia();
+            a = new ActualizarExistencia();
             a.setIdproducto(e.getIdproducto());
             a.setIdalmacen(e.getIdalmacen());
             a.setNstock(e.getNstock());
@@ -149,39 +150,64 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
             a.setNcosuni(e.getNcosuni());
             a.setNcospre(Igv.importeDetalleVenta(e.getNcosuni(), e.getIdproducto().getBinafecto()));
             a.setNincremento(e.getIdproducto().getIdsublinea().getIdlinea().getNincremento());
-            
-             if (!Numero.isCero(e.getNvalven())) {
-                a.setNvaluni(e.getNvalven());                
+
+            if (!Numero.isCero(e.getNvalven())) {
+                a.setNvaluni(e.getNvalven());
             } else {
                 a.setNvaluni(e.getNcosuni().add(a.getNcosuni().multiply(e.getIdproducto().getIdsublinea().getIdlinea().getNincremento().divide(Numero.cien))));
                 a.setNincremento(new BigDecimal("0"));
             }
 
-            a.setNpreuni(Igv.importeDetalleVenta(a.getNvaluni(), e.getIdproducto().getBinafecto()));            
+            a.setNpreuni(Igv.importeDetalleVenta(a.getNvaluni(), e.getIdproducto().getBinafecto()));
             a.calculaUtilidad();
-            
+
             listaRetorno.add(a);
         }
-        
+
         return listaRetorno;
-        
-        
+
+
     }
 
     @Override
     @Transactional
     public void actualizarPrecio(ActualizarExistencia actualizar) {
         try {
-            Existencia existencia=existenciadao.buscarPorIdalmacenPorIdproducto(actualizar.getIdalmacen().getIdalmacen(), actualizar.getIdproducto().getIdproducto());
-            BigDecimal nvaluni=Igv.valorVentaDetalleVenta(actualizar.getNpreuni(), existencia.getIdproducto().getBinafecto());
+            Existencia existencia = existenciadao.buscarPorIdalmacenPorIdproducto(actualizar.getIdalmacen().getIdalmacen(), actualizar.getIdproducto().getIdproducto());
+            BigDecimal nvaluni = Igv.valorVentaDetalleVenta(actualizar.getNpreuni(), existencia.getIdproducto().getBinafecto());
             existencia.setNvalven(nvaluni);
-            cruddao.actualizar(existencia);            
+            cruddao.actualizar(existencia);
         } catch (Exception e) {
             e.printStackTrace();
             throw new ExceptionZarcillo(e.getMessage());
         }
     }
-    
-    
-    
+
+    @Override
+    public List<ExistenciaValorizada> listaExistenciaValorizadaPorIdalmacenPorIdlinea(Integer idalmacen, Integer idlinea) {
+        List<Existencia> listaExistencia = existenciadao.listaPorIdalmacenPorIdlineaConStock(idalmacen, idlinea);
+        List<ExistenciaValorizada> listaRetorno = new ArrayList<>();
+        ExistenciaValorizada existencia;
+        BigDecimal nstockentero;
+        BigDecimal nstocfraccion;
+        BigDecimal nstocktotalactual;
+        for (Existencia e : listaExistencia) {
+            existencia = new ExistenciaValorizada();
+            existencia.setIdalmacen(e.getIdalmacen());
+            existencia.setIdproducto(e.getIdproducto());
+            existencia.setNstock(e.getNstock());
+            existencia.setNstockm(e.getNstockm());
+            existencia.setNcosuni(e.getNcosuni());
+
+            nstockentero = new BigDecimal(existencia.getNstock());
+            nstocfraccion = new BigDecimal(existencia.getNstockm()).divide(new BigDecimal(e.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
+            nstocktotalactual = nstockentero.add(nstocfraccion);
+            existencia.setNsubcos(e.getNcosuni().multiply(nstocktotalactual));
+            existencia.setNprecos(Igv.importeDetalleVenta(existencia.getNsubcos(), existencia.getIdproducto().getBinafecto()));
+
+            listaRetorno.add(existencia);
+        }
+
+        return listaRetorno;
+    }
 }

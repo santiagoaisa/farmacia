@@ -14,5 +14,6 @@ public interface ExistenciaDAO {
      List<Existencia> busquedaListaPorIdalmacenPorReceta(Integer idalmacen, String ccriterio);  
      List<Existencia> listaPorIdalmacenPorBinafecto(Integer idalmacen);
      List<Existencia> listaPorIdalmacenPorIdlinea(Integer idalmacen, Integer idlinea);
+     List<Existencia> listaPorIdalmacenPorIdlineaConStock(Integer idalmacen, Integer idlinea);
      List<Existencia> listaPorIdalmacenPorLineasConStock(Integer idalmacen,List<Integer> lista);
 }

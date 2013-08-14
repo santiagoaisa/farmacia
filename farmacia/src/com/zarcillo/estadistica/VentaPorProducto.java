@@ -1,7 +1,8 @@
-package com.zarcillo.dto.venta;
+package com.zarcillo.estadistica;
 
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Producto;
+import com.zarcillo.negocio.Numero;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
@@ -32,7 +33,7 @@ public class VentaPorProducto implements Serializable {
     private Integer nentero;
     private Integer nfraccion;
     private BigDecimal nsubtot;
-    private BigDecimal ncostot;
+    private BigDecimal nsubcos;
     private BigDecimal nprecos;
     private BigDecimal nprecio;
     private BigDecimal nutilidad;
@@ -41,7 +42,7 @@ public class VentaPorProducto implements Serializable {
         nentero = 0;
         nfraccion = 0;
         nsubtot = new BigDecimal("0");
-        ncostot = new BigDecimal("0");
+        nsubcos = new BigDecimal("0");
         nprecos = new BigDecimal("0");
         nprecio = new BigDecimal("0");
         nutilidad = new BigDecimal("0");
@@ -121,15 +122,26 @@ public class VentaPorProducto implements Serializable {
         this.nsubtot = nsubtot;
     }
 
-    public BigDecimal getNcostot() {
-        return ncostot;
+    public BigDecimal getNsubcos() {
+        return nsubcos;
     }
 
-    public void setNcostot(BigDecimal ncostot) {
-        this.ncostot = ncostot;
+    public void setNsubcos(BigDecimal nsubcos) {
+        this.nsubcos = nsubcos;
     }
+
+  
     
     
     
+    public void calculaUtilidad() {
+        if (Numero.isCero(nsubcos)) {
+            nutilidad = Numero.cien;
+        } else {
+            nutilidad = (nsubtot.multiply(Numero.cien.divide(nsubcos, 4, BigDecimal.ROUND_HALF_UP)).subtract(Numero.cien)).setScale(2, BigDecimal.ROUND_HALF_UP);;
+            
+        }
+        
+    }
     
 }

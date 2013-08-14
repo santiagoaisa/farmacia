@@ -38,7 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("colaImpresionService")
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ColaImpresionServiceImpl implements ColaImpresionService {
-    
+
     @Autowired
     private CrudDAO cruddao;
     @Autowired
@@ -55,7 +55,7 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
     private AmortizacionClienteDAO amortizaciondao;
     @Autowired
     private DocumentoDAO documentodao;
-    
+
     @Override
     @Transactional
     public ComprobanteEmitido crearDocumento(RegistroSalida regsalida, TipoPago tipo, Usuario usuario) {
@@ -65,7 +65,7 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
             if (r.getBimpreso()) {
                 throw new ExceptionZarcillo("La Operacion ya fue Impresa");
             }
-            
+
             Periodo periodo = periododao.buscarPorFecha(new Date());
             regsalida.setIdsituacion(SituacionPedido.IMPRESO);
             //////// SITUACION PEDIDO
@@ -79,14 +79,14 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
             if (regsalida.getIdcliente().getCruc() == null && regsalida.getIdcliente().getCdni() == null) {
                 throw new ExceptionZarcillo("El cliente no tiene documento de identidad rebice por favor");
             }
-            
+
             if (regsalida.getIdcliente().getCruc() != null) {
                 if (!regsalida.getIdcliente().getCruc().isEmpty()) {
                     regsalida.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.FACTURA_SUNAT.getCcodigosunat()));
                 }
             }
-            
-            
+
+
             DecimalFormat formato = new DecimalFormat("000000");
             Numeracion numeracion;
             String numero;
@@ -97,10 +97,12 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
             numero = formato.format(numeracion.getNnumero());
             regsalida.setCserie(numeracion.getCserie());
             regsalida.setCnumero(numero);
-            
+
             regsalida.setDfecimp(new Date());
             regsalida.setBimpreso(true);
-            
+
+
+
             ComprobanteEmitido comprobante = new ComprobanteEmitido();
             comprobante.setCserie(numeracion.getCserie());
             comprobante.setCnumero(numero);
@@ -131,66 +133,70 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
             //fin de periodo
             regsalida.setDfecven(comprobante.getDfecven());
             cruddao.actualizar(regsalida);
-            
+
             cruddao.registrar(comprobante);
-            
-            AmortizacionCliente amortizacion = new AmortizacionCliente();
-            amortizacion.setIdcomprobante(comprobante);
-            amortizacion.setIddocumento(comprobante.getIddocumento());
-            amortizacion.setIdtipo(tipo);
-            amortizacion.setIdmoneda(Moneda.SOLES);
-            amortizacion.setIdperiodo(periodo);
-            amortizacion.setIdusuario(usuario);
-            amortizacion.setIdvendedor(regsalida.getIdvendedor());
-            amortizacion.setNimporte(comprobante.getNimporte());
-            amortizacion.setNtipocambio(Numero.uno);
-            amortizacion.setNimportes(amortizacion.getNimporte().multiply(amortizacion.getNtipocambio()));
-            amortizacion.setDfecha(new Date());
 
-            //
-            amortizacion.setDfecreg(new Date());
-            amortizacion.setIdperiodo(periodo);
-            amortizacion.setIdcomprobante(comprobante);
-            BigDecimal nimporteamortizar = amortizacion.getNimporte();
-            //CUENTAS PAGAR Y AMORTIZAZION TIENEN IGUAL MONEDA
-            if (comprobante.getIdmoneda().getIdmoneda().equals(amortizacion.getIdmoneda().getIdmoneda())) {
-                nimporteamortizar = amortizacion.getNimporte();
-                amortizacion.setNimportes(nimporteamortizar.multiply(amortizacion.getNtipocambio()));
-            } else {
-                //SI CUENTAS PAGAR ES SOLES
-                if (comprobante.getIdmoneda().getBnacional()) {
-                    //SI CUENTAS PAGAR ES SOLES Y LA AMORTIZACION ES EN MONEDA EXTRANJERA
-                    if (!amortizacion.getIdmoneda().getBnacional()) {
-                        amortizacion.setNimportes(amortizacion.getNimporte().multiply(amortizacion.getNtipocambio()));
-                        nimporteamortizar = amortizacion.getNimportes();
-                    }
+            if (comprobante.getIdcondicion().getBcontado()) {
+                AmortizacionCliente amortizacion = new AmortizacionCliente();
+                amortizacion.setIdcomprobante(comprobante);
+                amortizacion.setIddocumento(comprobante.getIddocumento());
+                amortizacion.setIdtipo(tipo);
+                amortizacion.setIdmoneda(Moneda.SOLES);
+                amortizacion.setIdperiodo(periodo);
+                amortizacion.setIdusuario(usuario);
+                amortizacion.setIdvendedor(regsalida.getIdvendedor());
+                amortizacion.setNimporte(comprobante.getNimporte());
+                amortizacion.setNtipocambio(Numero.uno);
+                amortizacion.setNimportes(amortizacion.getNimporte().multiply(amortizacion.getNtipocambio()));
+                amortizacion.setDfecha(new Date());
+
+                //
+                amortizacion.setDfecreg(new Date());
+                amortizacion.setIdperiodo(periodo);
+                amortizacion.setIdcomprobante(comprobante);
+                BigDecimal nimporteamortizar = amortizacion.getNimporte();
+                //CUENTAS PAGAR Y AMORTIZAZION TIENEN IGUAL MONEDA
+                if (comprobante.getIdmoneda().getIdmoneda().equals(amortizacion.getIdmoneda().getIdmoneda())) {
+                    nimporteamortizar = amortizacion.getNimporte();
+                    amortizacion.setNimportes(nimporteamortizar.multiply(amortizacion.getNtipocambio()));
                 } else {
-                    //SI CUENTAS PAGAR ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
-                    if (amortizacion.getIdmoneda().getBnacional()) {
-                        nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_UP);
-                        amortizacion.setIdmoneda(comprobante.getIdmoneda());
-                        amortizacion.setNimportes(amortizacion.getNimporte());
-                        amortizacion.setNimporte(nimporteamortizar);
-                    }
-                }//FIN SI CUENTAS PAGAR ES SOLES
-            }//FIN SI MONEDAS SONIGUALES
+                    //SI CUENTAS PAGAR ES SOLES
+                    if (comprobante.getIdmoneda().getBnacional()) {
+                        //SI CUENTAS PAGAR ES SOLES Y LA AMORTIZACION ES EN MONEDA EXTRANJERA
+                        if (!amortizacion.getIdmoneda().getBnacional()) {
+                            amortizacion.setNimportes(amortizacion.getNimporte().multiply(amortizacion.getNtipocambio()));
+                            nimporteamortizar = amortizacion.getNimportes();
+                        }
+                    } else {
+                        //SI CUENTAS PAGAR ES MONEDA EXTRANJERA Y LA AMORTIZACION ES EN SOLES
+                        if (amortizacion.getIdmoneda().getBnacional()) {
+                            nimporteamortizar = amortizacion.getNimporte().divide(amortizacion.getNtipocambio(), 2, BigDecimal.ROUND_HALF_UP);
+                            amortizacion.setIdmoneda(comprobante.getIdmoneda());
+                            amortizacion.setNimportes(amortizacion.getNimporte());
+                            amortizacion.setNimporte(nimporteamortizar);
+                        }
+                    }//FIN SI CUENTAS PAGAR ES SOLES
+                }//FIN SI MONEDAS SONIGUALES
 
-            cruddao.registrar(amortizacion);
-            
-            comprobante.setNacuenta(comprobante.getNacuenta().add(nimporteamortizar));
-            comprobante.setNsaldo(comprobante.getNsaldo().subtract(nimporteamortizar));
-            if (Numero.isCero(comprobante.getNsaldo())) {
-                comprobante.setDfeccan(amortizacion.getDfecha());
+                cruddao.registrar(amortizacion);
+
+                comprobante.setNacuenta(comprobante.getNacuenta().add(nimporteamortizar));
+                comprobante.setNsaldo(comprobante.getNsaldo().subtract(nimporteamortizar));
+                if (Numero.isCero(comprobante.getNsaldo())) {
+                    comprobante.setDfeccan(amortizacion.getDfecha());
+                }
+                cruddao.actualizar(comprobante);
             }
-            cruddao.actualizar(comprobante);
-            
-            
+
+
+
+
             return comprobante;
         } catch (Exception e) {
             e.printStackTrace();
             throw new ExceptionZarcillo(e.getMessage());
         }
-        
-        
+
+
     }
 }

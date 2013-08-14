@@ -17,12 +17,12 @@ public class InventarioValorizado implements Serializable {
     @Id
     @JoinColumn(name = "idlinea", referencedColumnName = "idlinea")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Linea idlinea;
+    private Linea idlinea;    
     private BigDecimal ncosto;
     private BigDecimal pcosto;
     private BigDecimal nporcentaje;
 
-    public InventarioValorizado() {
+    public InventarioValorizado() {        
         ncosto = new BigDecimal("0");
         pcosto = new BigDecimal("0");
         nporcentaje = new BigDecimal("0");
@@ -59,4 +59,9 @@ public class InventarioValorizado implements Serializable {
     public void setPcosto(BigDecimal pcosto) {
         this.pcosto = pcosto;
     }
+
+    
+    
+    
+    
 }

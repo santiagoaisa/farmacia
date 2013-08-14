@@ -27,11 +27,12 @@ import javax.persistence.TemporalType;
 @Table(name = "existencia")
 @NamedQueries({
     @NamedQuery(name = "Existencia.findAll", query = "SELECT e FROM Existencia e"),
-    @NamedQuery(name = "Existencia.findByIdalmacenByIdlineaByNstock", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.idsublinea.idlinea.idlinea in (:lista) and (e.nstock>0 or e.nstockm>0) ORDER BY e.idproducto.idsublinea.idlinea.idlinea,e.idproducto.cnomproducto "),
+    @NamedQuery(name = "Existencia.findByIdalmacenByIdlineasByNstock", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.idsublinea.idlinea.idlinea in (:lista) and (e.nstock>0 or e.nstockm>0) ORDER BY e.idproducto.idsublinea.idlinea.idlinea,e.idproducto.cnomproducto "),
+    @NamedQuery(name = "Existencia.findByIdalmacenByIdlineaByNstock", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.idsublinea.idlinea.idlinea=:idlinea and (e.nstock>0 or e.nstockm>0) ORDER BY e.idproducto.cnomproducto "),
     @NamedQuery(name = "Existencia.findByIdalmacenByIdlinea", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.idsublinea.idlinea.idlinea=:idlinea ORDER BY e.idproducto.cnomproducto "),
     @NamedQuery(name = "Existencia.findByIdalmacenByBinafecto", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.binafecto=true ORDER BY e.idproducto.cnomproducto "),
     @NamedQuery(name = "Existencia.findByIdalmacenByCnomproducto", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.cnomproducto LIKE :ccriterio ORDER BY e.idproducto.cnomproducto "),
-   @NamedQuery(name = "Existencia.findByIdalmacenByCreseta", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.creseta LIKE :ccriterio ORDER BY e.idproducto.cnomproducto "),
+    @NamedQuery(name = "Existencia.findByIdalmacenByCreseta", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.creseta LIKE :ccriterio ORDER BY e.idproducto.cnomproducto "),
     @NamedQuery(name = "Existencia.findByIdalmacenByIdproducto", query = "SELECT e FROM Existencia e WHERE e.idalmacen.idalmacen=:idalmacen and e.idproducto.idproducto=:idproducto")
 })
 public class Existencia implements Serializable {
@@ -74,8 +75,7 @@ public class Existencia implements Serializable {
     private Integer nminimo;
     @Column(name = "nmaximo")
     private Integer nmaximo;
-    
-      @Column(name = "nultcosuni")
+    @Column(name = "nultcosuni")
     private BigDecimal nultcosuni;
 
     public Existencia() {
@@ -89,7 +89,7 @@ public class Existencia implements Serializable {
         nminimo = 0;
         nmaximo = 0;
         nstockm = 0;
-        nultcosuni=new BigDecimal("0");
+        nultcosuni = new BigDecimal("0");
     }
 
     public Existencia(ExistenciaPK existenciaPK) {
@@ -104,7 +104,7 @@ public class Existencia implements Serializable {
         nminimo = 0;
         nmaximo = 0;
         nstockm = 0;
-         nultcosuni=new BigDecimal("0");
+        nultcosuni = new BigDecimal("0");
     }
 
     public Integer getNstockm() {
@@ -127,7 +127,7 @@ public class Existencia implements Serializable {
         nminimo = 0;
         nmaximo = 0;
         nstockm = 0;
-         nultcosuni=new BigDecimal("0");
+        nultcosuni = new BigDecimal("0");
     }
 
     public ExistenciaPK getExistenciaPK() {
@@ -289,10 +289,6 @@ public class Existencia implements Serializable {
     public void setNultcosuni(BigDecimal nultcosuni) {
         this.nultcosuni = nultcosuni;
     }
-    
-    
-    
-    
 
     public BigDecimal getUtilidad(Descuento descuento, BigDecimal costo) {
         // valor de venta y utilidad

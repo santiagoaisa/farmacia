@@ -125,7 +125,7 @@ public class ActualizarExistencia implements Serializable {
         if (Numero.isCero(ncosuni)) {
             nutilidad = Numero.cien;
         } else {
-            nutilidad = nvaluni.multiply(Numero.cien.divide(ncosuni, 4, BigDecimal.ROUND_HALF_UP)).subtract(Numero.cien);
+            nutilidad = (nvaluni.multiply(Numero.cien.divide(ncosuni, 4, BigDecimal.ROUND_HALF_UP)).subtract(Numero.cien)).setScale(2, BigDecimal.ROUND_HALF_UP);;
         }
     }
 }
