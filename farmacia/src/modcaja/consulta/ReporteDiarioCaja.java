@@ -1,15 +1,10 @@
 
 package modcaja.consulta;
 
-import com.zarcillo.domain.Periodo;
-import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
-import com.zarcillo.domain.Vendedor;
 import com.zarcillo.dto.caja.CobroPorDocumento;
-import com.zarcillo.estadistica.VentaPorDocumento;
 import com.zarcillo.service.PlanillaIngresoService;
-import com.zarcillo.service.ResultadoVentaService;
 import com.zarcillo.service.UnidadNegocioService;
 import com.zarcillo.service.UsuarioService;
 import com.zarcillo.service.VentaService;
@@ -207,11 +202,18 @@ public class ReporteDiarioCaja extends SelectorComposer {
             y = 0;
             for (Object lbCell : ((Listitem) item).getChildren()) {
                 String h;
+                Double a;
                 h = ((Listcell) lbCell).getLabel();
                 HSSFCell cell = row.createCell(y);
                 cell.setCellStyle(cellStyleNormal);
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                cell.setCellValue(h);
+                if (isNumberFloat(h)) {
+                    a = new Double(h);
+                    cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+                    cell.setCellValue(a);
+                } else {
+                    cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+                    cell.setCellValue(h);
+                }
                 y++;
             }
             x++;
@@ -223,4 +225,12 @@ public class ReporteDiarioCaja extends SelectorComposer {
         File file = new File(nomeFile);
         Filedownload.save(file, "XLS");
     }    
+    public static boolean isNumberFloat(String cadena) {
+        try {
+            Float.parseFloat(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }

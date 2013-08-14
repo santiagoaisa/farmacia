@@ -192,11 +192,18 @@ public class InventarioValorizadoLinea extends SelectorComposer {
             y = 0;
             for (Object lbCell : ((Listitem) item).getChildren()) {
                 String h;
+                Double a;
                 h = ((Listcell) lbCell).getLabel();
                 HSSFCell cell = row.createCell(y);
                 cell.setCellStyle(cellStyleNormal);
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                cell.setCellValue(h);
+                if (isNumberFloat(h)) {
+                    a = new Double(h);
+                    cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+                    cell.setCellValue(a);
+                } else {
+                    cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+                    cell.setCellValue(h);
+                }
                 y++;
             }
             x++;
@@ -207,6 +214,14 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         fOut.close();
         File file = new File(nomeFile);
         Filedownload.save(file, "XLS");
+    }
+    public static boolean isNumberFloat(String cadena) {
+        try {
+            Float.parseFloat(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 }
 
