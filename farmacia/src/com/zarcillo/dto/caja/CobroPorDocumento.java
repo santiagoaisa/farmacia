@@ -6,6 +6,7 @@ import com.zarcillo.domain.TipoPago;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -155,6 +156,28 @@ public class CobroPorDocumento implements Serializable {
 
     public void setNmonto(BigDecimal nmonto) {
         this.nmonto = nmonto;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.idregsalida);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CobroPorDocumento other = (CobroPorDocumento) obj;
+        if (!Objects.equals(this.idregsalida, other.idregsalida)) {
+            return false;
+        }
+        return true;
     }
     
     

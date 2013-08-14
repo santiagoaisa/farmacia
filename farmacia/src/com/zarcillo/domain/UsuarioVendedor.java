@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Table(name = "usuario_vendedor")
 @NamedQueries({
     @NamedQuery(name = "UsuarioVendedor.findAll", query = "SELECT u FROM UsuarioVendedor u ORDER BY u.idusuario.cnomusuario "),
-    @NamedQuery(name = "UsuarioVendedor.findByIdusuario", query = "SELECT u FROM UsuarioVendedor u  WHERE u.idusuario=:idusuario ORDER BY u.idvendedor.cnomvendedor ")
+    @NamedQuery(name = "UsuarioVendedor.findByIdusuario", query = "SELECT u FROM UsuarioVendedor u  WHERE u.idusuario.idusuario=:idusuario ORDER BY u.idvendedor.cnomvendedor ")
 })
 public class UsuarioVendedor implements Serializable {
 
