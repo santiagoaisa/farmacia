@@ -13,7 +13,6 @@ import java.util.List;
 public interface RegistroEntradaService {
     public void anular(Integer idregentrada);
     public RegistroEntrada registrarIngreso(RegistroEntrada regentrada,CuentaPagar cuentapagar);
-    public void anularIngreso(Integer idregentrada);    
     public RegistroEntrada buscarPorIdalmacenPorIdregentrada(Integer idalmacen,Integer idregentrada);
     
     public List<DetalleIngreso> listaDetalleIngreso(Integer idregentrada);    

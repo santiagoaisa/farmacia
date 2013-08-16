@@ -82,12 +82,7 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
 
     
     
-    
-    @Override
-    @Transactional
-    public void anularIngreso(Integer idregentrada) {
-        super.eliminar(idregentrada);
-    }
+   
 
     @Override
     public RegistroEntrada buscarPorIdalmacenPorIdregentrada(Integer idalmacen, Integer idregentrada) {

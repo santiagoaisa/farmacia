@@ -377,6 +377,7 @@ public class Entrada extends Salida {
                 existencia = existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
                 existencia.setNstock(existencia.getNstock() - m.getNcantidad());
                 existencia.setNstockm(existencia.getNstockm() - m.getNcantidadm());
+                existencia.setNcosuni(existencia.getNultcosuni());
                 cruddao.actualizar(existencia);
 
                 lote = lotedao.buscarPorIdalmacenPorIdproductoPorCloteParaAnulacion(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto(), m.getClote());

@@ -5,6 +5,7 @@ import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.DescuentoDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.LoteDAO;
+import com.zarcillo.dao.ProductoDAO;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Descuento;
 import com.zarcillo.domain.Existencia;
@@ -33,6 +34,8 @@ public class ExistenciaServiceImpl implements ExistenciaService {
     private DescuentoDAO descuentodao;
     @Autowired
     private LoteDAO lotedao;
+    @Autowired
+    private ProductoDAO productodao;
 
     @Override
     @Transactional
@@ -54,6 +57,11 @@ public class ExistenciaServiceImpl implements ExistenciaService {
     @Transactional
     public Existencia actualizar(Existencia existencia) {
         try {
+            Producto producto = existencia.getIdproducto();
+            cruddao.actualizar(producto);
+
+            Existencia existenciaactualizada = existenciadao.buscarPorIdalmacenPorIdproducto(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto());
+            existenciaactualizada.setCubicacion(existencia.getCubicacion());
             cruddao.actualizar(existencia);
         } catch (Exception e) {
             throw new ExceptionZarcillo(e.getCause().getMessage());
@@ -105,11 +113,6 @@ public class ExistenciaServiceImpl implements ExistenciaService {
         return existenciadao.buscarPorIdalmacenPorIdproducto(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto());
     }
 
-
-
-    
-    
-    
     @Override
     @Transactional
     public Integer actualizaTemporal(Existencia existencia) {
