@@ -1,5 +1,52 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<zk xmlns="http://www.zkoss.org/2005/zul">
-
-</zk>
+<window id="winManttoExistencia" width="700px" title="Mantenimiento de Existencia"
+        apply="modmantenimiento.ManttoExistencia"  border="0" position="center">
+    
+    <grid >
+        <columns>
+            <column width="14%"/>
+            <column width="20%"/>
+            <column width="14%"/>
+            <column width="19%"/>
+            <column width="14%"/>
+            <column width="19%"/>
+        </columns>
+        <rows  >
+            <row spans="1,1,2,1,1" >
+                <label value="Almacen:" />
+                <combobox id="cboAlmacen" constraint="no empty: Debe Seleccionar un Almacen" width="98%" readonly="true"/>
+                <textbox id="txtLinea"  readonly="true"  width="95%" />
+                <label value="Ubicacion:" />
+                <textbox id="txtUbicacion" width="95%" />
+            </row>
+            <row spans="1,1,4" >
+                <label value="Producto:" />
+                <textbox id="txtCodigo" width="95%" />
+                <textbox id="txtNombre"  readonly="true" width="95%"  />
+            </row>
+            <row  >
+                <label value="Fraccion:" />
+                <intbox id="nFraccion" width="95%" />
+                <label value="Stock:" />
+                <intbox id="nStock"  readonly="true"  width="95%" />
+                <label value="Menudeo:" />
+                <intbox id="nStockm"  readonly="true"  width="95%" />
+            </row>
+            
+            <row spans="6">
+                <groupbox >
+                    <caption>Receta</caption>
+                    <textbox id="txtReceta" multiline="true" height="40px" width="99%"/>
+                </groupbox>
+            </row>
+            
+           
+                  
+        </rows>
+    </grid>  
+    <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnModificar" image="/img/Setting.png" label="Modificar" />
+            <toolbarbutton id="btnRegistrar" image="/img/save.png" label="Registrar" />
+            <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" />
+        </toolbar>             
+</window>

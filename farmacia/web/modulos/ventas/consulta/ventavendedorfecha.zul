@@ -46,10 +46,10 @@
             <listcell label="@{detalle.cnumero}"/>
             <listcell date="@{detalle.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
             <listcell label="@{detalle.idcondicion.cnomcondicion}"  />
-            <listcell decimal="@{detalle.ninafecto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
-            <listcell decimal="@{detalle.nafecto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
-            <listcell decimal="@{detalle.nigv}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
-            <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.ninafecto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nafecto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nigv}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell label="@{detalle.idregsalida}"  />
         </listitem>
         <listfoot>

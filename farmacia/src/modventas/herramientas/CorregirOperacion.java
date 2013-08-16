@@ -2,13 +2,17 @@ package modventas.herramientas;
 
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.UnidadNegocio;
+import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.RegistroSalidaService;
 import com.zarcillo.service.UnidadNegocioService;
+import com.zarcillo.service.UsuarioService;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -22,6 +26,7 @@ public class CorregirOperacion extends SelectorComposer{
 
     private RegistroSalida regsalida = new RegistroSalida();
     private ListModelList modeloUnidad;
+    private Usuario usuario;
     
     @Wire
     private Combobox cboUnidad;
@@ -46,6 +51,11 @@ public class CorregirOperacion extends SelectorComposer{
     UnidadNegocioService unidadNegocioService;
     @WireVariable
     RegistroSalidaService registroSalidaService;
+    @WireVariable 
+    UsuarioService usuarioService;
+    
+    private String user_login;
+    final Execution exec = Executions.getCurrent();
     
     @Listen("onCreate=window#winCorreccion")
     public void onCreate() throws NamingException {
@@ -68,7 +78,9 @@ public class CorregirOperacion extends SelectorComposer{
     }
     
     private void initComponets() {        
-        modeloUnidad=new ListModelList(unidadNegocioService.listaGeneral());
+        user_login = exec.getUserPrincipal().getName();
+        usuario = usuarioService.buscarPorLogin(user_login);
+        modeloUnidad = new ListModelList(unidadNegocioService.listaPorClogin(usuario.getClogin())); 
         cboUnidad.setModel(modeloUnidad);
         if (modeloUnidad.size() > 0) {
             cboUnidad.onInitRender(new Event("", cboUnidad));

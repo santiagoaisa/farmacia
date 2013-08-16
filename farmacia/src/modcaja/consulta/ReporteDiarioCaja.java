@@ -14,9 +14,11 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -31,6 +33,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
@@ -66,11 +69,15 @@ public class ReporteDiarioCaja extends SelectorComposer {
     @Wire
     private Listbox lstDetalle;
     @Wire
-    private Decimalbox nImporte;
+    private Decimalbox nEfectivo;
     @Wire
-    private Decimalbox nAcuenta;
+    private Decimalbox nDebito;
     @Wire
-    private Decimalbox nSaldo;
+    private Decimalbox nCredito;
+    @Wire
+    private Decimalbox nTotal;
+    @Wire
+    private Jasperreport rptreporte;
     @WireVariable
     UsuarioService usuarioService;
     @WireVariable
@@ -106,7 +113,7 @@ public class ReporteDiarioCaja extends SelectorComposer {
     public void initComponets() {
         user_login = exec.getUserPrincipal().getName();
         usuario = usuarioService.buscarPorLogin(user_login);
-        modeloUnidad = new ListModelList(unidadNegocioService.listaGeneral());
+        modeloUnidad = new ListModelList(unidadNegocioService.listaPorClogin(usuario.getClogin()));
         cboUnidad.setModel(modeloUnidad);
         if (modeloUnidad.size() > 0) {
             cboUnidad.onInitRender(new Event("", cboUnidad));
@@ -137,20 +144,23 @@ public class ReporteDiarioCaja extends SelectorComposer {
     }
 
     private void cargarPie() {
-        BigDecimal nimporte= new BigDecimal(BigInteger.ZERO);
-        BigDecimal nacuenta= new BigDecimal(BigInteger.ZERO);
-        BigDecimal nsaldo= new BigDecimal(BigInteger.ZERO);
+        BigDecimal nefectivo= new BigDecimal(BigInteger.ZERO);
+        BigDecimal ndebito= new BigDecimal(BigInteger.ZERO);
+        BigDecimal ncredito= new BigDecimal(BigInteger.ZERO);
+        BigDecimal ntotal= new BigDecimal(BigInteger.ZERO);
         List<Listitem> ldatos = lstDetalle.getItems();
         CobroPorDocumento cpd;
         for (Listitem item : ldatos) {
             cpd= (CobroPorDocumento) modeloDetalle.getElementAt(item.getIndex());            
-            nimporte = nimporte.add(cpd.getNimporte());
-            nacuenta = nacuenta.add(cpd.getNacuenta());
-            nsaldo= nsaldo.add(cpd.getNsaldo());
+            nefectivo = nefectivo.add(cpd.getNefectivo());
+            ndebito = ndebito.add(cpd.getNtdebito());
+            ncredito= ncredito.add(cpd.getNtcredito());
+            ntotal= ntotal.add(cpd.getNtotal());
         }
-        nImporte.setValue(nimporte);
-        nAcuenta.setValue(nacuenta);
-        nSaldo.setValue(nsaldo);
+        nEfectivo.setValue(nefectivo);
+        nDebito.setValue(ndebito);
+        nCredito.setValue(ncredito);
+        nTotal.setValue(ntotal);
     }    
 
     private void validar() {
@@ -162,6 +172,21 @@ public class ReporteDiarioCaja extends SelectorComposer {
     
     private void imprimir(){
         validar();
+        UnidadNegocio unidad=(UnidadNegocio) modeloUnidad.getElementAt(cboUnidad.getSelectedIndex());
+        Usuario user=  (Usuario) modeloUsuario.getElementAt(cboUsuario.getSelectedIndex());
+        HashMap parametro = new HashMap();
+        parametro.put("RUTA", unidad.getIdempresa().getCruta());        
+        parametro.put("UNIDADNEGOCIO", unidad.getCnomunidad());
+        parametro.put("FECINI", dFecini.getValue());
+        parametro.put("FECFIN", dFecfin.getValue());
+        parametro.put("USUARIO", usuario.getCnomusuario());
+        parametro.put("VENDEDOR", user.getCnomusuario());
+
+        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        rptreporte.setSrc("/modulos/caja/reporte/reportediariocaja.jasper");
+        rptreporte.setDatasource(data);
+        rptreporte.setParameters(parametro);
+        rptreporte.setType("pdf");
     }
     
     public void exportar() throws IOException {

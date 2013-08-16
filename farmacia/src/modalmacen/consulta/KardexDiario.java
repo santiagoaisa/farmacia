@@ -174,7 +174,7 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
         modeloKardex= new ListModelList();
         lstKardex.setModel(modeloKardex);
 
-        modeloAlmacen = new ListModelList(almacenService.listaGeneral());
+        modeloAlmacen = new ListModelList(almacenService.listaPorClogin(usuario.getClogin()));
         cboAlmacen.setModel(modeloAlmacen);
 
         if (modeloAlmacen.size() > 0) {

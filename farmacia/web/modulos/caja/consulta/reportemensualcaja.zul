@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winCaja"?>
-<window id="winCaja" title="reporte Diario..."  width="700px"  border="0"
-        apply="modcaja.consulta.ReporteDiarioCaja" >
+<window id="winCaja" title="Reporte General Caja..."  width="500px"  border="0"
+        apply="modcaja.consulta.ReporteMensualCaja" >
 
     <grid>
         <columns>
@@ -11,11 +11,9 @@
             <column width="20%" />
         </columns>
         <rows>
-            <row >
+            <row spans="1,1,3" >
                 <label value="Unidad:"/>
                 <combobox id="cboUnidad" readonly="true" width="98%"/>
-                <label value="Usuario:"/>
-                <combobox id="cboUsuario" readonly="true" width="98%"/>
                 <label />          
             </row>
             <row  >
@@ -29,35 +27,22 @@
     </grid>
     <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
         <listhead>
-            <listheader label="Doc" width="10%" align="center" />
-            <listheader label="Serie" width="8%" align="center" />
-            <listheader label="Numero" width="10%" align="center" />
-            <listheader label="Fecha" width="12%" align="center" />
-            <listheader label="Condicion" width="10%" align="center" />
-            <listheader label="Efectivo" width="10%" align="right" />
-            <listheader label="T.Debito" width="10%" align="right" />
-            <listheader label="T.Credito" width="10%" align="right" />
-            <listheader label="Total" width="10%" align="right" />
-            <listheader label="Operacion" width="10%" align="right" />
+            <listheader label="Fecha" width="20%" align="center" />
+            <listheader label="Efectivo" width="20%" align="right" />
+            <listheader label="T.Debito" width="20%" align="right" />
+            <listheader label="T.Credito" width="20%" align="right" />
+            <listheader label="Total" width="20%" align="right" />
         </listhead>
         <listitem self="@{each=detalle}"   >
-            <listcell label="@{detalle.iddocumento.cabrev}" />
-            <listcell label="@{detalle.cserie}"/>
-            <listcell label="@{detalle.cnumero}"/>
-            <listcell date="@{detalle.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
-            <listcell label="@{detalle.idcondicion.cnomcondicion}"  />
+            <listcell date="@{detalle.dfecha}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
             <listcell decimal="@{detalle.nefectivo}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.ntdebito}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.ntcredito}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.ntotal}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
-            <listcell label="@{detalle.idregsalida}"  />
+            
         </listitem>
         <listfoot>
-            <listfooter />           
-            <listfooter />
-            <listfooter />           
             <listfooter />  
-            <listfooter />
             <listfooter >
                 <decimalbox id="nEfectivo" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
             </listfooter>

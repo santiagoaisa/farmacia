@@ -152,7 +152,7 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
         lstIngresos.setModel(modeloIngresos);
         modeloCanjes=new ListModelList();
         lstCanjes.setModel(modeloCanjes);
-        modeloAlmacen=new ListModelList(almacenService.listaGeneral());
+        modeloAlmacen = new ListModelList(almacenService.listaPorClogin(usuario.getClogin()));
         cboAlmacen.setModel(modeloAlmacen);
         if (modeloAlmacen.size() > 0) {
             cboAlmacen.onInitRender(new Event("", cboAlmacen));

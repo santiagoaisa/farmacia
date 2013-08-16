@@ -97,7 +97,7 @@ public class InventarioValorizadoLinea extends SelectorComposer {
     private void initComponets() {
         user_login = exec.getUserPrincipal().getName();
         usuario = usuarioService.buscarPorLogin(user_login);
-        modeloAlmacen = new ListModelList(almacenService.listaGeneral());
+        modeloAlmacen = new ListModelList(almacenService.listaPorClogin(usuario.getClogin()));
         cboAlmacen.setModel(modeloAlmacen);
         if (modeloAlmacen.size() > 0) {
             cboAlmacen.onInitRender(new Event("", cboAlmacen));
@@ -144,6 +144,7 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         validar();
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         HashMap parametro = new HashMap();
+        parametro.put("RUTA", almacen.getIdunidad().getIdempresa().getCruta()); 
         parametro.put("EMPRESA", almacen.getIdunidad().getIdempresa().getCnomempresa());
         parametro.put("UNIDADNEGOCIO", almacen.getIdunidad().getCnomunidad());
         parametro.put("ALMACEN", almacen.getCnomalmacen());

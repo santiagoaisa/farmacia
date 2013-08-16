@@ -1,5 +1,5 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winPrecios"?>
-<window id="winPrecios" border="0" width="400px"  title="Lista Inventario..."
+<window id="winPrecios" border="0" width="400px"  title="Lista de Precios..."
  apply="modcompras.consulta.ListadoPrecios"   mode="overlapped" >
 
     <grid width="99%">

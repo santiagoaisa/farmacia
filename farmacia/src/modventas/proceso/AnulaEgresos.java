@@ -110,7 +110,7 @@ public class AnulaEgresos extends SelectorComposer {
     public void initComponets() {
         user_login = exec.getUserPrincipal().getName();
         usuario = usuarioService.buscarPorLogin(user_login);
-        modeloUnidad= new ListModelList(unidadNegocioService.listaGeneral());
+        modeloUnidad = new ListModelList(unidadNegocioService.listaPorClogin(usuario.getClogin())); 
         cboUnidad.setModel(modeloUnidad);
         if (modeloUnidad.size() > 0) {
             cboUnidad.onInitRender(new Event("", cboUnidad));

@@ -72,7 +72,7 @@ public class ListaInventarioProducto extends SelectorComposer {
     private void initComponets() {
         user_login = exec.getUserPrincipal().getName();
         usuario = usuarioService.buscarPorLogin(user_login);
-        modeloAlmacen = new ListModelList(almacenService.listaGeneral());
+        modeloAlmacen = new ListModelList(almacenService.listaPorClogin(usuario.getClogin()));
         cboAlmacen.setModel(modeloAlmacen);
         if (modeloAlmacen.size() > 0) {
             cboAlmacen.onInitRender(new Event("", cboAlmacen));
@@ -123,8 +123,7 @@ public class ListaInventarioProducto extends SelectorComposer {
         rptreporte.setSrc("/modulos/almacen/reporte/listainventarioproducto.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");
-        
+        rptreporte.setType("pdf");      
         
     }
 }

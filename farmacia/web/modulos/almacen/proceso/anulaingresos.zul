@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDetalle"?>
-<window id="winDetalle" title="Datos Ingreso de mercaderia" border="0" width="800px"
-        onCancel="doCancel()" mode="overlapped" apply="modalmacen.consulta.DetalleIngreso">
+<window id="winDetalle" title="Anulacion de Ingresos" border="0" width="800px"
+        onCancel="doCancel()" mode="overlapped" apply="modalmacen.proceso.AnulaIngresos">
     <zscript>{
         void doCancel() {
         winDetalle.onClose();}
@@ -19,10 +19,12 @@
 
         </columns>
         <rows>
-            <row spans="6,1,1">
+            <row spans="1,1,4,1,1">
+                <label value="Almacen:" />
+                <combobox id="cboAlmacen" constraint="no empty: Debe Seleccionar un Almacen" width="98%" readonly="true"/>
                 <label />
                 <label value="Operacion:" />
-                <intbox id="nOperacion" width="95%" readonly="true" />
+                <intbox id="nOperacion" width="95%"  />
             </row>
             <row>
                 <label value="Motivo:" />
@@ -111,6 +113,7 @@
     </grid>
 
     <toolbar id="tb"  height="25px" align="end" >
+        <toolbarbutton id="btnEliminar" image="/img/Delete.png" label="Eliminar"	 />
         <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar"	 />
         <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir"	 />
         <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Regresar" onClick="doCancel()" />

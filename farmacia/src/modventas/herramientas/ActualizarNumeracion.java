@@ -2,13 +2,17 @@ package modventas.herramientas;
 
 import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.UnidadNegocio;
+import com.zarcillo.domain.Usuario;
 import com.zarcillo.dto.numeracion.Formato;
 import com.zarcillo.service.DocumentoService;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.NumeracionService;
 import com.zarcillo.service.UnidadNegocioService;
+import com.zarcillo.service.UsuarioService;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -23,6 +27,7 @@ public class ActualizarNumeracion extends SelectorComposer{
     private Formato formato;
     private ListModelList modeloUnidad;
     private ListModelList modeloDocumento;
+    private Usuario usuario;
     
     @Wire
     private Combobox cboUnidad;
@@ -42,8 +47,14 @@ public class ActualizarNumeracion extends SelectorComposer{
     @WireVariable
     NumeracionService numeracionService;
     
+    @WireVariable 
+    UsuarioService usuarioService;
     
-    @Listen("onCreate=window#winCorreccion")
+    private String user_login;
+    final Execution exec = Executions.getCurrent();
+    
+    
+    @Listen("onCreate=window#winActualiza")
     public void onCreate() throws NamingException {
         initComponets();
     }
@@ -61,7 +72,9 @@ public class ActualizarNumeracion extends SelectorComposer{
         
 
     private void initComponets() {
-        modeloUnidad=new ListModelList(unidadNegocioService.listaGeneral());        
+        user_login = exec.getUserPrincipal().getName();
+        usuario = usuarioService.buscarPorLogin(user_login);
+        modeloUnidad = new ListModelList(unidadNegocioService.listaPorClogin(usuario.getClogin()));       
         cboUnidad.setModel(modeloUnidad);
         if (modeloUnidad.size() > 0) {
             cboUnidad.onInitRender(new Event("", cboUnidad));

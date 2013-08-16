@@ -144,8 +144,7 @@ public class NuevaVenta extends SelectorComposer {
     public void initComponets() {
         user_login = exec.getUserPrincipal().getName();
         usuario = usuarioService.buscarPorLogin(user_login);
-
-        modeloAlmacen = new ListModelList(almacenService.listaGeneral());
+        modeloAlmacen = new ListModelList(almacenService.listaPorClogin(usuario.getClogin())); 
         cboAlmacen.setModel(modeloAlmacen);
         if (modeloAlmacen.size() > 0) {
             cboAlmacen.onInitRender(new Event("", cboAlmacen));

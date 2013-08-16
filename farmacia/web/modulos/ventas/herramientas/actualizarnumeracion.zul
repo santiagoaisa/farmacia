@@ -29,7 +29,7 @@ apply="modventas.herramientas.ActualizarNumeracion" width="250px">
             
             <row>
                 <label value="Serie:"/>
-                <textbox id="txtSerie" value="0" width="95%" />
+                <textbox id="txtSerie" readonly="true" value="0" width="95%" />
             </row>
 
             <row>

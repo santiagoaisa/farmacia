@@ -2,6 +2,13 @@
 <window id="winInventario" border="0" width="450px"  title="Inventario Valorizado..."
  apply="modalmacen.herramientas.InventarioValorizadoLinea"   mode="overlapped" >
 
+    <zscript>{
+        void doCancel() {
+        winInventario.setAttribute("REST",false);
+        winInventario.onClose();
+        }
+        }
+    </zscript>
     <grid width="99%">
         <columns>
             <column width="18%"/>
@@ -26,8 +33,8 @@
         </listhead>
         <listitem self="@{each=detalle}">
             <listcell label="@{detalle.idlinea.cnomlinea}"/>
-            <listcell decimal="@{detalle.ncosto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
-            <listcell decimal="@{detalle.pcosto}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />                       
+            <listcell decimal="@{detalle.ncosto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.pcosto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />                       
         </listitem>
         <listfoot>
             <listfooter />           
@@ -41,7 +48,6 @@
     </listbox>
 
     <jasperreport id="rptreporte" visible="false" />
-
 
         <toolbar id="tb"  height="25px" align="end" >
             <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />

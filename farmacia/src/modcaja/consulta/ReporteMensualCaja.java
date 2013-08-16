@@ -1,13 +1,10 @@
-package modventas.consulta;
 
-import com.zarcillo.domain.Periodo;
-import com.zarcillo.domain.RegistroSalida;
+package modcaja.consulta;
+
 import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
-import com.zarcillo.domain.Vendedor;
-import com.zarcillo.service.VendedorService;
-import com.zarcillo.estadistica.VentaPorDocumento;
-import com.zarcillo.service.ResultadoVentaService;
+import com.zarcillo.dto.caja.ResumenCobroPorFecha;
+import com.zarcillo.service.PlanillaIngresoService;
 import com.zarcillo.service.UnidadNegocioService;
 import com.zarcillo.service.UsuarioService;
 import com.zarcillo.service.VentaService;
@@ -51,20 +48,15 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class VentaVendedorFecha extends SelectorComposer {
+public class ReporteMensualCaja extends SelectorComposer {
 
     private Usuario usuario;
-    private RegistroSalida regsalida = new RegistroSalida();
     private ListModelList modeloUnidad;
     private ListModelList modeloDetalle;
-    private ListModelList modeloVendedor;
-    private Periodo periodo;
     @Wire
-    private Window winVenta;
+    private Window winCaja;
     @Wire
     private Combobox cboUnidad;
-    @Wire
-    private Combobox cboVendedor;
     @Wire
     private Datebox dFecini;
     @Wire
@@ -74,13 +66,13 @@ public class VentaVendedorFecha extends SelectorComposer {
     @Wire
     private Listbox lstDetalle;
     @Wire
-    private Decimalbox nInafecto;
+    private Decimalbox nEfectivo;
     @Wire
-    private Decimalbox nIgv;
+    private Decimalbox nDebito;
     @Wire
-    private Decimalbox nValven;
+    private Decimalbox nCredito;
     @Wire
-    private Decimalbox nImporte;
+    private Decimalbox nTotal;
     @Wire
     private Jasperreport rptreporte;
     @WireVariable
@@ -90,13 +82,11 @@ public class VentaVendedorFecha extends SelectorComposer {
     @WireVariable
     UnidadNegocioService unidadNegocioService;
     @WireVariable
-    ResultadoVentaService resultadoVentaService;
-    @WireVariable
-    VendedorService vendedorService;
+    PlanillaIngresoService planillaIngresoService;
     private String user_login;
     final Execution exec = Executions.getCurrent();
 
-    @Listen("onCreate=window#winVenta")
+    @Listen("onCreate=window#winCaja")
     public void onCreate() throws NamingException {
         initComponets();
     }
@@ -126,79 +116,66 @@ public class VentaVendedorFecha extends SelectorComposer {
             cboUnidad.onInitRender(new Event("", cboUnidad));
             cboUnidad.close();
             cboUnidad.setSelectedIndex(0);
-        }        
-        modeloVendedor = new ListModelList(vendedorService.listaGeneral());
-        cboVendedor.setModel(modeloVendedor);
-        if (modeloVendedor.size() > 0) {
-            cboVendedor.onInitRender(new Event("", cboVendedor));
-            cboVendedor.close();
-            cboVendedor.setSelectedIndex(0);
-        }
+        }   
         modeloDetalle = new ListModelList();
         lstDetalle.setModel(modeloDetalle);
-        dFecini.setValue(new Date());
+        dFecini.setValue(new Date(new Date().getYear(),new  Date().getMonth(), 1));
         dFecfin.setValue(new Date());
         btnProcesar.focus();
     }
 
     private void procesar() {
         UnidadNegocio unidad=(UnidadNegocio) modeloUnidad.getElementAt(cboUnidad.getSelectedIndex());
-        Vendedor vendedor = (Vendedor) modeloVendedor.getElementAt(cboVendedor.getSelectedIndex());
-        modeloDetalle = new ListModelList(resultadoVentaService.listaVentaPorDocumentoPorIdunidadPorFechas(unidad.getIdunidad(),vendedor.getIdvendedor(),dFecini.getValue(),dFecfin.getValue()));
+        modeloDetalle = new ListModelList(planillaIngresoService.listaResumenCobroPorFechas(unidad.getIdunidad(),dFecini.getValue(),dFecfin.getValue()));
         lstDetalle.setModel(modeloDetalle);
         lstDetalle.onInitRender();
         cargarPie();
     }
 
     private void cargarPie() {
-        BigDecimal nafecto = new BigDecimal(BigInteger.ZERO);
-        BigDecimal ninafecto = new BigDecimal(BigInteger.ZERO);
-        BigDecimal nigv = new BigDecimal(BigInteger.ZERO);
-        BigDecimal nprecio = new BigDecimal(BigInteger.ZERO);
+        BigDecimal nefectivo= new BigDecimal(BigInteger.ZERO);
+        BigDecimal ndebito= new BigDecimal(BigInteger.ZERO);
+        BigDecimal ncredito= new BigDecimal(BigInteger.ZERO);
+        BigDecimal ntotal= new BigDecimal(BigInteger.ZERO);
         List<Listitem> ldatos = lstDetalle.getItems();
-        VentaPorDocumento vpd;
+        ResumenCobroPorFecha cpd;
         for (Listitem item : ldatos) {
-            vpd=(VentaPorDocumento) modeloDetalle.getElementAt(item.getIndex());
-            nafecto = nafecto.add(vpd.getNafecto());
-            ninafecto = ninafecto.add(vpd.getNinafecto());
-            nigv = nigv.add(vpd.getNigv());
-            nprecio = nprecio.add(vpd.getNimporte());
+            cpd= (ResumenCobroPorFecha) modeloDetalle.getElementAt(item.getIndex());            
+            nefectivo = nefectivo.add(cpd.getNefectivo());
+            ndebito = ndebito.add(cpd.getNtdebito());
+            ncredito= ncredito.add(cpd.getNtcredito());
+            ntotal= ntotal.add(cpd.getNtotal());
         }
-        nInafecto.setValue(ninafecto);
-        nValven.setValue(nafecto);
-        nIgv.setValue(nigv);
-        nImporte.setValue(nprecio);
+        nEfectivo.setValue(nefectivo);
+        nDebito.setValue(ndebito);
+        nCredito.setValue(ncredito);
+        nTotal.setValue(ntotal);
     }    
 
     private void validar() {
         cboUnidad.setConstraint(new ConstraintCamposObligatorios());
-        cboVendedor.setConstraint(new ConstraintCamposObligatorios());
         cboUnidad.getValue();
-        cboVendedor.getValue();
     }
     
     private void imprimir(){
         validar();
         UnidadNegocio unidad=(UnidadNegocio) modeloUnidad.getElementAt(cboUnidad.getSelectedIndex());
-        Vendedor vendedor = (Vendedor) modeloVendedor.getElementAt(cboVendedor.getSelectedIndex());
         HashMap parametro = new HashMap();
         parametro.put("RUTA", unidad.getIdempresa().getCruta());        
         parametro.put("UNIDADNEGOCIO", unidad.getCnomunidad());
         parametro.put("FECINI", dFecini.getValue());
         parametro.put("FECFIN", dFecfin.getValue());
         parametro.put("USUARIO", usuario.getCnomusuario());
-        parametro.put("VENDEDOR", vendedor.getCnomvendedor());
 
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
-        rptreporte.setSrc("/modulos/ventas/reporte/reportediarioventas.jasper");
+        rptreporte.setSrc("/modulos/caja/reporte/reportemensualcaja.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);
         rptreporte.setType("pdf");
     }
     
     public void exportar() throws IOException {
-        Vendedor vendedor = (Vendedor) modeloVendedor.getElementAt(cboVendedor.getSelectedIndex());
-        EsportaExcel2(lstDetalle,vendedor.getCnomvendedor().trim() + ".xls");
+        EsportaExcel2(lstDetalle,"reportecaja.xls");
     }
 
     public void EsportaExcel2(Listbox box, String nomeFile) throws IOException {

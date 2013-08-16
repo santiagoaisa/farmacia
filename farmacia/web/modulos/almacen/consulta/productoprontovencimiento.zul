@@ -1,0 +1,58 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winVencimiento"?>
+<window id="winVencimiento" title="Producto con Pronto vencimiento..."  width="700px"  border="0"
+        apply="modalmacen.consulta.ProductoProntoVencimiento" >
+
+    <grid>
+        <columns>
+            <column width="15%" />
+            <column width="25%" />
+            <column width="15%" />
+            <column width="25%" />
+            <column width="20%" />
+        </columns>
+        <rows>
+            <row >
+                <label value="Almacen:"/>
+                <combobox id="cboAlmacen" readonly="true" width="98%"/>
+                <label value="Hasta:"/>
+                <datebox id="dFecha" width="85%" readonly="true" format="yyyy-MM-dd" />
+                <button id="btnProcesar" label="Procesar"  />         
+            </row>
+        </rows>
+    </grid>
+    <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
+        <listhead>
+            <listheader label="Producto" width="48%"  />
+            <listheader label="Fracc" width="6%" align="center" />
+            <listheader label="UniMed" width="10%" align="center" />
+            <listheader label="Stock" width="8%" align="center" />
+            <listheader label="Stock(F/)" width="8%" align="center" />
+            <listheader label="lote" width="10%" align="right" />
+            <listheader label="Vencimiento" width="10%" align="right" />
+        </listhead>
+        <listitem self="@{each=detalle}"   >
+            <listcell label="@{detalle.idproducto.cnomproducto}" />
+            <listcell label="@{detalle.idproducto.nmenudeo}"/>
+            <listcell label="@{detalle.idproducto.idpresentacion.cabrev}"/>
+            <listcell label="@{detalle.nstock}"  />
+            <listcell label="@{detalle.nstockm}"  />
+            <listcell label="@{detalle.clote}"  />
+            <listcell label="@{detalle.cfecven}"  />
+        </listitem>        
+    </listbox>
+    
+
+    <jasperreport id="rptreporte" visible="false" />      
+    <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
+            <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="doCancel()" />
+        </toolbar>
+    <zscript>{
+        void doCancel() {
+        winVencimiento.setAttribute("REST",false);
+        winVencimiento.onClose();
+        }
+        }
+    </zscript>
+</window>
