@@ -117,6 +117,7 @@ public class PlanillaIngresoServiceImpl implements PlanillaIngresoService {
         BigDecimal nefectivo;
         BigDecimal ntcredito;
         BigDecimal ntdebito;
+        BigDecimal ntotal;
         ResumenCobroPorFecha resumen;
         for (Date d : listaFechas) {
             resumen = new ResumenCobroPorFecha();
@@ -126,6 +127,7 @@ public class PlanillaIngresoServiceImpl implements PlanillaIngresoService {
             nefectivo = new BigDecimal("0");
             ntcredito = new BigDecimal("0");
             ntdebito = new BigDecimal("0");
+            ntotal = new BigDecimal("0");
 
             for (AmortizacionCliente a : listaAmortizacion) {
                 if (a.getIdtipo().getCcodigosunat().contains(TipoPago.EFECTIVO_SUNAT.getCcodigosunat())) {
@@ -142,6 +144,8 @@ public class PlanillaIngresoServiceImpl implements PlanillaIngresoService {
             resumen.setNefectivo(nefectivo);
             resumen.setNtcredito(ntcredito);
             resumen.setNtdebito(ntdebito);
+            ntotal=nefectivo.add(ntcredito).add(ntdebito);
+            resumen.setNtotal(ntotal);
             listaRetorno.add(resumen);
         }
 
