@@ -41,7 +41,7 @@
 		<variableExpression><![CDATA[$F{nigv}]]></variableExpression>
 	</variable>
 	<variable name="timporte" class="java.math.BigDecimal" calculation="Sum">
-		<variableExpression><![CDATA[$V{timporte}]]></variableExpression>
+		<variableExpression><![CDATA[$F{nimporte}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>

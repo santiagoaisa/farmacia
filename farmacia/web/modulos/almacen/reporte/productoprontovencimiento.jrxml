@@ -20,7 +20,7 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="idproducto.cnomproducto" class="java.util.Date"/>
+	<field name="idproducto.cnomproducto" class="java.lang.String"/>
 	<field name="idproducto.idpresentacion.cabrev" class="java.lang.String"/>
 	<field name="idproducto.nmenudeo" class="java.lang.Integer"/>
 	<field name="nstock" class="java.lang.Integer"/>

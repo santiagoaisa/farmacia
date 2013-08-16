@@ -159,7 +159,8 @@ public class ManttoExistencia extends SelectorComposer {
         txtCodigo.setText(existencia.getIdproducto().getIdproducto());
         txtNombre.setText(existencia.getIdproducto().getCnomproducto());
         txtLinea.setText(existencia.getIdproducto().getIdsublinea().getIdlinea().getCnomlinea());
-        txtUbicacion.setText(existencia.getCubicacion());        
+        txtUbicacion.setText(existencia.getCubicacion());      
+        txtReceta.setText(existencia.getIdproducto().getCreseta());
         nFraccion.setValue(existencia.getIdproducto().getNmenudeo());   
         nStock.setValue(existencia.getNstock());
         nStockm.setValue(existencia.getNstockm());
@@ -183,7 +184,6 @@ public class ManttoExistencia extends SelectorComposer {
         quitarConstraint();
         habilitar(false);
         existencia=new Existencia();
-        txtCodigo.setReadonly(true);
         txtCodigo.setText("");
         txtNombre.setText("");
         txtLinea.setText("");
