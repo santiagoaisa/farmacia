@@ -54,6 +54,7 @@ public class TipoPago implements Serializable {
     private Boolean bcobro;
     @Column(name = "bpago")
     private Boolean bpago;
+    
     public static TipoPago DEPOSITO_SUNAT = new TipoPago("001");
     public static TipoPago TRANSFERENCIA_SUNAT = new TipoPago("003");
     public static TipoPago TARJETA_DEBITO_SUNAT = new TipoPago("005");

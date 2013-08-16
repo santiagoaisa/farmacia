@@ -22,56 +22,76 @@ import org.springframework.stereotype.Service;
  */
 @Service("planillaIngresoService")
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class PlanillaIngresoServiceImpl implements PlanillaIngresoService{
-    
+public class PlanillaIngresoServiceImpl implements PlanillaIngresoService {
+
     @Autowired
-    private ResultadoVentaDAO resultadodao; 
+    private ResultadoVentaDAO resultadodao;
     @Autowired
-    private AmortizacionClienteDAO amortizaciondao; 
+    private AmortizacionClienteDAO amortizaciondao;
     @Autowired
     private ComprobanteEmitidoDAO comprobantedao;
 
     @Override
     public List<CobroPorDocumento> listaCobroPorDocumentoPorIdunidadPorIdusuarioPorFechas(Integer idunidad, Integer idusuario, Date fecha1, Date fecha2) {
-        List<CobroPorDocumento> listaCobro=resultadodao.listaVentaPorDocumentoPorIdunidadPorIdusuarioPorFechas(idunidad, idusuario, fecha1, fecha2);
-        List<CobroPorDocumento> listaRetorno=new ArrayList<>();
-        
+        List<CobroPorDocumento> listaCobro = resultadodao.listaVentaPorDocumentoPorIdunidadPorIdusuarioPorFechas(idunidad, idusuario, fecha1, fecha2);
+        List<CobroPorDocumento> listaRetorno = new ArrayList<>();
+
+
+
         CobroPorDocumento cobro;
         List<AmortizacionCliente> listaAmortizacion;
         ComprobanteEmitido comprobante;
-        BigDecimal nmonto;
-        for(CobroPorDocumento c:listaCobro){
-            
-            cobro=new CobroPorDocumento();            
+
+        BigDecimal ntotal;
+        BigDecimal nefectivo;
+        BigDecimal ntcredito;
+        BigDecimal ntdebito;
+        for (CobroPorDocumento c : listaCobro) {
+            cobro = new CobroPorDocumento();
             cobro.setId(c.getId());
             cobro.setIdcondicion(c.getIdcondicion());
             cobro.setIddocumento(c.getIddocumento());
             cobro.setIdregsalida(c.getIdregsalida());
             cobro.setCserie(c.getCserie());
             cobro.setCnumero(c.getCnumero());
-            cobro.setDfecemi(c.getDfecemi());            
+            cobro.setDfecemi(c.getDfecemi());
             cobro.setNimporte(c.getNimporte());
             cobro.setNacuenta(c.getNacuenta());
             cobro.setNsaldo(c.getNsaldo());
-            
-            comprobante=comprobantedao.buscarPorIdregsalida(c.getIdregsalida());            
-            listaAmortizacion=amortizaciondao.listaPorIdcomprobante(comprobante.getIdcomprobante());
-            
-            nmonto=new BigDecimal("0");
-            for(AmortizacionCliente a:listaAmortizacion){
-                nmonto=nmonto.add(a.getNimporte());
+
+            comprobante = comprobantedao.buscarPorIdregsalida(c.getIdregsalida());
+            listaAmortizacion = amortizaciondao.listaPorIdcomprobante(comprobante.getIdcomprobante());
+
+            nefectivo = new BigDecimal("0");
+            ntcredito = new BigDecimal("0");
+            ntdebito = new BigDecimal("0");
+            ntotal = new BigDecimal("0");
+            for (AmortizacionCliente a : listaAmortizacion) {
+
+                if (a.getIdtipo().getCcodigosunat().contains(TipoPago.EFECTIVO_SUNAT.getCcodigosunat())) {
+                    nefectivo = nefectivo.add(a.getNimportes());
+                }
+                if (a.getIdtipo().getCcodigosunat().contains(TipoPago.TARJETA_CREDITO_SUNAT.getCcodigosunat())) {
+                    ntcredito = ntcredito.add(a.getNimportes());
+                }
+                if (a.getIdtipo().getCcodigosunat().contains(TipoPago.TARJETA_DEBITO_SUNAT.getCcodigosunat())) {
+                    ntdebito = ntdebito.add(a.getNimportes());
+                }
+
             }
-            cobro.setNmonto(nmonto);
-            
-            if(!listaRetorno.contains(cobro)){
+
+            ntotal = nefectivo.add(ntcredito).add(ntdebito);
+            cobro.setNefectivo(nefectivo);
+            cobro.setNtcredito(ntcredito);
+            cobro.setNtdebito(ntdebito);
+            cobro.setNtotal(ntotal);
+
+            if (!listaRetorno.contains(cobro)) {
                 listaRetorno.add(cobro);
             }
-            
-            
+
         }
-        
+
         return listaRetorno;
     }
-    
-    
 }

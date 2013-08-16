@@ -46,12 +46,22 @@ public class CobroPorDocumento implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dfecmov;
     private BigDecimal nmonto;
+    ///////// TOTALES ////////////
+    private BigDecimal nefectivo;
+    private BigDecimal ntdebito;
+    private BigDecimal ntcredito;
+    private BigDecimal ntotal;
+    
 
     public CobroPorDocumento() {
         nacuenta=new BigDecimal("0");
         nimporte=new BigDecimal("0");
         nmonto=new BigDecimal("0");
         nsaldo=new BigDecimal("0");
+        nefectivo=new BigDecimal("0");
+        ntdebito=new BigDecimal("0");
+        ntcredito=new BigDecimal("0");
+        ntotal=new BigDecimal("0");
     }
 
     public BigDecimal getId() {
@@ -158,6 +168,41 @@ public class CobroPorDocumento implements Serializable {
         this.nmonto = nmonto;
     }
 
+    public BigDecimal getNefectivo() {
+        return nefectivo;
+    }
+
+    public void setNefectivo(BigDecimal nefectivo) {
+        this.nefectivo = nefectivo;
+    }
+
+    public BigDecimal getNtdebito() {
+        return ntdebito;
+    }
+
+    public void setNtdebito(BigDecimal ntdebito) {
+        this.ntdebito = ntdebito;
+    }
+
+    public BigDecimal getNtcredito() {
+        return ntcredito;
+    }
+
+    public void setNtcredito(BigDecimal ntcredito) {
+        this.ntcredito = ntcredito;
+    }
+
+    public BigDecimal getNtotal() {
+        return ntotal;
+    }
+
+    public void setNtotal(BigDecimal ntotal) {
+        this.ntotal = ntotal;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;

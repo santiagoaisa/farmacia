@@ -47,36 +47,13 @@ public class VentaPorDocumento implements Serializable {
     private BigDecimal nredondeo;
     private BigDecimal nimporte;
     private BigDecimal ncosto;
-    
-    @JoinColumn(name = "idproducto", referencedColumnName = "idproducto")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Producto idproducto;
-    
-    @JoinColumn(name = "idalmacen", referencedColumnName = "idalmacen")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Almacen idalmacen;
-    
-    private Integer nentero;
-    private Integer nfraccion;
-    private String clote;
-    private BigDecimal nsubtot;    
-    private BigDecimal nsubcos;    
-    private BigDecimal nprecos;
-    private BigDecimal nprecio;
     private BigDecimal nutilidad;
 
     public VentaPorDocumento() {
         nafecto = new BigDecimal("0");
         nigv = new BigDecimal("0");
         nimporte = new BigDecimal("0");
-        ninafecto = new BigDecimal("0");
-        nprecio = new BigDecimal("0");
-        nentero = 0;
-        nfraccion = 0;
-        nsubtot = new BigDecimal("0");
-        nsubcos = new BigDecimal("0");
-        nprecos = new BigDecimal("0");
-        nprecio = new BigDecimal("0");
+        ninafecto = new BigDecimal("0");        
         nutilidad = new BigDecimal("0");
     }
 
@@ -168,52 +145,12 @@ public class VentaPorDocumento implements Serializable {
         this.nimporte = nimporte;
     }
 
-    public Producto getIdproducto() {
-        return idproducto;
+    public Date getDfecemi() {
+        return dfecemi;
     }
 
-    public void setIdproducto(Producto idproducto) {
-        this.idproducto = idproducto;
-    }
-
-    public Almacen getIdalmacen() {
-        return idalmacen;
-    }
-
-    public void setIdalmacen(Almacen idalmacen) {
-        this.idalmacen = idalmacen;
-    }
-
-    public Integer getNentero() {
-        return nentero;
-    }
-
-    public void setNentero(Integer nentero) {
-        this.nentero = nentero;
-    }
-
-    public Integer getNfraccion() {
-        return nfraccion;
-    }
-
-    public void setNfraccion(Integer nfraccion) {
-        this.nfraccion = nfraccion;
-    }
-
-    public String getClote() {
-        return clote;
-    }
-
-    public void setClote(String clote) {
-        this.clote = clote;
-    }
-
-    public BigDecimal getNsubtot() {
-        return nsubtot;
-    }
-
-    public void setNsubtot(BigDecimal nsubtot) {
-        this.nsubtot = nsubtot;
+    public void setDfecemi(Date dfecemi) {
+        this.dfecemi = dfecemi;
     }
 
     public BigDecimal getNcosto() {
@@ -224,33 +161,6 @@ public class VentaPorDocumento implements Serializable {
         this.ncosto = ncosto;
     }
 
-    public BigDecimal getNsubcos() {
-        return nsubcos;
-    }
-
-    public void setNsubcos(BigDecimal nsubcos) {
-        this.nsubcos = nsubcos;
-    }
-
-    
-    
-
-    public BigDecimal getNprecos() {
-        return nprecos;
-    }
-
-    public void setNprecos(BigDecimal nprecos) {
-        this.nprecos = nprecos;
-    }
-
-    public BigDecimal getNprecio() {
-        return nprecio;
-    }
-
-    public void setNprecio(BigDecimal nprecio) {
-        this.nprecio = nprecio;
-    }
-
     public BigDecimal getNutilidad() {
         return nutilidad;
     }
@@ -259,13 +169,8 @@ public class VentaPorDocumento implements Serializable {
         this.nutilidad = nutilidad;
     }
 
-    public Date getDfecemi() {
-        return dfecemi;
-    }
-
-    public void setDfecemi(Date dfecemi) {
-        this.dfecemi = dfecemi;
-    }
+    
+    
 
     @Override
     public int hashCode() {
