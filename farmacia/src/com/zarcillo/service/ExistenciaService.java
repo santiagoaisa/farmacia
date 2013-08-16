@@ -1,6 +1,6 @@
 package com.zarcillo.service;
 
-import com.zarcillo.compra.ActualizarExistencia;
+import com.zarcillo.dto.compra.ActualizarExistencia;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Descuento;
 import com.zarcillo.domain.Existencia;

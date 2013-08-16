@@ -1,7 +1,7 @@
 package com.zarcillo.service;
 
-import com.zarcillo.compra.ActualizarExistencia;
-import com.zarcillo.compra.ExistenciaValorizada;
+import com.zarcillo.dto.compra.ActualizarExistencia;
+import com.zarcillo.dto.compra.ExistenciaValorizada;
 import com.zarcillo.dto.almacen.Inventario;
 import com.zarcillo.dto.almacen.InventarioLote;
 import com.zarcillo.dto.almacen.InventarioValorizado;

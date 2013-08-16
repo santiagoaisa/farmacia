@@ -18,4 +18,5 @@ public interface LoteDAO {
      List<Lote> listaPorIdalmacenPorIdproductoParaListado(Integer idalmacen,String idproducto);
      Integer cantidadBloqueadaPorIdalmacenPorIdproductoBloqueados(Integer idalmacen,String idproducto);
      
+     List<Lote> listaPorIdalmacenPorIdlineasPorVencimiento(Integer idalmacen,List<Integer> lista,String mes);
 }

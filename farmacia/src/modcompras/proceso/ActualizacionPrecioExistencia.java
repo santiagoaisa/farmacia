@@ -1,7 +1,7 @@
 package modcompras.proceso;
 
 
-import com.zarcillo.compra.ActualizarExistencia;
+import com.zarcillo.dto.compra.ActualizarExistencia;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Usuario;

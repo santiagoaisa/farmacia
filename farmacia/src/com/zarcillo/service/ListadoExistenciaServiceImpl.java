@@ -1,7 +1,7 @@
 package com.zarcillo.service;
 
-import com.zarcillo.compra.ActualizarExistencia;
-import com.zarcillo.compra.ExistenciaValorizada;
+import com.zarcillo.dto.compra.ActualizarExistencia;
+import com.zarcillo.dto.compra.ExistenciaValorizada;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.ListadoExistenciaDAO;

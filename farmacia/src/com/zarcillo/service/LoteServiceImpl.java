@@ -3,6 +3,8 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.LoteDAO;
 import com.zarcillo.domain.Lote;
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +61,21 @@ public class LoteServiceImpl implements LoteService {
     }
 
     @Override
-   
     public List<Lote> listaPorIdalmacenPorIdproducto(Integer idalmacen, String idproducto) {
         return lotedao.listaPorIdalmacenPorIdproductoParaListado(idalmacen, idproducto);
+    }
+
+    @Override
+    public List<Lote> listaPorIdalmacenPorIdlineasPorVencimiento(Integer idalmacen, List<Integer> lista, Date fecha) {
+        DecimalFormat formato = new DecimalFormat("00");
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(fecha);
+
+        Integer año = calendario.get(Calendar.YEAR);
+        Integer mes = calendario.get(Calendar.MONTH) + 1;
+        String cmes = formato.format(mes);
+        String cfecha = año + "-" + cmes;
+
+        return lotedao.listaPorIdalmacenPorIdlineasPorVencimiento(idalmacen, lista, cfecha);
     }
 }

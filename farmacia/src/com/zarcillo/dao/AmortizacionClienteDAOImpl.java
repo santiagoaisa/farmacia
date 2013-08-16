@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.AmortizacionCliente;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -46,6 +47,13 @@ public class AmortizacionClienteDAOImpl implements AmortizacionClienteDAO {
     public List<AmortizacionCliente> listaPorIdretencion(Integer idretencion) {
         return em.createNamedQuery("AmortizacionCliente.findByIdretencion").setParameter("idretencion", idretencion).getResultList();
     }
+
+    @Override
+    public List<AmortizacionCliente> listaPorFechas(Date fecha1, Date fecha2, List<Integer> lista) {
+        return em.createNamedQuery("AmortizacionCliente.findByDfechasByIdtipo").setParameter("dfecha1", fecha1).setParameter("dfecha2",fecha2).setParameter("lista", lista).getResultList();
+    }
+    
+    
     
     
     

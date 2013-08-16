@@ -1,4 +1,4 @@
-package com.zarcillo.compra;
+package com.zarcillo.dto.compra;
 
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Producto;
