@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
 @Table(name = "amortizacion_cliente")
 @NamedQueries({
     @NamedQuery(name = "AmortizacionCliente.findAll", query = "SELECT a FROM AmortizacionCliente a"),
-    @NamedQuery(name = "AmortizacionCliente.findByDfechasByIdtipo", query = "SELECT a FROM AmortizacionCliente a WHERE a.dfecha BETWEEN :dfecha1 and :dfecha2 and a.idtipo.idtipo in :lista "),
+    @NamedQuery(name = "AmortizacionCliente.findByDfechasByIdtipo", query = "SELECT a FROM AmortizacionCliente a WHERE a.dfecha BETWEEN :dfecha1 and :dfecha2 and a.idtipo.idtipo in (:lista) "),
     @NamedQuery(name = "AmortizacionCliente.findByIdcomprobante", query = "SELECT a FROM AmortizacionCliente a WHERE a.idcomprobante.idcomprobante=:idcomprobante "),
     @NamedQuery(name = "AmortizacionCliente.findByIddeposito", query = "SELECT a FROM AmortizacionCliente a WHERE a.iddeposito.iddeposito=:iddeposito "),
     @NamedQuery(name = "AmortizacionCliente.findByIdcheque", query = "SELECT a FROM AmortizacionCliente a WHERE a.idcheque.idcheque=:idcheque "),

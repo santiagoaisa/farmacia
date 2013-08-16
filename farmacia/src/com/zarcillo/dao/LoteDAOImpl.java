@@ -87,11 +87,11 @@ public class LoteDAOImpl implements LoteDAO {
     }
 
     @Override
-    public List<Lote> listaPorIdalmacenPorIdlineasPorVencimiento(Integer idalmacen, List<Integer> lista, String mes) {
+    public List<Lote> listaPorIdalmacenPorVencimiento(Integer idalmacen, String mes) {
         String sql = "SELECT l.* "
-                + " FROM producto p,sublinea s,lote l inner join existencia e on l.idalmacen=e.idalmacen and l.idproducto=e.idproducto and l.idalmacen=:idalmacen and (e.nstock>0 or e.nstockm>0) "
-                + " WHERE s.idlinea in (:lista) and p.idproducto=e.idproducto and p.idsublinea=s.idsublinea and  l.cfecven<=:mes and (l.nstock>0 or l.nstockm>0) ORDER BY l.cfecven,l.idproducto ";
+                + " FROM producto p,lote l inner join existencia e on l.idalmacen=e.idalmacen and l.idproducto=e.idproducto and l.idalmacen=:idalmacen and (e.nstock>0 or e.nstockm>0) "
+                + " WHERE  p.idproducto=e.idproducto  and  l.cfecven<=:mes and (l.nstock>0 or l.nstockm>0) ORDER BY l.cfecven,l.idproducto ";
 
-        return em.createNativeQuery(sql, Lote.class).setParameter("idalmacen", idalmacen).setParameter("lista", lista).setParameter("mes", mes).getResultList();
+        return em.createNativeQuery(sql, Lote.class).setParameter("idalmacen", idalmacen).setParameter("mes", mes).getResultList();
     }
 }

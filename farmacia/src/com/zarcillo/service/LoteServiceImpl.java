@@ -66,7 +66,7 @@ public class LoteServiceImpl implements LoteService {
     }
 
     @Override
-    public List<Lote> listaPorIdalmacenPorIdlineasPorVencimiento(Integer idalmacen, List<Integer> lista, Date fecha) {
+    public List<Lote> listaPorIdalmacenPorVencimiento(Integer idalmacen, Date fecha) {
         DecimalFormat formato = new DecimalFormat("00");
         Calendar calendario = Calendar.getInstance();
         calendario.setTime(fecha);
@@ -76,6 +76,6 @@ public class LoteServiceImpl implements LoteService {
         String cmes = formato.format(mes);
         String cfecha = año + "-" + cmes;
 
-        return lotedao.listaPorIdalmacenPorIdlineasPorVencimiento(idalmacen, lista, cfecha);
+        return lotedao.listaPorIdalmacenPorVencimiento(idalmacen, cfecha);
     }
 }

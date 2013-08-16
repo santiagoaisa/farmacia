@@ -13,5 +13,5 @@ public interface LoteService {
     public Lote actualizar(Lote lote);
     public void eliminar(Lote lote);
     public List<Lote> listaPorIdalmacenPorIdproducto(Integer idalmacen,String idproducto);
-    public List<Lote> listaPorIdalmacenPorIdlineasPorVencimiento(Integer idalmacen,List<Integer> lista,Date fecha);
+    public List<Lote> listaPorIdalmacenPorVencimiento(Integer idalmacen,Date fecha);
 }
