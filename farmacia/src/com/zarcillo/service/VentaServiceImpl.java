@@ -204,7 +204,10 @@ public class VentaServiceImpl extends Entrada implements VentaService {
     private DetalleVenta detalleParaVenta(Integer idalmacen, Existencia existencia, CondicionVenta condicion) {
         DetalleVenta detalle = new DetalleVenta();
         //Integer lote_bloqueado = lotedao.cantidadBloqueadaPorIdalmacenPorIdproductoBloqueados(existencia.getIdalmacen().getIdalmacen(), existencia.getIdproducto().getIdproducto());
+
+        Integer nstockfraccion = existencia.getNstock() * existencia.getIdproducto().getNmenudeo();
         detalle.setNstock(existencia.getNstock());
+        existencia.setNstockm(existencia.getNstock() + nstockfraccion);
         detalle.setNstockm(existencia.getNstockm());//     
         detalle.setBactivo(!existencia.getBactivo());
 

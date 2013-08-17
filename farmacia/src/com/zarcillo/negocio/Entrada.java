@@ -282,7 +282,7 @@ public class Entrada extends Salida {
             String cnumero = formato.format(numeracion.getNnumero());
             regsalidafraccion.setCserie(numeracion.getCserie());
             regsalidafraccion.setCnumero(cnumero);
-
+            regsalidafraccion.setBimpreso(true);
             existencia=existenciadao.buscarPorIdalmacenPorIdproducto(m.getIdalmacen().getIdalmacen(), m.getIdproducto().getIdproducto());
                 
             
@@ -296,7 +296,7 @@ public class Entrada extends Salida {
             movimientoFraccionSalida.setNsubtot(existencia.getNcosuni());
             listaMovimientoFraccionSalida.add(movimientoFraccionSalida);
             regsalidafraccion.setMovimientoCollection(listaMovimientoFraccionSalida);
-
+            
             super.llaves(regsalidafraccion);
 
             super.lotes(regsalidafraccion);
