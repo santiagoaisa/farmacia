@@ -30,8 +30,8 @@
 
     <jasperreport id="rptreporte" visible="false" />
 
-
         <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
             <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
             <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winInventario.onClose()" />
         </toolbar>
