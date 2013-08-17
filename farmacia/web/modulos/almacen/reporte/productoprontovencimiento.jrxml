@@ -24,7 +24,7 @@
 	<field name="idproducto.idpresentacion.cabrev" class="java.lang.String"/>
 	<field name="idproducto.nmenudeo" class="java.lang.Integer"/>
 	<field name="nstock" class="java.lang.Integer"/>
-	<field name="nstockm" class="java.math.BigDecimal"/>
+	<field name="nstockm" class="java.lang.Integer"/>
 	<field name="clote" class="java.lang.String"/>
 	<field name="cfecven" class="java.lang.String"/>
 	<background>
