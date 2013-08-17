@@ -30,8 +30,8 @@ import javax.persistence.TemporalType;
 @Table(name = "cuenta_pagar")
 @NamedQueries({
     @NamedQuery(name = "CuentaPagar.findAll", query = "SELECT c FROM CuentaPagar c"),
-    @NamedQuery(name = "CuentaPagar.findByIdunidadByIdproveedorByNano", query = "SELECT c FROM CuentaPagar c WHERE c.idunidad.idunidad =:idunidad and c.idproveedor.idproveedor=:idproveedor and c.idperiodo.nano=:ano ORDER BY c.dfecemi DESC "),
-    @NamedQuery(name = "CuentaPagar.findByIdunidadByIdproveedorByNanoPendientes", query = "SELECT c FROM CuentaPagar c WHERE c.idunidad.idunidad =:idunidad and c.idproveedor.idproveedor=:idproveedor and c.idperiodo.nano=:ano and c.nsaldo>0 ORDER BY c.dfecemi DESC "),
+    @NamedQuery(name = "CuentaPagar.findByIdunidadByIdproveedorByNano", query = "SELECT c FROM CuentaPagar c WHERE c.idunidad.idunidad =:idunidad and c.idproveedor.idproveedor=:idproveedor and c.idperiodo.nano=:nano ORDER BY c.dfecemi DESC "),
+    @NamedQuery(name = "CuentaPagar.findByIdunidadByIdproveedorByNanoPendientes", query = "SELECT c FROM CuentaPagar c WHERE c.idunidad.idunidad =:idunidad and c.idproveedor.idproveedor=:idproveedor and c.idperiodo.nano=:nano and c.nsaldo>0 ORDER BY c.dfecemi DESC "),
     @NamedQuery(name = "CuentaPagar.findByIdcuenta", query = "SELECT c FROM CuentaPagar c WHERE c.idcuenta=:idcuenta"),
     @NamedQuery(name = "CuentaPagar.findByIdregentrada", query = "SELECT c FROM CuentaPagar c WHERE c.idregentrada.idregentrada=:idregentrada")
 })
