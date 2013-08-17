@@ -210,6 +210,7 @@ public class CtaCteProveedor extends SelectorComposer implements PeriodoListener
         cboUnidad.setDisabled(true);
         tabFactura.setSelected(true);
         btnCrear.focus();
+        bPendiente.setChecked(true);
         menuperiodo.setLista(periodoService.listaPeriodoAños());
         periodo = periodoService.buscarPorDfecha(new Date());//
         menuperiodo.setPeriododefecto(periodo);
@@ -371,18 +372,7 @@ public class CtaCteProveedor extends SelectorComposer implements PeriodoListener
     @Override
     public void escribir(Periodo periodo) {
         this.periodo = periodo;
-        if (tabFactura.isSelected()) {
-            cargarFacturas();
-        }
-        if (tabLetra.isSelected()) {
-            cargarLetras();
-        }
-        if (tabNotabo.isSelected()) {
-            cargarNotaCredito();
-        }
-        if (tabNotcar.isSelected()) {
-            cargarNotaDebito();
-        }
+        habilitarPendientes();
     }
 
     @Override
@@ -441,21 +431,21 @@ public class CtaCteProveedor extends SelectorComposer implements PeriodoListener
                 menuresultado.setSize(modeloLetras.getSize());
             }
             if (tabNotabo.isSelected()) {
-                modeloFacturas = new ListModelList(cuentaPagarService.listaPorIdunidadPorIdproveedorPorNanoPendientes(unidad.getIdunidad(), proveedor.getIdproveedor(), periodo.getNano()));
-                lstFactura.setModel(modeloFacturas);
+                modeloNotabo = new ListModelList(notaboProveedorService.listaPorIdunidadPorIdproveedorPorNanoPendientes(unidad.getIdunidad(), proveedor.getIdproveedor(), periodo.getNano()));
+                lstNotabo.setModel(modeloNotabo);
                 btnCrear.setVisible(true);
-                btnCrear.setLabel("Crear Factura");
-                btnCrear.setAttribute("ACTION", "FA");
-                menuresultado.setSize(modeloFacturas.getSize());
+                btnCrear.setLabel("Crear N/Credito");
+                btnCrear.setAttribute("ACTION", "NC");
+                menuresultado.setSize(modeloNotabo.getSize());
 
             }
-            if (tabNotabo.isSelected()) {
-                modeloFacturas = new ListModelList(cuentaPagarService.listaPorIdunidadPorIdproveedorPorNanoPendientes(unidad.getIdunidad(), proveedor.getIdproveedor(), periodo.getNano()));
-                lstFactura.setModel(modeloFacturas);
+            if (tabNotcar.isSelected()) {
+                modeloNotcar = new ListModelList(notcarProveedorService.listaPorIdunidadPorIdproveedorPorNanoPendientes(unidad.getIdunidad(), proveedor.getIdproveedor(), periodo.getNano()));
+                lstNotcar.setModel(modeloNotcar);
                 btnCrear.setVisible(true);
-                btnCrear.setLabel("Crear Factura");
-                btnCrear.setAttribute("ACTION", "FA");
-                menuresultado.setSize(modeloFacturas.getSize());
+                btnCrear.setLabel("Crear N/Debito");
+                btnCrear.setAttribute("ACTION", "ND");
+                menuresultado.setSize(modeloNotcar.getSize());
 
             }
 

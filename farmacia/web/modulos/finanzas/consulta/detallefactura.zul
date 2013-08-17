@@ -1,0 +1,123 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winFactura"?>
+<window id="winFactura" mode="overlapped" title="Registro de Proveedores..." border="2" width="650px"
+          apply="modfinanzas.consulta.DetalleFactura" >
+    <grid fixedLayout="true"  >
+        <columns >
+            <column width="25%" />
+            <column width="10%" />
+            <column width="15%" />
+            <column width="25%" />
+            <column width="13%" />
+            <column width="12%" />
+        </columns>
+        <rows>
+            <row spans="1,2,1,2">
+                <label value="Operación:" />
+                <intbox id="nOperacion"  width="95%" readonly="true" />
+                <label value="F.Emisión:" />
+                <datebox id="dFecemi" format="yyyy-MM-dd" width="95%" disabled="true" readonly="true" />
+            </row>
+            <row >
+                <combobox id="cboDocumento" width="95%" readonly="true" />
+                <textbox id="txtSerie" width="95%" readonly="true" />
+                <textbox id="txtNumero" width="95%" readonly="true" />
+                <label value="Plazo:" />
+                <intbox id="nPlazo"  width="95%" readonly="true" />
+                <label value="Días" />
+            </row>
+            <row spans="1,1,1,1,2">
+                <label value="Guia Remisión:" />
+                <textbox id="txtSergui" width="95%" readonly="true" />
+                <textbox id="txtNumgui" width="95%" readonly="true" />
+                <label value="F.Vencim.:" />
+                <datebox id="dFecven" format="yyyy-MM-dd" width="95%" disabled="true"  readonly="true" />
+            </row>
+            <row spans="1,2,1,2">
+                <label value="Moneda" />    
+                <combobox id="cboMoneda" width="95%" readonly="true" />           
+                <label value="F.Cancel.:" />
+                <datebox id="dFeccan" format="yyyy-MM-dd" width="95%" disabled="true"  readonly="true" />
+            </row>
+        </rows>
+    </grid>
+
+    <grid fixedLayout="true" >
+        <columns>
+            <column width="25%" />
+            <column width="25%" />
+            <column width="25%" />
+            <column width="25%" />
+        </columns>
+        <rows>
+            <row>
+                <label value="V.V. Afecto: " />
+                <decimalbox id="nAfecto" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+                <label value="Acuenta:" />
+                <decimalbox id="nAcuenta" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+            </row>
+            <row>
+                <label value="V.V. Inafecto:" />
+                <decimalbox id="nInafecto" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+
+                <label value="N/Credito:" />
+                <decimalbox id="nNotabo" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+
+            </row>
+
+            <row>
+                <hbox width="99%" widths="50%,50%">
+                    <label value="IGV" />
+                    <textbox id="txtIgv" value="18%" width="95%" readonly="true" />
+                </hbox>
+                <decimalbox id="nIgv" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+                <label value="N/Debito:" />
+                <decimalbox id="nNotcar" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+
+            </row>
+
+            <row>
+                <label value="Precio Venta:" />
+                <decimalbox id="nImporte" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+                <label value="Saldo:" />
+                <decimalbox id="nSaldo" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+            </row>
+        </rows>
+    </grid>
+    
+    <listbox id="lstDetalle"  width="99%" height="170px"  >
+        <auxhead>
+            <auxheader label="Detalle de Pagos" colspan="7"  />
+        </auxhead>
+        <listhead>
+            <listheader label="Forma Pago" width="18%"/>
+            <listheader label="Banco" width="30%"/>
+            <listheader label="Referencia"  width="18%"/>
+            <listheader label="Fecha"  width="10%" />
+            <listheader label="Moneda"  width="4%" align="center" />
+            <listheader label="Importe"  align="right"  width="10%"/>
+            <listheader label="Imp.Soles"  align="right"  width="10%"/>
+        </listhead>
+
+        <listitem self="@{each=amortizacioncuentaspagar}" >
+            <listcell label="@{amortizacioncuentaspagar.idtipo}"/>
+            <listcell label="@{amortizacioncuentaspagar.idbanco}"/>
+            <listcell label="@{amortizacioncuentaspagar.creferencia}"/>
+            <listcell date="@{amortizacioncuentaspagar.dfecmov}" format="yyyy.MM.dd" use="modfinanzas.util.ListcellFecha" />
+            <listcell label="@{amortizacioncuentaspagar.idmoneda.cabrev}"/>
+            <listcell decimal="@{amortizacioncuentaspagar.nimporte}" format="###,###,##0.00" use="modfinanzas.util.ListcellNumero" />
+            <listcell decimal="@{amortizacioncuentaspagar.nimportes}" format="###,###,##0.00" use="modfinanzas.util.ListcellNumero" />
+        </listitem>
+
+    </listbox>
+        
+    <toolbar id="tb"  height="25px" align="end" >
+        <toolbarbutton id="btnAmortiza" image="/img/Save.png" label="Amortizar"  />
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar" />
+        <toolbarbutton id="btnCancelar" image="/img/Undo.png" label="Cancelar"  />
+        <toolbarbutton id="btnModificar" image="/img/Tools.png" label="Modificar" />
+        <toolbarbutton id="btnEliminar" image="/img/Delete.png" label="Eliminar"  />
+        <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir"  />
+        <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" />
+    </toolbar>
+    <jasperreport id="rptreporte" visible="false" />
+</window>
