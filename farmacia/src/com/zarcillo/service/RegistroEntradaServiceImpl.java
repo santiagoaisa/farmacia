@@ -111,7 +111,7 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     @Override
     public List<DetalleIngreso> listaDetalleIngreso(Integer idregentrada) {
         List<Movimiento> listaMovimientos = movimientodao.listaPorIdregentrada(idregentrada);
-        List<DetalleIngreso> listaIngreso = new ArrayList<DetalleIngreso>();
+        List<DetalleIngreso> listaIngreso = new ArrayList<>();
 
         DetalleIngreso detalle;
         for (Movimiento m : listaMovimientos) {

@@ -47,6 +47,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 @Scope(value = "singleton", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Salida extends DescargaLote {
 
+    
     @Autowired
     private CrudDAO cruddao;
     @Autowired
@@ -54,7 +55,7 @@ public class Salida extends DescargaLote {
     @Autowired
     private ExistenciaDAO existenciadao;
     @Autowired
-    private LoteDAO lotedao;
+    private LoteDAO lotedao;    
     @Autowired
     private OrdenLineaDAO ordenlineadao;
 
@@ -66,8 +67,7 @@ public class Salida extends DescargaLote {
             // fin se establece el periodo
             String cglosa = "";
             regsalida.setCglosa(cglosa);
-            regsalida.calcula(regsalida.getIdperiodo().getNigv());
-            regsalida.setNplazo(regsalida.getIdcondicion().getNplazo());
+            regsalida.calcula(regsalida.getIdperiodo().getNigv());            
             //////// SITUACION PEDIDO
             regsalida.setIdsituacion(SituacionPedido.DIGITADO);
             regsalida.setCglosa(regsalida.getIdcondicion().getCmensaje());
