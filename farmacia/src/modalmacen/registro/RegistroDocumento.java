@@ -89,15 +89,7 @@ public class RegistroDocumento extends SelectorComposer {
         initComponets();
     }
     
-    @Listen("onChange = #nPlazo")
-    public void onCambioPlazo(Event event) {
-        calculaFechaVen();
-    }
-    
-    @Listen("onChange = #dFecemi")
-    public void onCambioEmision(Event event) {
-        calculaFechaVen();
-    }
+   
     
     @Listen("onClick = #btnGrabar")
     public void onGrabar(Event event) {

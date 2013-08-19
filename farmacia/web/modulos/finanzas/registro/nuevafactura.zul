@@ -1,0 +1,96 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winFactura"?>
+<window id="winFactura" position="center" title="Creación de Facturas..." border="2" width="450px"
+mode="overlapped" onCancel="doCancel()" apply="modfinanzas.registro.NuevaFactura">
+
+    <zscript>{
+        void doCancel() {
+        winFactura.setAttribute("REST",false);
+        winFactura.onClose();
+  }
+ }</zscript>
+
+    <grid fixedLayout="true" >
+        <columns >
+             <column width="22%" />
+            <column width="30%" />
+            <column width="18%" />
+            <column width="30%" />
+        </columns>
+        <rows >
+            <row>
+
+                    <label value="Documento:"/>
+                    <combobox id="cboDocumento" width="95%" readonly="true" />
+                    <textbox id="txtSerie"  width="90%" maxlength="3" />
+                    <textbox id="txtNumero"  width="95%" maxlength="12"/>
+            </row>
+            <row spans="2,1,1">
+                <label value="Guia Remisión:" />
+                    <textbox id="txtSergui" width="90%" maxlength="3" />
+                    <textbox id="txtNumgui" width="95%" maxlength="12"/>
+            </row>
+        </rows>
+    </grid>
+
+    <grid fixedLayout="true" >
+        <columns>
+            <column width="20%" />
+            <column width="30%" />
+            <column width="20%" />
+            <column width="30%" />
+        </columns>
+        <rows>
+            <row>
+                <label value="F.Emisión: " />
+                <datebox id="dFecemi" readonly="true" format="yyyy-MM-dd" width="95%"  />
+                <label value="V.V. Afecto:" />
+                <decimalbox id="nAfecto" width="95%" value="0.00" format="###,###,##0.00"  />
+            </row>
+
+            <row>
+                <label value="Plazo:" />
+                <hbox width="100%" widths="60%,40%" >
+                    <intbox id="nPlazo" width="95%" value="0"  />
+                    <label value="Días" />
+                </hbox>
+                <label value="V.V.Inafecto:" />
+                <decimalbox id="nInafecto" width="95%" value="0.00" format="###,###,##0.00"  />
+            </row>
+
+            <row>
+                <label value="Vencimiento" />
+                <datebox id="dFecven" readonly="true" format="yyyy-MM-dd" width="95%" />
+                <label value="IGV" />               
+                 <decimalbox id="nIgv" width="93%" value="0.00" format="###,###,##0.00"   />                
+            </row>
+
+            <row>
+                <label value="Moneda:" />
+                <combobox id="cboMoneda" width="95%" constraint="no empty: Debe Seleccionar una Moneda" readonly="true" />
+                <label value="Precio Venta:" />
+                <decimalbox id="nImporte"  width="95%" value="0.00" format="###,###,##0.00"  />
+            </row>
+
+            <row  >
+                <label value="Tipo Cambio:" />
+                <decimalbox id="nTcambio"  width="95%" value="1.00" format="###,###,##0.0000"  />
+                <label value="Entrada:" />
+                <intbox id="nEntrada" width="90%"  />
+            </row>
+            
+            
+            <row spans="4" >
+                <groupbox >
+                        <caption>Observaciones</caption>
+                        <textbox id="txtObservacion" multiline="true" height="25px" width="99%"/>
+                 </groupbox>
+            </row>
+        </rows>
+    </grid>
+
+
+        <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnRegistrar" label="Grabar" image="/img/Save.png"	/>
+            <toolbarbutton id="btnSalir" label="Salir" image="/img/Undo.png" onClick="doCancel()" />
+        </toolbar>
+</window>

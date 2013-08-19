@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="615" pageHeight="464" whenNoDataType="AllSectionsNoDetail" columnWidth="559" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="982bc95b-d371-4e8c-8ef6-badb76ed2a87">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="48"/>
-	<property name="ireport.y" value="53"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="CLIENTE" class="java.lang.String"/>
 	<parameter name="DIRECCION" class="java.lang.String"/>
 	<parameter name="RUC" class="java.lang.String"/>
@@ -20,6 +20,7 @@
 	<parameter name="CONDICION" class="java.lang.String"/>
 	<parameter name="VENCIMIENTO" class="java.util.Date"/>
 	<parameter name="TIPOPAGO" class="java.lang.String"/>
+	<parameter name="GLOSA" class="java.lang.String"/>
 	<field name="existencia.idproducto.idproducto" class="java.lang.String"/>
 	<field name="ncanart" class="java.lang.Integer"/>
 	<field name="existencia.idproducto.cnomproducto" class="java.lang.String"/>
@@ -89,6 +90,13 @@
 					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{SERIE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cef32da5-6a13-489f-91f4-d36d5185fd9f" x="40" y="11" width="404" height="19"/>
+				<textElement>
+					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{GLOSA}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -187,7 +195,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ncanart}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="false">
+			<textField isBlankWhenNull="true">
 				<reportElement uuid="8e8bba60-74bb-4903-b3ef-90618059b611" x="480" y="4" width="66" height="11"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>

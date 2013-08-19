@@ -70,8 +70,7 @@ apply="modmantenimiento.ManttoLote"  >
                         </listcell>
                     </listitem>
                     <listfoot>
-                        <listfooter />
-                        <listfooter />
+                        
                         <listfooter />
                         <listfooter >
                             <label value="Total Lote" />
@@ -82,6 +81,8 @@ apply="modmantenimiento.ManttoLote"  >
                         <listfooter >
                             <intbox id="nStklotm" readonly="true" width="97%" value="0" />
                         </listfooter>
+                        <listfooter />
+                        <listfooter />                        
                         <listfooter />
                     </listfoot>
                     

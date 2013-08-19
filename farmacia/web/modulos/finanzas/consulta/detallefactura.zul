@@ -1,5 +1,5 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winFactura"?>
-<window id="winFactura" mode="overlapped" title="Registro de Proveedores..." border="2" width="650px"
+<window id="winFactura" mode="overlapped" title="Registro de Proveedores..." border="2" width="600px"
           apply="modfinanzas.consulta.DetalleFactura" >
     <grid fixedLayout="true"  >
         <columns >
@@ -90,9 +90,9 @@
         </auxhead>
         <listhead>
             <listheader label="Forma Pago" width="18%"/>
-            <listheader label="Banco" width="30%"/>
+            <listheader label="Banco" width="26%"/>
             <listheader label="Referencia"  width="18%"/>
-            <listheader label="Fecha"  width="10%" />
+            <listheader label="Fecha"  width="14%" />
             <listheader label="Moneda"  width="4%" align="center" />
             <listheader label="Importe"  align="right"  width="10%"/>
             <listheader label="Imp.Soles"  align="right"  width="10%"/>
@@ -102,16 +102,16 @@
             <listcell label="@{amortizacioncuentaspagar.idtipo}"/>
             <listcell label="@{amortizacioncuentaspagar.idbanco}"/>
             <listcell label="@{amortizacioncuentaspagar.creferencia}"/>
-            <listcell date="@{amortizacioncuentaspagar.dfecmov}" format="yyyy.MM.dd" use="modfinanzas.util.ListcellFecha" />
+            <listcell date="@{amortizacioncuentaspagar.dfecha}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
             <listcell label="@{amortizacioncuentaspagar.idmoneda.cabrev}"/>
-            <listcell decimal="@{amortizacioncuentaspagar.nimporte}" format="###,###,##0.00" use="modfinanzas.util.ListcellNumero" />
-            <listcell decimal="@{amortizacioncuentaspagar.nimportes}" format="###,###,##0.00" use="modfinanzas.util.ListcellNumero" />
+            <listcell decimal="@{amortizacioncuentaspagar.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{amortizacioncuentaspagar.nimportes}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
         </listitem>
 
     </listbox>
         
     <toolbar id="tb"  height="25px" align="end" >
-        <toolbarbutton id="btnAmortiza" image="/img/Save.png" label="Amortizar"  />
+        <toolbarbutton id="btnAmortizar" image="/img/Save.png" label="Amortizar"  />
         <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar" />
         <toolbarbutton id="btnCancelar" image="/img/Undo.png" label="Cancelar"  />
         <toolbarbutton id="btnModificar" image="/img/Tools.png" label="Modificar" />
