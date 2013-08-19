@@ -96,6 +96,18 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
         }
     }
 
+     @Override
+    public RegistroEntrada buscarPorIdregentrada( Integer idregentrada) {
+         try {
+            return registroentradadao.busqueda(idregentrada);
+        } catch (NoResultException e) {
+            throw new ExceptionZarcillo("No existe la operacion:" +idregentrada);
+        }catch(Exception er){
+            er.printStackTrace();
+            throw new ExceptionZarcillo(er.getMessage());
+        }
+    }
+    
     @Override
     public List<DetalleIngreso> listaDetalleIngreso(Integer idregentrada) {
         List<Movimiento> listaMovimientos = movimientodao.listaPorIdregentrada(idregentrada);
@@ -128,4 +140,10 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     public List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen, Integer idproveedor, Integer nano) {
         return registroentradadao.listaPorIdalmacenPorIdproveedorPorNano(idalmacen, idproveedor, nano);
     }
+
+   
+    
+    
+    
+    
 }
