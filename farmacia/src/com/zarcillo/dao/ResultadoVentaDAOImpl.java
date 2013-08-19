@@ -51,4 +51,19 @@ public class ResultadoVentaDAOImpl implements ResultadoVentaDAO {
 
         return em.createNativeQuery(sql, VentaPorDocumento.class).setParameter("idunidad", idunidad).setParameter("idvendedor", idvendedor).setParameter("fecha1", fecha1).setParameter("fecha2", fecha2).getResultList();
     }
+
+    @Override
+    public List<VentaPorDocumento> listaVentaPorDocumentoPorIdunidadPorFechas(Integer idunidad, Date fecha1, Date fecha2) {
+         String sql = "select random() as id,c.idregsalida,c.iddocumento,c.dfecemi,c.cserie,c.cnumero,c.idcondicion,c.nafecto,c.ninafecto,c.nigv,c.nredondeo,c.nimporte,c.ncosto,0.00 as nutilidad "
+                + " from registro_salida r,comprobante_emitido c,motivo_salida mo "
+                + " where c.idregsalida=r.idregsalida and mo.idmotivo=r.idmotivo "
+                + " and mo.bventa=true  and r.idunidad=:idunidad and r.dfecha between :fecha1 and :fecha2 ";
+
+        return em.createNativeQuery(sql, VentaPorDocumento.class).setParameter("idunidad", idunidad).setParameter("fecha1", fecha1).setParameter("fecha2", fecha2).getResultList();
+    }
+    
+    
+    
+    
+    
 }

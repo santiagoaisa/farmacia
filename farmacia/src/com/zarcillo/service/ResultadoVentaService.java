@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ResultadoVentaService {
     public List<VentaPorProducto> listaVentaPorProductoPorIdunidadPorFechas(Integer idunidad,Date fecha1,Date fecha2);
+    public List<VentaPorDocumento> listaVentaPorDocumentoPorIdunidadPorFechas(Integer idunidad,Date fecha1,Date fecha2);
     public List<VentaPorDocumento> listaVentaPorDocumentoPorIdunidadPorFechas(Integer idunidad,Integer idvendedor,Date fecha1,Date fecha2);
 }

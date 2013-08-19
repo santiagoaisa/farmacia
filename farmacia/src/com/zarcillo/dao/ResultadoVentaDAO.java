@@ -14,5 +14,6 @@ public interface ResultadoVentaDAO {
     List<CobroPorDocumento> listaVentaPorDocumentoPorIdunidadPorIdusuarioPorFechas(Integer idunidad,Integer idusuario,Date fecha1,Date fecha2);
     List<VentaPorProducto> listaVentaPorProductoPorIdunidaPorFechas(Integer idunidad,Date fecha1,Date fecha2);    
     List<VentaPorDocumento> listaVentaPorDocumentoPorIdunidadPorIdvendedorPorFechas(Integer idunidad,Integer idvendedor,Date fecha1,Date fecha2);  
+    List<VentaPorDocumento> listaVentaPorDocumentoPorIdunidadPorFechas(Integer idunidad,Date fecha1,Date fecha2);  
     
 }

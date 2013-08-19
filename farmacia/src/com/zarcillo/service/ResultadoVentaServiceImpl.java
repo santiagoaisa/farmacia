@@ -55,4 +55,13 @@ public class ResultadoVentaServiceImpl implements ResultadoVentaService {
     public List<VentaPorDocumento> listaVentaPorDocumentoPorIdunidadPorFechas(Integer idunidad, Integer idvendedor, Date fecha1, Date fecha2) {
         return resultadoventadao.listaVentaPorDocumentoPorIdunidadPorIdvendedorPorFechas(idunidad, idvendedor, fecha1, fecha2);
     }
+
+    @Override
+    public List<VentaPorDocumento> listaVentaPorDocumentoPorIdunidadPorFechas(Integer idunidad, Date fecha1, Date fecha2) {
+        return resultadoventadao.listaVentaPorDocumentoPorIdunidadPorFechas(idunidad, fecha1, fecha2);
+    }
+    
+    
+    
+    
 }
