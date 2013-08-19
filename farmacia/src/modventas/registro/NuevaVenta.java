@@ -73,6 +73,8 @@ public class NuevaVenta extends SelectorComposer {
     @Wire
     private Listbox lstDetalle;
     @Wire
+    private Intbox nPlazo;
+    @Wire
     private Decimalbox nInafecto;
     @Wire
     private Decimalbox nIgv;
@@ -157,6 +159,7 @@ public class NuevaVenta extends SelectorComposer {
             cboCondicion.onInitRender(new Event("", cboCondicion));
             cboCondicion.close();
             cboCondicion.setSelectedIndex(0);
+            cargarPlazo();
         }
         modeloMotivo = new ListModelList(ventaService.listaMotivo());
         cboMotivo.setModel(modeloMotivo);
@@ -177,6 +180,11 @@ public class NuevaVenta extends SelectorComposer {
         periodo = periodoService.buscarPorDfecha(new Date());
         dFecha.setValue(new Date());
         btnAgregar.focus();
+    }
+    
+    private void cargarPlazo(){
+        CondicionVenta condicion=(CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
+        nPlazo.setValue(condicion.getNplazo());
     }
 
     private void borrarProducto(int index) {
@@ -298,6 +306,7 @@ public class NuevaVenta extends SelectorComposer {
         regsalida.setIdusuario(usuario);
         regsalida.setIdunidad(almacen.getIdunidad());
         regsalida.setIdcondicion(condicion);
+        regsalida.setNplazo(nPlazo.getValue());                
         regsalida.setIdmotivo(motivo);
         regsalida.setIdvendedor(vendedor);
         regsalida.setDfecha(dFecha.getValue());
@@ -305,7 +314,6 @@ public class NuevaVenta extends SelectorComposer {
         regsalida.setMovimientoCollection(llenarDetalle());
         int operacion = ventaService.registrar(regsalida, almacen);
         Messagebox.show("OPERACION: " + operacion, "REGISTRO SATISFACTORIO", Messagebox.OK, Messagebox.INFORMATION);
-
 
     }
 }

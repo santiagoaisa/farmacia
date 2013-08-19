@@ -4,12 +4,14 @@
 
     <grid>
         <columns>
-            <column width="15%"/>
+            <column width="12%"/>
             <column width="15%" />
-            <column width="15%"/>
+            <column width="12%"/>
             <column width="15%" />
-            <column width="15%"/>
-            <column width="20%" />
+            <column width="6%"/>
+            <column width="12%" />
+            <column width="12%"/>
+            <column width="16%" />
         </columns>
         <rows>
             <row >
@@ -17,11 +19,13 @@
                 <combobox id="cboAlmacen" readonly="true" width="98%"/>
                 <label value="Condicion:"/>
                 <combobox id="cboCondicion" readonly="true" width="98%"/>
+                <label value="Plazo:"/>
+                <intbox id="nPlazo" width="85%"  />
                 <label value="Fecha:"/>
                 <datebox id="dFecha" width="85%" readonly="true" format="yyyy-MM-dd" />
                                
             </row>
-            <row spans="1,1,1,1,2" >
+            <row spans="1,1,1,1,4" >
                 <label value="Motivo Venta:"/>
                 <combobox id="cboMotivo" readonly="true" width="98%"/>
                 <label value="Vendedor:"/>

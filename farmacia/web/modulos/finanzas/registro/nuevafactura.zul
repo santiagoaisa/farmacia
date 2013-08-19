@@ -75,7 +75,7 @@ mode="overlapped" onCancel="doCancel()" apply="modfinanzas.registro.NuevaFactura
                 <label value="Tipo Cambio:" />
                 <decimalbox id="nTcambio"  width="95%" value="1.00" format="###,###,##0.0000"  />
                 <label value="Entrada:" />
-                <intbox id="nEntrada" width="90%"  />
+                <intbox id="nOperacion" width="90%"  />
             </row>
             
             

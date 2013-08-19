@@ -142,8 +142,8 @@ public class NuevaFactura extends SelectorComposer {
     public void registrar(){
         Moneda moneda = (Moneda) modeloMoneda.getElementAt(cboMoneda.getSelectedIndex());
         Documento documento=(Documento) modeloDocumento.getElementAt(cboDocumento.getSelectedIndex());
-        if(!nOperacion.getText().isEmpty()){
-            RegistroEntrada regentrada=registroEntradaService.buscarPorIdalmacenPorIdregentrada(1,nOperacion.getValue());
+        if(!nOperacion.getText().trim().isEmpty()){
+            RegistroEntrada regentrada=registroEntradaService.buscarPorIdregentrada(nOperacion.getValue());
             cpagar.setIdregentrada(regentrada);
         }
         cpagar.setIdmoneda(moneda);
