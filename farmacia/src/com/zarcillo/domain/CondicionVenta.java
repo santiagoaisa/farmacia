@@ -54,6 +54,9 @@ public class CondicionVenta implements Serializable {
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
+    
+    @Column(name = "cmensaje")
+    private String cmensaje;
 
     public CondicionVenta() {
         bcontado=false;
@@ -130,6 +133,14 @@ public class CondicionVenta implements Serializable {
 
     public void setNincremento(BigDecimal nincremento) {
         this.nincremento = nincremento;
+    }
+
+    public String getCmensaje() {
+        return cmensaje;
+    }
+
+    public void setCmensaje(String cmensaje) {
+        this.cmensaje = cmensaje;
     }
     
     

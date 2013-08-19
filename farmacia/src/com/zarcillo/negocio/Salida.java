@@ -70,6 +70,7 @@ public class Salida extends DescargaLote {
             regsalida.setNplazo(regsalida.getIdcondicion().getNplazo());
             //////// SITUACION PEDIDO
             regsalida.setIdsituacion(SituacionPedido.DIGITADO);
+            regsalida.setCglosa(regsalida.getIdcondicion().getCmensaje());
             //////// SITUACION PEDIDO
             cruddao.registrar(regsalida);
 
