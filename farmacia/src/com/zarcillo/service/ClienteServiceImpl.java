@@ -3,6 +3,7 @@ package com.zarcillo.service;
 import com.zarcillo.dao.ClienteDAO;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.TipoPersonaDAO;
+import com.zarcillo.dao.UbigeoDAO;
 import com.zarcillo.domain.Cliente;
 import com.zarcillo.domain.TipoPersona;
 import com.zarcillo.domain.Ubigeo;
@@ -30,6 +31,8 @@ public class ClienteServiceImpl implements ClienteService {
     private ClienteDAO clientedao;
     @Autowired
     private TipoPersonaDAO  tipopersonadao;
+    @Autowired
+    private UbigeoDAO ubigeodao;
 
     @Override
     @Transactional
@@ -61,7 +64,8 @@ public class ClienteServiceImpl implements ClienteService {
                 }
             }
             
-            cliente.setIdubigeo(Ubigeo.AREQUIPA);
+            
+            cliente.setIdubigeo(ubigeodao.buscarPorIdubigeo(Ubigeo.AREQUIPA.getIdubigeo()));
             cliente.setDfecreg(new Date());
             cruddao.registrar(cliente);
             

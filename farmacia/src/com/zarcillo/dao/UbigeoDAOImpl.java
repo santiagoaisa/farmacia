@@ -45,6 +45,12 @@ public class UbigeoDAOImpl implements UbigeoDAO{
     public Ubigeo buscarProvincia(String departamento, String provincia) {
         return (Ubigeo) em.createNamedQuery("Ubigeo.findByIdprovincia").setParameter("departamento",departamento).setParameter("provincia",provincia) .getSingleResult();        
     }
+
+    @Override
+    public Ubigeo buscarPorIdubigeo(String idubigeo) {
+        return em.find(Ubigeo.class, idubigeo);
+    }
+    
     
     
     

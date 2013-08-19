@@ -13,6 +13,7 @@ public interface UbigeoDAO {
     List<Ubigeo> listaGeneralProvincia();
     List<Ubigeo> listaProvincia(String departamento);
     List<Ubigeo> listaDistrito(String departamento,String provincia);
+    Ubigeo buscarPorIdubigeo(String idubigeo);
     Ubigeo buscarDepartamento(String departamento);
     Ubigeo buscarProvincia(String departamento,String provincia);
     
