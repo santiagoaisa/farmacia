@@ -94,6 +94,11 @@ public class DocumentoServiceImpl implements DocumentoService {
     public List<Documento> listaDocumentoPago() {
         return documentodao.listaPorBpago();
     }
+
+    @Override
+    public Documento buscarPorCcodigosunat(String ccodigosunat) {
+        return documentodao.buscarPorCcodigosunat(ccodigosunat);
+    }
     
     
     

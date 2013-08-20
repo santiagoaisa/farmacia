@@ -10,7 +10,7 @@ import java.util.List;
 public interface DocumentoDAO {
     
     Documento busqueda(Integer iddocumento);
-     Documento buscarPorCcodigosunat(String ccodigosunat);
+    Documento buscarPorCcodigosunat(String ccodigosunat);
     List<Documento> listaPorBcompra();
     List<Documento> listaPorBventa();
     List<Documento> listaPorBpago();
