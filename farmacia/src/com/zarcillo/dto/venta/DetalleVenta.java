@@ -19,6 +19,7 @@ public class DetalleVenta implements Serializable {
     // nstock maximo que se puede digitar super importante cuando se digita
     private Integer nstock;    //
     private Integer nstockm;    //
+     private Integer nstockfraccion;    
     private BigDecimal nvaluni;
     //valor auxiliar para menudeo
     private BigDecimal nvalunim;
@@ -89,6 +90,7 @@ public class DetalleVenta implements Serializable {
         ndesfinmax = new BigDecimal("0");
         bactivo=true;
         bfraccion=true;
+        nstockfraccion=0;
     }
 
     public Existencia getExistencia() {
@@ -537,6 +539,16 @@ public class DetalleVenta implements Serializable {
         this.bactivo = bactivo;
     }
 
+    public Integer getNstockfraccion() {
+        return nstockfraccion;
+    }
+
+    public void setNstockfraccion(Integer nstockfraccion) {
+        this.nstockfraccion = nstockfraccion;
+    }
+
+    
+    
     
     
     @Override

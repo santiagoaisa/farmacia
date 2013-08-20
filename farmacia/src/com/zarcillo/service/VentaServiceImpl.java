@@ -207,7 +207,8 @@ public class VentaServiceImpl extends Entrada implements VentaService {
 
         Integer nstockfraccion = existencia.getNstock() * existencia.getIdproducto().getNmenudeo();
         detalle.setNstock(existencia.getNstock());
-        detalle.setNstockm(existencia.getNstock() + nstockfraccion);        
+        detalle.setNstockm(existencia.getNstockm());        
+        detalle.setNstockfraccion(existencia.getNstockm() + nstockfraccion);        
         detalle.setBactivo(!existencia.getBactivo());
 
 
