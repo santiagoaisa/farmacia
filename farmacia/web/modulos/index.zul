@@ -24,7 +24,7 @@
                     <div align="left" height="100%" >
                         <!-- BARRA DE MENU-->                            
                        
-                             <div align="left" id="divMenu" >
+                        <div align="left" id="divMenu" >
                         </div>
                         <!-- BARRA DE HERRAMIENTAS-->                            
                         <div align="left" id="divBarra">                       
@@ -35,8 +35,8 @@
                                         <toolbarbutton id="btnVentas" image="/img/barra/Ventas.png"    tooltiptext="Venta..."/>                                            
                                         <toolbarbutton id="btnKardex" image="/img/barra/Kardex.png"   tooltiptext="Consulta Kardex..."/>  
                                         <toolbarbutton id="btnDocumento" image="/img/barra/Documento.png"   tooltiptext="Generar Documento..."/>  
-                                         <toolbarbutton id="btnBoleta" image="/img/barra/Boleta.png"   tooltiptext="Consulta Boleta..."/>  
-                                          <toolbarbutton id="btnFactura" image="/img/barra/Factura.png"   tooltiptext="Consulta Factura..."/>  
+                                        <toolbarbutton id="btnBoleta" image="/img/barra/Boleta.png"   tooltiptext="Consulta Boleta..."/>  
+                                        <toolbarbutton id="btnFactura" image="/img/barra/Factura.png"   tooltiptext="Consulta Factura..."/>  
                                     </hbox>
                                 </toolbar>                               
                                 
