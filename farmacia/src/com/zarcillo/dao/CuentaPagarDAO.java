@@ -13,5 +13,5 @@ public interface CuentaPagarDAO {
     CuentaPagar buscarPorIdcuenta(Integer idcuenta);    
     List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNano(Integer idunidad,Integer idproveedor,Integer nano);
     List<CuentaPagar> listaPorIdunidadPorIdproveedorPorNanoPendientes(Integer idunidad,Integer idproveedor,Integer nano);
-    List<CuentaPagar> listaPendientesHasta(Date dhasta);
+    List<CuentaPagar> listaPendientesPorFechasPendientes(Date dfecha1,Date dfecha2);
 }

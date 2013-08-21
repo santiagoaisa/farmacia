@@ -11,12 +11,13 @@ import java.util.List;
  * @author saisa
  */
 public class CronogramaPago implements Serializable{
+    private String cdia;
     private Date dfecha;
     private BigDecimal nfactura;
     private BigDecimal nletra;
     private BigDecimal ntotal;
     
-    private List<DetalleCronogramaPago> detalleCronogramaPagoCollection;
+    private List<CronogramaPagoProveedor> detalleCronogramaPagoProveedorCollection;
 
     public CronogramaPago() {
         nfactura=new BigDecimal("0");
@@ -56,15 +57,34 @@ public class CronogramaPago implements Serializable{
         this.ntotal = ntotal;
     }
 
-    public List<DetalleCronogramaPago> getDetalleCronogramaPagoCollection() {
-        return detalleCronogramaPagoCollection;
+    public String getCdia() {
+        return cdia;
     }
 
-    public void setDetalleCronogramaPagoCollection(List<DetalleCronogramaPago> detalleCronogramaPagoCollection) {
-        this.detalleCronogramaPagoCollection = detalleCronogramaPagoCollection;
+    public void setCdia(String cdia) {
+        this.cdia = cdia;
     }
-    
-    
+
+    public List<CronogramaPagoProveedor> getDetalleCronogramaPagoProveedorCollection() {
+        return detalleCronogramaPagoProveedorCollection;
+    }
+
+    public void setDetalleCronogramaPagoProveedorCollection(List<CronogramaPagoProveedor> detalleCronogramaPagoProveedorCollection) {
+        this.detalleCronogramaPagoProveedorCollection = detalleCronogramaPagoProveedorCollection;
+    }
+
+    public void totalizar(){
+        BigDecimal nfa=new BigDecimal("0");
+        BigDecimal nle=new BigDecimal("0");
+        for(CronogramaPagoProveedor d:detalleCronogramaPagoProveedorCollection){
+            nfa=nfa.add(d.getNfactura());
+            nle=nle.add(d.getNletra());
+        }
+        nfactura=nfa;
+        nletra=nle;
+        ntotal=nfa.add(nle);
+        
+    }
     
     
 }

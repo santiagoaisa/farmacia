@@ -49,8 +49,8 @@ public class CuentaPagarDAOImpl implements CuentaPagarDAO {
     }
 
     @Override
-    public List<CuentaPagar> listaPendientesHasta(Date dhasta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<CuentaPagar>  listaPendientesPorFechasPendientes(Date dfecha1,Date dfecha2) {
+        return em.createNamedQuery("CuentaPagar.findByDfechasPendientes").setParameter("dfecha1", dfecha1).setParameter("dfecha2", dfecha2).getResultList();
     }
     
     

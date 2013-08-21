@@ -6,7 +6,7 @@ import com.zarcillo.dao.KardexDAO;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.dto.almacen.Kardex;
 import com.zarcillo.dto.almacen.TotalKardex;
-import com.zarcillo.util.OrdenarPorIdmovimiento;
+import com.zarcillo.util.ordenar.OrdenarPorIdmovimientoKardex;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,7 +51,7 @@ public class KardexServiceImpl implements KardexService {
 
         lista.addAll(listaEntrada);
         lista.addAll(listaSalida);
-        Collections.sort(lista, new OrdenarPorIdmovimiento());
+        Collections.sort(lista, new OrdenarPorIdmovimientoKardex());
 
         List<Kardex> listaKardex = new ArrayList<Kardex>();
 

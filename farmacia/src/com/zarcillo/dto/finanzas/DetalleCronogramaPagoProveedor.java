@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author saisa
  */
-public class DetalleCronogramaPago implements Serializable {
+public class DetalleCronogramaPagoProveedor implements Serializable {
     private Integer id;
     private Proveedor idproveedor;
     private UnidadNegocio idunidad;    
@@ -32,7 +32,6 @@ public class DetalleCronogramaPago implements Serializable {
     private Date dfecven;
     private Date dfeccan;
     
-    
     private BigDecimal nimporte;
     private BigDecimal nnotabo;
     private BigDecimal nnotcar;
@@ -40,7 +39,7 @@ public class DetalleCronogramaPago implements Serializable {
     private BigDecimal nsaldo;
     private Integer ndias;
 
-    public DetalleCronogramaPago() {
+    public DetalleCronogramaPagoProveedor() {
         nacuenta=new BigDecimal("0");
         ndias=0;
         nimporte=new BigDecimal("0");
@@ -226,7 +225,7 @@ public class DetalleCronogramaPago implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final DetalleCronogramaPago other = (DetalleCronogramaPago) obj;
+        final DetalleCronogramaPagoProveedor other = (DetalleCronogramaPagoProveedor) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }

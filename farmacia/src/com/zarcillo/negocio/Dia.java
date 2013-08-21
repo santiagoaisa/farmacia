@@ -12,6 +12,17 @@ import java.util.List;
  */
 public class Dia {
 
+    private static List<String> listaDiaSemana = new ArrayList<String>() {
+        {
+            add("DOMINGO");
+            add("LUNES");
+            add("MARTES");
+            add("MIERCOLES");
+            add("JUEVES");
+            add("VIERNES");
+            add("SABADO");
+        }
+    };
     private static GregorianCalendar date1 = new GregorianCalendar();
     private static GregorianCalendar date2 = new GregorianCalendar();
 
@@ -99,5 +110,9 @@ public class Dia {
         }
 
         return años;
+    }
+
+    public static String diaSemana(int index) {
+        return listaDiaSemana.get(index);
     }
 }

@@ -1,9 +1,9 @@
-package com.zarcillo.util;
+package com.zarcillo.util.ordenar;
 
 import com.zarcillo.dto.almacen.Kardex;
 import java.util.Comparator;
 
-public class OrdenarPorIdmovimiento implements Comparator {
+public class OrdenarPorIdmovimientoKardex implements Comparator {
 
     public int compare(Object o1, Object o2) {
         Kardex m1 = (Kardex) o1;
