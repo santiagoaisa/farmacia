@@ -88,6 +88,25 @@ public class ListadoProveedorServiceImpl implements ListadoProveedorService {
         return listaRetorno;
     }
 
+    @Override
+    public List<DetalleCronogramaPagoProveedor> listaDetalleCronogramaPago(Date dhasta) {
+        //hace tres años
+        Date diniciosaldo = Dia.sumarDias(new Date(), -1095);
+
+        List<DetalleCronogramaPagoProveedor> listaRetorno = new ArrayList<>();
+
+        List<CuentaPagar> listaCuentaPagarSaldo = cuentapagardao.listaPendientesPorFechasPendientes(diniciosaldo, dhasta);
+        List<LetraProveedor> listaLetraProveedorSaldo = letraproveedordao.listaPendientesPorFechasPendientes(diniciosaldo, dhasta);
+
+        List<CronogramaPagoProveedor> listaCronograma = resumenCronogramaPagoProveedor(listaCuentaPagarSaldo, listaLetraProveedorSaldo);
+
+        for (CronogramaPagoProveedor c : listaCronograma) {
+            listaRetorno.addAll(c.getDetalleCronogramaPagoProveedorCollection());
+        }
+
+        return listaRetorno;
+    }
+
     private List<CronogramaPagoProveedor> resumenCronogramaPagoProveedor(List<CuentaPagar> listaCuentaPagar, List<LetraProveedor> listaLetra) {
         Documento documentoletra = documentodao.buscarPorCcodigosunat(Documento.LETRA_SUNAT.getCcodigosunat());
         //////////////

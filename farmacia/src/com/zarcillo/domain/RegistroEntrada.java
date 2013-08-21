@@ -239,7 +239,7 @@ public class RegistroEntrada implements Serializable {
         BigDecimal valorinafecto = new BigDecimal("0.00");
         BigDecimal valorventa = new BigDecimal("0.00");
         BigDecimal igv = new BigDecimal("0.00");
-        BigDecimal preven = new BigDecimal("0.00");
+        
 
         List<Movimiento> listaMovimiento = this.getMovimientoCollection();
 
@@ -253,11 +253,11 @@ public class RegistroEntrada implements Serializable {
             }
         }
 
-        preven = preven.add(valorventa.add(igv));
+        
         this.ninafecto = valorinafecto;
         this.nafecto = valorventa;
         this.nigv = igv;
-        this.nimporte = preven;
+        this.nimporte = valorinafecto.add(valorventa).add(igv);
     }
 
     @Override

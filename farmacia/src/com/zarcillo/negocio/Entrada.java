@@ -117,6 +117,7 @@ public class Entrada extends Salida {
                 detalle.setNcantidad(d.getNcantidad());
                 detalle.setNcantidadm(d.getNcantidadm());
                 detalle.setNcosuni(d.getNcosuni());
+                detalle.setBinafecto(d.getIdproducto().getBinafecto());
                 detalle.setClote(d.getClote());
                 detalle.setCfecven(d.getCfecven());
                 detalle.setCtipmov("E");

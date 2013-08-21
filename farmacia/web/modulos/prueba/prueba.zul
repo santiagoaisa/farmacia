@@ -4,60 +4,16 @@
 <window id="winPrueba" title="Consulta de Boletas" border="0"  width="700px"
         apply="modprueba.Prueba"   >
 
+  
+    <menu iconSclass="icon icon-white icon-envelope" label="Messages">
+        <menupopup sclass="navpp">
+            <menuitem label="new message" />
+            <menuitem label="inbox" />
+            <menuitem label="outbox" />
+            <menuitem label="trash" />
+        </menupopup>
+    </menu>
     
-    <intbox   width="80%" />
-    <button label="Mensage" />
-        
-    <button id="btnImprimir" label="IMPRIMIR" >
-    </button>
-    <button id="btnCargar" label="Cargar" >
-    </button>
     
-    <button id="btnAnular" label="Anular" >
-    </button>
-    
-    <menu id="mimpresion" width="100%"></menu>
-    
-    <label value = "Producto:"  />
-    <textbox id="txtDescripcion" width="95%" ctrlKeys="@c^a#f2^#f3" />
-    <listbox id="lstDetalle" mold="paging" multiple="true" checkmark="true"    pageSize="500" height="300px" >
-        <auxhead>
-            <auxheader label="Detalle de Ingreso" colspan="12"/>
-        </auxhead>
-        <listhead sizable="true" >            
-            <listheader label="Codigo" width="10%" />            
-            <listheader label="Fraccion" width="5%" />            
-            <listheader label="Descripcion" width="30%" />
-            <listheader label="Stock" width="5%" />            
-            <listheader label="Cantidad" width="8%" />
-            <listheader label="Menudeo" width="8%" />
-            <listheader label="Valuni" width="15%" />            
-            <listheader label="ValuniMe" width="8%" />            
-            <listheader label="Subtotal" width="8%" />            
-            <listheader label="Preven" width="8%" />
-        </listhead>
-        <listitem self="@{each=detalleSalida}" >            
-            <listcell label="@{detalleSalida.existencia.idproducto.idproducto}" />
-            <listcell label="@{detalleSalida.existencia.idproducto.nmenudeo}" />
-            <listcell label="@{detalleSalida.existencia.idproducto.cnomproducto}" />
-            <listcell label="@{detalleSalida.nstock}" />            
-            <listcell>
-                <intbox id="i0" value="@{detalleSalida.ncanart}"  width="70%" />
-            </listcell>
-            
-            <listcell>
-                <intbox id="i1" value="@{detalleSalida.ncanartm}"  width="70%" />
-            </listcell>            
-
-            <listcell>
-                <decimalbox id="d1" value="@{detalleSalida.nvaluni}" format="0.0000"  width="80%" />
-            </listcell>
-            
-            <listcell label="@{detalleSalida.nvalunim}" />
-            <listcell label="@{detalleSalida.nsubtot}" />
-            <listcell label="@{detalleSalida.nimporte}" />
-            
-        </listitem>
-    </listbox>
     
 </window>

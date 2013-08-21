@@ -55,83 +55,10 @@ public class Prueba extends SelectorComposer {
 
     @Wire
     private Window winPrueba;
-    @Wire
-    private Button btnImprimir;
-    @Wire
-    private Textbox txtDescripcion;
-    @Wire
-    private Listbox lstDetalle;
-    @WireVariable
-    private ProductoService productoService;
-    @WireVariable
-    private VentaService ventaService;
-    @WireVariable
-    private AnulacionService anulacionService;
-    @WireVariable
-    private ColaImpresionService colaImpresionService;
-    @WireVariable
-    private RegistroSalidaService registroSalidaService;
-    @WireVariable
-    private ResultadoVentaService resultadoVentaService;
-    @WireVariable
-    private PlanillaIngresoService planillaIngresoService;
+   
     
     
-    private MenuImpresion menuimpresion;
-
-    @Listen("onCreate=window#winPrueba")
-    public void onCreate() throws InterruptedException, JRException, NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) winPrueba.getFellow("mimpresion");
-        menuimpresion = (MenuImpresion) macro.getChildren().get(0);
-        
-//        resultadoVentaService.listaVentaPorDocumentoPorIdunidadPorFechas(1, 1, new Date(),new Date());
-
-        planillaIngresoService.listaCobroPorDocumentoPorIdunidadPorIdusuarioPorFechas(1, 1, new Date(),new Date());
-    }
-
-      @Listen("onClick = button#btnAnular")
-    public void onAnular(Event event) {
-          
-        anulacionService.anular(36,new MotivoAnulacion(1), new Usuario(2));
-    }
-    
-    @Listen("onClick = button#btnImprimir")
-    public void onRegistrar(Event event) {
-        
-        RegistroSalida regasalida=registroSalidaService.buscarPorIdunidadPorIdregsalida(1, 36);
-        TipoPago tipo=new TipoPago();        
-        tipo.setIdtipo(6);
-        
-        colaImpresionService.crearDocumento(regasalida,tipo, new Usuario(2));
-        //menuimpresion.dialogoImpresion(true);
-        //menuimpresion.imprimirReporte(null, 20933648, null, null);
-    }
-
-    @Listen("onValidar = #winPrueba")
-    public void doSave(ForwardEvent event) { //signature if you care about event
-        Messagebox.show("Prueba");
-    }
-
-    @Listen("onOK = #txtDescripcion")
-    public void buscar(Event event) { //signature if you care about event
-       buscar();
-
-    }
-    
-    @Listen("onCtrlKey = #txtDescripcion")
-    public void buscarTecla(Event event) { //signature if you care about event
-       buscar();
-    }
-    
-    private void buscar(){
-         List<DetalleVenta> listaDetalleVenta = ventaService.busquedaListaPorIdalmacenPorReceta(1, txtDescripcion.getText().trim(),null);
-        ListModelList modelo = new ListModelList(listaDetalleVenta);
-        
-        lstDetalle.setModel(modelo);
-        lstDetalle.onInitRender();
-        lstDetalle.setMultiple(true);
-        lstDetalle.setCheckmark(true);
-    }
+  
 
     @Listen("onClick = button#btnCargar")
     public void crearproductos() throws Exception {
@@ -193,8 +120,7 @@ public class Prueba extends SelectorComposer {
             celda = sheet.getCell(8, i);
             producto.setIdfamilia(new Familia(new Integer(celda.getContents().trim())));
 
-            productoService.registrar(producto);
-
+           
         }
 
 
