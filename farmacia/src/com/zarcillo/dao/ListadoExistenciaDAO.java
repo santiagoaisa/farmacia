@@ -9,6 +9,5 @@ import java.util.List;
  * @author saisa
  */
 public interface ListadoExistenciaDAO {
-    List<InventarioValorizado> listaPorIdalmacenConStock(Integer idalmacen);
     List<InventarioLote> listaPorIdalmacenPorLineasConStock(Integer idalmacen,List<Integer> lista);
 }

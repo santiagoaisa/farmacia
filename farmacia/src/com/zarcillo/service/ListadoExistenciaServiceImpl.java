@@ -4,10 +4,12 @@ import com.zarcillo.dto.compra.ActualizarExistencia;
 import com.zarcillo.dto.compra.ExistenciaValorizada;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.ExistenciaDAO;
+import com.zarcillo.dao.LineaDAO;
 import com.zarcillo.dao.ListadoExistenciaDAO;
 import com.zarcillo.dao.LoteDAO;
 import com.zarcillo.dao.PeriodoDAO;
 import com.zarcillo.domain.Existencia;
+import com.zarcillo.domain.Linea;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.dto.almacen.Inventario;
 import com.zarcillo.dto.almacen.InventarioLote;
@@ -43,7 +45,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
     @Autowired
     private PeriodoDAO periododao;
     @Autowired
-    private LoteDAO lotedao;
+    private LineaDAO lineadao;
 
     @Override
     public List<ListadoPrecio> listadoPrecio(Integer idalmacen, List<Integer> lista) {
@@ -121,18 +123,14 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
     @Override
     public List<InventarioValorizado> listaInventarioValorizadoPorIdalmacen(Integer idalmacen) {
         Periodo periodo = periododao.buscarPorFecha(new Date());
-        List<InventarioValorizado> listaInventario = listadoexistenciadao.listaPorIdalmacenConStock(idalmacen);
+        List<Linea> listaLinea = lineadao.listaConStock(idalmacen);
+
         List<InventarioValorizado> listaRetorno = new ArrayList<>();
 
         BigDecimal ntotal = new BigDecimal("0");
-        InventarioValorizado inventario;
-        for (InventarioValorizado i : listaInventario) {
-            inventario = new InventarioValorizado();
-            inventario.setIdlinea(i.getIdlinea());
-            inventario.setNcosto(i.getNcosto());
-            inventario.setPcosto(Igv.Importe(periodo.getNigv(), i.getNcosto()));
-            listaRetorno.add(inventario);
-            ntotal = ntotal.add(i.getNcosto());
+       
+        for (Linea l : listaLinea) {           
+            listaRetorno.add(costoPorIdalmacenPorIdlinea(idalmacen, l));            
         }
 
         BigDecimal nparticipacion;
@@ -147,6 +145,38 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
         }
 
         return listaRetorno;
+
+    }
+
+    private InventarioValorizado costoPorIdalmacenPorIdlinea(Integer idalmacen, Linea linea) {
+
+        List<Existencia> listaExistencia = existenciadao.listaPorIdalmacenPorIdlinea(idalmacen, linea.getIdlinea());
+        
+       
+        BigDecimal ncosuni ;
+        BigDecimal ncosto = new BigDecimal("0");
+        BigDecimal nprecos = new BigDecimal("0");
+        
+        BigDecimal nstockentero;
+        BigDecimal nstocfraccion;
+        BigDecimal nstocktotalactual;
+        for (Existencia e : listaExistencia) {
+            ncosuni=new BigDecimal("0");
+            nstockentero = new BigDecimal(e.getNstock());
+            nstocfraccion = new BigDecimal(e.getNstockm()).divide(new BigDecimal(e.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
+            nstocktotalactual = nstockentero.add(nstocfraccion);
+            ncosuni = (e.getNcosuni().multiply(nstocktotalactual));
+            ncosto=ncosto.add(ncosuni);
+            nprecos=nprecos.add(Igv.importeDetalleVenta(ncosto, e.getIdproducto().getBinafecto()));
+            
+        }
+
+        InventarioValorizado inventario=new InventarioValorizado();
+        inventario.setIdlinea(linea);
+        inventario.setNcosto(ncosto);
+        inventario.setPcosto(nprecos);
+        
+        return inventario;
 
     }
 
