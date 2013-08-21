@@ -1,83 +1,80 @@
 <?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
 <window id="index" apply="modseguridad.Index"  height="100%">        
-    <borderlayout   height="100%" style="background:#c5e6ef;" >
+    <borderlayout   hflex="1" vflex="1" style="background:#c5e6ef;" >
         <north  >
-            <borderlayout height="55px">       
-                <center flex="true"  >
+            <borderlayout height="55px">                      
                     <toolbar id="btnModulos"  >                            
                     </toolbar>    
-                </center>    
+               
+                 <!-- BARRA DE HERRAMIENTAS-->          
+                <hbox width="100%" widths="85%,15%">    
+                            
+                        <toolbar id="tb"    >
+                            <hbox spacing="0">
+                                <toolbarbutton id="btnVentas" image="/img/barra/Ventas.png"    tooltiptext="Venta..."/>                                            
+                                <toolbarbutton id="btnKardex" image="/img/barra/Kardex.png"   tooltiptext="Consulta Kardex..."/>  
+                                <toolbarbutton id="btnDocumento" image="/img/barra/Documento.png"   tooltiptext="Generar Documento..."/>  
+                                <toolbarbutton id="btnBoleta" image="/img/barra/Boleta.png"   tooltiptext="Consulta Boleta..."/>  
+                                <toolbarbutton id="btnFactura" image="/img/barra/Factura.png"   tooltiptext="Consulta Factura..."/>  
+                            </hbox>
+                        </toolbar>                               
+                                
+                        <toolbar id="tb2"    align="end">
+                            <hbox spacing="0"> 
+                                <toolbarbutton id="btnClave" image="/img/barra/Cambiarclave.png" tooltiptext="Permite cambiar clave" />                                           
+                                <toolbarbutton id="btnSalir" image="/img/barra/Salir.png" tooltiptext="Permite salir del Sistema" />
+                            </hbox>
+                        </toolbar>                                
+                    </hbox>
+                
+                                  
+                
+                
+                
             </borderlayout>
         </north>
+        
+        <!-- Sidebar -->	
+                
+        <west  width="250px"  title="Menu Principal" collapsible="true"  >
+                    
+            <navbar id="sidebar" orient="vertical">
+                <navitem label="ARCHIVO"  />
+                <navitem label="PROCESO" iconSclass="z-icon-pencil"/>
+                <nav label="CONSULTA" iconSclass="z-icon-th-list" detailed="true">
+                    <navitem label="Item de Prueba" iconSclass="z-icon-star" href="/modulos/mantenimiento/manttolinea.zul"/>
+                    <navitem label="Play Darts" />
+                    <navitem label="Plant Flowers" />
+                    <navitem label="Wash the Car" iconSclass="z-icon-star"/>
+                </nav>
+                <nav label="Someday" iconSclass="z-icon-tasks" detailed="true">
+                    <navitem label="Say Hi to the Soldier"/>
+                    <navitem label="Hide and Seek" />
+                </nav>
+                <nav label="Done" iconSclass="z-icon-archive">
+                    <navitem label="Go to the Park" disabled="true"/>
+                    <navitem label="Badminton Game" disabled="true"/>
+                    <navitem label="Buy the Ticket" disabled="true"/>
+                    <navitem label="Return the U-Bike" disabled="true"/>
+                </nav>
+            </navbar>
+                    
+        </west>
+        
         <center   >
-            <borderlayout style="background:#c5e6ef;" >
-                <!-- Sidebar -->	
-                
-                <west  width="250px"  title="Menu Principal" collapsible="true"  >
-                    
-                        <navbar id="sidebar" orient="vertical">
-                            <navitem label="ARCHIVO"  />
-                            <navitem label="PROCESO" iconSclass="z-icon-pencil"/>
-                            <nav label="CONSULTA" iconSclass="z-icon-th-list" detailed="true">
-                                <navitem label="Item de Prueba" iconSclass="z-icon-star" href="/modulos/mantenimiento/manttolinea.zul"/>
-                                <navitem label="Play Darts" />
-                                <navitem label="Plant Flowers" />
-                                <navitem label="Wash the Car" iconSclass="z-icon-star"/>
-                            </nav>
-                            <nav label="Someday" iconSclass="z-icon-tasks" detailed="true">
-                                <navitem label="Say Hi to the Soldier"/>
-                                <navitem label="Hide and Seek" />
-                            </nav>
-                            <nav label="Done" iconSclass="z-icon-archive">
-                                <navitem label="Go to the Park" disabled="true"/>
-                                <navitem label="Badminton Game" disabled="true"/>
-                                <navitem label="Buy the Ticket" disabled="true"/>
-                                <navitem label="Return the U-Bike" disabled="true"/>
-                            </nav>
-                        </navbar>
-                    
-                </west>
-                
-                <!-- Content -->
-                <center  >
-                    
-                    <div align="left" height="100%" >
-                        <!-- BARRA DE MENU-->                            
-                       
-                        <!-- BARRA DE HERRAMIENTAS-->                            
-                        <div align="left" id="divBarra">                       
-                            <hbox width="100%" widths="85%,15%">    
-                            
-                                <toolbar id="tb"    >
-                                    <hbox spacing="0">
-                                        <toolbarbutton id="btnVentas" image="/img/barra/Ventas.png"    tooltiptext="Venta..."/>                                            
-                                        <toolbarbutton id="btnKardex" image="/img/barra/Kardex.png"   tooltiptext="Consulta Kardex..."/>  
-                                        <toolbarbutton id="btnDocumento" image="/img/barra/Documento.png"   tooltiptext="Generar Documento..."/>  
-                                        <toolbarbutton id="btnBoleta" image="/img/barra/Boleta.png"   tooltiptext="Consulta Boleta..."/>  
-                                        <toolbarbutton id="btnFactura" image="/img/barra/Factura.png"   tooltiptext="Consulta Factura..."/>  
-                                    </hbox>
-                                </toolbar>                               
-                                
-                                <toolbar id="tb2"    align="end">
-                                    <hbox spacing="0"> 
-                                        <toolbarbutton id="btnClave" image="/img/barra/Cambiarclave.png" tooltiptext="Permite cambiar clave" />                                           
-                                        <toolbarbutton id="btnSalir" image="/img/barra/Salir.png" tooltiptext="Permite salir del Sistema" />
-                                    </hbox>
-                                </toolbar>                                
-                            </hbox>
+            <!-- Content -->
+            <div align="left" height="100%" >
+                <!-- BARRA DE MENU--> 
+                <borderlayout width="100%" height="100%">
+                    <center border="none" hflex="true" >
+                        <div id="divContenido">
+                            <!-- Seccion Principal
+                            Aqui se debe mostrar todos las pagina del sistema
+                            -->
                         </div>
-                        <borderlayout width="100%" height="100%">
-                            <center border="none" hflex="true" >
-                                <div id="divContenido">
-                                    <!-- Seccion Principal
-                                    Aqui se debe mostrar todos las pagina del sistema
-                                    -->
-                                </div>
-                            </center>
-                        </borderlayout>
-                    </div>
-                </center>
-            </borderlayout>
+                    </center>
+                </borderlayout>
+            </div> 
         </center>
         <!--
         <east title=""  width="100px" flex="false"  collapsible="true"  >

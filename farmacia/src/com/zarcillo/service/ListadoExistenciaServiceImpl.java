@@ -121,8 +121,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
     }
 
     @Override
-    public List<InventarioValorizado> listaInventarioValorizadoPorIdalmacen(Integer idalmacen) {
-        Periodo periodo = periododao.buscarPorFecha(new Date());
+    public List<InventarioValorizado> listaInventarioValorizadoPorIdalmacen(Integer idalmacen) {      
         List<Linea> listaLinea = lineadao.listaConStock(idalmacen);
 
         List<InventarioValorizado> listaRetorno = new ArrayList<>();
@@ -174,7 +173,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
             nstocktotalactual = nstockentero.add(nstocfraccion);
             ncosuni = (e.getNcosuni().multiply(nstocktotalactual));
             ncosto=ncosto.add(ncosuni);
-            nprecos=nprecos.add(Igv.importeDetalleVenta(ncosto, e.getIdproducto().getBinafecto()));
+            nprecos=nprecos.add(Igv.importeDetalleVenta(ncosuni, e.getIdproducto().getBinafecto()));
             
         }
 
