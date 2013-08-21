@@ -141,7 +141,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
 
         BigDecimal nparticipacion;
         for (InventarioValorizado i : listaRetorno) {
-            if (Numero.isCero(i.getNcosto())) {
+            if (!Numero.isCero(i.getNcosto())) {
                 nparticipacion = i.getNcosto().divide(ntotal, 4, BigDecimal.ROUND_HALF_UP);
             } else {
                 nparticipacion = Numero.cero;
