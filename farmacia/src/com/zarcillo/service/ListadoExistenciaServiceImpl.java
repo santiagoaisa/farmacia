@@ -129,14 +129,21 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
 
         BigDecimal ntotal = new BigDecimal("0");
        
+        InventarioValorizado inventario;
         for (Linea l : listaLinea) {           
-            listaRetorno.add(costoPorIdalmacenPorIdlinea(idalmacen, l));            
+            inventario=costoPorIdalmacenPorIdlinea(idalmacen, l);
+            listaRetorno.add(inventario);            
+            
+            ntotal=ntotal.add(inventario.getNcosto());
+            
         }
+        
+        
 
         BigDecimal nparticipacion;
         for (InventarioValorizado i : listaRetorno) {
             if (Numero.isCero(i.getNcosto())) {
-                nparticipacion = i.getPcosto().divide(ntotal, 4, BigDecimal.ROUND_HALF_UP);
+                nparticipacion = i.getNcosto().divide(ntotal, 4, BigDecimal.ROUND_HALF_UP);
             } else {
                 nparticipacion = Numero.cero;
             }
