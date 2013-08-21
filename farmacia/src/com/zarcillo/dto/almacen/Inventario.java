@@ -3,9 +3,6 @@ package com.zarcillo.dto.almacen;
 import com.zarcillo.domain.Producto;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 public class Inventario implements Serializable {
 
@@ -13,10 +10,18 @@ public class Inventario implements Serializable {
     private Integer nstock;    
     private Integer nstockm;    
     private String cubicacion;
+    private BigDecimal ncosuni;
+    
+     private BigDecimal nsubcos;
+    private BigDecimal nprecos;
 
     public Inventario() {
         nstock = 0;        
-         nstockm = 0;   
+         nstockm = 0;  
+         ncosuni=new BigDecimal("0");         
+         nsubcos=new BigDecimal("0");
+         nprecos=new BigDecimal("0");
+         
     }
 
     public Producto getIdproducto() {
@@ -53,7 +58,33 @@ public class Inventario implements Serializable {
         this.nstockm = nstockm;
     }
 
-  
+    public BigDecimal getNcosuni() {
+        return ncosuni;
+    }
+
+    public void setNcosuni(BigDecimal ncosuni) {
+        this.ncosuni = ncosuni;
+    }
+
+    public BigDecimal getNsubcos() {
+        return nsubcos;
+    }
+
+    public void setNsubcos(BigDecimal nsubcos) {
+        this.nsubcos = nsubcos;
+    }
+
+    public BigDecimal getNprecos() {
+        return nprecos;
+    }
+
+    public void setNprecos(BigDecimal nprecos) {
+        this.nprecos = nprecos;
+    }
+
+   
+
+    
 
    
 }

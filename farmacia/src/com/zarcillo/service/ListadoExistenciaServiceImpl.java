@@ -16,6 +16,7 @@ import com.zarcillo.dto.venta.ListadoPrecio;
 import com.zarcillo.negocio.Igv;
 import com.zarcillo.negocio.Numero;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -88,12 +89,25 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
         List<Inventario> listaInventario = new ArrayList<>();
 
         Inventario inventario;
+        BigDecimal nstockfraccion;
+        BigDecimal nstockentero;
+        BigDecimal nstocktotal;
         for (Existencia e : listaExistencia) {
             inventario = new Inventario();
+            nstocktotal = new BigDecimal("0");
             inventario.setIdproducto(e.getIdproducto());
             inventario.setCubicacion(e.getCubicacion());
             inventario.setNstock(e.getNstock());
             inventario.setNstockm(e.getNstockm());
+            inventario.setNcosuni(e.getNcosuni());
+
+            nstockentero = new BigDecimal(e.getNstock());
+            nstockfraccion = new BigDecimal(e.getNstockm()).divide(new BigDecimal(e.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_EVEN);
+            nstocktotal = nstockentero.add(nstockfraccion);
+            inventario.setNsubcos(inventario.getNcosuni().multiply(nstocktotal));
+            inventario.setNprecos(Igv.importeDetalleVenta(inventario.getNsubcos(), e.getIdproducto().getBinafecto()));
+
+
             listaInventario.add(inventario);
         }
         return listaInventario;
