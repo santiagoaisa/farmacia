@@ -194,7 +194,7 @@ public class CronogramaPagos extends SelectorComposer {
         parametro.put("FECFIN", dFecfin.getValue());
         parametro.put("USUARIO", usuario.getCnomusuario());
 
-        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listaDetalle);
         rptreporte.setSrc("/modulos/finanzas/reporte/detallecronograma.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

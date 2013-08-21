@@ -29,7 +29,7 @@
             <listheader label="Nombre Linea" width="55%" sort="auto(idlinea.cnomlinea)"/>
             <listheader label="valor Costo" width="15%" sort="auto(ncosto)"   align="right"  />
             <listheader label="Precio Costo" width="15%" sort="auto(pcosto)"  align="right"  />
-            <listheader label="Part(%)" width="15%" sort="auto(nporcentaje)"  align="right"  />
+            <listheader label="Participacion(%)" width="15%" sort="auto(nporcentaje)"  align="right"  />
             
         </listhead>
         <listitem self="@{each=detalle}">
