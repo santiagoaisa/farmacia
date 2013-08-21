@@ -204,6 +204,18 @@ public class ListaInventarioProducto extends SelectorComposer {
         cell6.setCellStyle(cellStyleRedBold);
         cell6.setCellType(HSSFCell.CELL_TYPE_STRING);
         cell6.setCellValue("Ubicacion");
+        HSSFCell cell7 = row.createCell(7);
+        cell7.setCellStyle(cellStyleRedBold);
+        cell7.setCellType(HSSFCell.CELL_TYPE_STRING);
+        cell7.setCellValue("CosUni");
+        HSSFCell cell8 = row.createCell(8);
+        cell8.setCellStyle(cellStyleRedBold);
+        cell8.setCellType(HSSFCell.CELL_TYPE_STRING);
+        cell8.setCellValue("SubCos");
+        HSSFCell cell9 = row.createCell(9);
+        cell9.setCellStyle(cellStyleRedBold);
+        cell9.setCellType(HSSFCell.CELL_TYPE_STRING);
+        cell9.setCellValue("Costo Total");
         
         // detalle
         int x = 1;
@@ -243,9 +255,23 @@ public class ListaInventarioProducto extends SelectorComposer {
             
             cell = row.createCell(6);
             cell.setCellStyle(cellStyleNormal);
-            cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+            cell.setCellType(HSSFCell.CELL_TYPE_STRING);
             cell.setCellValue(r.getCubicacion());
               
+            cell = row.createCell(7);
+            cell.setCellStyle(cellStyleNormal);
+            cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+            cell.setCellValue(r.getNcosuni().doubleValue());
+            
+            cell = row.createCell(8);
+            cell.setCellStyle(cellStyleNormal);
+            cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+            cell.setCellValue(r.getNsubcos().doubleValue());
+            
+            cell = row.createCell(9);
+            cell.setCellStyle(cellStyleNormal);
+            cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+            cell.setCellValue(r.getNprecos().doubleValue());
                         
             x++;
         }

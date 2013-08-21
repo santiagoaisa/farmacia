@@ -1,18 +1,18 @@
-package modalmacen.herramientas;
+package modfinanzas.consulta;
 
-import com.zarcillo.domain.Almacen;
+import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
-import com.zarcillo.dto.almacen.InventarioValorizado;
-import com.zarcillo.dto.compra.ExistenciaValorizada;
-import com.zarcillo.service.AlmacenService;
-import com.zarcillo.service.LineaService;
-import com.zarcillo.service.ListadoExistenciaService;
+import com.zarcillo.dto.finanzas.CronogramaPago;
+import com.zarcillo.dto.finanzas.CronogramaPagoProveedor;
+import com.zarcillo.service.ListadoProveedorService;
+import com.zarcillo.service.UnidadNegocioService;
 import com.zarcillo.service.UsuarioService;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
@@ -32,38 +32,52 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zkex.zul.Jasperreport;
-import org.zkoss.zul.*;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Decimalbox;
+import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listhead;
+import org.zkoss.zul.Listheader;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class InventarioValorizadoLinea extends SelectorComposer {
+public class DetalleCronogramaPagos extends SelectorComposer {
 
     private Usuario usuario;
-    private ListModelList modeloInventario;
-    private ListModelList modeloAlmacen;
+    private ListModelList modeloDetalle;
+    private UnidadNegocio unidad;
+    private CronogramaPago cronograma;
+    private Date dFecha;
     @Wire
-    private Window winInventario;
+    private Window winDetalle;
     @Wire
-    private Combobox cboAlmacen;
+    private Button btnProcesar;
     @Wire
-    private Listbox lstInventario;
+    private Listbox lstDetalle;
+    @Wire
+    private Decimalbox nFactura;
+    @Wire
+    private Decimalbox nLetra;
+    @Wire
+    private Decimalbox nTotal;
     @Wire
     private Jasperreport rptreporte;
-    @Wire
-    private Decimalbox nCosto;
-    @Wire
-    private Decimalbox nPcosto;
-    @WireVariable
-    AlmacenService almacenService;
-    @WireVariable
-    LineaService lineaService;
     @WireVariable
     UsuarioService usuarioService;
     @WireVariable
-    ListadoExistenciaService listadoExistenciaService;
-    final Execution exec = Executions.getCurrent();
+    ListadoProveedorService listadoProveedorService;
+    @WireVariable
+    UnidadNegocioService unidadNegocioService;
+    
     private String user_login;
+    final Execution exec = Executions.getCurrent();
 
-    @Listen("onCreate=window#winInventario")
+    @Listen("onCreate=window#winDetalle")
     public void onCreate() throws NamingException {
         initComponets();
     }
@@ -78,92 +92,75 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         exportar();
     }
     
-    @Listen("onClick = #btnProcesar")
-    public void onProcesar(Event event) {
-        procesar();
+    @Listen("onOK = #lstDetalle")
+    public void onMostrarDetalle(Event event) {
+        mostrarDetalle();
     }
     
-    @Listen("onDoubleClick = #lstInventario")
+    @Listen("onDoubleClick = #lstDetalle")
     public void onDetalle(Event event) {
-        detalleInventario();
+        mostrarDetalle();
     }
-    
-    @Listen("onOK = #lstInventario")
-    public void onDetalleInventario(Event event) {
-        detalleInventario();
-    }
-    
-    
 
-    private void initComponets() {
-        user_login = exec.getUserPrincipal().getName();
-        usuario = usuarioService.buscarPorLogin(user_login);
-        modeloAlmacen = new ListModelList(almacenService.listaPorClogin(usuario.getClogin()));
-        cboAlmacen.setModel(modeloAlmacen);
-        if (modeloAlmacen.size() > 0) {
-            cboAlmacen.onInitRender(new Event("", cboAlmacen));
-            cboAlmacen.close();
-            cboAlmacen.setSelectedIndex(0);
-        }
+    
+    public void initComponets() {
+        unidad=(UnidadNegocio) winDetalle.getAttribute("UNIDAD");
+        usuario=(Usuario) winDetalle.getAttribute("USUARIO");
+        cronograma=(CronogramaPago) winDetalle.getAttribute("CRONOGRAMA");
+        dFecha=(Date) winDetalle.getAttribute("FECHA");
         
-    }
-    private void procesar(){
-        Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        modeloInventario = new ListModelList(listadoExistenciaService.listaInventarioValorizadoPorIdalmacen(almacen.getIdalmacen()));
-        lstInventario.setModel(modeloInventario);
-        lstInventario.onInitRender();        
+        modeloDetalle = new ListModelList(cronograma.getDetalleCronogramaPagoProveedorCollection());
+        lstDetalle.setModel(modeloDetalle);
+        lstDetalle.onInitRender();
         cargarPie();
     }
     
-    private void cargarPie(){
-        BigDecimal ncosto= new BigDecimal(BigInteger.ZERO);
-        BigDecimal nprecio = new BigDecimal(BigInteger.ZERO);
-        List<Listitem> ldatos = lstInventario.getItems();
-        InventarioValorizado invvalorizado;
-        for (Listitem item : ldatos) {
-            invvalorizado=(InventarioValorizado) modeloInventario.getElementAt(item.getIndex());
-            ncosto=ncosto.add(invvalorizado.getNcosto());
-            nprecio=nprecio.add(invvalorizado.getPcosto());
-        }
-        nCosto.setValue(ncosto);
-        nPcosto.setValue(nprecio);
-    }
-
-    private void validar() {
-        cboAlmacen.getValue();
-    }
-
-    private void detalleInventario(){
-        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        InventarioValorizado inventario =(InventarioValorizado) modeloInventario.getElementAt(lstInventario.getSelectedIndex());        
-        List<ExistenciaValorizada> listaExistencia=listadoExistenciaService.listaExistenciaValorizadaPorIdalmacenPorIdlinea(almacen.getIdalmacen(),inventario.getIdlinea().getIdlinea());
-        Window win = (Window) Executions.createComponents("/modulos/almacen/consulta/detalleinventariovalorizado.zul", null, null);
+    private void mostrarDetalle(){
+        Window win = (Window) Executions.createComponents("/modulos/finanzas/consulta/cronogramapagosdocumento.zul", null, null);
         win.setClosable(true);
-        win.setAttribute("LISTAEXISTENCIA", listaExistencia);
-        win.setAttribute("INVENTARIO", inventario);
+        CronogramaPagoProveedor cronogramaproveedor = (CronogramaPagoProveedor) modeloDetalle.getElementAt(lstDetalle.getSelectedIndex());
+        win.setAttribute("CRONOGRAMAPROVEEDOR", cronogramaproveedor);
+        win.setAttribute("UNIDAD", unidad);
         win.setAttribute("USUARIO", usuario);
-        win.setAttribute("ALMACEN", almacen);
+        win.setAttribute("FECHA", dFecha);        
         win.doModal();
     }
 
-    public void imprimir() {
-        validar();
-        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+
+    private void cargarPie() {
+        BigDecimal nfactura= new BigDecimal(BigInteger.ZERO);
+        BigDecimal nletra= new BigDecimal(BigInteger.ZERO);
+        BigDecimal ntotal= new BigDecimal(BigInteger.ZERO);
+        List<Listitem> ldatos = lstDetalle.getItems();
+        CronogramaPagoProveedor cpd;
+        for (Listitem item : ldatos) {
+            cpd=  (CronogramaPagoProveedor) modeloDetalle.getElementAt(item.getIndex());            
+            nfactura = nfactura.add(cpd.getNfactura());
+            nletra = nletra.add(cpd.getNletra());
+            ntotal= ntotal.add(cpd.getNtotal());
+        }
+        nFactura.setValue(nfactura);
+        nLetra.setValue(nletra);
+        nTotal.setValue(ntotal);
+    }    
+
+    
+    private void imprimir(){
         HashMap parametro = new HashMap();
-        parametro.put("RUTA", almacen.getIdunidad().getIdempresa().getCruta()); 
-        parametro.put("EMPRESA", almacen.getIdunidad().getIdempresa().getCnomempresa());
-        parametro.put("UNIDADNEGOCIO", almacen.getIdunidad().getCnomunidad());
-        parametro.put("ALMACEN", almacen.getCnomalmacen());
+        parametro.put("RUTA", unidad.getIdempresa().getCruta());        
+        parametro.put("UNIDADNEGOCIO", unidad.getCnomunidad());
+        parametro.put("FECHA", dFecha);
         parametro.put("USUARIO", usuario.getCnomusuario());
-        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloInventario);
-        rptreporte.setSrc("/modulos/almacen/reporte/inventariovalorizado.jasper");
+
+        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        rptreporte.setSrc("/modulos/finanzas/reporte/detallecronogramapago.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");        
+        rptreporte.setType("pdf");
     }
+    
     public void exportar() throws IOException {
-        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        EsportaExcel2(lstInventario,almacen.getCnomalmacen().trim() + ".xls");
+        EsportaExcel2(lstDetalle,"cronogramaproveedor.xls");
     }
 
     public void EsportaExcel2(Listbox box, String nomeFile) throws IOException {
@@ -221,7 +218,7 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         fOut.close();
         File file = new File(nomeFile);
         Filedownload.save(file, "XLS");
-    }
+    }    
     public static boolean isNumberFloat(String cadena) {
         try {
             Float.parseFloat(cadena);
@@ -231,4 +228,3 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         }
     }
 }
-

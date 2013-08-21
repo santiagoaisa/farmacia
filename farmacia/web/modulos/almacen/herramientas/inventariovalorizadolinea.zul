@@ -1,5 +1,5 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winInventario"?>
-<window id="winInventario" border="0" width="450px"  title="Inventario Valorizado..."
+<window id="winInventario" border="0" width="550px"  title="Inventario Valorizado..."
  apply="modalmacen.herramientas.InventarioValorizadoLinea"   mode="overlapped" >
 
     <zscript>{
@@ -26,15 +26,17 @@
 
     <listbox id="lstInventario"  height="400px" mold="paging" pageSize="500"  >
         <listhead >
-            <listheader label="Nombre Linea" width="70%" sort="auto(cnomlinea)"/>
-            <listheader label="valor Costo" width="15%"  align="rigth" />
-            <listheader label="Precio Costo" width="15%" align="rigth" />
+            <listheader label="Nombre Linea" width="55%" sort="auto(idlinea.cnomlinea)"/>
+            <listheader label="valor Costo" width="15%" sort="auto(ncosto)"   align="right"  />
+            <listheader label="Precio Costo" width="15%" sort="auto(pcosto)"  align="right"  />
+            <listheader label="Part(%)" width="15%" sort="auto(nporcentaje)"  align="right"  />
             
         </listhead>
         <listitem self="@{each=detalle}">
             <listcell label="@{detalle.idlinea.cnomlinea}"/>
             <listcell decimal="@{detalle.ncosto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.pcosto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />                       
+            <listcell decimal="@{detalle.nporcentaje}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
         </listitem>
         <listfoot>
             <listfooter />           
@@ -44,6 +46,7 @@
             <listfooter >
                 <decimalbox id="nPcosto" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
             </listfooter>
+            <listfooter />  
         </listfoot>  
     </listbox>
 

@@ -70,11 +70,11 @@
             <listcell label="@{kardex.csergui}" />
             <listcell label="@{kardex.cguia}" />
             <listcell label="@{kardex.cnombre}"/>
-            <listcell decimal="@{kardex.ncompra}"  format="###,###,##0" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{kardex.ncompra}"  style="background:#CEF6CE"   format="###,###,##0" use="modmantenimiento.util.ListcellNumero"  />
             <listcell decimal="@{kardex.ncompram}"  format="###,###,##0" use="modmantenimiento.util.ListcellNumero"  />
-            <listcell decimal="@{kardex.nventa}"  format="###,###,##0" use="modmantenimiento.util.ListcellNumero"   />
+            <listcell decimal="@{kardex.nventa}"  style="background:#CEF6CE"   format="###,###,##0" use="modmantenimiento.util.ListcellNumero"   />
             <listcell decimal="@{kardex.nventam}"  format="###,###,##0" use="modmantenimiento.util.ListcellNumero"   />
-            <listcell decimal="@{kardex.nsaldo}"  format="###,###,##0" use="modmantenimiento.util.ListcellNumero"   />
+            <listcell decimal="@{kardex.nsaldo}"  style="background:#CEF6CE"   format="###,###,##0" use="modmantenimiento.util.ListcellNumero"   />
             <listcell decimal="@{kardex.nsaldom}"  format="###,###,##0" use="modmantenimiento.util.ListcellNumero"   />
             <listcell label="@{kardex.clote}" />
             <listcell label="@{kardex.cfecven}" />

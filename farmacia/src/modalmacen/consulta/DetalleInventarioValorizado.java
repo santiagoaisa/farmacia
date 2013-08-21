@@ -1,4 +1,4 @@
-package modalmacen.herramientas;
+package modalmacen.consulta;
 
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Usuario;
@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
@@ -35,35 +36,27 @@ import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.*;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class InventarioValorizadoLinea extends SelectorComposer {
+public class DetalleInventarioValorizado extends SelectorComposer {
 
     private Usuario usuario;
-    private ListModelList modeloInventario;
-    private ListModelList modeloAlmacen;
+    private ListModelList modeloDetalle;
+    private Almacen almacen;
+    private  List<ExistenciaValorizada> listaExistencia=new ArrayList<>();
+    private InventarioValorizado inventario;
     @Wire
-    private Window winInventario;
+    private Window winDetalle;
     @Wire
-    private Combobox cboAlmacen;
-    @Wire
-    private Listbox lstInventario;
+    private Listbox lstDetalle;
     @Wire
     private Jasperreport rptreporte;
     @Wire
     private Decimalbox nCosto;
     @Wire
     private Decimalbox nPcosto;
-    @WireVariable
-    AlmacenService almacenService;
-    @WireVariable
-    LineaService lineaService;
-    @WireVariable
-    UsuarioService usuarioService;
-    @WireVariable
-    ListadoExistenciaService listadoExistenciaService;
     final Execution exec = Executions.getCurrent();
     private String user_login;
 
-    @Listen("onCreate=window#winInventario")
+    @Listen("onCreate=window#winDetalle")
     public void onCreate() throws NamingException {
         initComponets();
     }
@@ -77,93 +70,51 @@ public class InventarioValorizadoLinea extends SelectorComposer {
     public void onExportar(Event event) throws IOException {
         exportar();
     }
-    
-    @Listen("onClick = #btnProcesar")
-    public void onProcesar(Event event) {
-        procesar();
-    }
-    
-    @Listen("onDoubleClick = #lstInventario")
-    public void onDetalle(Event event) {
-        detalleInventario();
-    }
-    
-    @Listen("onOK = #lstInventario")
-    public void onDetalleInventario(Event event) {
-        detalleInventario();
-    }
-    
-    
+        
 
     private void initComponets() {
-        user_login = exec.getUserPrincipal().getName();
-        usuario = usuarioService.buscarPorLogin(user_login);
-        modeloAlmacen = new ListModelList(almacenService.listaPorClogin(usuario.getClogin()));
-        cboAlmacen.setModel(modeloAlmacen);
-        if (modeloAlmacen.size() > 0) {
-            cboAlmacen.onInitRender(new Event("", cboAlmacen));
-            cboAlmacen.close();
-            cboAlmacen.setSelectedIndex(0);
-        }
-        
-    }
-    private void procesar(){
-        Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        modeloInventario = new ListModelList(listadoExistenciaService.listaInventarioValorizadoPorIdalmacen(almacen.getIdalmacen()));
-        lstInventario.setModel(modeloInventario);
-        lstInventario.onInitRender();        
+        usuario=(Usuario) winDetalle.getAttribute("USUARIO");
+        almacen=(Almacen) winDetalle.getAttribute("ALMACEN");
+        inventario=(InventarioValorizado) winDetalle.getAttribute("INVENTARIO");
+        listaExistencia=(List<ExistenciaValorizada>) winDetalle.getAttribute("LISTAEXISTENCIA");
+        modeloDetalle=new ListModelList(listaExistencia);
+        lstDetalle.setModel(modeloDetalle);
+        lstDetalle.onInitRender();
         cargarPie();
     }
+    
     
     private void cargarPie(){
         BigDecimal ncosto= new BigDecimal(BigInteger.ZERO);
         BigDecimal nprecio = new BigDecimal(BigInteger.ZERO);
-        List<Listitem> ldatos = lstInventario.getItems();
-        InventarioValorizado invvalorizado;
+        List<Listitem> ldatos = lstDetalle.getItems();
+        ExistenciaValorizada invvalorizado;
         for (Listitem item : ldatos) {
-            invvalorizado=(InventarioValorizado) modeloInventario.getElementAt(item.getIndex());
-            ncosto=ncosto.add(invvalorizado.getNcosto());
-            nprecio=nprecio.add(invvalorizado.getPcosto());
+            invvalorizado=(ExistenciaValorizada) modeloDetalle.getElementAt(item.getIndex());
+            ncosto=ncosto.add(invvalorizado.getNsubcos());
+            nprecio=nprecio.add(invvalorizado.getNprecos());
         }
         nCosto.setValue(ncosto);
         nPcosto.setValue(nprecio);
     }
 
-    private void validar() {
-        cboAlmacen.getValue();
-    }
-
-    private void detalleInventario(){
-        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        InventarioValorizado inventario =(InventarioValorizado) modeloInventario.getElementAt(lstInventario.getSelectedIndex());        
-        List<ExistenciaValorizada> listaExistencia=listadoExistenciaService.listaExistenciaValorizadaPorIdalmacenPorIdlinea(almacen.getIdalmacen(),inventario.getIdlinea().getIdlinea());
-        Window win = (Window) Executions.createComponents("/modulos/almacen/consulta/detalleinventariovalorizado.zul", null, null);
-        win.setClosable(true);
-        win.setAttribute("LISTAEXISTENCIA", listaExistencia);
-        win.setAttribute("INVENTARIO", inventario);
-        win.setAttribute("USUARIO", usuario);
-        win.setAttribute("ALMACEN", almacen);
-        win.doModal();
-    }
+    
 
     public void imprimir() {
-        validar();
-        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         HashMap parametro = new HashMap();
         parametro.put("RUTA", almacen.getIdunidad().getIdempresa().getCruta()); 
         parametro.put("EMPRESA", almacen.getIdunidad().getIdempresa().getCnomempresa());
         parametro.put("UNIDADNEGOCIO", almacen.getIdunidad().getCnomunidad());
         parametro.put("ALMACEN", almacen.getCnomalmacen());
         parametro.put("USUARIO", usuario.getCnomusuario());
-        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloInventario);
-        rptreporte.setSrc("/modulos/almacen/reporte/inventariovalorizado.jasper");
+        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        rptreporte.setSrc("/modulos/almacen/reporte/detalleinventariovalorizado.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);
         rptreporte.setType("pdf");        
     }
     public void exportar() throws IOException {
-        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        EsportaExcel2(lstInventario,almacen.getCnomalmacen().trim() + ".xls");
+        EsportaExcel2(lstDetalle,inventario.getIdlinea().getCnomlinea().trim() + ".xls");
     }
 
     public void EsportaExcel2(Listbox box, String nomeFile) throws IOException {

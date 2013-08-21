@@ -89,7 +89,15 @@ public class RegistroDocumento extends SelectorComposer {
         initComponets();
     }
     
-   
+    @Listen("onChange = #nPlazo")
+    public void onCambioPlazo(Event event) {
+        cargarVencimiento();
+    }
+    
+    @Listen("onChange = #dFecemi")
+    public void onCambioEmision(Event event) {
+        cargarVencimiento();
+    }
     
     @Listen("onClick = #btnGrabar")
     public void onGrabar(Event event) {
@@ -118,10 +126,11 @@ public class RegistroDocumento extends SelectorComposer {
         cargarDatos();
     }
 
-    private void calculaFechaVen(){
-      cuentapagar.setDfecemi(dFecemi.getValue());
-      cuentapagar.setNplazo(nPlazo.getValue());
-      dFecven.setValue(cuentapagar.calculaVencimiento());
+    public void cargarVencimiento() {
+        cuentapagar.setDfecemi(dFecemi.getValue());
+        cuentapagar.setNplazo(nPlazo.getValue());
+        cuentapagar.calculaVencimiento();
+        dFecven.setValue(cuentapagar.getDfecven());
     }
     public void cargarDatos(){
         txtNombre.setText(rentrada.getIdproveedor().getCnomprovee());
@@ -132,7 +141,7 @@ public class RegistroDocumento extends SelectorComposer {
         dFecemi.setValue(new Date());
         dFecven.setValue(new Date());
         nPlazo.setValue(rentrada.getIdproveedor().getNplazo());
-        calculaFechaVen();
+        cargarVencimiento();
         //
         nAfecto.setValue(rentrada.getNafecto());
         nInafecto.setValue(rentrada.getNinafecto());

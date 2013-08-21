@@ -1,10 +1,10 @@
 package modmantenimiento.util;
 
 import com.zarcillo.domain.Usuario;
+import com.zarcillo.negocio.Encriptar;
 import com.zarcillo.service.ExceptionZarcillo;
+import com.zarcillo.service.ListadoProveedorService;
 import com.zarcillo.service.UsuarioService;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.Execution;
@@ -35,6 +35,8 @@ public class CambiarClave extends SelectorComposer {
     private Textbox txtConfirma;
     @WireVariable
     UsuarioService usuarioService;
+    @WireVariable
+    ListadoProveedorService lp;
     private String user_login;
     final Execution exec = Executions.getCurrent();
 
@@ -55,7 +57,8 @@ public class CambiarClave extends SelectorComposer {
     }
 
     public void registrar() throws NoSuchAlgorithmException{
-        String ccifrada = cifrarclave(txtAnterior.getText());
+        String ccifrada = Encriptar.encriptar(txtAnterior.getText());
+        
         if (!ccifrada.equals(usuario.getCclave())) {
             throw new ExceptionZarcillo("Contraseña Incorrecta");
 
@@ -64,19 +67,8 @@ public class CambiarClave extends SelectorComposer {
             throw new ExceptionZarcillo("Contraseñas No Coinciden");
         }
         usuario.setCclave(txtNueva.getText());
-        usuarioService.actualizar(usuario);
+        usuarioService.actualizarCambioContraseña(usuario);
         Messagebox.show("Se Ha Actualizado la Contraseña Satisfactoriamente", "Información del Sistema", Messagebox.OK, Messagebox.INFORMATION);
         winClave.onClose();
-    }
-
-    private String cifrarclave(String c) throws NoSuchAlgorithmException {
-        String claveEncriptada = "";
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-
-            md5.update(c.getBytes());
-            BigInteger hash = new BigInteger(1, md5.digest());
-            claveEncriptada = hash.toString(80);
-
-        return claveEncriptada;
-    }
+    }    
 }

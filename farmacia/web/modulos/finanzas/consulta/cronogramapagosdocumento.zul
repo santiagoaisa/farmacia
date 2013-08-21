@@ -1,0 +1,60 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDocumento"?>
+<window id="winDocumento" title="Cronograma por por documento..."  width="700px"  border="0"
+        apply="modfinanzas.consulta.CronogramaPagosDocumento" >
+
+    
+    <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
+        <listhead>
+            <listheader label="TpDoc" width="10%"  />
+            <listheader label="Serie" width="9%"  />
+            <listheader label="Numero" width="15%"  /> 
+            <listheader label="FecEmi" width="15%"  /> 
+            <listheader label="FecVenc" width="15%"  /> 
+            <listheader label="Importe" width="12%" align="right" />
+            <listheader label="acuenta" width="12%" align="right" />
+            <listheader label="saldo" width="12%" align="right" />
+        </listhead>
+        <listitem self="@{each=detalle}"   >
+            <listcell label="@{detalle.iddocumento.cabrev}"/>
+            <listcell label="@{detalle.cserie}"/>
+            <listcell label="@{detalle.cnumero}"/>
+            <listcell date="@{detalle.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+            <listcell date="@{detalle.dfecven}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+            <listcell decimal="@{detalle.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nacuenta}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nsaldo}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            
+        </listitem>
+        <listfoot>
+            <listfooter /> 
+            <listfooter />
+            <listfooter />
+            <listfooter />
+            <listfooter />  
+            <listfooter >
+                <decimalbox id="nImporte" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nAcuenta" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nSaldo" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+        </listfoot>  
+    </listbox>
+    
+
+    <jasperreport id="rptreporte" visible="false" />      
+    <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
+            <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="doCancel()" />
+        </toolbar>
+    <zscript>{
+        void doCancel() {
+        winDocumento.setAttribute("REST",false);
+        winDocumento.onClose();
+        }
+        }
+    </zscript>
+</window>

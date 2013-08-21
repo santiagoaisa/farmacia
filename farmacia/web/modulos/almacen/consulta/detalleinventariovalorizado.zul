@@ -1,1 +1,55 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDetalle"?>
+<window id="winDetalle" title="Detalle Inventario Valorizado" border="0" width="800px"
+        onCancel="doCancel()" mode="overlapped" apply="modalmacen.consulta.DetalleInventarioValorizado">
+    <zscript>{
+        void doCancel() {
+        winDetalle.onClose();}
+        }</zscript>
+
+    
+    <listbox id="lstDetalle"  fixedLayout="true" multiple="true" height="300px"  >
+        <listhead>
+            <listheader label="Codigo" width="7%" />           
+            <listheader label="Unid" width="4%" />
+            <listheader label="Descripcion" width="45%" />
+            <listheader label="Entero" width="6%" align="right" />
+            <listheader label="Fraccion" width="6%" align="right" />
+            <listheader label="C.Uni" width="8%" align="right" />
+            <listheader label="C.Tot" width="12%" align="right" />
+            <listheader label="Pre.Costo" width="12%" align="right" />
+        </listhead>
+        <listitem self="@{each=detalle}">
+            <listcell label="@{detalle.idproducto.idproducto}"/>            
+            <listcell label="@{detalle.idproducto.idpresentacion.cabrev}"/>
+            <listcell label="@{detalle.idproducto.cnomproducto}"/>
+            <listcell label="@{detalle.nstock}"/>
+            <listcell label="@{detalle.nstockm}"/>
+            <listcell decimal="@{detalle.ncosuni}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nsubcos}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nprecos}" format="0.00" use="modmantenimiento.util.ListcellNumero" />            
+        </listitem>
+        <listfoot>
+            <listfooter />           
+            <listfooter />
+            <listfooter />           
+            <listfooter />
+            <listfooter />           
+            <listfooter />
+            <listfooter >
+                <decimalbox id="nCosto" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nPcosto" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+        </listfoot> 
+    </listbox>
+
+    <toolbar id="tb"  height="25px" align="end" >
+        <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar"	 />
+        <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir"	 />
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Salir" onClick="doCancel()" />
+    </toolbar>
+
+    <jasperreport id="rptreporte" visible="false" />
+</window>
 
