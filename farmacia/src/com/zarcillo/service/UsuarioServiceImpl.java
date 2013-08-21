@@ -26,21 +26,21 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioDAO usuariodao;
     @Autowired
     private CrudDAO cruddao;
-     @Autowired
+    @Autowired
     private DetalleAutorizacionDAO detalleautorizaciondao;
-     @Autowired
+    @Autowired
     private UsuarioVendedorDAO usuariovendedordao;
 
     @Override
     public Usuario registrar(Usuario usuario) {
-         try {
-             String claveEncriptada = Encriptar.encriptar(usuario.getCclave());
+        try {
+            String claveEncriptada = Encriptar.encriptar(usuario.getCclave());
             usuario.setCclave(claveEncriptada);
             usuario.setDfecreg(new Date());
             cruddao.registrar(usuario);
-            
-            
-             List<DetalleAutorizacion> listaAutorizacion = usuario.getDetalleAutorizacionCollection();
+
+
+            List<DetalleAutorizacion> listaAutorizacion = usuario.getDetalleAutorizacionCollection();
 
             DetalleAutorizacion detalle;
             for (DetalleAutorizacion da : listaAutorizacion) {
@@ -49,7 +49,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 detalle.setIdusuario(usuario);
                 cruddao.registrar(detalle);
             }
-            
+
         } catch (Exception e) {
             throw new ExceptionZarcillo("Error al crear un Usuario");
         }
@@ -60,27 +60,27 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public Usuario actualizar(Usuario usuario) {
         try {
-            String claveEncriptada = Encriptar.encriptar(usuario.getCclave());                    
+            String claveEncriptada = Encriptar.encriptar(usuario.getCclave());
             usuario.setCclave(claveEncriptada);
-            
-             //Se eliminan los detalles
+
+            //Se eliminan los detalles
             List<DetalleAutorizacion> listaAutorizacion = detalleautorizaciondao.listaPorIdusuario(usuario.getIdusuario());
             for (DetalleAutorizacion d : listaAutorizacion) {
                 cruddao.eliminar(d);
             }
-            
+
             List<DetalleAutorizacion> listaAutorizacionUsuario = usuario.getDetalleAutorizacionCollection();
 
             for (DetalleAutorizacion detalle : listaAutorizacionUsuario) {
                 detalle.setIdusuario(usuario);
 
-                if (detalle.getIddetalle() == null) {                    
+                if (detalle.getIddetalle() == null) {
                     cruddao.registrar(detalle);
                 } else {
                     cruddao.actualizar(detalle);
                 }
             }
-            
+
             cruddao.actualizar(usuario);
 
 
@@ -88,6 +88,19 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new ExceptionZarcillo("Error al actualizar al Usuario");
         }
         return usuario;
+    }
+
+    @Override
+    @Transactional
+    public Usuario actualizarCambioContraseña(Usuario usuario) {
+        try {
+            usuario.setCclave(Encriptar.encriptar(usuario.getCclave()));
+            cruddao.actualizar(usuario);
+        } catch (Exception e) {
+            throw new ExceptionZarcillo(e.getCause().getMessage());
+        }
+        return usuario;
+
     }
 
     @Override
@@ -109,34 +122,29 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-   
     public List<Usuario> listaPorIdrol(Integer idrol) {
         return usuariodao.listaPorIdrol(idrol);
     }
-    
+
     @Override
     public Usuario buscarPorLogin(String clogin) {
         return usuariodao.buscarPorLogin(clogin);
     }
 
     @Override
-   
     public List<DetalleAutorizacion> listaDetalleAutorizacionPorIdusuario(Integer idusuario) {
         return detalleautorizaciondao.listaPorIdusuario(idusuario);
     }
 
     @Override
     public List<Usuario> listaUsuario() {
-        List<UsuarioVendedor> lista=usuariovendedordao.listaGeneral();
-        List<Usuario> listaRetorno=new ArrayList<>();
-        for(UsuarioVendedor u:lista){
-            if(!listaRetorno.contains(u.getIdusuario())){
+        List<UsuarioVendedor> lista = usuariovendedordao.listaGeneral();
+        List<Usuario> listaRetorno = new ArrayList<>();
+        for (UsuarioVendedor u : lista) {
+            if (!listaRetorno.contains(u.getIdusuario())) {
                 listaRetorno.add(u.getIdusuario());
             }
         }
         return listaRetorno;
     }
-    
-    
-    
 }

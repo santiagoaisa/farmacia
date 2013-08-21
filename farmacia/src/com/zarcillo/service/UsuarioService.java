@@ -7,6 +7,7 @@ import java.util.List;
 public interface UsuarioService {
     public Usuario registrar(Usuario usuario);
     public Usuario actualizar(Usuario usuario);
+    public Usuario actualizarCambioContraseña(Usuario usuario);
     public void eliminar(Usuario usuario);
     public Usuario buscar(Integer idusuario);
     public List<Usuario> listaPorIdrol(Integer idrol);

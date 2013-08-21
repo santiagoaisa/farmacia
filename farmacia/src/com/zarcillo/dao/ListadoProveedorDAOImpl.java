@@ -26,6 +26,6 @@ public class ListadoProveedorDAOImpl implements ListadoProveedorDAO {
                 + " from letra_proveedor   "
                 + " where dfecven BETWEEN  :dfecha1 and :dfecha2 and nsaldo>0 ORDER BY dfecven ";
 
-        return em.createNamedQuery(sql).setParameter("dfecha1", dfecha1).setParameter("dfecha2", dfecha2).getResultList();
+        return em.createNativeQuery(sql).setParameter("dfecha1", dfecha1).setParameter("dfecha2", dfecha2).getResultList();
     }
 }
