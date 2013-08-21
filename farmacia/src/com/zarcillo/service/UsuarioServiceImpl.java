@@ -7,6 +7,7 @@ import com.zarcillo.dao.UsuarioVendedorDAO;
 import com.zarcillo.domain.DetalleAutorizacion;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.domain.UsuarioVendedor;
+import com.zarcillo.negocio.Encriptar;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +34,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Usuario registrar(Usuario usuario) {
          try {
-             String claveEncriptada = encriptar(usuario.getCclave());
+             String claveEncriptada = Encriptar.encriptar(usuario.getCclave());
             usuario.setCclave(claveEncriptada);
             usuario.setDfecreg(new Date());
             cruddao.registrar(usuario);
@@ -59,7 +60,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public Usuario actualizar(Usuario usuario) {
         try {
-            String claveEncriptada = encriptar(usuario.getCclave());
+            String claveEncriptada = Encriptar.encriptar(usuario.getCclave());                    
             usuario.setCclave(claveEncriptada);
             
              //Se eliminan los detalles
@@ -87,31 +88,6 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new ExceptionZarcillo("Error al actualizar al Usuario");
         }
         return usuario;
-    }
-
-    private static String encriptar(String ccadena) {
-        String hash = "";
-        try {
-            //encriptar a sha-256        
-            byte[] digest = null;
-            byte[] buffer = ccadena.getBytes();
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
-            messageDigest.reset();
-            messageDigest.update(buffer);
-            digest = messageDigest.digest();
-
-            for (byte aux : digest) {
-                int b = aux & 0xff;
-                if (Integer.toHexString(b).length() == 1) {
-                    hash += "0";
-                }
-                hash += Integer.toHexString(b);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return hash;
     }
 
     @Override

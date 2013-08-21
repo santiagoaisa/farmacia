@@ -79,7 +79,7 @@ public class ListadoProveedorServiceImpl implements ListadoProveedorService {
             cronograma.setDfecha(d);
             calendario.setTime(d);
             cronograma.setCdia(Dia.diaSemana((calendario.get(Calendar.DAY_OF_WEEK)) - 1));
-            cronograma.setDetalleCronogramaPagoProveedorCollection(resumenCronogramaPagoProveedor(listaCuentaPagar, listaLetraProveedorSaldo));
+            cronograma.setDetalleCronogramaPagoProveedorCollection(resumenCronogramaPagoProveedor(listaCuentaPagar, listaLetra));
             cronograma.totalizar();
             listaRetorno.add(cronograma);
 

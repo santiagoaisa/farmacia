@@ -20,7 +20,7 @@ public class ListadoProveedorDAOImpl implements ListadoProveedorDAO {
     public List<Date> listaFechasCronogramaPago(Date dfecha1,Date dfecha2) {
         String sql = " select distinct dfecven "
                 + " from cuenta_pagar "
-                + " where dfecven <= :dhasta and nsaldo>0 "
+                + " where dfecven BETWEEN :dfecha1 and :dfecha2 and nsaldo>0 "
                 + " union "
                 + " select distinct dfecven "
                 + " from letra_proveedor   "
