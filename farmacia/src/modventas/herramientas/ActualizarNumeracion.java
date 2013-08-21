@@ -60,7 +60,7 @@ public class ActualizarNumeracion extends SelectorComposer{
     }
     
     
-    @Listen("onClick = #btnGrabar")
+    @Listen("onClick = #btnRegistrar")
     public void onGrabar(Event event) {
         registrar();
     }
@@ -83,13 +83,7 @@ public class ActualizarNumeracion extends SelectorComposer{
         }
                 
         modeloDocumento=new ListModelList(documentoService.listaDocumentoVenta());
-        cboDocumento.setModel(modeloDocumento);
-
-        if (modeloDocumento.size() > 0) {
-            cboDocumento.onInitRender(new Event("", cboDocumento));
-            cboDocumento.close();
-            cboDocumento.setSelectedIndex(0);
-        }        
+        cboDocumento.setModel(modeloDocumento);     
     }
     
     private void buscarNumeracion(){

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="615" pageHeight="464" whenNoDataType="AllSectionsNoDetail" columnWidth="559" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="982bc95b-d371-4e8c-8ef6-badb76ed2a87">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="38"/>
 	<parameter name="CLIENTE" class="java.lang.String"/>
 	<parameter name="DIRECCION" class="java.lang.String"/>
 	<parameter name="RUC" class="java.lang.String"/>
@@ -34,7 +34,7 @@
 		<variableExpression><![CDATA[$F{ncanart}]]></variableExpression>
 	</variable>
 	<title>
-		<band height="120" splitType="Stretch">
+		<band height="122" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="c1b776e6-ce5a-41de-80a1-f551b835ee39" x="233" y="96" width="90" height="11"/>
 				<textElement textAlignment="Right">
@@ -92,7 +92,7 @@
 				<textFieldExpression><![CDATA[$P{SERIE}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="cef32da5-6a13-489f-91f4-d36d5185fd9f" x="40" y="11" width="404" height="19"/>
+				<reportElement uuid="cef32da5-6a13-489f-91f4-d36d5185fd9f" x="40" y="14" width="404" height="19"/>
 				<textElement>
 					<font fontName="SansSerif" size="7" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
@@ -145,7 +145,7 @@
 				<textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="025fa060-11aa-4486-91f4-d71964426c08" x="271" y="1" width="105" height="15"/>
+				<reportElement uuid="025fa060-11aa-4486-91f4-d71964426c08" x="271" y="1" width="191" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" size="11" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
@@ -168,7 +168,7 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="20" splitType="Stretch"/>
+		<band height="22" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
 		<band height="17" splitType="Immediate">
@@ -218,13 +218,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{clote}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="7537830b-9d25-4eec-b123-cb0f5f8ed17a" x="58" y="4" width="34" height="11"/>
+			<staticText>
+				<reportElement uuid="313ecbff-f2ad-4722-aa27-3878189455c8" x="58" y="4" width="30" height="11"/>
 				<textElement textAlignment="Center">
-					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{existencia.idproducto.idpresentacion.cabrev}]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[UNI]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<pageFooter>
@@ -258,7 +258,7 @@
 				<textFieldExpression><![CDATA[$P{VALORVENTA}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="f3366faf-18b2-44c4-82a3-808b02f0fea2" x="283" y="40" width="105" height="12"/>
+				<reportElement uuid="f3366faf-18b2-44c4-82a3-808b02f0fea2" x="283" y="45" width="105" height="12"/>
 				<textElement>
 					<font fontName="SansSerif" size="8" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>

@@ -73,10 +73,6 @@
 
 
     <grid fixedLayout="true"  >
-        <auxhead>
-            <auxheader label="Totales" colspan="7"/>
-        </auxhead>
-
         <columns >
             <column width="18%" />
             <column width="12%" />

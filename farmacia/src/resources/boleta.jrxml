@@ -136,7 +136,7 @@
 				<textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="025fa060-11aa-4486-91f4-d71964426c08" x="271" y="1" width="105" height="15"/>
+				<reportElement uuid="025fa060-11aa-4486-91f4-d71964426c08" x="271" y="1" width="173" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" size="11" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>

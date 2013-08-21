@@ -61,11 +61,27 @@ public class AgregarDetalleVenta extends SelectorComposer {
         buscarReceta(txtReseta.getText().trim());
     }
     
-    @Listen("onOK = #i0 , #i1  ")
+    @Listen("onOK = #i0   ")
+    public void onFocoSubtotal0(Event event) {
+        Intbox sub = (Intbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
+        DetalleVenta detven =  (DetalleVenta) modeloExistencia.getElementAt(item.getIndex());
+        sub.setConstraint(new ConstraintMaximoStock(detven.getNstock()));
+        sub.getValue();
+        if(detven.getNcanart()>0&&detven.getNcanartm()>0){
+                throw new ExceptionZarcillo("No se puede vender en unidades y menudeo...");
+         }
+        winDetalleVenta.setAttribute("DETALLEVENTA",detven );
+        winDetalleVenta.setAttribute("REST",true );
+        winDetalleVenta.onClose();
+    }
+    @Listen("onOK =  #i1  ")
     public void onFocoSubtotal1(Event event) {
         Intbox sub = (Intbox) event.getTarget();
         Listitem item = (Listitem) (sub.getParent().getParent());
         DetalleVenta detven =  (DetalleVenta) modeloExistencia.getElementAt(item.getIndex());
+        sub.setConstraint(new ConstraintMaximoStock(detven.getNstockfraccion()));
+        sub.getValue();
         if(detven.getNcanart()>0&&detven.getNcanartm()>0){
                 throw new ExceptionZarcillo("No se puede vender en unidades y menudeo...");
          }
@@ -75,7 +91,7 @@ public class AgregarDetalleVenta extends SelectorComposer {
     }
     
     @Listen("onOK = #lstExistencia ")
-    public void onEnviarDetalle() {
+    public void onEnviarDetalle() {        
         DetalleVenta detven =  (DetalleVenta) modeloExistencia.getElementAt(lstExistencia.getSelectedIndex());        
         winDetalleVenta.setAttribute("DETALLEVENTA",detven );
         winDetalleVenta.setAttribute("REST",true );
@@ -119,5 +135,8 @@ public class AgregarDetalleVenta extends SelectorComposer {
                 txtDescripcion.focus();
             }
         }
+    }
+    private void validarDetalle(){
+        
     }
 }

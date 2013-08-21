@@ -112,6 +112,25 @@ public class Index extends SelectorComposer {
         contactWnd.doModal();
     }
     
+    @Listen("onClick = #btnBoleta")
+    public void onConsultaBoleta(Event event) {
+        Window contactWnd = (Window) Executions.createComponents("/modulos/ventas/consulta/consultaboleta.zul", null, null);
+        contactWnd.doModal();
+    }
+    
+    @Listen("onClick = #btnFactura")
+    public void onConsultaFactura(Event event) {
+        Window contactWnd = (Window) Executions.createComponents("/modulos/ventas/consulta/consultafactura.zul", null, null);
+        contactWnd.doModal();
+    }
+    
+    
+    @Listen("onClick = #btnClave")
+    public void onCambiarClave(Event event) {
+        Window contactWnd = (Window) Executions.createComponents("/modulos/mantenimiento/util/cambiarclave.zul", null, null);
+        contactWnd.doModal();
+    }
+    
 
     private void llenarMenu(Integer idmodulo) {
         menu.detach();

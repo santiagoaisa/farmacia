@@ -45,6 +45,8 @@ public class DetalleIngreso extends SelectorComposer {
     @Wire
     private Textbox txtNumero;
     @Wire
+    private Datebox dFecha;
+    @Wire
     private Listbox lstDetalle;
     @Wire
     private Decimalbox nAfecto;
@@ -90,6 +92,7 @@ public class DetalleIngreso extends SelectorComposer {
         txtDocumento.setText(rentrada.getIddocumento().getCnomdocumento());
         txtSerie.setText(rentrada.getCserie());
         txtNumero.setText(rentrada.getCnumero());
+        dFecha.setValue(rentrada.getDfecha());
         modeloDetalle = new ListModelList(registroEntradaService.listaDetalleIngreso(rentrada.getIdregentrada()));
         lstDetalle.setModel(modeloDetalle);
         nAfecto.setValue(rentrada.getNafecto());

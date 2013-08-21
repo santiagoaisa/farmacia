@@ -111,6 +111,12 @@ public class NuevaVenta extends SelectorComposer {
     public void onAgregarImprimir(Event event) {
         registrar();
     }
+    
+    @Listen("onSelect= #cboCondicion")
+    public void oncargarPlazo(Event event) {
+        cargarPlazo();
+        nPlazo.select();
+    }
 
     @Listen("  onBlur = intbox#i0,intbox#i1 ")
     public void calcular() {
@@ -267,16 +273,12 @@ public class NuevaVenta extends SelectorComposer {
             if (!((detalleventa.getNcanart() == 0) && (detalleventa.getNcanartm() == 0))) {
                 movimiento.setIdproducto(detalleventa.getExistencia().getIdproducto());
                 movimiento.setIdalmacen(detalleventa.getExistencia().getIdalmacen());
-
-
                 movimiento.setNcosuni(detalleventa.getNcosuni());
                 movimiento.setNvaluni(detalleventa.getNvaluni());
-
                 if (detalleventa.getNcanartm() > 0) {
                     movimiento.setNcosuni(detalleventa.getNcosunim());
                     movimiento.setNvaluni(detalleventa.getNvalunim());
                 }
-
                 movimiento.setNcantidad(detalleventa.getNcanart());
                 movimiento.setNcantidadm(detalleventa.getNcanartm());
                 movimiento.setNstock(detalleventa.getNstock());

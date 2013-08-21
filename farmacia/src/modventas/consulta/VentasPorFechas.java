@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
-import static modventas.consulta.VentaVendedorFecha.isNumberFloat;
 import modventas.util.FiltroPorCondicionVenta;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.collections.CollectionUtils;
@@ -60,7 +59,6 @@ public class VentasPorFechas extends SelectorComposer {
     private List<VentaPorDocumento> listaDetalle=new ArrayList<>();
     private List<VentaPorDocumento> listaFiltrada=new ArrayList<>();
     private Usuario usuario;
-    private RegistroSalida regsalida = new RegistroSalida();
     private ListModelList modeloUnidad;
     private ListModelList modeloDetalle;
     private ListModelList modeloCondicion;
@@ -107,7 +105,7 @@ public class VentasPorFechas extends SelectorComposer {
         initComponets();
     }
     
-    @Listen("onSelected = #cboCondicion")
+    @Listen("onSelect = #cboCondicion")
     public void onFiltroCondicion(Event event) {
         filtroCondicion();
     }
@@ -125,6 +123,16 @@ public class VentasPorFechas extends SelectorComposer {
     @Listen("onClick = #btnExportar")
     public void onExportar(Event event) throws IOException {
         exportar();
+    }
+    
+    @Listen("onClick = #btnIgnorar")
+    public void onLimpiar(Event event) {
+        limpiar();
+    }
+    
+    @Listen("onOK = #lstFactura")
+    public void onMostrarFacturas(Event event) {
+        mostrarSalida();
     }
 
     
@@ -147,6 +155,21 @@ public class VentasPorFechas extends SelectorComposer {
         btnProcesar.focus();
     }
     
+    private void limpiar(){
+        habilitar(false);
+        modeloDetalle = new ListModelList();
+        lstDetalle.setModel(modeloDetalle);
+        cboCondicion.setSelectedIndex(-1);
+        cboCondicion.setText("");
+    }
+    private void habilitar(boolean enable){
+        cboUnidad.setDisabled(enable);
+        dFecini.setDisabled(enable);
+        dFecfin.setDisabled(enable);
+        btnProcesar.setDisabled(enable);
+        cboCondicion.setDisabled(!enable);
+    }
+    
     private void filtroCondicion(){
         CondicionVenta condicion=(CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
         listaFiltrada=(List) CollectionUtils.select(listaDetalle,new FiltroPorCondicionVenta(condicion.getIdcondicion()));
@@ -156,6 +179,7 @@ public class VentasPorFechas extends SelectorComposer {
     }
 
     private void procesar() {
+        habilitar(true);
         UnidadNegocio unidad=(UnidadNegocio) modeloUnidad.getElementAt(cboUnidad.getSelectedIndex());
         listaDetalle=resultadoVentaService.listaVentaPorDocumentoPorIdunidadPorFechas(unidad.getIdunidad(),dFecini.getValue(),dFecfin.getValue());
         listaFiltrada=listaDetalle;
@@ -163,6 +187,14 @@ public class VentasPorFechas extends SelectorComposer {
         lstDetalle.setModel(modeloDetalle);
         lstDetalle.onInitRender();
         cargarPie();
+    }
+    
+    public void mostrarSalida() {
+        Window win = (Window) Executions.createComponents("/modulos/ventas/consulta/detalleregistrosalida.zul", null, null);
+        win.setClosable(true);
+        RegistroSalida regsalida =  (RegistroSalida) modeloDetalle.getElementAt(lstDetalle.getSelectedIndex());
+        win.setAttribute("REGSALIDA", regsalida);
+        win.doModal();
     }
 
     private void cargarPie() {

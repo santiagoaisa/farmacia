@@ -273,6 +273,7 @@ public class GenerarDocumento extends SelectorComposer{
         lstDetalle.onInitRender();
         if(regsalida.getBimpreso()){
             comprobante=comprobanteEmitidoService.buscarPorIdregsalida(regsalida.getIdregsalida());
+            cliente=regsalida.getIdcliente();
             btnGrabar.setDisabled(true);
             btnImprimir.setDisabled(false);
         }
@@ -313,9 +314,12 @@ public class GenerarDocumento extends SelectorComposer{
             NumerosLetras numeroletras = new NumerosLetras();
             HashMap parametro = new HashMap();
             parametro.put("UNIDADNEGOCIO", regsalida.getIdunidad().getCnomunidad().trim());
-            if(txtCliente.getText().isEmpty()){
+            
+            
+            if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.FACTURA_SUNAT.getCcodigosunat())){
                 parametro.put("CLIENTE",cliente.getCnomcli());
                 parametro.put("DIRECCION", cliente.getCdircli());
+                parametro.put("RUC", cliente.getCruc());
                 parametro.put("DNI", "");
             }
             else{
@@ -323,15 +327,13 @@ public class GenerarDocumento extends SelectorComposer{
                 parametro.put("DIRECCION", txtDireccion.getText().toUpperCase());
                 parametro.put("DNI", txtDocumento.getText().toUpperCase());
             }
-            
-            parametro.put("RUC", txtDocumento.getText().toUpperCase());
             parametro.put("DISTRITO", regsalida.getIdcliente().getIdubigeo().getCubigeo().trim());
             parametro.put("PROVINCIA", regsalida.getIdcliente().getIdubigeo().getCnomprovincia().trim());
             parametro.put("DEPARTAMENTO", regsalida.getIdcliente().getIdubigeo().getCnomdepartamento().trim());
             parametro.put("FECHA", regsalida.getDfecha());            
             parametro.put("VENCIMIENTO", comprobante.getDfecven());    
             parametro.put("VENDEDOR", regsalida.getIdvendedor().getIdvendedor());
-            parametro.put("CONDICION", regsalida.getIdcondicion().getCnomcondicion());
+            parametro.put("CONDICION", regsalida.getIdcondicion().getCnomcondicion()+" PLAZO: "+regsalida.getNplazo());
             parametro.put("HORAIMP", regsalida.getDfecimp());
             parametro.put("OPERACION", regsalida.getIdregsalida());
             parametro.put("HORADIG", regsalida.getDfecreg());
@@ -340,8 +342,10 @@ public class GenerarDocumento extends SelectorComposer{
             parametro.put("IMPORTE", regsalida.getNimporte());
             parametro.put("SERIE", comprobante.getCserie());
             parametro.put("NUMERO",comprobante.getCnumero());
-            parametro.put("PIEDOCUMENTO", regsalida.getCglosa());
-            parametro.put("TIPOPAGO", tpago.getCnomtipo());            
+            parametro.put("GLOSA", regsalida.getCglosa());
+            if(regsalida.getIdcondicion().getBcontado()){
+                parametro.put("TIPOPAGO", tpago.getCnomtipo());
+            }                        
             
             parametro.put("USUARIO","Caja: "+ usuario.getCabrev()+" Vend.: "+regsalida.getIdvendedor().getCabrev());
             parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));

@@ -48,6 +48,7 @@
             <listheader label="P.V.F" width="5%" align="center" />            
             <listheader label="Importe" width="7%" align="center" />
             <listheader  width="4%" align="center" />
+            <listheader  width="0%" />
         </listhead>
         <listitem self="@{each=detalle}"  >
             <listcell label="@{detalle.existencia.idproducto.cnomart}" />
@@ -68,6 +69,7 @@
             <listcell>
                 <toolbarbutton id="btnQuitar" image="/img/eliminadetalleingreso.png" width="70%"   />
             </listcell>
+            <listcell label="@{detalle.existencia.idproducto,converter='modmantenimiento.util.ConvertidorPsicotropico'}" visible="false" />
         </listitem>
     </listbox>
     <grid fixedLayout="true" >

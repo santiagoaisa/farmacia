@@ -1,29 +1,26 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winVenta"?>
-<window id="winVenta" title="Ventas por Fechas..."  width="700px"  border="0"
+<window id="winVenta" title="Ventas por Fechas..."  width="800px"  border="0"
         apply="modventas.consulta.VentasPorFechas" >
 
     <grid>
         <columns>
-            <column width="15%" />
-            <column width="25%" />
-            <column width="15%" />
-            <column width="25%" />
-            <column width="20%" />
+            <column width="11%" />
+            <column width="18%" />
+            <column width="11%" />
+            <column width="18%" />
+            <column width="11%" />
+            <column width="18%" />
+            <column width="13%"  align="center" />
         </columns>
         <rows>
             <row >
                 <label value="Unidad:"/>
                 <combobox id="cboUnidad" readonly="true" width="98%"/>
-                <label value="Vendedor:"/>
-                <combobox id="cboVendedor" readonly="true" width="98%"/>
-                <label />          
-            </row>
-            <row  >
                 <label value="Desde:"/>
                 <datebox id="dFecini" width="85%" readonly="true" format="yyyy-MM-dd" />
                 <label value="Hasta:"/>
                 <datebox id="dFecfin" width="85%" readonly="true" format="yyyy-MM-dd" />
-                <button id="btnProcesar" label="Procesar"  />              
+                <button id="btnProcesar" label="Procesar"  />           
             </row>
         </rows>
     </grid>
