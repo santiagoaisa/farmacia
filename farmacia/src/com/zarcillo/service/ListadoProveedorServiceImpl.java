@@ -59,7 +59,7 @@ public class ListadoProveedorServiceImpl implements ListadoProveedorService {
         List<LetraProveedor> listaLetraProveedorSaldo = letraproveedordao.listaPendientesPorFechasPendientes(diniciosaldo, dfinsaldo);
 
         CronogramaPago cronogramasaldo = new CronogramaPago();
-        cronogramasaldo.setDfecha(dhasta);
+        cronogramasaldo.setDfecha(dfinsaldo);
         cronogramasaldo.setCdia("SALDO");
         cronogramasaldo.setDetalleCronogramaPagoProveedorCollection(resumenCronogramaPagoProveedor(listaCuentaPagarSaldo, listaLetraProveedorSaldo));
         cronogramasaldo.totalizar();
