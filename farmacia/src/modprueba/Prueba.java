@@ -7,9 +7,11 @@ import com.zarcillo.service.MapaService;
 import com.zarcillo.service.ModuloService;
 import com.zarcillo.service.UsuarioService;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.naming.NamingException;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -34,6 +36,7 @@ import org.zkoss.zul.Menuseparator;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Toolbarbutton;
+import org.zkoss.zul.West;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -50,8 +53,8 @@ public class Prueba extends SelectorComposer {
     private Toolbar btnModulos;
     @Wire
     private Toolbarbutton btnSalir;
-     @Wire
-    private Div divMenu;
+    @Wire
+    private West menuWest;
     //wire services
     @WireVariable
     UsuarioService usuarioService;
@@ -62,9 +65,11 @@ public class Prueba extends SelectorComposer {
     //objetos
     Usuario usuario;
     final Execution exec = Executions.getCurrent();
+    Navbar sidebar = new Navbar();
 
     @Listen("onCreate=window#index")
     public void onCreate() throws NamingException {
+
 
         usuario = usuarioService.buscarPorLogin("zarcillo");
 
@@ -89,7 +94,7 @@ public class Prueba extends SelectorComposer {
     }
 
     @Listen("onClick = Toolbarbutton#btnSalir")
-    public void salirSistema() {        
+    public void salirSistema() {
         index.detach();
         exec.getDesktop().getSession().invalidate();
         exec.sendRedirect("/modulos/index.zul");
@@ -131,24 +136,29 @@ public class Prueba extends SelectorComposer {
         contactWnd.doModal();
     }
 
-    private void llenarMenu(Integer idmodulo) {  
-        divMenu.detach();
-        Navbar navegacion = new Navbar();
-        navegacion.setOrient("vertical");
+    private void llenarMenu(Integer idmodulo) {
+        sidebar.detach();
+        sidebar = new Navbar();
+        sidebar.setId("sidebar");
+        sidebar.setOrient("vertical");
+        sidebar.setParent(menuWest);
+
         List<Mapa> listaencabezado = mapaService.listaEncabezado(usuario.getIdrol().getIdrol(), idmodulo);
 
-        for (Mapa m : listaencabezado) {            
+        for (Mapa m : listaencabezado) {
+            menuWest.setTitle(m.getIdmenu().getIdmodulo().toString());
+            //////
             Nav menuprincipal = new Nav(m.getIdmenu().getCnommenu());
-            navegacion.appendChild(menuprincipal);
+            menuprincipal.setIconSclass("z-icon-list-ul");
+            menuprincipal.setDetailed(true);
+
             List<Mapa> listamenus = mapaService.listaMenu(usuario.getIdrol().getIdrol(), m);
             for (final Mapa mm : listamenus) {
                 Navitem menuopciones = new Navitem();
                 menuopciones.setLabel(mm.getIdmenu().toString());
-                
-                menuprincipal.appendChild(menuopciones);
+
                 menuopciones.addEventListener(Events.ON_CLICK, new EventListener() {
                     public void onEvent(Event event) throws Exception {
-
                         List listame = divContenido.getChildren();
                         if (!listame.isEmpty()) {
                             divContenido.getFirstChild().detach();
@@ -162,16 +172,13 @@ public class Prueba extends SelectorComposer {
                             contactWnd.doEmbedded();
                         }
 
-
                     }
                 });
 
+                menuprincipal.appendChild(menuopciones);
             }
-
+            sidebar.appendChild(menuprincipal);
         }
-     
-        divMenu.appendChild(navegacion);        
-        divContenido.appendChild(navegacion);
     }
 
     private void llenarSesion() {

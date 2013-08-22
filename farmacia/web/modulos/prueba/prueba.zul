@@ -2,75 +2,46 @@
 <window id="index" apply="modprueba.Prueba"  height="100%">        
     <borderlayout   hflex="1" vflex="1" style="background:#c5e6ef;" >
         <north  >
-            
-            <borderlayout hflex="1" height="100px" vflex="1">       
-                <center flex="true"  >
-                    <div>
-                    
-                        <toolbar id="btnModulos"  >                            
-                        </toolbar>    
-                    
-                        <hbox width="100%" widths="85%,15%">    
-                            
-                            <toolbar id="tb"    >
-                                <hbox spacing="0">
-                                    <toolbarbutton id="btnVentas" image="/img/barra/Ventas.png"    tooltiptext="Venta..."/>                                            
-                                    <toolbarbutton id="btnKardex" image="/img/barra/Kardex.png"   tooltiptext="Consulta Kardex..."/>  
-                                    <toolbarbutton id="btnDocumento" image="/img/barra/Documento.png"   tooltiptext="Generar Documento..."/>  
-                                    <toolbarbutton id="btnBoleta" image="/img/barra/Boleta.png"   tooltiptext="Consulta Boleta..."/>  
-                                    <toolbarbutton id="btnFactura" image="/img/barra/Factura.png"   tooltiptext="Consulta Factura..."/>  
-                                </hbox>
-                            </toolbar>                               
-                                
-                            <toolbar id="tb2"    align="end">
-                                <hbox spacing="0"> 
-                                    <toolbarbutton id="btnClave" image="/img/barra/Cambiarclave.png" tooltiptext="Permite cambiar clave" />                                           
-                                    <toolbarbutton id="btnSalir" image="/img/barra/Salir.png" tooltiptext="Permite salir del Sistema" />
-                                </hbox>
-                            </toolbar>                                
-                        </hbox>
-                    
-                    </div>
-                </center>    
-            </borderlayout>
-            
-           
+            <toolbar id="btnModulos"  >                            
+            </toolbar>           
         </north>
         
         <!-- Sidebar -->	
                 
-        <west    >
-            
-            <!-- Content -->
-            <div align="left" height="100%" >
-                <!-- BARRA DE MENU--> 
-                <borderlayout width="100%" height="100%">
-                    <center border="none" hflex="true" >
-                        <div id="divMenu" >
-                    
-                        </div> 
-                    </center>
-                </borderlayout>
-            </div> 
-            
-           
-                             
+        <west id="menuWest" title="MENU"  width="200px"  collapsible="true"   >                                
         </west>
         
-        <center   >
-            <!-- Content -->
-            <div align="left" height="100%" >
-                <!-- BARRA DE MENU--> 
-                <borderlayout width="100%" height="100%">
-                    <center border="none" hflex="true" >
-                        <div id="divContenido">
-                            <!-- Seccion Principal
-                            Aqui se debe mostrar todos las pagina del sistema
-                            -->
-                        </div>
-                    </center>
-                </borderlayout>
-            </div> 
+        <center >
+            <div align="left" height="100%" >                
+                <!-- BARRA DE HERRAMIENTAS-->                            
+                <div align="left" id="divBarra">                       
+                    <hbox width="100%" widths="85%,15%">                                
+                        <toolbar id="tb"    >
+                            <hbox spacing="0">
+                                <toolbarbutton id="btnVentas" image="/img/barra/Ventas.png"    tooltiptext="Venta..."/>                                            
+                                <toolbarbutton id="btnKardex" image="/img/barra/Kardex.png"   tooltiptext="Consulta Kardex..."/>  
+                                <toolbarbutton id="btnDocumento" image="/img/barra/Documento.png"   tooltiptext="Generar Documento..."/>  
+                                <toolbarbutton id="btnBoleta" image="/img/barra/Boleta.png"   tooltiptext="Consulta Boleta..."/>  
+                                <toolbarbutton id="btnFactura" image="/img/barra/Factura.png"   tooltiptext="Consulta Factura..."/>  
+                            </hbox>
+                        </toolbar>                               
+                                
+                        <toolbar id="tb2"    align="end">
+                            <hbox spacing="0"> 
+                                <toolbarbutton id="btnClave" image="/img/barra/Cambiarclave.png" tooltiptext="Permite cambiar clave" />                                           
+                                <toolbarbutton id="btnSalir" image="/img/barra/Salir.png" tooltiptext="Permite salir del Sistema" />
+                            </hbox>
+                        </toolbar>                                
+                    </hbox>
+                </div>
+                
+                <div id="divContenido">
+                    <!-- Seccion Principal
+                    Aqui se debe mostrar todos las pagina del sistema
+                    -->
+                </div>                
+            </div>
+           
         </center>
         <!--
         <east title=""  width="100px" flex="false"  collapsible="true"  >
