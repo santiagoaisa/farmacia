@@ -26,11 +26,11 @@ import javax.persistence.TemporalType;
 @Table(name = "comprobante_emitido")
 @NamedQueries({
     @NamedQuery(name = "ComprobanteEmitido.findAll", query = "SELECT c FROM ComprobanteEmitido c"),
-        @NamedQuery(name = "ComprobanteEmitido.findByIdregsalida", query = "SELECT c FROM ComprobanteEmitido c WHERE c.idregsalida.idregsalida=:idregsalida "),
+    @NamedQuery(name = "ComprobanteEmitido.findByDfechasPendientes", query = "SELECT c FROM ComprobanteEmitido c WHERE c.dfecven BETWEEN :dfecha1 and :dfecha2 and c.nsaldo>0 ORDER BY c.dfecven,c.cnumero "),
+    @NamedQuery(name = "ComprobanteEmitido.findByIdregsalida", query = "SELECT c FROM ComprobanteEmitido c WHERE c.idregsalida.idregsalida=:idregsalida "),
     @NamedQuery(name = "ComprobanteEmitido.findByIdcomprobante", query = "SELECT c FROM ComprobanteEmitido c WHERE c.idcomprobante=:idcomprobante"),
     @NamedQuery(name = "ComprobanteEmitido.findByIdunidadByIddocumentoByCserieByCnumero", query = "SELECT c FROM ComprobanteEmitido c WHERE c.idunidad.idunidad=:idunidad and c.iddocumento.iddocumento=:iddocumento and c.cserie=:cserie and c.cnumero=:cnumero  "),
     @NamedQuery(name = "ComprobanteEmitido.findByIdunidadByIdclienteByNano", query = "SELECT c FROM ComprobanteEmitido c WHERE c.idunidad.idunidad=:idunidad and c.idcliente.idcliente=:idcliente and c.idperiodo.nano =:nano ORDER BY c.dfecemi DESC  ")
-
 })
 public class ComprobanteEmitido implements Serializable {
 
@@ -106,19 +106,15 @@ public class ComprobanteEmitido implements Serializable {
     private Cliente idcliente;
     @Column(name = "nfleven")
     private BigDecimal nfleven;
-    
-     @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
+    @JoinColumn(name = "idperiodo", referencedColumnName = "idperiodo")
     @ManyToOne(fetch = FetchType.EAGER)
     private Periodo idperiodo;
-     
-      @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
+    @JoinColumn(name = "idmoneda", referencedColumnName = "idmoneda")
     @ManyToOne(fetch = FetchType.EAGER)
     private Moneda idmoneda;
-      
-      @Column(name = "ntipocambio")
+    @Column(name = "ntipocambio")
     private BigDecimal ntipocambio;
-      
-      @Column(name = "nretencion")
+    @Column(name = "nretencion")
     private BigDecimal nretencion;
 
     public ComprobanteEmitido() {
@@ -134,8 +130,8 @@ public class ComprobanteEmitido implements Serializable {
         nredondeo = new BigDecimal("0");
         nsaldo = new BigDecimal("0");
         nfleven = new BigDecimal("0");
-        ntipocambio= new BigDecimal("1");
-        nretencion= new BigDecimal("0");
+        ntipocambio = new BigDecimal("1");
+        nretencion = new BigDecimal("0");
 
     }
 
@@ -398,9 +394,6 @@ public class ComprobanteEmitido implements Serializable {
     public void setNretencion(BigDecimal nretencion) {
         this.nretencion = nretencion;
     }
-    
-    
-    
 
     @Override
     public int hashCode() {

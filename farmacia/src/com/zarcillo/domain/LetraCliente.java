@@ -28,6 +28,7 @@ import javax.persistence.TemporalType;
 @Table(name = "letra_cliente")
 @NamedQueries({
     @NamedQuery(name = "LetraCliente.findAll", query = "SELECT l FROM LetraCliente l"),
+    @NamedQuery(name = "LetraCliente.findByDfechasPendientes", query = "SELECT l FROM LetraCliente l WHERE l.dfecven BETWEEN :dfecha1 and :dfecha2 and l.nsaldo>0 ORDER BY l.dfecven,l.cnumero "),
     @NamedQuery(name = "LetraCliente.findByIdletra", query = "SELECT l FROM LetraCliente l WHERE l.idletra=:idletra ")
 
 })

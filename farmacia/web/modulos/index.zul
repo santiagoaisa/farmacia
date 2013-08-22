@@ -16,7 +16,7 @@
                 <!-- BARRA DE HERRAMIENTAS-->                            
                 <div align="left" id="divBarra">                       
                     <hbox width="100%" widths="85%,15%">                                
-                        <toolbar id="tb"    >
+                        <toolbar id="tb"  style="background:#f7f7f7 repeat-x 0 0;padding-top:7px"  >
                             <hbox spacing="0">
                                 <toolbarbutton id="btnVentas" image="/img/barra/Ventas.png"    tooltiptext="Venta..."/>                                            
                                 <toolbarbutton id="btnKardex" image="/img/barra/Kardex.png"   tooltiptext="Consulta Kardex..."/>  
@@ -26,7 +26,7 @@
                             </hbox>
                         </toolbar>                               
                                 
-                        <toolbar id="tb2"    align="end">
+                        <toolbar id="tb2"  style="background:#f7f7f7 repeat-x 0 0;padding-top:7px"  align="end">
                             <hbox spacing="0"> 
                                 <toolbarbutton id="btnClave" image="/img/barra/Cambiarclave.png" tooltiptext="Permite cambiar clave" />                                           
                                 <toolbarbutton id="btnSalir" image="/img/barra/Salir.png" tooltiptext="Permite salir del Sistema" />
@@ -50,13 +50,7 @@
         </east>
         -->
         <south>
-            <borderlayout height="20px" style="background:#c5e6ef;">
-                <center hflex="true">
-                    <hbox width="100%" widths="60%,40%">
-                        <label id="lblSesion" width="100%" />                            
-                    </hbox>
-                </center>
-            </borderlayout>
+            <label id="lblSesion" width="100%" />
         </south>
     </borderlayout>
 </window>

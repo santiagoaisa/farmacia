@@ -1,6 +1,7 @@
 package com.zarcillo.dao;
 
 import com.zarcillo.domain.ComprobanteEmitido;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,4 +37,12 @@ public class ComprobanteEmitidoDAOImpl implements ComprobanteEmitidoDAO {
     public List<ComprobanteEmitido> listaPorIdunidadPorIdclientePorNano(Integer idunidad, Integer idcliente, Integer nano) {
         return em.createNamedQuery("ComprobanteEmitido.findByIdunidadByIdclienteByNano").setParameter("idunidad", idunidad).setParameter("idcliente", idcliente).setParameter("nano", nano).getResultList();
     }
+
+    @Override
+    public List<ComprobanteEmitido> listaPendientesPorFechasPendientes(Date dfecha1, Date dfecha2) {
+        return em.createNamedQuery("ComprobanteEmitido.findByDfechasPendientes").setParameter("dfecha1", dfecha1).setParameter("dfecha2", dfecha2).getResultList();
+    }
+    
+    
+    
 }

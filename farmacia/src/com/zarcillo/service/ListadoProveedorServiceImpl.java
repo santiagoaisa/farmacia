@@ -89,6 +89,7 @@ public class ListadoProveedorServiceImpl implements ListadoProveedorService {
     }
 
     @Override
+    @Transactional
     public List<DetalleCronogramaPagoProveedor> listaDetalleCronogramaPago(Date dhasta) {
         //hace tres años
         Date diniciosaldo = Dia.sumarDias(new Date(), -1095);
