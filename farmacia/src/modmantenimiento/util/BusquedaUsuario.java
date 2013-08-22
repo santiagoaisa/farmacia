@@ -5,7 +5,6 @@ import com.zarcillo.service.RolService;
 import com.zarcillo.service.UsuarioService;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.HtmlMacroComponent;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -15,6 +14,7 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -22,7 +22,8 @@ public class BusquedaUsuario extends SelectorComposer {
        
     @Wire
     private Listbox lstUsuario;   
-    
+    @Wire
+    private Window WinBusuario;
     @Wire
     private Combobox cboRol;
     
@@ -38,7 +39,7 @@ public class BusquedaUsuario extends SelectorComposer {
     
     @Listen("onCreate=window#WinBusuario")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBusuario/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) WinBusuario.getFellow("mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }

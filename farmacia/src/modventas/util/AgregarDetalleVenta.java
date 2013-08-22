@@ -8,7 +8,6 @@ import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.VentaService;
 import javax.naming.NamingException;
 import org.zkoss.zk.ui.HtmlMacroComponent;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -26,14 +25,11 @@ import org.zkoss.zul.Window;
 public class AgregarDetalleVenta extends SelectorComposer {
     
     @Wire
-    private Window winDetalleVenta;
-    
+    private Window winDetalleVenta;    
     @Wire
-    private Listbox lstExistencia;
-    
+    private Listbox lstExistencia;    
     @Wire
-    private Textbox txtDescripcion;
-    
+    private Textbox txtDescripcion;    
     @Wire
     private Textbox txtReseta;
         
@@ -47,7 +43,7 @@ public class AgregarDetalleVenta extends SelectorComposer {
     
     @Listen("onCreate=window#winDetalleVenta")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winDetalleVenta/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) winDetalleVenta.getFellow("mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }

@@ -11,13 +11,15 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class BusquedaPresentacion extends SelectorComposer {
     
     @Wire
     private Listbox lstPresentacion;
-    
+    @Wire
+    private Window WinBpresentacion;
     @WireVariable
     PresentacionService presentacionService;
     
@@ -26,7 +28,7 @@ public class BusquedaPresentacion extends SelectorComposer {
     
     @Listen("onCreate=window#WinBpresentacion")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBpresentacion/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) WinBpresentacion.getFellow("mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }

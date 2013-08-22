@@ -11,13 +11,15 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class BusquedaSublinea extends SelectorComposer {
        
     @Wire
     private Listbox lstSublinea;
-    
+    @Wire
+    private Window WinBsublinea;
     
     @WireVariable
     SublineaService sublineaService;
@@ -27,7 +29,7 @@ public class BusquedaSublinea extends SelectorComposer {
     
     @Listen("onCreate=window#WinBsublinea")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBsublinea/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) WinBsublinea.getFellow("mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }

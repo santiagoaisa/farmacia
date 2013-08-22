@@ -94,7 +94,7 @@
                     </listhead>
                     <listitem self="@{each=amortizacioncliente}" >
                         <listcell label="@{amortizacioncliente.idtipo}"   />
-                        <listcell date="@{amortizacioncliente.dfecmov}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+                        <listcell date="@{amortizacioncliente.dfecha}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
                         <listcell decimal="@{amortizacioncliente.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
                         <listcell label="@{amortizacioncliente.creferencia}"/>                        
                     </listitem>

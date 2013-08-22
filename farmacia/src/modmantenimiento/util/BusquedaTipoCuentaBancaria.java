@@ -11,6 +11,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -18,7 +19,8 @@ public class BusquedaTipoCuentaBancaria extends SelectorComposer {
        
     @Wire
     private Listbox lstTipo;
-    
+    @Wire
+    private Window WinBtipo;
     
     @WireVariable
     TipoCuentaBancariaService tipoCuentaBancariaService;
@@ -28,7 +30,7 @@ public class BusquedaTipoCuentaBancaria extends SelectorComposer {
     
     @Listen("onCreate=window#WinBtipo")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBtipo/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) WinBtipo.getFellow("mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }

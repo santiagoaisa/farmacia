@@ -11,10 +11,13 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class AgregarAutorizacionUsuario extends SelectorComposer {
     
+    @Wire
+    private Window WinBautorizacion;
     @Wire
     private Listbox lstAutorizacion;    
     
@@ -26,7 +29,7 @@ public class AgregarAutorizacionUsuario extends SelectorComposer {
     
     @Listen("onCreate=window#WinBautorizacion")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBautorizacion/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) WinBautorizacion.getFellow("mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }

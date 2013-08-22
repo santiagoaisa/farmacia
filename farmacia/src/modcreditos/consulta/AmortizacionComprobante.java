@@ -1,5 +1,7 @@
 package modcreditos.consulta;
 
+import com.zarcillo.domain.AmortizacionCliente;
+import com.zarcillo.domain.AmortizacionProveedor;
 import com.zarcillo.domain.ComprobanteEmitido;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.Usuario;
@@ -15,6 +17,7 @@ import com.zarcillo.service.VentaService;
 import java.math.BigDecimal;
 import javax.naming.NamingException;
 import net.sf.jasperreports.engine.JRException;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -150,7 +153,7 @@ public class AmortizacionComprobante extends SelectorComposer{
     } 
     
     private void llenarDatos(){
-        cboDocumento.setSelectedIndex(modeloDocumento.indexOf(comprobante.getIdcomprobante()));
+        cboDocumento.setSelectedIndex(modeloDocumento.indexOf(comprobante.getIddocumento()));
         txtSerie.setText(comprobante.getCserie());
         txtNumero.setText(comprobante.getCnumero());
         txtCondicion.setText(comprobante.getIdcondicion().getCnomcondicion());
@@ -177,7 +180,19 @@ public class AmortizacionComprobante extends SelectorComposer{
     }
     
     private void amortizar(){
-        
+        Window winamortiza = (Window) Executions.createComponents("/modulos/creditos/registro/amortizacomprobante.zul", null, null);
+        winamortiza.setAttribute("COMPROBANTE", comprobante);
+        winamortiza.setAttribute("REST", true);
+        winamortiza.doModal();
+        Boolean rest = (Boolean) winamortiza.getAttribute("REST");
+        if (rest) {
+            AmortizacionCliente amortizacion;
+            amortizacion =  (AmortizacionCliente) winamortiza.getAttribute("AMORTIZACION");
+            amortizacion.setIdcomprobante(comprobante);
+            amortizacion.setIdusuario(usuario);
+            comprobante=comprobanteEmitidoService.amortizar(amortizacion);
+            llenarDatos();
+        }
     }
     
     

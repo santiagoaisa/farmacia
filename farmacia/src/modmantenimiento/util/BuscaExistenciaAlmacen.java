@@ -24,7 +24,6 @@ public class BuscaExistenciaAlmacen extends SelectorComposer {
     
     @Wire
     private Listbox lstExistencia;
-    
     @Wire
     private Textbox txtCriterio;
     
@@ -37,7 +36,7 @@ public class BuscaExistenciaAlmacen extends SelectorComposer {
     
     @Listen("onCreate=window#winExistencia")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winExistencia/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) winExistencia.getFellow("mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }

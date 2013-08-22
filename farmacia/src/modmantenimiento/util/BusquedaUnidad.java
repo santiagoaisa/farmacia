@@ -11,6 +11,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -18,7 +19,8 @@ public class BusquedaUnidad extends SelectorComposer {
        
     @Wire
     private Listbox lstUnidad;   
-    
+    @Wire
+    private Window WinBunidad;
     @WireVariable
     UnidadNegocioService unidadNegocioService;
     
@@ -27,7 +29,7 @@ public class BusquedaUnidad extends SelectorComposer {
     
     @Listen("onCreate=window#WinBunidad")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBunidad/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) WinBunidad.getFellow("mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }

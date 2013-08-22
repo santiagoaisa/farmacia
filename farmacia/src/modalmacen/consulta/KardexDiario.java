@@ -39,7 +39,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -120,7 +119,7 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
 
     @Listen("onCreate=window#winKardex")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winKardex/mperiodo");
+        HtmlMacroComponent macro = (HtmlMacroComponent) winKardex.getFellow("mperiodo");
         menuperiodo = (MenuPeriodo) macro.getChildren().get(0);
         menuperiodo.setPeriodolistener(this);
         initComponets();

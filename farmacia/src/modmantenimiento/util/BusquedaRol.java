@@ -11,6 +11,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -18,7 +19,8 @@ public class BusquedaRol extends SelectorComposer {
        
     @Wire
     private Listbox lstRol;
-    
+    @Wire
+    private Window WinBrol;
     
     @WireVariable
     RolService rolService;
@@ -28,7 +30,7 @@ public class BusquedaRol extends SelectorComposer {
     
     @Listen("onCreate=window#WinBrol")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/WinBrol/mresultado");
+        HtmlMacroComponent macro = (HtmlMacroComponent) WinBrol.getFellow("mresultado");
         menuresultado = (MenuResultado) macro.getChildren().get(0);
         initComponets();
      }
