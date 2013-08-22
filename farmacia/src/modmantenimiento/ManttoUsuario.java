@@ -77,7 +77,7 @@ public class ManttoUsuario extends SelectorComposer implements CrudListener{
     
     @Listen("onCreate=window#winUsuario")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winUsuario/menuMantto");
+        HtmlMacroComponent macro = (HtmlMacroComponent) winUsuario.getFellow("menuMantto");
          menuMantto =  (MenuMantenimiento) macro.getChildren().get(0);
          menuMantto.setCrudlistener(this);
          initComponets();

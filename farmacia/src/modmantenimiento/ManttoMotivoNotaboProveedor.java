@@ -52,7 +52,7 @@ public class ManttoMotivoNotaboProveedor extends SelectorComposer implements Cru
     
     @Listen("onCreate=window#winMotivonotabo")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winMotivonotabo/menuMantto");
+        HtmlMacroComponent macro = (HtmlMacroComponent) winMotivonotabo.getFellow("menuMantto");
          menuMantto =  (MenuMantenimiento) macro.getChildren().get(0);
          menuMantto.setCrudlistener(this);
          initComponets();

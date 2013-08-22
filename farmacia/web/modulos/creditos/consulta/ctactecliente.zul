@@ -1,5 +1,130 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winTarjeta"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuperiodo.zul"?>
+<?component name="menu2" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
+<window id="winTarjeta" border="0" width="100%" title="Cuenta Corriente Proveedor..."
+ apply="modcreditos.consulta.CtaCteCliente"    >
 
-<zk xmlns="http://www.zkoss.org/2005/zul">
+    <grid fixedLayout="true" width="100%">
+        <columns>
+            <column label="" width="10%"/>
+            <column label="" width="15%"/>
+            <column label="" width="10%"/>
+            <column label="" width="10%"/>
+            <column label="" width="25%"/>            
+            <column label="" width="30%" align="right"/>
+        </columns>
+        <rows>
+            <row >
+                <label value="Unidad:"/>
+                <combobox id="cboUnidad" constraint="no empty: Debe Seleccionar Unidad" readonly="true" width="98%"/>
+                <label value="Cliente:" width="100%"/>
+                <textbox id="txtDocumento"  width="95%" />
+                <textbox id="txtNombre" readonly="true" width="95%" />
+                
+                <menu id="mperiodo" width="100%"></menu>
+            </row>      
+            <row spans="6">
+                <textbox id="txtDireccion" readonly="true" width="95%" />                
+            </row>       
+        </rows>
+    </grid>
 
-</zk>
+
+
+    <grid fixedLayout="true" width="100%">
+        <rows>
+            <row>
+                <tabbox width="100%">
+                    <tabs>
+                        <tab id="tabFactura" label="Facturas" />
+                        <tab id="tabLetra" label="Letra"  />
+                        <tab id="tabNotabo" label="N/Credito" />
+                        <tab id="tabNotcar" label="N/Debito"  />               
+                        
+                    </tabs>
+                    <tabpanels >
+                        <tabpanel id="Facturas" >
+                            <hbox width="100%" >
+                                    <listbox id="lstFactura" mold="paging" pageSize="500"   width="100%" height="100%" >
+                                    <listhead>
+                                        <listheader label="Documento" width="5%" sort="auto(iddocumento.cnomdocumento)" />
+                                        <listheader label="Serie" width="5%" sort="auto(cserie)" align="center"/>
+                                        <listheader label="Numero." width="6%" sort="auto(cnumero)"  />
+                                        <listheader label="F.Emision" width="8%" sort="auto(dfecemi)"  />
+                                        <listheader label="Plazo" width="4%"/>
+                                        <listheader label="F.Venci" width="8%" sort="auto(dfecven)"  />
+                                        <listheader label="Condicion" width="12%" sort="auto(idcondicion.cnomcondicion)"  />
+                                        <listheader label="Importe" width="7%" sort="auto(nimporte)" align="right" />
+                                        <listheader label="Acuenta" width="7%" sort="auto(nacuenta)" align="right" />
+                                        <listheader label="N/Credito" width="7%" sort="auto(nnotabo)" align="right" />
+                                        <listheader label="N/Debito" width="7%" sort="auto(nnotcar)" align="right" />
+                                        <listheader label="Saldo" width="8%" sort="auto(nsaldo)" align="right" />
+                                        <listheader label="Detalle" width="5%" sort="auto(idregentrada)" align="right"/>
+                                        <listheader label="" width="0%"/>
+                                    </listhead>
+                                    <listitem self="@{each=factura}" >
+                                        <listcell label="@{factura.iddocumento.cabrev}"/>
+                                        <listcell label="@{factura.cserie}"/>
+                                        <listcell label="@{factura.cnumero}"/>
+                                        <listcell date="@{factura.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+                                        <listcell label="@{factura.nplazo}"/>
+                                        <listcell date="@{factura.dfecven}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+                                        <listcell label="@{factura.idcondicion.cnomcondicion}"/>
+                                        <listcell decimal="@{factura.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{factura.nacuenta}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{factura.nnotabo}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                         <listcell decimal="@{factura.nnotcar}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{factura.nsaldo}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell>
+                                            <toolbarbutton id="btnDetalle" image="/img/detalle.png" width="70%"   />
+                                        </listcell>
+                                        <listcell label="@{factura.nsaldo,converter='modmantenimiento.util.ConvertidorSaldoDocumento'}" visible="false" />
+                                        
+                                    </listitem>
+                                </listbox>
+                            </hbox>
+                        </tabpanel>
+
+                        <tabpanel id="Letras" >
+                            <hbox width="100%" height="70%">
+                                <listbox id="lstLetra" mold="paging" pageSize="500"  width="100%" height="300px" >
+                                    
+                                </listbox>
+
+                            </hbox>
+                        </tabpanel>  
+                        <tabpanel id="Notabo" >
+                            <hbox width="100%" height="70%">
+                                <listbox id="lstNotabo" mold="paging" pageSize="500"  width="100%" height="300px" >
+                                    
+                                </listbox>
+
+                            </hbox>
+                        </tabpanel>
+                        <tabpanel id="Notcar" >
+                            <hbox width="100%" height="70%">
+                                <listbox id="lstNotcar" mold="paging" pageSize="500"  width="100%" height="300px" >
+                                    
+                                </listbox>
+
+                            </hbox>
+                        </tabpanel>                   
+                        
+                    </tabpanels>
+                </tabbox>
+            </row>
+        </rows>
+    </grid>
+
+    <menu2 id="mresultado" width="100%"></menu2>  
+    
+      <toolbar height="25px"  align="end">
+
+        <toolbarbutton id="btnBuscar" image="/img/Save.png" label="Buscar"    />
+
+        <toolbarbutton id="btnSalir" image="/img/Undo.png" label="Salir"  />
+    </toolbar>
+
+</window>
+
+

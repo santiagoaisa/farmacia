@@ -12,7 +12,6 @@ import modmantenimiento.util.MenuMantenimiento;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -57,7 +56,7 @@ public class ManttoMotivoSalida extends SelectorComposer implements CrudListener
     
     @Listen("onCreate=window#winMotivoSalida")
     public void onCreate() throws NamingException {
-        HtmlMacroComponent macro = (HtmlMacroComponent) Path.getComponent("/winMotivoSalida/menuMantto");
+        HtmlMacroComponent macro = (HtmlMacroComponent) winMotivoSalida.getFellow("menuMantto");
          menuMantto =  (MenuMantenimiento) macro.getChildren().get(0);
          menuMantto.setCrudlistener(this);
          initComponets();
