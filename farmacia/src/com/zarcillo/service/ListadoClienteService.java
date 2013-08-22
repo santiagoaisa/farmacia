@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ListadoClienteService {
 
-    public List<CronogramaCobro> listaCronogramaPago();
-    public List<DetalleCronogramaCobroCliente> listaDetalleCronogramaPago();
+    public List<CronogramaCobro> listaCronogramaCobro();
+    public List<DetalleCronogramaCobroCliente> listaDetalleCronogramaCobro();
     
 }

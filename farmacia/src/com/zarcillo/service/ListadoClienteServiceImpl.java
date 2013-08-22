@@ -55,7 +55,7 @@ public class ListadoClienteServiceImpl implements ListadoClienteService {
 
     @Override
     @Transactional
-    public List<CronogramaCobro> listaCronogramaPago() {
+    public List<CronogramaCobro> listaCronogramaCobro() {
         List<CronogramaCobro> listaRetorno = new ArrayList<>();
 
         //hace tres años
@@ -99,7 +99,7 @@ public class ListadoClienteServiceImpl implements ListadoClienteService {
 
     @Override
     @Transactional
-    public List<DetalleCronogramaCobroCliente> listaDetalleCronogramaPago() {
+    public List<DetalleCronogramaCobroCliente> listaDetalleCronogramaCobro() {
         //hace tres años
         Date diniciosaldo = Dia.sumarDias(new Date(), -1095);
         //hasta tres años
