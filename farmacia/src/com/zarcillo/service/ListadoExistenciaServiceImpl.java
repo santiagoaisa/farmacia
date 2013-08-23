@@ -179,7 +179,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
 
         InventarioValorizado inventario=new InventarioValorizado();
         inventario.setIdlinea(linea);
-        inventario.setNcosto(ncosto);
+        inventario.setNcosto(ncosto.setScale(2, BigDecimal.ROUND_HALF_EVEN));
         inventario.setPcosto(nprecos);
         
         return inventario;

@@ -25,7 +25,7 @@
     </grid>
 
     <listbox id="lstInventario"  height="400px" mold="paging" pageSize="500"  >
-        <listhead >
+        <listhead menupopup="auto">
             <listheader label="Nombre Linea" width="55%" sort="auto(idlinea.cnomlinea)"/>
             <listheader label="valor Costo" width="15%" sort="auto(ncosto)"   align="right"  />
             <listheader label="Precio Costo" width="15%" sort="auto(pcosto)"  align="right"  />

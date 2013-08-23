@@ -8,11 +8,13 @@ import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.LineaService;
 import com.zarcillo.service.ListadoExistenciaService;
 import com.zarcillo.service.UsuarioService;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
@@ -23,6 +25,15 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.zkoss.exporter.excel.ExcelExporter;
+import org.zkoss.exporter.excel.ExcelExporter.ExportContext;
+import org.zkoss.util.media.AMedia;
+import org.zkoss.zarcillo.ExportarHojaCalculo;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -32,7 +43,18 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zkex.zul.Jasperreport;
-import org.zkoss.zul.*;
+import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Decimalbox;
+import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listhead;
+import org.zkoss.zul.Listheader;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Row;
+import org.zkoss.zul.Window;
+import org.zkoss.zarcillo.ListitemRedenderZarcillo;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class InventarioValorizadoLinea extends SelectorComposer {
@@ -72,28 +94,26 @@ public class InventarioValorizadoLinea extends SelectorComposer {
     public void onImprimir(Event event) {
         imprimir();
     }
-    
+
     @Listen("onClick = #btnExportar")
     public void onExportar(Event event) throws IOException {
         exportar();
     }
-    
+
     @Listen("onClick = #btnProcesar")
     public void onProcesar(Event event) {
         procesar();
     }
-    
+
     @Listen("onDoubleClick = #lstInventario")
     public void onDetalle(Event event) {
         detalleInventario();
     }
-    
+
     @Listen("onOK = #lstInventario")
     public void onDetalleInventario(Event event) {
         detalleInventario();
     }
-    
-    
 
     private void initComponets() {
         user_login = exec.getUserPrincipal().getName();
@@ -105,25 +125,26 @@ public class InventarioValorizadoLinea extends SelectorComposer {
             cboAlmacen.close();
             cboAlmacen.setSelectedIndex(0);
         }
-        
+
     }
-    private void procesar(){
-        Almacen almacen=(Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+
+    private void procesar() {
+        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         modeloInventario = new ListModelList(listadoExistenciaService.listaInventarioValorizadoPorIdalmacen(almacen.getIdalmacen()));
         lstInventario.setModel(modeloInventario);
-        lstInventario.onInitRender();        
+        lstInventario.onInitRender();
         cargarPie();
     }
-    
-    private void cargarPie(){
-        BigDecimal ncosto= new BigDecimal(BigInteger.ZERO);
+
+    private void cargarPie() {
+        BigDecimal ncosto = new BigDecimal(BigInteger.ZERO);
         BigDecimal nprecio = new BigDecimal(BigInteger.ZERO);
         List<Listitem> ldatos = lstInventario.getItems();
         InventarioValorizado invvalorizado;
         for (Listitem item : ldatos) {
-            invvalorizado=(InventarioValorizado) modeloInventario.getElementAt(item.getIndex());
-            ncosto=ncosto.add(invvalorizado.getNcosto());
-            nprecio=nprecio.add(invvalorizado.getPcosto());
+            invvalorizado = (InventarioValorizado) modeloInventario.getElementAt(item.getIndex());
+            ncosto = ncosto.add(invvalorizado.getNcosto());
+            nprecio = nprecio.add(invvalorizado.getPcosto());
         }
         nCosto.setValue(ncosto);
         nPcosto.setValue(nprecio);
@@ -133,10 +154,10 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         cboAlmacen.getValue();
     }
 
-    private void detalleInventario(){
+    private void detalleInventario() {
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        InventarioValorizado inventario =(InventarioValorizado) modeloInventario.getElementAt(lstInventario.getSelectedIndex());        
-        List<ExistenciaValorizada> listaExistencia=listadoExistenciaService.listaExistenciaValorizadaPorIdalmacenPorIdlinea(almacen.getIdalmacen(),inventario.getIdlinea().getIdlinea());
+        InventarioValorizado inventario = (InventarioValorizado) modeloInventario.getElementAt(lstInventario.getSelectedIndex());
+        List<ExistenciaValorizada> listaExistencia = listadoExistenciaService.listaExistenciaValorizadaPorIdalmacenPorIdlinea(almacen.getIdalmacen(), inventario.getIdlinea().getIdlinea());
         Window win = (Window) Executions.createComponents("/modulos/almacen/consulta/detalleinventariovalorizado.zul", null, null);
         win.setClosable(true);
         win.setAttribute("LISTAEXISTENCIA", listaExistencia);
@@ -150,7 +171,7 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         validar();
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         HashMap parametro = new HashMap();
-        parametro.put("RUTA", almacen.getIdunidad().getIdempresa().getCruta()); 
+        parametro.put("RUTA", almacen.getIdunidad().getIdempresa().getCruta());
         parametro.put("EMPRESA", almacen.getIdunidad().getIdempresa().getCnomempresa());
         parametro.put("UNIDADNEGOCIO", almacen.getIdunidad().getCnomunidad());
         parametro.put("ALMACEN", almacen.getCnomalmacen());
@@ -159,76 +180,18 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         rptreporte.setSrc("/modulos/almacen/reporte/inventariovalorizado.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");        
+        rptreporte.setType("pdf");
     }
+
     public void exportar() throws IOException {
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        EsportaExcel2(lstInventario,almacen.getCnomalmacen().trim() + ".xls");
+        //EsportaExcel2(lstInventario, almacen.getCnomalmacen().trim() + ".xls");
+        
+        ///ejemplo de exportacion                
+        //ExportarHojaCalculo.exportListboxToExcel(lstInventario, almacen.getCnomalmacen());
+        String[] headers={"LINEA","VALOR COSTO","PRECIO COSTO","PORCENTAJE","USUARIO","INCREMENTO"};
+        String[] fields={"idlinea","ncosto","pcosto","nporcentaje","idlinea.idusuario","idlinea.nincremento"};
+        ExportarHojaCalculo.exportDataModelToExcel(headers, fields, modeloInventario,almacen.getCnomalmacen().trim());                
     }
 
-    public void EsportaExcel2(Listbox box, String nomeFile) throws IOException {
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("hoja");
-        HSSFRow row = sheet.createRow(0);
-        HSSFFont fontRedBold = workbook.createFont();
-        HSSFFont fontNormal = workbook.createFont();
-        fontRedBold.setColor(HSSFFont.COLOR_RED);
-        fontRedBold.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        fontNormal.setColor(HSSFFont.COLOR_NORMAL);
-        fontNormal.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
-        HSSFCellStyle cellStyleRedBold = workbook.createCellStyle();
-        HSSFCellStyle cellStyleNormal = workbook.createCellStyle();
-        cellStyleRedBold.setFont(fontRedBold);
-        cellStyleNormal.setFont(fontNormal);
-        int i = 0;
-        row = sheet.createRow(0);
-        for (Object head : box.getHeads()) {
-            for (Object header : ((Listhead) head).getChildren()) {
-                String h = ((Listheader) header).getLabel();
-                HSSFCell cell = row.createCell(i);
-                cell.setCellStyle(cellStyleRedBold);
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                cell.setCellValue(h);
-                i++;
-            }
-        }
-        int x = 1;
-        int y = 0;
-        for (Object item : box.getItems()) {
-            row = sheet.createRow(x);
-            y = 0;
-            for (Object lbCell : ((Listitem) item).getChildren()) {
-                String h;
-                Double a;
-                h = ((Listcell) lbCell).getLabel();
-                HSSFCell cell = row.createCell(y);
-                cell.setCellStyle(cellStyleNormal);
-                if (isNumberFloat(h)) {
-                    a = new Double(h);
-                    cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
-                    cell.setCellValue(a);
-                } else {
-                    cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                    cell.setCellValue(h);
-                }
-                y++;
-            }
-            x++;
-        }
-        FileOutputStream fOut = new FileOutputStream(nomeFile);
-        workbook.write(fOut);
-        fOut.flush();
-        fOut.close();
-        File file = new File(nomeFile);
-        Filedownload.save(file, "XLS");
-    }
-    public static boolean isNumberFloat(String cadena) {
-        try {
-            Float.parseFloat(cadena);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
 }
-
