@@ -1,9 +1,7 @@
-
 package modalmacen.consulta;
 
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.ComprobanteEmitido;
-import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.Producto;
@@ -22,8 +20,6 @@ import com.zarcillo.service.ProductoService;
 import com.zarcillo.service.RegistroEntradaService;
 import com.zarcillo.service.RegistroSalidaService;
 import com.zarcillo.service.UsuarioService;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,12 +28,7 @@ import javax.naming.NamingException;
 import modmantenimiento.util.MenuPeriodo;
 import modmantenimiento.util.PeriodoListener;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.zkoss.zarcillo.ExportarHojaCalculo;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
@@ -357,57 +348,7 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
         cargarMovimientos();
 
     }
-    public void exportar() throws IOException {
-        EsportaExcel2(lstKardex, producto.getIdproducto()+"-"+Mes.getMes(periodo.getNmes())+".xls");
-    }
-
-    public void EsportaExcel2(Listbox box, String nomeFile) throws IOException {
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("hoja");
-        HSSFRow row = sheet.createRow(0);
-        HSSFFont fontRedBold = workbook.createFont();
-        HSSFFont fontNormal = workbook.createFont();
-        fontRedBold.setColor(HSSFFont.COLOR_RED);
-        fontRedBold.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        fontNormal.setColor(HSSFFont.COLOR_NORMAL);
-        fontNormal.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
-        HSSFCellStyle cellStyleRedBold = workbook.createCellStyle();
-        HSSFCellStyle cellStyleNormal = workbook.createCellStyle();
-        cellStyleRedBold.setFont(fontRedBold);
-        cellStyleNormal.setFont(fontNormal);
-        int i = 0;
-        row = sheet.createRow(0);
-        for (Object head : box.getHeads()) {
-            for (Object header : ((Listhead) head).getChildren()) {
-                String h = ((Listheader) header).getLabel();
-                HSSFCell cell = row.createCell(i);
-                cell.setCellStyle(cellStyleRedBold);
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                cell.setCellValue(h);
-                i++;
-            }
-        }
-        int x = 1;
-        int y = 0;
-        for (Object item : box.getItems()) {
-            row = sheet.createRow(x);
-            y = 0;
-            for (Object lbCell : ((Listitem) item).getChildren()) {
-                String h;
-                h = ((Listcell) lbCell).getLabel();
-                HSSFCell cell = row.createCell(y);
-                cell.setCellStyle(cellStyleNormal);
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                cell.setCellValue(h);
-                y++;
-            }
-            x++;
-        }
-        FileOutputStream fOut = new FileOutputStream(nomeFile);
-        workbook.write(fOut);
-        fOut.flush();
-        fOut.close();
-        File file = new File(nomeFile);
-        Filedownload.save(file, "XLS");
-    }
+    public void exportar(){            
+        ExportarHojaCalculo.exportListboxToExcel(lstKardex,producto.getIdproducto()+"-"+Mes.getMes(periodo.getNmes()));             
+    }   
 }

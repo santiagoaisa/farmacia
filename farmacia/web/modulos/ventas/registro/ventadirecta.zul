@@ -1,14 +1,16 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winVenta"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuimpresion.zul"?>
+
 <window id="winVenta" title="Registro de Ventas..."  width="950px"  border="0"
         apply="modventas.registro.VentaDirecta" >
 
     <grid>
         <columns>
-            <column width="12%"/>
+            <column width="10%"/>
             <column width="15%" />
-            <column width="12%"/>
+            <column width="10%"/>
             <column width="15%" />
-            <column width="6%"/>
+            <column width="10%"/>
             <column width="12%" />
             <column width="12%"/>
             <column width="16%" />
@@ -25,7 +27,7 @@
                 <datebox id="dFecha" width="85%" readonly="true" format="yyyy-MM-dd" />
                                
             </row>
-            <row spans="1,1,1,1,4" >
+            <row  >
                 <label value="Motivo Venta:"/>
                 <combobox id="cboMotivo" readonly="true" width="98%"/>
                 <label value="Vendedor:"/>
@@ -116,12 +118,12 @@
 
         </rows>
     </grid>
-
+    <menu id="mimpresion" width="100%"></menu>
     <toolbar id="tb"  height="25px" align="end" >
         <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"
         />
         <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png"
-                           onClick="doCancel()" />
+                       onClick="doCancel()" />
     </toolbar>
 
 

@@ -8,14 +8,12 @@ import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.naming.NamingException;
-import org.apache.poi.hssf.usermodel.*;
 import org.zkoss.zkex.zul.Jasperreport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.zkoss.zarcillo.ExportarHojaCalculo;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -127,58 +125,7 @@ public class DetalleIngreso extends SelectorComposer {
         rptreporte.setType("pdf");
 
     }
-
-    public void exportar() throws IOException {
-        EsportaExcel2(lstDetalle, rentrada.getIdregentrada() + ".xls");
-    }
-
-    public void EsportaExcel2(Listbox box, String nomeFile) throws IOException {
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("hoja");
-        HSSFRow row = sheet.createRow(0);
-        HSSFFont fontRedBold = workbook.createFont();
-        HSSFFont fontNormal = workbook.createFont();
-        fontRedBold.setColor(HSSFFont.COLOR_RED);
-        fontRedBold.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        fontNormal.setColor(HSSFFont.COLOR_NORMAL);
-        fontNormal.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
-        HSSFCellStyle cellStyleRedBold = workbook.createCellStyle();
-        HSSFCellStyle cellStyleNormal = workbook.createCellStyle();
-        cellStyleRedBold.setFont(fontRedBold);
-        cellStyleNormal.setFont(fontNormal);
-        int i = 0;
-        row = sheet.createRow(0);
-        for (Object head : box.getHeads()) {
-            for (Object header : ((Listhead) head).getChildren()) {
-                String h = ((Listheader) header).getLabel();
-                HSSFCell cell = row.createCell(i);
-                cell.setCellStyle(cellStyleRedBold);
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                cell.setCellValue(h);
-                i++;
-            }
-        }
-        int x = 1;
-        int y = 0;
-        for (Object item : box.getItems()) {
-            row = sheet.createRow(x);
-            y = 0;
-            for (Object lbCell : ((Listitem) item).getChildren()) {
-                String h;
-                h = ((Listcell) lbCell).getLabel();
-                HSSFCell cell = row.createCell(y);
-                cell.setCellStyle(cellStyleNormal);
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                cell.setCellValue(h);
-                y++;
-            }
-            x++;
-        }
-        FileOutputStream fOut = new FileOutputStream(nomeFile);
-        workbook.write(fOut);
-        fOut.flush();
-        fOut.close();
-        File file = new File(nomeFile);
-        Filedownload.save(file, "XLS");
+    public void exportar(){            
+        ExportarHojaCalculo.exportListboxToExcel(lstDetalle, rentrada.getIdregentrada().toString().trim());             
     }
 }

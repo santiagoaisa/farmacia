@@ -10,7 +10,6 @@ import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.RegistroSalida;
 import com.zarcillo.domain.TipoPago;
-import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.domain.Vendedor;
 import com.zarcillo.dto.venta.DetalleVenta;
@@ -68,7 +67,7 @@ public class VentaDirecta extends SelectorComposer {
 
     private Usuario usuario;
     private RegistroSalida regsalida = new RegistroSalida();
-    private ComprobanteEmitido comprobante;
+    private ComprobanteEmitido comprobante= new ComprobanteEmitido();
     private ListModelList modeloAlmacen;
     private ListModelList modeloDetalle;
     private ListModelList modeloCondicion;
@@ -76,7 +75,7 @@ public class VentaDirecta extends SelectorComposer {
     private ListModelList modeloVendedor;
     private ListModelList modeloPago;
     private Periodo periodo;
-    private Cliente cliente;
+    private Cliente cliente= new Cliente();
     @Wire
     private Window winVenta;
     @Wire
@@ -153,7 +152,7 @@ public class VentaDirecta extends SelectorComposer {
     }
 
     @Listen("onClick = #btnGrabar")
-    public void onAgregarImprimir(Event event) {
+    public void onRegistrar(Event event) throws JRException {
         registrar();
     }
     
@@ -364,7 +363,7 @@ public class VentaDirecta extends SelectorComposer {
         cboAlmacen.getValue();
     }
 
-    public void registrar() {
+    public void registrar() throws JRException {
         validar();
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         CondicionVenta condicion = (CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
@@ -381,7 +380,7 @@ public class VentaDirecta extends SelectorComposer {
         regsalida.setMovimientoCollection(llenarDetalle());
         int operacion = ventaService.registrar(regsalida, almacen);
         Messagebox.show("OPERACION: " + operacion, "REGISTRO SATISFACTORIO", Messagebox.OK, Messagebox.INFORMATION);
-        
+        registrarDocumento();
     }
     public void registrarDocumento() throws JRException{
         TipoPago tpago=(TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
@@ -461,7 +460,14 @@ public class VentaDirecta extends SelectorComposer {
         Messagebox.show("Registro Satisfactorio");
     }
     private void limpiar(){
-        
+        cliente=new Cliente();
+        regsalida=new RegistroSalida();
+        comprobante=new ComprobanteEmitido();
+        modeloDetalle=new ListModelList();
+        lstDetalle.setModel(modeloDetalle);
+        txtCliente.setText("");
+        txtDireccion.setText("");
+        txtDocumento.setText("");
     }
     public void imprimir() throws JRException{
         TipoPago tpago=(TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
