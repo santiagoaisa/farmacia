@@ -30,6 +30,7 @@ public class ListitemRedenderZarcillo implements ListitemRenderer<Object> {
 
                 String cpropiedad;
                 String cpropiedadinterna;
+                String cpropiedadmuyinterna;
                 for (int i = 0; i < properties.length; i++) {
                     Field field = properties[i];
                     field.setAccessible(true);
@@ -42,10 +43,10 @@ public class ListitemRedenderZarcillo implements ListitemRenderer<Object> {
                     } else {
                         //PROPIEDADES DE OBJETOS INTERNOS
                         Object objetointerno = field.get(objeto);
-                        if(objetointerno==null){
+                        if (objetointerno == null) {
                             continue;
                         }
-                        
+
                         Class klassinterno = objetointerno.getClass();
                         Field propertiesinternas[] = klassinterno.getDeclaredFields();
                         for (int in = 0; in < propertiesinternas.length; in++) {
@@ -57,6 +58,26 @@ public class ListitemRedenderZarcillo implements ListitemRenderer<Object> {
                                 celda = new Listcell(fieldinterno.get(objetointerno) + "");
                                 item.appendChild(celda);
                                 break;
+                            } else {
+                                //PROPIEDADES DE OBJETOS INTERNOS
+                                Object objetomuyinterno = fieldinterno.get(objetointerno);
+                                if (objetomuyinterno == null) {
+                                    continue;
+                                }
+
+                                Class klassmuyinterno = objetomuyinterno.getClass();
+                                Field propiertermuyinterno[] = klassmuyinterno.getDeclaredFields();
+                                for (int mi = 0; mi < propiertermuyinterno.length; mi++) {
+                                    Field fielmuydinterno = propiertermuyinterno[mi];
+                                    fielmuydinterno.setAccessible(true);
+                                    cpropiedadmuyinterna = cpropiedadinterna + "." + fielmuydinterno.getName().toUpperCase();
+
+                                    if (cpropiedadmuyinterna.contains(campo)) {
+                                        celda = new Listcell(fielmuydinterno.get(objetomuyinterno) + "");
+                                        item.appendChild(celda);
+                                        break;
+                                    }
+                                }
                             }
                         }
 

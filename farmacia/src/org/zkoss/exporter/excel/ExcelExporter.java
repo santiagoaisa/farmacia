@@ -50,6 +50,7 @@ import org.zkoss.zul.Auxhead;
 import org.zkoss.zul.impl.HeaderElement;
 import org.zkoss.zul.impl.MeshElement;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.zkoss.zarcillo.EstiloCelda;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listhead;
@@ -230,22 +231,7 @@ public class ExcelExporter extends AbstractExporter<XSSFWorkbook, Row> {
     }
 
     @Override
-    protected void exportColumnHeaders(Component component, XSSFWorkbook book) {
-        //////estilo
-        Font headerFont = book.createFont();
-        headerFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
-        headerFont.setFontName("Abadi MT Condensed Light");
-
-
-        CellStyle style = book.createCellStyle();
-        style.setFont(headerFont);
-        style.setFillForegroundColor(IndexedColors.LIGHT_CORNFLOWER_BLUE.getIndex());                
-        style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-        style.setBorderBottom(CellStyle.BORDER_THIN);        
-        style.setBorderLeft(CellStyle.BORDER_THIN);        
-        style.setBorderRight(CellStyle.BORDER_THIN);        
-        style.setBorderTop(CellStyle.BORDER_THIN);        
-        //estilo
+    protected void exportColumnHeaders(Component component, XSSFWorkbook book) {      
 
         CellValueSetter<Component> cellValueSetter = getCellValueSetterFactory().getCellValueSetter(Component.class);
         ExportContext ctx = getExportContext();
@@ -253,7 +239,7 @@ public class ExcelExporter extends AbstractExporter<XSSFWorkbook, Row> {
         for (Component c : component.getChildren()) {
 
             Cell cell = getOrCreateCell(ctx.moveToNextCell(), sheet);
-            cell.setCellStyle(style);
+            cell.setCellStyle(EstiloCelda.estiloCabecera(book));
             cellValueSetter.setCellValue(c, cell);
             syncAlignment(c, cell, book);
         }
@@ -282,17 +268,7 @@ public class ExcelExporter extends AbstractExporter<XSSFWorkbook, Row> {
     }
 
     @Override
-    protected void exportCells(int rowIndex, int columnSize, Component row, XSSFWorkbook book) {
-         //////estilo
-        Font headerFont = book.createFont();        
-        headerFont.setFontName("Abadi MT Condensed Light");
-        CellStyle style = book.createCellStyle();
-        style.setFont(headerFont);                
-        style.setBorderBottom(CellStyle.BORDER_THIN);        
-        style.setBorderLeft(CellStyle.BORDER_THIN);        
-        style.setBorderRight(CellStyle.BORDER_THIN);        
-        style.setBorderTop(CellStyle.BORDER_THIN);        
-        //estilo
+    protected void exportCells(int rowIndex, int columnSize, Component row, XSSFWorkbook book) {      
         
         
         CellValueSetter<Component> cellValueSetter = getCellValueSetterFactory().getCellValueSetter(Component.class);
@@ -309,7 +285,7 @@ public class ExcelExporter extends AbstractExporter<XSSFWorkbook, Row> {
             }
 
             Cell cell = getOrCreateCell(ctx.moveToNextCell(), sheet);
-            cell.setCellStyle(style);
+            cell.setCellStyle(EstiloCelda.estiloDetalle(book));
             cellValueSetter.setCellValue(cmp, cell);
 
             syncAlignment(cmp, headers != null ? headers.get(c) : null, cell, book);

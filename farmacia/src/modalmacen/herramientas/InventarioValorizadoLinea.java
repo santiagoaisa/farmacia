@@ -189,8 +189,8 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         
         ///ejemplo de exportacion                
         //ExportarHojaCalculo.exportListboxToExcel(lstInventario, almacen.getCnomalmacen());
-        String[] headers={"LINEA","VALOR COSTO","PRECIO COSTO","PORCENTAJE","USUARIO","INCREMENTO"};
-        String[] fields={"idlinea","ncosto","pcosto","nporcentaje","idlinea.idusuario","idlinea.nincremento"};
+        String[] headers={"LINEA","VALOR COSTO","PRECIO COSTO","PORCENTAJE","ROL","INCREMENTO"};
+        String[] fields={"idlinea","ncosto","pcosto","nporcentaje","idlinea.idusuario.idrol","idlinea.nincremento"};
         ExportarHojaCalculo.exportDataModelToExcel(headers, fields, modeloInventario,almacen.getCnomalmacen().trim());                
     }
 
