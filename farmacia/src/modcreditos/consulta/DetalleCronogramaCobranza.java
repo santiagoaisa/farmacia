@@ -1,12 +1,15 @@
-package modfinanzas.consulta;
+package modcreditos.consulta;
+
 
 import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
-import com.zarcillo.dto.finanzas.CronogramaPago;
-import com.zarcillo.dto.finanzas.CronogramaPagoProveedor;
+import com.zarcillo.dto.creditos.CronogramaCobro;
+import com.zarcillo.dto.creditos.CronogramaCobroCliente;
 import com.zarcillo.service.ListadoProveedorService;
 import com.zarcillo.service.UnidadNegocioService;
 import com.zarcillo.service.UsuarioService;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -15,7 +18,12 @@ import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.zkoss.zarcillo.ExportarHojaCalculo;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -27,18 +35,22 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Decimalbox;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listhead;
+import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class DetalleCronogramaPagos extends SelectorComposer {
+public class DetalleCronogramaCobranza extends SelectorComposer {
 
     private Usuario usuario;
     private ListModelList modeloDetalle;
     private UnidadNegocio unidad;
-    private CronogramaPago cronograma;
+    private CronogramaCobro cronograma;
     private Date dFecha;
     @Wire
     private Window winDetalle;
@@ -93,20 +105,20 @@ public class DetalleCronogramaPagos extends SelectorComposer {
     public void initComponets() {
         unidad=(UnidadNegocio) winDetalle.getAttribute("UNIDAD");
         usuario=(Usuario) winDetalle.getAttribute("USUARIO");
-        cronograma=(CronogramaPago) winDetalle.getAttribute("CRONOGRAMA");
+        cronograma=(CronogramaCobro) winDetalle.getAttribute("CRONOGRAMA");
         dFecha=(Date) winDetalle.getAttribute("FECHA");
         
-        modeloDetalle = new ListModelList(cronograma.getDetalleCronogramaPagoProveedorCollection());
+        modeloDetalle = new ListModelList(cronograma.getDetalleCronogramaCobroClienteCollection());
         lstDetalle.setModel(modeloDetalle);
         lstDetalle.onInitRender();
         cargarPie();
     }
     
     private void mostrarDetalle(){
-        Window win = (Window) Executions.createComponents("/modulos/finanzas/consulta/cronogramapagosdocumento.zul", null, null);
+        Window win = (Window) Executions.createComponents("/modulos/creditos/consulta/cronogramacobrosdocumento.zul", null, null);
         win.setClosable(true);
-        CronogramaPagoProveedor cronogramaproveedor = (CronogramaPagoProveedor) modeloDetalle.getElementAt(lstDetalle.getSelectedIndex());
-        win.setAttribute("CRONOGRAMAPROVEEDOR", cronogramaproveedor);
+        CronogramaCobroCliente cronogramacliente = (CronogramaCobroCliente) modeloDetalle.getElementAt(lstDetalle.getSelectedIndex());
+        win.setAttribute("CRONOGRAMACLIENTE", cronogramacliente);
         win.setAttribute("UNIDAD", unidad);
         win.setAttribute("USUARIO", usuario);
         win.setAttribute("FECHA", dFecha);        
@@ -119,9 +131,9 @@ public class DetalleCronogramaPagos extends SelectorComposer {
         BigDecimal nletra= new BigDecimal(BigInteger.ZERO);
         BigDecimal ntotal= new BigDecimal(BigInteger.ZERO);
         List<Listitem> ldatos = lstDetalle.getItems();
-        CronogramaPagoProveedor cpd;
+        CronogramaCobroCliente cpd;
         for (Listitem item : ldatos) {
-            cpd=  (CronogramaPagoProveedor) modeloDetalle.getElementAt(item.getIndex());            
+            cpd=  (CronogramaCobroCliente) modeloDetalle.getElementAt(item.getIndex());            
             nfactura = nfactura.add(cpd.getNfactura());
             nletra = nletra.add(cpd.getNletra());
             ntotal= ntotal.add(cpd.getNtotal());
@@ -146,7 +158,72 @@ public class DetalleCronogramaPagos extends SelectorComposer {
         rptreporte.setType("pdf");
     }
     
-    public void exportar(){            
-        ExportarHojaCalculo.exportListboxToExcel(lstDetalle,"DetalleCronograma");             
-    }  
+    public void exportar() throws IOException {
+        EsportaExcel2(lstDetalle,"cronogramaproveedor.xls");
+    }
+
+    public void EsportaExcel2(Listbox box, String nomeFile) throws IOException {
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet("hoja");
+        HSSFRow row = sheet.createRow(0);
+        HSSFFont fontRedBold = workbook.createFont();
+        HSSFFont fontNormal = workbook.createFont();
+        fontRedBold.setColor(HSSFFont.COLOR_RED);
+        fontRedBold.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        fontNormal.setColor(HSSFFont.COLOR_NORMAL);
+        fontNormal.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
+        HSSFCellStyle cellStyleRedBold = workbook.createCellStyle();
+        HSSFCellStyle cellStyleNormal = workbook.createCellStyle();
+        cellStyleRedBold.setFont(fontRedBold);
+        cellStyleNormal.setFont(fontNormal);
+        int i = 0;
+        row = sheet.createRow(0);
+        for (Object head : box.getHeads()) {
+            for (Object header : ((Listhead) head).getChildren()) {
+                String h = ((Listheader) header).getLabel();
+                HSSFCell cell = row.createCell(i);
+                cell.setCellStyle(cellStyleRedBold);
+                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+                cell.setCellValue(h);
+                i++;
+            }
+        }
+        int x = 1;
+        int y = 0;
+        for (Object item : box.getItems()) {
+            row = sheet.createRow(x);
+            y = 0;
+            for (Object lbCell : ((Listitem) item).getChildren()) {
+                String h;
+                Double a;
+                h = ((Listcell) lbCell).getLabel();
+                HSSFCell cell = row.createCell(y);
+                cell.setCellStyle(cellStyleNormal);
+                if (isNumberFloat(h)) {
+                    a = new Double(h);
+                    cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+                    cell.setCellValue(a);
+                } else {
+                    cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+                    cell.setCellValue(h);
+                }
+                y++;
+            }
+            x++;
+        }
+        FileOutputStream fOut = new FileOutputStream(nomeFile);
+        workbook.write(fOut);
+        fOut.flush();
+        fOut.close();
+        File file = new File(nomeFile);
+        Filedownload.save(file, "XLS");
+    }    
+    public static boolean isNumberFloat(String cadena) {
+        try {
+            Float.parseFloat(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }

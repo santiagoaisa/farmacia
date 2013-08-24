@@ -25,6 +25,7 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.zkoss.zarcillo.ExportarHojaCalculo;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -189,73 +190,9 @@ public class ReporteDiarioCaja extends SelectorComposer {
         rptreporte.setType("pdf");
     }
     
-    public void exportar() throws IOException {
-        Usuario user=  (Usuario) modeloUsuario.getElementAt(cboUsuario.getSelectedIndex());
-        EsportaExcel2(lstDetalle,user.getCnomusuario().trim() + ".xls");
-    }
-
-    public void EsportaExcel2(Listbox box, String nomeFile) throws IOException {
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        HSSFSheet sheet = workbook.createSheet("hoja");
-        HSSFRow row = sheet.createRow(0);
-        HSSFFont fontRedBold = workbook.createFont();
-        HSSFFont fontNormal = workbook.createFont();
-        fontRedBold.setColor(HSSFFont.COLOR_RED);
-        fontRedBold.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-        fontNormal.setColor(HSSFFont.COLOR_NORMAL);
-        fontNormal.setBoldweight(HSSFFont.BOLDWEIGHT_NORMAL);
-        HSSFCellStyle cellStyleRedBold = workbook.createCellStyle();
-        HSSFCellStyle cellStyleNormal = workbook.createCellStyle();
-        cellStyleRedBold.setFont(fontRedBold);
-        cellStyleNormal.setFont(fontNormal);
-        int i = 0;
-        row = sheet.createRow(0);
-        for (Object head : box.getHeads()) {
-            for (Object header : ((Listhead) head).getChildren()) {
-                String h = ((Listheader) header).getLabel();
-                HSSFCell cell = row.createCell(i);
-                cell.setCellStyle(cellStyleRedBold);
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                cell.setCellValue(h);
-                i++;
-            }
-        }
-        int x = 1;
-        int y = 0;
-        for (Object item : box.getItems()) {
-            row = sheet.createRow(x);
-            y = 0;
-            for (Object lbCell : ((Listitem) item).getChildren()) {
-                String h;
-                Double a;
-                h = ((Listcell) lbCell).getLabel();
-                HSSFCell cell = row.createCell(y);
-                cell.setCellStyle(cellStyleNormal);
-                if (isNumberFloat(h)) {
-                    a = new Double(h);
-                    cell.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
-                    cell.setCellValue(a);
-                } else {
-                    cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-                    cell.setCellValue(h);
-                }
-                y++;
-            }
-            x++;
-        }
-        FileOutputStream fOut = new FileOutputStream(nomeFile);
-        workbook.write(fOut);
-        fOut.flush();
-        fOut.close();
-        File file = new File(nomeFile);
-        Filedownload.save(file, "XLS");
+    
+    public void exportar(){
+        Usuario user=  (Usuario) modeloUsuario.getElementAt(cboUsuario.getSelectedIndex());            
+        ExportarHojaCalculo.exportListboxToExcel(lstDetalle, user.getCnomusuario().trim());             
     }    
-    public static boolean isNumberFloat(String cadena) {
-        try {
-            Float.parseFloat(cadena);
-            return true;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
 }

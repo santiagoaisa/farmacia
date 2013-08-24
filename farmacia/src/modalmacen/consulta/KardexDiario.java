@@ -2,6 +2,7 @@
 package modalmacen.consulta;
 
 import com.zarcillo.domain.Almacen;
+import com.zarcillo.domain.ComprobanteEmitido;
 import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Periodo;
@@ -13,6 +14,7 @@ import com.zarcillo.dto.almacen.Kardex;
 import com.zarcillo.dto.almacen.TotalKardex;
 import com.zarcillo.negocio.Mes;
 import com.zarcillo.service.AlmacenService;
+import com.zarcillo.service.ComprobanteEmitidoService;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.KardexService;
 import com.zarcillo.service.PeriodoService;
@@ -101,6 +103,8 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
     
     @WireVariable
     RegistroSalidaService registroSalidaService;
+    @WireVariable
+    ComprobanteEmitidoService comprobanteEmitidoService;
     
     @WireVariable
     KardexService kardexService;
@@ -258,26 +262,13 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
         if(kardex.getCtipmov().contains("S"))
         {
             RegistroSalida regsalida=registroSalidaService.buscarPorIdunidadPorIdregsalida(almacen.getIdunidad().getIdunidad(),kardex.getNregsalida());
-            if(regsalida.getIddocumento().getIddocumento()==(Documento.BOLETA_SUNAT.getIddocumento()))
-            {
-                Window win =(Window) Executions.createComponents("/modulos/modherramientas/consulta/consultaboletakardex.zul",null, null);
-                win.setClosable(true);                
-                win.doModal();
+            ComprobanteEmitido comprobante=comprobanteEmitidoService.buscarPorIdregsalida(regsalida.getIdregsalida());
+            Window wincrea = (Window) Executions.createComponents("/modulos/mantenimiento/util/detallemovimientos.zul", null, null);
+            wincrea.setAttribute("COMPROBANTE", comprobante);
+            wincrea.setAttribute("UNIDAD", almacen.getIdunidad());
+            wincrea.setAttribute("USUARIO", usuario);
+            wincrea.doModal();
             }
-            if(regsalida.getIddocumento().getIddocumento()==(Documento.FACTURA_SUNAT.getIddocumento()))
-            {
-                Window win =(Window) Executions.createComponents("/modulos/modherramientas/consulta/consultafacturakardex.zul",null, null);
-                win.setClosable(true);
-                win.doModal();
-            }
-            if(regsalida.getIddocumento().getIddocumento()==(Documento.GUIA_REMISION_SUNAT.getIddocumento()))
-            {
-                Window win =(Window) Executions.createComponents("/modulos/modherramientas/consulta/consultaguiakardex.zul",null, null);
-                win.setClosable(true);
-                    win.doModal();
-               
-            }
-        }
         else
         {
             RegistroEntrada regentrada=registroEntradaService.buscarPorIdalmacenPorIdregentrada(almacen.getIdalmacen(),kardex.getNregentrada());

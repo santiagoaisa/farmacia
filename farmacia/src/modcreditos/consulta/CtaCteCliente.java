@@ -34,8 +34,10 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModel;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -144,6 +146,13 @@ public class CtaCteCliente extends SelectorComposer implements PeriodoListener {
     public void onMostrarNotcar(Event event) {
         mostrarNotcar();
     }
+    
+    @Listen("onClick = #btnDetalle")
+    public void onQuitarDetalle(Event event) {
+        Toolbarbutton btn = (Toolbarbutton) event.getTarget();
+        Listitem item = (Listitem) (btn.getParent().getParent());
+        mostrarDetalle(item.getIndex());
+    }
 
     public void initComponets() {
         user_login = exec.getUserPrincipal().getName();
@@ -211,6 +220,16 @@ public class CtaCteCliente extends SelectorComposer implements PeriodoListener {
         menuperiodo.setLista(periodoService.listaPeriodoAños());
         periodo = periodoService.buscarPorDfecha(new Date());
         menuperiodo.setPeriododefecto(periodo);
+    }
+    
+    private void mostrarDetalle(int index){
+        ComprobanteEmitido comprobante=(ComprobanteEmitido) modeloFacturas.getElementAt(index);
+        UnidadNegocio unidad=(UnidadNegocio) modeloUnidad.getElementAt(cboUnidad.getSelectedIndex());
+        Window wincrea = (Window) Executions.createComponents("/modulos/mantenimiento/util/detallemovimientos.zul", null, null);
+        wincrea.setAttribute("COMPROBANTE", comprobante);
+        wincrea.setAttribute("UNIDAD", unidad);
+        wincrea.setAttribute("USUARIO", usuario);
+        wincrea.doModal();
     }
 
     public void cargarFacturas() {

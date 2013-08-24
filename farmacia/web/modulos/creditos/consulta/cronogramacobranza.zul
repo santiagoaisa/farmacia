@@ -1,0 +1,67 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winCronograma"?>
+<window id="winCronograma" title="Cronograma de Cobranza..."  width="550px"  border="0"
+        apply="modcreditos.consulta.CronogramaCobranza" >
+
+    <grid>
+        <columns>
+            <column width="13%" />
+            <column width="27%" />
+            <column width="40%" />
+            <column width="20%" />
+        </columns>
+        <rows>
+            <row  >
+                <label value="Unidad:"/>
+                <combobox id="cboUnidad" readonly="true" width="98%"/>
+                <label value=""/>
+                <button id="btnProcesar" label="Procesar"  />              
+            </row>
+        </rows>
+    </grid>
+    <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
+        <listhead>
+            <listheader label="Dia" width="20%"  />
+            <listheader label="Fecha" width="20%" align="center" />
+            <listheader label="Facturas" width="20%" align="right" />
+            <listheader label="Letras" width="20%" align="right" />
+            <listheader label="Total" width="20%" align="right" />
+        </listhead>
+        <listitem self="@{each=detalle}"   >
+            <listcell label="@{detalle.cdia}"/>
+            <listcell date="@{detalle.dfecha}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+            <listcell decimal="@{detalle.nfactura}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nletra}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.ntotal}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            
+        </listitem>
+        <listfoot>
+            <listfooter /> 
+            <listfooter />  
+            <listfooter >
+                <decimalbox id="nFactura" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nLetra" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nTotal" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+        </listfoot>  
+    </listbox>
+    
+
+    <jasperreport id="rptreporte" visible="false" />      
+    <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnDetalle" image="/img/Printer.png" label="Detalle" />
+             <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
+            <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="doCancel()" />
+        </toolbar>
+    <zscript>{
+        void doCancel() {
+        winCronograma.setAttribute("REST",false);
+        winCronograma.onClose();
+        }
+        }
+    </zscript>
+</window>

@@ -1,0 +1,48 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDetalle"?>
+<window id="winDetalle" title="Cronograma por Cliente..."  width="600px"  border="0"
+        apply="modcreditos.consulta.DetalleCronogramaCobranza" >
+
+    
+    <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
+        <listhead>
+            <listheader label="Cliente" width="49%"  />
+            <listheader label="Facturas" width="17%" align="right" />
+            <listheader label="Letras" width="17%" align="right" />
+            <listheader label="Total" width="17%" align="right" />
+        </listhead>
+        <listitem self="@{each=detalle}"   >
+            <listcell label="@{detalle.idcliente.cnomcli}"/>
+            <listcell decimal="@{detalle.nfactura}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nletra}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.ntotal}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            
+        </listitem>
+        <listfoot>
+            <listfooter /> 
+            <listfooter >
+                <decimalbox id="nFactura" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nLetra" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nTotal" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+        </listfoot>  
+    </listbox>
+    
+
+    <jasperreport id="rptreporte" visible="false" />      
+    <toolbar id="tb"  height="25px" align="end" >
+            <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
+            <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="doCancel()" />
+        </toolbar>
+    <zscript>{
+        void doCancel() {
+        winDetalle.setAttribute("REST",false);
+        winDetalle.onClose();
+        }
+        }
+    </zscript>
+</window>

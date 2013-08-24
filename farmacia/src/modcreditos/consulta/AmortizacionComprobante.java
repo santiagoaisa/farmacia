@@ -31,6 +31,7 @@ import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
@@ -128,6 +129,11 @@ public class AmortizacionComprobante extends SelectorComposer{
         initComponets();
      }
     
+    @Listen("onOK = #lstAmortizacion")
+    public void onDesamortizar(Event event) {
+        eliminarAmortizacion();
+    }
+    
     @Listen("onClick = #btnAmortizar")
     public void onAmortizar(Event event) throws JRException {
          amortizar();
@@ -191,6 +197,15 @@ public class AmortizacionComprobante extends SelectorComposer{
             amortizacion.setIdcomprobante(comprobante);
             amortizacion.setIdusuario(usuario);
             comprobante=comprobanteEmitidoService.amortizar(amortizacion);
+            llenarDatos();
+        }
+    }
+    
+    private void eliminarAmortizacion() {
+        AmortizacionCliente amortizacion = (AmortizacionCliente) modeloAmortizacion.getElementAt(lstAmortizacion.getSelectedIndex());
+        int resp = Messagebox.show("Esta seguro de Eliminar Amortizacion \n" , "Amortizacion Factura", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
+        if (resp == Messagebox.OK) {
+            comprobante = comprobanteEmitidoService.desamortizar(amortizacion);
             llenarDatos();
         }
     }

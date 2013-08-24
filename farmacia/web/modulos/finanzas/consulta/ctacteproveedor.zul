@@ -46,7 +46,7 @@
                     <tabpanels >
                         <tabpanel id="Facturas" >
                             <hbox width="100%" >
-                                    <listbox id="lstFactura" mold="paging" pageSize="500"   width="100%" height="100%" >
+                                    <listbox id="lstFactura" mold="paging" pageSize="500" width="100%" height="300px" >
                                     <listhead>
                                         <listheader label="F.Ingreso" width="8%" sort="auto(dfecemi)"  />
                                         <listheader label="Documento" width="15%" sort="auto(iddocumento.cnomdocumento)" />
@@ -80,7 +80,7 @@
 
                         <tabpanel id="Letras" >
                             <hbox width="100%" height="70%">
-                                <listbox id="lstLetra" mold="paging" pageSize="500"  width="100%" height="100%" >
+                                <listbox id="lstLetra" mold="paging" pageSize="500"  width="100%" height="300px" >
                                     
                                 </listbox>
 
@@ -88,7 +88,7 @@
                         </tabpanel>  
                         <tabpanel id="Notabo" >
                             <hbox width="100%" height="70%">
-                                <listbox id="lstNotabo" mold="paging" pageSize="500"  width="100%" height="100%" >
+                                <listbox id="lstNotabo" mold="paging" pageSize="500"  width="100%" height="300px" >
                                     
                                 </listbox>
 
@@ -96,7 +96,7 @@
                         </tabpanel>
                         <tabpanel id="Notcar" >
                             <hbox width="100%" height="70%">
-                                <listbox id="lstNotcar" mold="paging" pageSize="500"  width="100%" height="100%" >
+                                <listbox id="lstNotcar" mold="paging" pageSize="500"  width="100%" height="300px" >
                                     
                                 </listbox>
 

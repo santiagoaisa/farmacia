@@ -367,7 +367,7 @@ public class GenerarDocumento extends SelectorComposer{
     
     
     
-    public void registrar() throws JRException {
+    public void registrar() throws JRException{
         TipoPago tpago=(TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
         regsalida.setDfecimp(dFecha.getValue());
         regsalida.setCnomcli(txtCliente.getText().toUpperCase());

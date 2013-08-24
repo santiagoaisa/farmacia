@@ -1,0 +1,116 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winFactura"?>
+<window id="winFactura" title="Consulta Factura..."  width="950px"  border="0"
+        apply="modmantenimiento.util.DetalleMovimientos" >
+
+    <grid>
+        <columns>
+            <column width="10%"/>
+            <column width="17%" />
+            <column width="8%"/>
+            <column width="8%" />
+            <column width="8%"/>
+             <column width="13%"/>
+            <column width="12%" />
+            <column width="12%"/>
+            <column width="12%"/>
+        </columns>
+        <rows>
+            <row >
+                <label value="Documento:"/>
+                <combobox id="cboDocumento" disabled="true" readonly="true" width="98%"/>                
+                <label value="Serie:"/>
+                <textbox id="txtSerie" width="85%"  />
+                <label value="Numero:"/>
+                <textbox id="txtNumero" width="85%"  />              
+                <datebox id="dFecha" width="92%" readonly="true" format="yyyy-MM-dd" />
+                <label value="Operacion:"/>
+                <intbox id="nOperacion" readonly="true"  width="85%"  />                               
+            </row>
+            <row spans="1,3,2,3">
+                <label value="Cliente:"/>
+                <textbox id="txtCliente"  readonly="true"  width="90%"  /> 
+                <textbox id="txtDocumento" readonly="true" width="90%"/> 
+                <textbox id="txtDireccion"  readonly="true"  width="90%"  />               
+            </row>
+            <row spans="1,1,4,1,2">
+                <label value="Condicion:"/>
+                <textbox id="txtCondicion"  readonly="true"  width="90%"  /> 
+                <textbox id="txtPago" readonly="true" width="90%"/> 
+                <label value="Vendedor:"/>
+                <textbox id="txtVendedor"  readonly="true"  width="90%"  />               
+            </row>
+        </rows>
+    </grid>
+    <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
+        <listhead>
+            <listheader label="Descripción" width="40%" sort="auto(producto.cnomart)" />
+            <listheader label="F/" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>                        
+            <listheader label="Unidad" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>
+            <listheader label="Cant." width="7%" align="center" />
+            <listheader label="Fracc." width="7%" align="center" />
+            <listheader label="Linea" width="24%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
+            <listheader label="PVF(/F)" width="5%" align="center" />
+            <listheader label="P.V.F" width="5%" align="center" />            
+            <listheader label="Importe" width="7%" align="center" />
+        </listhead>
+        <listitem self="@{each=detalle}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
+            <listcell label="@{detalle.existencia.idproducto.cnomproducto}" />
+            <listcell label="@{detalle.existencia.idproducto.nmenudeo}"/>
+            <listcell label="@{detalle.existencia.idproducto.idpresentacion.cabrev}"/>
+            <listcell label="@{detalle.ncanart}"  />
+            <listcell label="@{detalle.ncanartm}"  />            
+            <listcell label="@{detalle.existencia.idproducto.idsublinea.idlinea}"/>
+            <listcell decimal="@{detalle.npreunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.npreuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+            
+        </listitem>
+    </listbox>
+    <grid fixedLayout="true" >
+        <columns>
+            <column width="8%"/>
+            <column width="8%"/>
+            <column width="8%"/>
+            <column width="8%"/>
+            <column width="8%"/>
+            <column width="8%"/>
+            <column width="6%"/>
+            <column width="6%"/>
+            <column width="25%"/>
+            <column width="10%"/>
+            <column width="5%"/>
+            
+        </columns>
+        <rows>
+            <row spans="1,1,1,1,1,1,1,1,1,2"  > 
+                <label value="Inafecto"  />
+                <decimalbox id="nInafecto" format="0.00" width="90%" value="0" readonly="true" />           
+                <label value="Val.venta"  />
+                <decimalbox id="nValven" format="0.00" width="90%" value="0" readonly="true" />           
+                <label value="IGV"  />
+                <decimalbox id="nIgv" format="0.00" width="90%" value="0" readonly="true" />           
+                <label value="Redond."  />
+                <decimalbox id="nRedondeo" format="0.00" width="90%" value="0" readonly="true" />           
+                
+                <label value="IMPORTE TOTAL" style=" font-size:22px; " />
+                <decimalbox id="nImporte" style=" font-size:22px; " format="0.00" width="90%" value="0" readonly="true" />
+              
+            </row>
+        </rows>
+    </grid>
+
+    <toolbar id="tb"  height="25px" align="end" >
+        <toolbarbutton id="btnImprimir" label="Imprimir" image="/img/Imprimir.png" />
+        <toolbarbutton id="btnSalir" label="Salir" image="/img/Exit.png"   onClick="doCancel()" />
+    </toolbar>
+
+
+    <zscript>{
+        void doCancel() {
+        winFactura.setAttribute("REST",false);
+        winFactura.onClose();
+        }
+        }
+    </zscript>
+</window>
+

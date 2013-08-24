@@ -45,7 +45,7 @@
                     <tabpanels >
                         <tabpanel id="Facturas" >
                             <hbox width="100%" >
-                                    <listbox id="lstFactura" mold="paging" pageSize="500"   width="100%" height="100%" >
+                                    <listbox id="lstFactura" mold="paging" pageSize="500"   width="100%" height="300px" >
                                     <listhead>
                                         <listheader label="Documento" width="5%" sort="auto(iddocumento.cnomdocumento)" />
                                         <listheader label="Serie" width="5%" sort="auto(cserie)" align="center"/>

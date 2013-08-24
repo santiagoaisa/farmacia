@@ -62,6 +62,12 @@ public class AmortizaComprobante extends SelectorComposer {
         registrar();
     }
     
+    
+    @Listen("onOK = #nImporte")
+    public void onFocoGrabar(Event event) {
+        btnGrabar.focus();
+    }
+    
 
     private void initComponets() {        
         comprobante =(ComprobanteEmitido) winAmortizacion.getAttribute("COMPROBANTE");
@@ -88,7 +94,7 @@ public class AmortizaComprobante extends SelectorComposer {
         txtNumero.setText(comprobante.getCnumero());
         nImporte.setValue(comprobante.getNsaldo());        
         cboMoneda.setSelectedIndex(modeloMoneda.indexOf(comprobante.getIdmoneda()));
-        btnGrabar.focus();
+        nImporte.select();
     }
     
     

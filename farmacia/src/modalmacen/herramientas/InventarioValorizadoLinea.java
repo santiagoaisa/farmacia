@@ -183,7 +183,7 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         rptreporte.setType("pdf");
     }
 
-    public void exportar() throws IOException {
+    public void exportar(){
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         //EsportaExcel2(lstInventario, almacen.getCnomalmacen().trim() + ".xls");
         
