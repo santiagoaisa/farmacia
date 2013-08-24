@@ -17,6 +17,9 @@ public class NewClass {
     String[] campos = {"idlinea", "ncosto", "pcosto", "nporcentaje", "idlinea.idusuario.idrol", "idlinea.nincremento"};
 
     public static void main(String[] args) {
+        String c="003";
+        System.out.println(c.substring(0, 1));
+        
         InventarioValorizado inventario = new InventarioValorizado();
         Linea linea = new Linea(4);
         linea.setCnomlinea("UNA LINEA");
