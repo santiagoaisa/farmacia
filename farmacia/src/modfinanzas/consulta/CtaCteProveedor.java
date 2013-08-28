@@ -19,6 +19,7 @@ import javax.naming.NamingException;
 import modmantenimiento.util.MenuPeriodo;
 import modmantenimiento.util.MenuResultado;
 import modmantenimiento.util.PeriodoListener;
+import org.zkoss.zarcillo.ExportarHojaCalculo;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
@@ -165,6 +166,11 @@ public class CtaCteProveedor extends SelectorComposer implements PeriodoListener
     @Listen("onOK = #lstNotcar")
     public void onMostrarNotcar(Event event) {
         mostrarNotcar();
+    }
+    
+    @Listen("onClick = #btnExportar")
+    public void onExportar(Event event) {
+        exportar();
     }
 
     public void initComponets() {
@@ -464,4 +470,19 @@ public class CtaCteProveedor extends SelectorComposer implements PeriodoListener
             }
         }
     }
+    public void exportar(){           
+        if(tabFactura.isSelected()){
+            ExportarHojaCalculo.exportListboxToExcel(lstFactura, "FACTURAS");    
+        }
+        if(tabLetra.isSelected()){
+            ExportarHojaCalculo.exportListboxToExcel(lstLetra, "LETRAS");                
+        }
+        if(tabNotabo.isSelected()){
+            ExportarHojaCalculo.exportListboxToExcel(lstNotabo, "NOTABO");                
+        }
+        if(tabNotcar.isSelected()){
+            ExportarHojaCalculo.exportListboxToExcel(lstNotcar, "NOTCAR");                
+        }   
+                            
+    }  
 }

@@ -21,13 +21,16 @@ import com.zarcillo.service.RegistroEntradaService;
 import com.zarcillo.service.RegistroSalidaService;
 import com.zarcillo.service.UsuarioService;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
+import modalmacen.util.FiltroSalidaKardex;
 import modmantenimiento.util.MenuPeriodo;
 import modmantenimiento.util.PeriodoListener;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.apache.commons.collections.CollectionUtils;
 import org.zkoss.zarcillo.ExportarHojaCalculo;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
@@ -48,6 +51,7 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
     private Producto producto;
     private Usuario usuario;
     private Periodo periodo;
+    private List<Kardex> listaKardex=new ArrayList<>();
     //controles
     @Wire
     private Window winKardex;
@@ -155,6 +159,11 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
         exportar();
     }
     
+    @Listen("onClick = #btnUtilidad")
+    public void onExportarUtilidad(Event event) throws IOException {
+        exportarUtilidad();
+    }
+    
     @Listen("onClick = #btnSalir")
     public void onSalir(Event event) {
         winKardex.onClose();
@@ -192,15 +201,15 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
     private void cargarMovimientos() {
         validar();
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());        
-        List<Kardex> listakardex = kardexService.listaKardex(almacen.getIdalmacen(),txtCodigo.getText(),periodo.getIdperiodo());
-        modeloKardex = new ListModelList(listakardex);
+        listaKardex= kardexService.listaKardex(almacen.getIdalmacen(),txtCodigo.getText(),periodo.getIdperiodo());
+        modeloKardex = new ListModelList(listaKardex);
         lstKardex.setModel(modeloKardex);
         TotalKardex total=kardexService.busquedaKardex(almacen.getIdalmacen(),txtCodigo.getText() , periodo.getIdperiodo());
         Integer tcompra=0;
         Integer tventa=0;
         Integer tcompram=0;
         Integer tventam=0;
-        for(Kardex k:listakardex){
+        for(Kardex k:listaKardex){
             tcompra=tcompra+k.getNcompra();
             tventa=tventa+k.getNventa();
             tcompram=tcompram+k.getNcompram();
@@ -277,12 +286,12 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
         txtLinea.setText(producto.getIdsublinea().getIdlinea().getCnomlinea().trim());
         txtFamilia.setText(producto.getIdfamilia().getCnomfamilia().trim());
         menuperiodo.setLista(periodoService.listaGeneral());
-
         periodo = periodoService.buscarPorDfecha(new Date());
         menuperiodo.setPeriododefecto(periodo);
     }
 
     public void limpiar() {
+        listaKardex=new ArrayList<>();
         txtCodigo.setReadonly(false);
         txtCodigo.setText("");
         txtNombre.setText("");
@@ -323,12 +332,10 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
             parametro.put("DESART", producto.getCnomproducto());
             parametro.put("LINEA", producto.getIdsublinea().getIdlinea().getCnomlinea());
             JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloKardex);
-            
-                rptinventario.setSrc(ruta);
-                rptinventario.setDatasource(data);
-                rptinventario.setParameters(parametro);
-                rptinventario.setType("pdf");
-
+            rptinventario.setSrc(ruta);
+            rptinventario.setDatasource(data);
+            rptinventario.setParameters(parametro);
+            rptinventario.setType("pdf");
         }
         else
             Messagebox.show("No hay datos para mostrar");
@@ -336,10 +343,10 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
     }
 
     public void imprimir()  {
-        imprimirdetalle("/modulos/modherramientas/reporte/consultakardex.jasper");
+        imprimirdetalle("/modulos/almacen/reporte/consultakardex.jasper");
     }
     public void imprimirValorizado()  {
-        imprimirdetalle("/modulos/modherramientas/reporte/consultakardexvalorizado.jasper");
+        imprimirdetalle("/modulos/almacen/reporte/consultakardexvalorizado.jasper");
     }
 
     @Override
@@ -351,4 +358,13 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
     public void exportar(){            
         ExportarHojaCalculo.exportListboxToExcel(lstKardex,producto.getIdproducto()+"-"+Mes.getMes(periodo.getNmes()));             
     }   
+    
+    public void exportarUtilidad(){
+        List<Kardex> listaFiltrada=new ArrayList<>();
+        String[] headers={"TP","SERIE","NUMERO","CLIENTE","CANT","CANT(F/)","VAL.UNI","COSUNI","UTI(%)","GANANCIA"};
+        String[] fields={"cabrev","cserfac","cfactura","cnombre","nventa","nventam","nvaluni","ncosuni","nutilidad","nganancia"};
+        listaFiltrada = (List) CollectionUtils.select(listaKardex, new FiltroSalidaKardex());
+        ListModelList modelotemporal=new ListModelList(listaFiltrada);
+        ExportarHojaCalculo.exportDataModelToExcel(headers, fields, modelotemporal,producto.getIdproducto().trim());                
+    }
 }

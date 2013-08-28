@@ -14,6 +14,7 @@ import javax.naming.NamingException;
 import modmantenimiento.util.MenuPeriodo;
 import modmantenimiento.util.MenuResultado;
 import modmantenimiento.util.PeriodoListener;
+import org.zkoss.zarcillo.ExportarHojaCalculo;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
@@ -116,6 +117,11 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
     @Listen("onClick = #btnBuscar")
     public void onBuscarProveedor(Event event) {
         buscarProveedor();
+    }
+    
+    @Listen("onClick = #btnExportar")
+    public void onExportar(Event event) {
+        exportar();
     }
     
     @Listen("onClick = #btnSalir")
@@ -304,4 +310,13 @@ public class TarjetaProveedor extends SelectorComposer implements PeriodoListene
         win.setAttribute("CANJE", canje);
         win.doModal();
     }
+    public void exportar(){           
+        if(tabIngresos.isSelected()){
+            ExportarHojaCalculo.exportListboxToExcel(lstIngresos, "INGRESOS");    
+        }
+        if(tabCanjes.isSelected()){
+            ExportarHojaCalculo.exportListboxToExcel(lstCanjes, "CANJES");    
+        }
+                 
+    }    
 }

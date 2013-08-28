@@ -44,8 +44,6 @@ public class DetalleCronogramaCobranza extends SelectorComposer {
     @Wire
     private Window winDetalle;
     @Wire
-    private Button btnProcesar;
-    @Wire
     private Listbox lstDetalle;
     @Wire
     private Decimalbox nFactura;
@@ -57,8 +55,6 @@ public class DetalleCronogramaCobranza extends SelectorComposer {
     private Jasperreport rptreporte;
     @WireVariable
     UsuarioService usuarioService;
-    @WireVariable
-    ListadoProveedorService listadoProveedorService;
     @WireVariable
     UnidadNegocioService unidadNegocioService;
     

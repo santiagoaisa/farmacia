@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDocumento"?>
 <window id="winDocumento" title="Cronograma por documento..."  width="700px"  border="0"
-        apply="modfinanzas.consulta.CronogramaPagosDocumento" >
+        apply="modcreditos.consulta.CronogramaCobrosDocumento" >
 
     
     <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >

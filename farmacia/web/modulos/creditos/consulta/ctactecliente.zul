@@ -121,7 +121,7 @@
       <toolbar height="25px"  align="end">
 
         <toolbarbutton id="btnBuscar" image="/img/Save.png" label="Buscar"    />
-
+        <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar"    />
         <toolbarbutton id="btnSalir" image="/img/Undo.png" label="Salir"  />
     </toolbar>
 

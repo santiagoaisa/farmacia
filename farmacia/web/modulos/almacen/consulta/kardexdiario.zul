@@ -120,6 +120,7 @@
         <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
         <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
         <toolbarbutton id="btnValorizado" image="/img/Printer.png" label="Kardex Valorizado" />
+        <toolbarbutton id="btnUtilidad" image="/img/Exportar.png" label="Utilidad" />
         <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" />
     </toolbar>
 </window>
