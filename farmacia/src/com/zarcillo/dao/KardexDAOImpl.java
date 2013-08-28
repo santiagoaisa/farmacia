@@ -23,7 +23,7 @@ public class KardexDAOImpl implements KardexDAO {
                 + " d.cabrev, r.cserie as cserfac,r.cnumero as cfactura,'' as csergui,'' as cguia,m.ctipmov as ctipmov,p.idproveedor as idcodigo ,p.cnomprovee as cnombre,ncantidad as ncompra,"
                 + " 0 as nventa,0 as nsaldo,m.clote,m.cfecven as cfecven,"
                 + " m.idregentrada as nregentrada,m.idregsalida as nregsalida,m.ncosuni,m.ncantidad*m.ncosuni as nimporteentrada,0.00 as nimportesalida,0.00 as nimportesaldo,m.ndesfin,m.ndesbon,m.ndeslab,0.00 as nvaluni,'x' as idtransportista,'false' as banulado,false as bdevuelto,false as bresumen,u.cubigeo as cnomdistrito,u.cnomprovincia,u.cnomdepartamento, "
-                + " ncantidadm as ncompram,0 as nventam,0 as nsaldom,m.nsubtot,0.00 as nsubcos,0.00 as nganancia "                
+                + " ncantidadm as ncompram,0 as nventam,0 as nsaldom,m.nsubtot,0.00 as nsubcos,0.00 as nganancia,0.00 as nutilidad "                
                 + " from movimiento m,registro_entrada r,proveedor p,documento d,ubigeo u "
                 + " where r.iddocumento=d.iddocumento and  m.idregentrada=r.idregentrada and r.idproveedor=p.idproveedor and p.idubigeo=u.idubigeo and m.idalmacen=:idalmacen and  m.idproducto=:idproducto  and r.idperiodo=:idperiodo  ";
 
@@ -36,7 +36,7 @@ public class KardexDAOImpl implements KardexDAO {
                 + " d.cabrev, r.cserie as cserfac,r.cnumero as cfactura,r.csergui,r.cnumgui as cguia,m.ctipmov as ctipmov,c.idcliente as idcodigo ,c.cnomcli as cnombre,0 as ncompra,"
                 + " ncantidad as nventa,0 as nsaldo,m.clote,m.cfecven as cfecven,"
                 + " m.idregsalida as nregsalida,m.idregentrada as nregentrada,m.ncosuni,0.00 as nimporteentrada,m.ncantidad*m.ncosuni as nimportesalida,0.00 as nimportesaldo,m.ndesfin,m.ndesbon,m.ndeslab,0.00 as nvaluni,'x' as idtransportista,r.banulado,false as bdevuelto,false as bresumen,u.cubigeo as cnomdistrito,u.cnomprovincia,u.cnomdepartamento, "                
-                +" 0 as ncompram,ncantidadm as nventam,0 as nsaldom,m.nsubtot,0.00 as nsubcos,0.00 as nganancia "
+                +" 0 as ncompram,ncantidadm as nventam,0 as nsaldom,m.nsubtot,0.00 as nsubcos,0.00 as nganancia,0.00 as nutilidad "
                 + " from movimiento m,registro_salida r,cliente c,documento d,ubigeo u "
                 + " where r.iddocumento=d.iddocumento and m.idregsalida=r.idregsalida and r.idcliente=c.idcliente and c.idubigeo=u.idubigeo and m.idalmacen=:idalmacen and  m.idproducto=:idproducto  and r.idperiodo=:idperiodo ";
 
