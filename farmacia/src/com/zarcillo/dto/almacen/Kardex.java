@@ -1,5 +1,6 @@
 package com.zarcillo.dto.almacen;
 
+import com.zarcillo.negocio.Numero;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -63,6 +64,12 @@ public class Kardex implements Serializable {
     private String  cnomdepartamento;
 
 
+    private BigDecimal nutilidad;
+    private BigDecimal nganancia;
+    
+     private BigDecimal nsubtot;
+     private BigDecimal nsubcos;
+     
     public Kardex() {
         nnro=0;
         ncompra=0;
@@ -84,6 +91,10 @@ public class Kardex implements Serializable {
         banulado=false;
         bdevuelto=false;
         bresumen=false;
+        nutilidad=new BigDecimal("0");
+        nganancia=new BigDecimal("0");
+        nsubtot=new BigDecimal("0");
+        nsubcos=new BigDecimal("0");
     }
 
     public Integer getNoperacion() {
@@ -411,10 +422,48 @@ public class Kardex implements Serializable {
         this.banulado = banulado;
     }
 
+    public BigDecimal getNutilidad() {
+        return nutilidad;
+    }
 
-   
+    public void setNutilidad(BigDecimal nutilidad) {
+        this.nutilidad = nutilidad;
+    }
 
+    public BigDecimal getNganancia() {
+        return nganancia;
+    }
 
+    public void setNganancia(BigDecimal nganancia) {
+        this.nganancia = nganancia;
+    }
 
+    public BigDecimal getNsubtot() {
+        return nsubtot;
+    }
+
+    public void setNsubtot(BigDecimal nsubtot) {
+        this.nsubtot = nsubtot;
+    }
+
+    public BigDecimal getNsubcos() {
+        return nsubcos;
+    }
+
+    public void setNsubcos(BigDecimal nsubcos) {
+        this.nsubcos = nsubcos;
+    }
+
+    
+    
+     public void calculaUtilidad() {
+         
+         
+        if (Numero.isCero(nsubcos)) {
+            nutilidad = Numero.cien;
+        } else {
+            nutilidad = (nsubtot.multiply(Numero.cien.divide(nsubcos, 4, BigDecimal.ROUND_HALF_UP)).subtract(Numero.cien)).setScale(2, BigDecimal.ROUND_HALF_UP);;
+        }
+    }
 
 }

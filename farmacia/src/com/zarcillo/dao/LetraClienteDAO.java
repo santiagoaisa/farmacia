@@ -1,6 +1,5 @@
 package com.zarcillo.dao;
 
-import com.zarcillo.domain.ComprobanteEmitido;
 import com.zarcillo.domain.LetraCliente;
 import java.util.Date;
 import java.util.List;

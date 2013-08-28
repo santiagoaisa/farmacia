@@ -3,7 +3,9 @@ package com.zarcillo.service;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.ExistenciaDAO;
 import com.zarcillo.dao.KardexDAO;
+import com.zarcillo.dao.ProductoDAO;
 import com.zarcillo.domain.Existencia;
+import com.zarcillo.domain.Producto;
 import com.zarcillo.dto.almacen.Kardex;
 import com.zarcillo.dto.almacen.TotalKardex;
 import com.zarcillo.util.ordenar.OrdenarPorIdmovimientoKardex;
@@ -32,6 +34,8 @@ public class KardexServiceImpl implements KardexService {
     private KardexDAO kardexdao;
     @Autowired
     private ExistenciaDAO existenciadao;
+    @Autowired
+    private ProductoDAO productodao;
 
     @Override
     @Transactional
@@ -66,8 +70,8 @@ public class KardexServiceImpl implements KardexService {
             listaKardex.add(kardex);
         }
 
-        Kardex k;
-        BigDecimal ncostototal;
+        Kardex k;        
+        Producto producto;
         for (Kardex m : lista) {
             nro = nro + 1;
             k = new Kardex();
@@ -104,20 +108,27 @@ public class KardexServiceImpl implements KardexService {
             k.setCnomdistrito(m.getCnomdistrito());
             k.setCnomprovincia(m.getCnomprovincia());
             k.setCnomdepartamento(m.getCnomdepartamento());
+            k.setNsubtot(m.getNsubtot());
+            k.setNsubcos(new BigDecimal(m.getNventa()+m.getNventam()));
 
+            producto=productodao.busqueda(k.getIdcodigo());
+            
             if (k.getCtipmov().contains("E")) {
                 nsaldo = nsaldo + k.getNcompra();
                 k.setNsaldo(nsaldo);
 
                 nsaldom = nsaldom + k.getNcompram();
                 k.setNsaldom(nsaldom);
-
 //                if (m.getIdcodigo().contains(Proveedor.DEVOLUCION.getIdproveedor())) {
 //                    k.setBdevuelto(true);
 //                }
 
                 nentrada = nentrada + k.getNcompra();
                 nentradam = nentradam + k.getNcompram();
+                
+                
+                
+                
 
             } else if (k.getCtipmov().contains("S")) {
                 if (k.getCfactura() == null) {
@@ -132,7 +143,6 @@ public class KardexServiceImpl implements KardexService {
                     }
                 }
 
-
                 nsaldo = nsaldo - k.getNventa();
                 k.setNsaldo(nsaldo);
                 nsalida = nsalida + k.getNventa();
@@ -140,17 +150,20 @@ public class KardexServiceImpl implements KardexService {
                 nsaldom = nsaldom - k.getNventam();
                 k.setNsaldom(nsaldom);
                 nsalidam = nsalidam + k.getNventam();
+                
+                ////////utilidad
+                k.calculaUtilidad();                
+                k.setNganancia(k.getNsubtot().subtract(k.getNsubcos()));                
             } else {
                 k.setCfactura("NC/" + k.getCfactura().trim());
                 k.setNsaldo(nsaldo);
             }
 
 
-//            BigDecimal nstockentero = new BigDecimal(k.getNsaldo());
-//            BigDecimal nstocfraccion = new BigDecimal(k.getNsaldom()).divide(new BigDecimal(existencia.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
-//            BigDecimal nstocktotalactual = nstockentero.add(nstocfraccion);
-//
-//            k.setNimportesaldo(k.getNcosuni().multiply(new BigDecimal(k.getNsaldo())));
+            
+            BigDecimal nstocktotalactual = new BigDecimal(k.getNsaldo()+k.getNsaldom() );//
+            k.setNimportesaldo(k.getNcosuni().multiply(nstocktotalactual));
+            
             listaKardex.add(k);
         }//fin for
 
