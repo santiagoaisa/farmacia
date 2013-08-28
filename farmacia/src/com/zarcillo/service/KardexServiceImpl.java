@@ -34,8 +34,7 @@ public class KardexServiceImpl implements KardexService {
     private KardexDAO kardexdao;
     @Autowired
     private ExistenciaDAO existenciadao;
-    @Autowired
-    private ProductoDAO productodao;
+    
 
     @Override
     @Transactional
@@ -111,7 +110,7 @@ public class KardexServiceImpl implements KardexService {
             k.setNsubtot(m.getNsubtot());
             k.setNsubcos(new BigDecimal(m.getNventa()+m.getNventam()));
 
-            producto=productodao.busqueda(k.getIdcodigo());
+          
             
             if (k.getCtipmov().contains("E")) {
                 nsaldo = nsaldo + k.getNcompra();
