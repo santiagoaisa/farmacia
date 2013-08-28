@@ -89,7 +89,7 @@ mode="overlapped" onCancel="doCancel()" apply="modfinanzas.registro.NuevaFactura
     </grid>
 
 
-        <toolbar id="tb"  height="25px" align="end" >
+        <toolbar id="tb" height="30px" align="end" >
             <toolbarbutton id="btnRegistrar" label="Grabar" image="/img/Save.png"	/>
             <toolbarbutton id="btnSalir" label="Salir" image="/img/Undo.png" onClick="doCancel()" />
         </toolbar>

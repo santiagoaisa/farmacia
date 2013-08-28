@@ -356,7 +356,7 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
 
     }
     public void exportar(){            
-        ExportarHojaCalculo.exportListboxToExcel(lstKardex,producto.getIdproducto()+"-"+Mes.getMes(periodo.getNmes()));             
+        ExportarHojaCalculo.exportListboxToExcel(lstKardex,producto.getIdproducto().trim());             
     }   
     
     public void exportarUtilidad(){

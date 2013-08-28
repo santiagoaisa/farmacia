@@ -156,7 +156,7 @@
         </rows>
     </grid>
 
-    <toolbar height="25px"  align="end">
+    <toolbar height="30px"  align="end">
 
         <toolbarbutton id="btnGrabar" image="/img/Save.png" label="Registrar" tooltip="msggrabar"
         />

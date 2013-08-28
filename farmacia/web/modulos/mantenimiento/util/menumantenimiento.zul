@@ -1,14 +1,14 @@
 <?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
 <window id="menumantto" use="modmantenimiento.util.MenuMantenimiento">
 
-    <toolbar id="tb"  height="25px"  align="end">
+    <toolbar id="tb"  height="30px"  align="end">
         <toolbarbutton id="btnNuevo" image="/img/File.png" label="Nuevo" onClick="menumantto.Nuevo()"  />
         <toolbarbutton id="btnGrabar" visible="false" image="/img/Save.png" label="Grabar" onClick="menumantto.Grabar()"  />
         <toolbarbutton id="btnModificar" visible="false"  disabled="${sec:isNoneGranted('ROLE_ADMINISTRADOR')}"  image="/img/Settings.png" label="Modificar" onClick="menumantto.Modificar()"  />
         <toolbarbutton id="btnEliminar" visible="false" image="/img/Delete.png" label="Eliminar" onClick="menumantto.Eliminar()" />
         <toolbarbutton id="btnBuscar" visible="true" image="/img/Search.png" label="Buscar" onClick="menumantto.Buscar();" />
         <toolbarbutton id="btnIgnorar" visible="false" image="/img/Undo.png"  label="Ignorar" onClick="menumantto.Ignorar();" />
-        <toolbarbutton id="btnImprimir" visible="false"  image="/img/Printer.png" label="Imprimir" onClick="menumantto.Imprimir();" />
+        <toolbarbutton id="btnImprimir" visible="false"  image="/img/Imprimir.png" label="Imprimir" onClick="menumantto.Imprimir();" />
         <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="menumantto.Salir()" />
     </toolbar>
 

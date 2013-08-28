@@ -31,8 +31,8 @@
     <jasperreport id="rptreporte" visible="false" />
 
 
-        <toolbar id="tb"  height="25px" align="end" >
-            <toolbarbutton id="btnImprimir" image="/img/Printer.png" label="Imprimir" />
+        <toolbar id="tb"  height="30px" align="end" >
+            <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir" />
             <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
             <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winPrecios.onClose()" />
         </toolbar>

@@ -46,7 +46,7 @@ mode="overlapped" onCancel="doCancel()" apply="modcreditos.registro.AmortizaComp
             </row>
         </rows>
     </grid>
-        <toolbar id="tb"  height="25px" align="end" >
+        <toolbar id="tb"  height="30px" align="end" >
             <toolbarbutton id="btnGrabar"  label="Registra Pago" image="/img/Save.png" disabled="${sec:isNoneGranted('ROLE_ADMINISTRADOR')}"  />
             <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png" onClick="doCancel()" />
 

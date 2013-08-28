@@ -119,7 +119,7 @@
         </rows>
     </grid>
     <menu id="mimpresion" width="100%"></menu>
-    <toolbar id="tb"  height="25px" align="end" >
+    <toolbar id="tb"  height="30px" align="end" >
         <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"
         />
         <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png"

@@ -64,7 +64,7 @@
 
     <menu id="mresultado" width="100%"></menu>
 
-    <toolbar id="tb"  height="25px"	 align="end">
+    <toolbar id="tb"  height="30px"	 align="end">
         
         <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
                            onClick="doCancel()" />

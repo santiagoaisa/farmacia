@@ -118,7 +118,7 @@
 
     <menu2 id="mresultado" width="100%"></menu2>  
     
-      <toolbar height="25px"  align="end">
+      <toolbar height="30px" align="end">
 
         <toolbarbutton id="btnBuscar" image="/img/Save.png" label="Buscar"    />
         <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar"    />

@@ -1,0 +1,80 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winVenta"?>
+<window id="winVenta" title="Utilidad Venta Producto..."  width="800px"  border="0"
+        apply="modventas.consulta.UtilidadProductoVenta" >
+
+    <grid>
+        <columns>
+            <column width="11%" />
+            <column width="18%" />
+            <column width="11%" />
+            <column width="18%" />
+            <column width="11%" />
+            <column width="18%" />
+            <column width="13%"  align="center" />
+        </columns>
+        <rows>
+            <row >
+                <label value="Unidad:"/>
+                <combobox id="cboUnidad" readonly="true" width="98%"/>
+                <label value="Desde:"/>
+                <datebox id="dFecini" width="85%" readonly="true" format="yyyy-MM-dd" />
+                <label value="Hasta:"/>
+                <datebox id="dFecfin" width="85%" readonly="true" format="yyyy-MM-dd" />
+                <button id="btnProcesar" label="Procesar"  />           
+            </row>
+        </rows>
+    </grid>
+    <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
+        <listhead>
+            <listheader label="Fecha" width="11%" align="center" />
+            <listheader label="Producto" width="37%"  />
+            <listheader label="Cant" width="7%" align="right" />
+            <listheader label="Cant(F/)" width="7%" align="right" />
+            <listheader label="Costo" width="9%" align="right" />
+            <listheader label="Precio" width="9%" align="right" />
+            <listheader label="Uti(%)" width="9%" align="right" />
+            <listheader label="Ganancia" width="9%" align="right" />
+            <listheader  width="2%" align="right" />
+        </listhead>
+        <listitem self="@{each=detalle}"   >
+            <listcell date="@{detalle.dfecha}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+            <listcell label="@{detalle.idproducto.cnomproducto}" />
+            <listcell label="@{detalle.ncantidad}"/>
+            <listcell label="@{detalle.ncantidadm}"/>
+            <listcell decimal="@{detalle.nsubcos}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nsubtot}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nutilidad}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.nganancia}" format="0.00" use="modmantenimiento.util.ListcellNumero" />            
+            <listcell />
+        </listitem>
+        <listfoot>
+            <listfooter />           
+            <listfooter />
+            <listfooter />           
+            <listfooter />  
+            <listfooter />
+            <listfooter />  
+            <listfooter />           
+            <listfooter >
+                <decimalbox id="nImporte" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter />    
+        </listfoot>  
+    </listbox>
+    
+
+    <jasperreport id="rptreporte" visible="false" />    
+    <toolbar id="tb"  height="30px" align="end" >
+        <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir" />
+        <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Limpiar"   />
+        <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir"  onClick="doCancel()"  />
+    </toolbar>
+    <zscript>{
+        void doCancel() {
+        winVenta.setAttribute("REST",false);
+        winVenta.onClose();
+        }
+        }
+    </zscript>
+</window>

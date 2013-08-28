@@ -1,6 +1,5 @@
 package modcreditos.consulta;
 
-import com.zarcillo.domain.CuentaPagar;
 import com.zarcillo.domain.NotaboCliente;
 import com.zarcillo.domain.NotcarCliente;
 import com.zarcillo.domain.Periodo;
@@ -214,10 +213,12 @@ public class CtaCteCliente extends SelectorComposer implements PeriodoListener {
     }
 
     private void mostrarCliente() {
-        txtNombre.setText(cliente.getCnomcli());
-        txtDocumento.setText(cliente.getCruc());
-        if (cliente.getCruc().isEmpty()) {
+        txtNombre.setText(cliente.getCnomcli());        
+        if (cliente.getCruc().trim().isEmpty()) {
             txtDocumento.setText(cliente.getCdni());
+        }
+        else{
+            txtDocumento.setText(cliente.getCruc());
         }
         txtDireccion.setText(cliente.getCdircli().trim() + " - " + cliente.getIdubigeo().getCubigeo());
         cboUnidad.setDisabled(true);
