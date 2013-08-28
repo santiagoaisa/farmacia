@@ -26,7 +26,7 @@ public class LetraClienteDAOImpl implements LetraClienteDAO{
 
     @Override
     public List<LetraCliente> listaPendientesPorFechasPendientes(Date dfecha1, Date dfecha2) {
-        return em.createNamedQuery("LetraCliente.findByDfechasPendientes").setParameter("dfecha1", "dfecha2").getResultList();
+        return em.createNamedQuery("LetraCliente.findByDfechasPendientes").setParameter("dfecha1", dfecha1).setParameter("dfecha2", dfecha2).getResultList();
     }
     
     
