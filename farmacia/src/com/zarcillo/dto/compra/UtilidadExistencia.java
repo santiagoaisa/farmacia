@@ -1,6 +1,7 @@
 package com.zarcillo.dto.compra;
 
 import com.zarcillo.domain.Producto;
+import com.zarcillo.negocio.Numero;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,8 +11,6 @@ import java.util.Date;
  * @author saisa
  */
 public class UtilidadExistencia implements Serializable{
-    
-    private BigDecimal id;
     private Date dfecha;
     private Producto idproducto;
     private Integer ncantidad;
@@ -35,13 +34,7 @@ public class UtilidadExistencia implements Serializable{
         
     }
 
-    public BigDecimal getId() {
-        return id;
-    }
-
-    public void setId(BigDecimal id) {
-        this.id = id;
-    }
+   
 
     public Date getDfecha() {
         return dfecha;
@@ -123,7 +116,15 @@ public class UtilidadExistencia implements Serializable{
         this.nganancia = nganancia;
     }
             
-    
+    public void calculaUtilidad() {
+         
+         
+        if (Numero.isCero(nsubcos)) {
+            nutilidad = Numero.cien;
+        } else {
+            nutilidad = (nsubtot.multiply(Numero.cien.divide(nsubcos, 4, BigDecimal.ROUND_HALF_UP)).subtract(Numero.cien)).setScale(2, BigDecimal.ROUND_HALF_UP);;
+        }
+    }
     
     
 }

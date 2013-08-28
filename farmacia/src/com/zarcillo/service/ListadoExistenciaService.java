@@ -5,7 +5,9 @@ import com.zarcillo.dto.compra.ExistenciaValorizada;
 import com.zarcillo.dto.almacen.Inventario;
 import com.zarcillo.dto.almacen.InventarioLote;
 import com.zarcillo.dto.almacen.InventarioValorizado;
+import com.zarcillo.dto.compra.UtilidadExistencia;
 import com.zarcillo.dto.venta.ListadoPrecio;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,4 +22,5 @@ public interface ListadoExistenciaService {
     public List<ExistenciaValorizada> listaExistenciaValorizadaPorIdalmacenPorIdlinea(Integer idalmacen,Integer idlinea);
     public List<ActualizarExistencia> listaActualizarPrecioPorDescripcion(Integer idalmacen,String criterio);
     public void actualizarPrecio(ActualizarExistencia actualizar);
+    public List<UtilidadExistencia> listaUtilidadExistenciaPorIdunidadPorFechas(Integer idunidad,Date dfecha1,Date dfecha2 );
 }
