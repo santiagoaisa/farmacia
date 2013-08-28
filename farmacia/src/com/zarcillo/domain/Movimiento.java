@@ -26,7 +26,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m"),
     @NamedQuery(name = "Movimiento.findByIdregsalida", query = "SELECT m FROM Movimiento m WHERE m.idregsalida.idregsalida=:idregsalida"),
     @NamedQuery(name = "Movimiento.findByIdregentrada", query = "SELECT m FROM Movimiento m WHERE m.idregentrada.idregentrada=:idregentrada"),
-    @NamedQuery(name = "Movimiento.findByIdunidadByDfechasByVenta", query = "SELECT m FROM Movimiento m WHERE m.idregsalida.idunidad.idunidad=:idunidad and m.idregsalida.dfecha BETWEEN and :dfecha1 and :dfecha2 and m.idregsalida.idmotivo.bventa=true ORDER BY m.idregsalida.dfecha,m.idproducto.idproducto ")
+    @NamedQuery(name = "Movimiento.findByIdunidadByDfechasByVenta", query = "SELECT m FROM Movimiento m WHERE m.idregsalida.idunidad.idunidad=:idunidad and m.idregsalida.dfecha BETWEEN :dfecha1 and :dfecha2 and m.idregsalida.idmotivo.bventa=true ORDER BY m.idregsalida.dfecha,m.idproducto.idproducto ")
 })
 public class Movimiento implements Serializable {
 

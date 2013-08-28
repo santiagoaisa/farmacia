@@ -24,7 +24,7 @@ public class ExportarHojaCalculo {
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ExceptionZarcillo(e.getCause().getMessage());
+            throw new ExceptionZarcillo(e.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public class ExportarHojaCalculo {
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ExceptionZarcillo(e.getCause().getMessage());
+            throw new ExceptionZarcillo(e.getMessage());
         }
     }
 }
