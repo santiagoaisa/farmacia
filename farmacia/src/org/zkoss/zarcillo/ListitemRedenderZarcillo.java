@@ -34,9 +34,9 @@ public class ListitemRedenderZarcillo implements ListitemRenderer<Object> {
                 for (int i = 0; i < properties.length; i++) {
                     Field field = properties[i];
                     field.setAccessible(true);
-                    cpropiedad = field.getName().toUpperCase();
+                    cpropiedad = field.getName().toUpperCase();                    
                     ////////////////
-                    if (cpropiedad.contains(campo)) {
+                    if (cpropiedad.equals(campo)) {
                         celda = new Listcell(field.get(objeto) + "");
                         item.appendChild(celda);
                         break;
@@ -54,7 +54,7 @@ public class ListitemRedenderZarcillo implements ListitemRenderer<Object> {
                             fieldinterno.setAccessible(true);
                             cpropiedadinterna = cpropiedad + "." + fieldinterno.getName().toUpperCase();
 
-                            if (cpropiedadinterna.contains(campo)) {
+                            if (cpropiedadinterna.equals(campo)) {
                                 celda = new Listcell(fieldinterno.get(objetointerno) + "");
                                 item.appendChild(celda);
                                 break;
@@ -72,7 +72,7 @@ public class ListitemRedenderZarcillo implements ListitemRenderer<Object> {
                                     fielmuydinterno.setAccessible(true);
                                     cpropiedadmuyinterna = cpropiedadinterna + "." + fielmuydinterno.getName().toUpperCase();
 
-                                    if (cpropiedadmuyinterna.contains(campo)) {
+                                    if (cpropiedadmuyinterna.equals(campo)) {
                                         celda = new Listcell(fielmuydinterno.get(objetomuyinterno) + "");
                                         item.appendChild(celda);
                                         break;

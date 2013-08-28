@@ -56,6 +56,7 @@ public class CellValueSetterImpl implements CellValueSetter<Component> {
     }
 
     private void parseAndSetCellValueToDoubleDateOrString(String txt, Cell cell) {
+
         final char dot = '.';
         final char comma = ',';
         String txt0 = txt;
@@ -67,6 +68,8 @@ public class CellValueSetterImpl implements CellValueSetter<Component> {
             }
         }
 
+
+
         try {
 
             if (txt0.length() > 1) {
@@ -76,6 +79,9 @@ public class CellValueSetterImpl implements CellValueSetter<Component> {
                     final Double val = Double.parseDouble(txt0);
                     cell.setCellValue(val);
                 }
+            } else {
+                final Double val = Double.parseDouble(txt0);
+                cell.setCellValue(val);
             }
 
 

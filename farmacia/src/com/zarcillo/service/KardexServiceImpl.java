@@ -10,6 +10,7 @@ import com.zarcillo.dto.almacen.Kardex;
 import com.zarcillo.dto.almacen.TotalKardex;
 import com.zarcillo.util.ordenar.OrdenarPorIdmovimientoKardex;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -34,7 +35,6 @@ public class KardexServiceImpl implements KardexService {
     private KardexDAO kardexdao;
     @Autowired
     private ExistenciaDAO existenciadao;
-    
 
     @Override
     @Transactional
@@ -69,8 +69,7 @@ public class KardexServiceImpl implements KardexService {
             listaKardex.add(kardex);
         }
 
-        Kardex k;        
-        Producto producto;
+        Kardex k;
         for (Kardex m : lista) {
             nro = nro + 1;
             k = new Kardex();
@@ -108,10 +107,10 @@ public class KardexServiceImpl implements KardexService {
             k.setCnomprovincia(m.getCnomprovincia());
             k.setCnomdepartamento(m.getCnomdepartamento());
             k.setNsubtot(m.getNsubtot());
-            k.setNsubcos(new BigDecimal(m.getNventa()+m.getNventam()));
+            k.setNsubcos(m.getNimportesalida());
 
-          
-            
+
+
             if (k.getCtipmov().contains("E")) {
                 nsaldo = nsaldo + k.getNcompra();
                 k.setNsaldo(nsaldo);
@@ -124,10 +123,10 @@ public class KardexServiceImpl implements KardexService {
 
                 nentrada = nentrada + k.getNcompra();
                 nentradam = nentradam + k.getNcompram();
-                
-                
-                
-                
+
+
+
+
 
             } else if (k.getCtipmov().contains("S")) {
                 if (k.getCfactura() == null) {
@@ -149,20 +148,20 @@ public class KardexServiceImpl implements KardexService {
                 nsaldom = nsaldom - k.getNventam();
                 k.setNsaldom(nsaldom);
                 nsalidam = nsalidam + k.getNventam();
-                
+                k.setNvaluni(m.getNsubtot().divide(new BigDecimal(k.getNventa() + k.getNventam()), 4, BigDecimal.ROUND_HALF_EVEN));
                 ////////utilidad
-                k.calculaUtilidad();                
-                k.setNganancia(k.getNsubtot().subtract(k.getNsubcos()));                
+                k.calculaUtilidad();
+                k.setNganancia(k.getNsubtot().subtract(k.getNsubcos()));
             } else {
                 k.setCfactura("NC/" + k.getCfactura().trim());
                 k.setNsaldo(nsaldo);
             }
 
 
-            
-            BigDecimal nstocktotalactual = new BigDecimal(k.getNsaldo()+k.getNsaldom() );//
+
+            BigDecimal nstocktotalactual = new BigDecimal(k.getNsaldo() + k.getNsaldom());//
             k.setNimportesaldo(k.getNcosuni().multiply(nstocktotalactual));
-            
+
             listaKardex.add(k);
         }//fin for
 
