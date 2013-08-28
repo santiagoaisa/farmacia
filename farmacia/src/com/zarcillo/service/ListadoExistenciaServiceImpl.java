@@ -309,6 +309,10 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
                 BigDecimal nsubcos = new BigDecimal("0");
                 BigDecimal nsubtot = new BigDecimal("0");
 
+                if(listaFiltroMovimiento.isEmpty()){
+                    continue;
+                }
+                
                 for (Movimiento mo : listaFiltroMovimiento) {
                     nentero = nentero + mo.getNcantidad();
                     nfraccion = nfraccion + mo.getNcantidadm();
