@@ -5,8 +5,11 @@ import com.zarcillo.domain.Rol;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.dto.almacen.InventarioValorizado;
 import com.zarcillo.dto.almacen.Kardex;
+import com.zarcillo.service.DocumentoService;
+import com.zarcillo.service.UsuarioService;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.zkoss.zul.Listcell;
 
 /**
@@ -14,16 +17,21 @@ import org.zkoss.zul.Listcell;
  * @author saisa
  */
 public class NewClass {
+    
+     
 
     String[] campos = {"nventa", "nventam"};
+    
+    @Autowired
+     public DocumentoService documentoService;
 
     public static void main(String[] args) {
-        String c = "003";
-        Kardex kardex = new Kardex();
+     
+        
+       
         NewClass n = new NewClass();
-        kardex.setNventa(100);
-        kardex.setNventam(null);
-        n.mostrar(kardex);
+        n.documentoService.listaGeneral();
+        
 
     }
 

@@ -12,7 +12,7 @@
       <property name="hibernate.connection.username" value="agewunue_farmacia"/>
       <property name="hibernate.connection.password" value="postgres01"/>
       <property name="hibernate.show_sql" value="true"/>
-      <property name="hibernate.connection.url" value="jdbc:postgresql://199.85.212.30:5432/agewunue_farmacia"/>            
+      <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/agewunue_farmacia"/>
       <!-- Enable Hibernate's automatic session context management
         <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/agewunue_farmacia"/>
             <property name="hibernate.connection.url" value="jdbc:postgresql://199.85.212.30:5432/agewunue_farmacia"/>            
