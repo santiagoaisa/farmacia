@@ -71,6 +71,7 @@ public class Documento implements Serializable {
     public static Documento NOTA_CREDITO_SUNAT=new Documento("07");
     public static Documento NOTA_DEBITO_SUNAT=new Documento("08");
     public static Documento GUIA_REMISION_SUNAT=new Documento("09");
+    public static Documento TICKET=new Documento("12");
 
     public Documento(String ccodigosunat) {
         this.ccodigosunat = ccodigosunat;
