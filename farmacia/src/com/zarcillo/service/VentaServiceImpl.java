@@ -79,12 +79,9 @@ public class VentaServiceImpl extends Entrada implements VentaService {
     public Integer registrar(RegistroSalida regsalida, Almacen almacen) {
         try {
 
-
             //////////VALIDAR STOCK DE FRACCION            
-
             regsalida.setIdmoneda(monedadao.busqueda(Moneda.SOLES.getIdmoneda()));
-            regsalida.setIdcliente(clientedao.buscarPorIdcliente(Cliente.BOLETA.getIdcliente()));
-            regsalida.setIddocumento(documentodao.buscarPorCcodigosunat(Documento.BOLETA_SUNAT.getCcodigosunat()));
+            regsalida.setIdcliente(clientedao.buscarPorIdcliente(Cliente.BOLETA.getIdcliente()));            
             ///////////
             validarStock(regsalida);
 
