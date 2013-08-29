@@ -314,7 +314,7 @@ public class ExcelExporter extends AbstractExporter<XSSFWorkbook, Row> {
                 //TODO: not tested yet
                 int colIdx = ctx.getColumnIndex() + span;
                 ctx.setColumnIndex(colIdx);
-                getOrCreateCell(ctx.getRowIndex(), colIdx, sheet).setCellValue(getStringValue(cmp));
+                getOrCreateCell(ctx.getRowIndex()+1, colIdx, sheet).setCellValue(getStringValue(cmp));
             }
         }
         ctx.moveToNextRow();
