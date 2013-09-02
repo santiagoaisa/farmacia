@@ -393,6 +393,9 @@ public class Entrada extends Salida {
 
                 cruddao.eliminar(m);
             }
+            
+            cruddao.eliminar(cuentaPagar);
+            cruddao.eliminar(regentrada);
 
 
         } catch (Exception e) {

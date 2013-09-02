@@ -66,10 +66,18 @@ public class Producto implements Serializable {
     @Column(name = "nmenudeo")
     private Integer nmenudeo;
 
+    @Column(name = "bdiremid")
+    private Boolean bdiremid;
+    
+    @Column(name = "ccodigodiremid")
+    private Integer ccodigodiremid;
+     
+    
     public Producto() {
         binafecto=false;
         bpsicotropico=false;
         nmenudeo=1;
+        bdiremid=false;
     }
     
     public Producto(String idproducto) {
@@ -172,6 +180,23 @@ public class Producto implements Serializable {
         this.nmenudeo = nmenudeo;
     }
 
+    public Boolean getBdiremid() {
+        return bdiremid;
+    }
+
+    public void setBdiremid(Boolean bdiremid) {
+        this.bdiremid = bdiremid;
+    }
+
+    public Integer getCcodigodiremid() {
+        return ccodigodiremid;
+    }
+
+    public void setCcodigodiremid(Integer ccodigodiremid) {
+        this.ccodigodiremid = ccodigodiremid;
+    }
+
+    
     
     
     
