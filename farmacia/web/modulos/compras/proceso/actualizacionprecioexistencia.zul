@@ -46,7 +46,7 @@
                         <listcell label="@{existencias.nstock}"  />
                         <listcell label="@{existencias.nstockm}"  />
                         
-                        <listcell decimal="@{existencias.ncospre}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+                        <listcell decimal="@{existencias.ncospre}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
                         <listcell>
                             <decimalbox id="d4" value="@{existencias.npreuni}"  format="0.0000"  width="80%" />
                         </listcell>

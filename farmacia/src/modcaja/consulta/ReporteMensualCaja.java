@@ -62,8 +62,7 @@ public class ReporteMensualCaja extends SelectorComposer {
     private Decimalbox nCredito;
     @Wire
     private Decimalbox nTotal;
-    @Wire
-    private Jasperreport rptreporte;
+     
     @WireVariable
     UsuarioService usuarioService;
     @WireVariable
@@ -157,6 +156,8 @@ public class ReporteMensualCaja extends SelectorComposer {
         parametro.put("USUARIO", usuario.getCnomusuario());
 
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winCaja);
         rptreporte.setSrc("/modulos/caja/reporte/reportemensualcaja.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

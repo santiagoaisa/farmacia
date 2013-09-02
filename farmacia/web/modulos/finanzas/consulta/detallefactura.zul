@@ -104,8 +104,8 @@
             <listcell label="@{amortizacioncuentaspagar.creferencia}"/>
             <listcell date="@{amortizacioncuentaspagar.dfecha}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
             <listcell label="@{amortizacioncuentaspagar.idmoneda.cabrev}"/>
-            <listcell decimal="@{amortizacioncuentaspagar.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
-            <listcell decimal="@{amortizacioncuentaspagar.nimportes}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{amortizacioncuentaspagar.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{amortizacioncuentaspagar.nimportes}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
         </listitem>
 
     </listbox>
@@ -119,5 +119,5 @@
         <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir"  />
         <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" />
     </toolbar>
-    <jasperreport id="rptreporte" visible="false" />
+     
 </window>

@@ -51,8 +51,7 @@ public class DetalleCronogramaCobranza extends SelectorComposer {
     private Decimalbox nLetra;
     @Wire
     private Decimalbox nTotal;
-    @Wire
-    private Jasperreport rptreporte;
+     
     @WireVariable
     UsuarioService usuarioService;
     @WireVariable
@@ -137,6 +136,8 @@ public class DetalleCronogramaCobranza extends SelectorComposer {
         parametro.put("USUARIO", usuario.getCnomusuario());
 
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winDetalle);
         rptreporte.setSrc("/modulos/finanzas/reporte/detallecronogramapago.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

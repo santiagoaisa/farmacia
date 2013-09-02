@@ -58,13 +58,13 @@
             <listheader label="Descripcion" width="26%" sort="auto(idproducto.cnomart)" />
             <listheader label="Entero" width="5%" />
             <listheader label="Fraccion" width="5%" />
-            <listheader label="Costo Uni." width="8%" />
+            <listheader label="Costo Uni." width="7%" />
             <listheader label="Dcto.1" width="5%" />
             <listheader label="Dcto.2" width="5%" />
             <listheader label="C.Total" width="8%" />
             <listheader label="(aaaa-mm)" width="11%" />
-            <listheader label="Lote" width="8%" />
-            <listheader width="4%" />
+            <listheader label="Lote" width="10%" />
+            <listheader width="3%" />
         </listhead>
         <listitem self="@{each=detalleIngreso}" >
             <listcell label="@{self.parent.index}" />
@@ -94,9 +94,9 @@
                 <decimalbox id="d4" value="@{detalleIngreso.nsubtot}" ctrlKeys="@c^a#f8" format="0.0000"  width="85%" />
             </listcell>
             <listcell>
-                <intbox id="i3" width="65%" value="@{detalleIngreso.naño}" maxlength="4"/>
+                <intbox id="i3" width="48%" value="@{detalleIngreso.naño}" maxlength="4"/>
                 <label value="-"/>
-                <intbox id="i4" width="40%" format="00" value="@{detalleIngreso.nmes}" maxlength="2" />
+                <intbox id="i4" width="33%" format="00" value="@{detalleIngreso.nmes}" maxlength="2" />
             </listcell>
             <listcell>
                 <textbox id="txtLote" value="@{detalleIngreso.clote}" maxlength="15" width="90%" />

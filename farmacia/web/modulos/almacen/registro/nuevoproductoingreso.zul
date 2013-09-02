@@ -1,6 +1,12 @@
 <window id="winProducto" width="650px" title="Nuevo Producto"
-        apply="modalmacen.registro.NuevoProductoIngreso"  border="0" position="center">
-    
+        apply="modalmacen.registro.NuevoProductoIngreso"  onCancel="doCancel()"   border="0" position="center">
+    <zscript>{
+        void doCancel() {
+        winProducto.setAttribute("REST",false);
+        winProducto.onClose();
+        }
+        }
+    </zscript>
     <grid >
         <columns>
             <column width="23%"/>
@@ -11,7 +17,7 @@
         <rows  >
             <row spans="1,3" >
                 <label value="Producto:" />
-                <textbox id="txtNomPro" width="95%" constraint="no empty" />
+                <textbox id="txtNomPro" width="95%"  />
             </row>
             <row  >
                 <checkbox id="bInafecto"  label="Inafecto" disabled="true" />
@@ -42,8 +48,8 @@
         </rows>
     </grid>  
     <toolbar id="tb"  height="30px"	 align="end">
-        <toolbarbutton id="btnRegistrar3" image="/img/Save.png" label="Registrar"    />
-        <toolbarbutton id="btnActualizar3" image="/img/Save.png" label="Actualizar"  />
-        <toolbarbutton id="btnIgnorar3" image="/img/Undo.png" label="Ignorar"        />
+        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"    />
+        <toolbarbutton id="btnActualizar" image="/img/Actualizacion.png" label="Actualizar"  />
+        <toolbarbutton id="btnSalir" image="/img/Salir.png" onClick="doCancel()" label="Ignorar" />
     </toolbar>                   
 </window>

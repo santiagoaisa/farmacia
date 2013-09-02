@@ -40,8 +40,6 @@ public class ListaInventarioProducto extends SelectorComposer {
     private Combobox cboAlmacen;
     @Wire
     private Listbox lstInventario;
-    @Wire
-    private Jasperreport rptreporte;
     @WireVariable
     AlmacenService almacenService;
     @WireVariable
@@ -124,6 +122,8 @@ public class ListaInventarioProducto extends SelectorComposer {
         parametro.put("ALMACEN", almacen.getCnomalmacen());
         parametro.put("USUARIO", usuario.getCnomusuario());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listaInventarioPorIdalmacenPorLineas(almacen.getIdalmacen(), listaIdlinea));
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winInventario);
         rptreporte.setSrc("/modulos/almacen/reporte/listainventarioproducto.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

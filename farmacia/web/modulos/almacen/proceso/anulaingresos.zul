@@ -119,5 +119,5 @@
         <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Regresar" onClick="doCancel()" />
     </toolbar>
 
-    <jasperreport id="rptreporte" visible="false" />
+     
 </window>

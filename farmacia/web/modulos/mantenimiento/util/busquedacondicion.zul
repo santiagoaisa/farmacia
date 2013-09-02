@@ -25,7 +25,7 @@
                     <listitem self="@{each=condicion}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
                         <listcell label="@{condicion.cnomcondicion}"/>
                         <listcell label="@{condicion.nplazo}"/>
-                        <listcell decimal="@{condicion.ndescuento}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{condicion.ndescuento}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
                     </listitem>
                 </listbox>
     <menu id="mresultado" width="100%"></menu>

@@ -60,6 +60,8 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     
     @Wire
     private Textbox txtBarras;
+    @Wire
+    private Intbox txtDigemid;
     
     @Wire
     private Combobox cboSublinea;
@@ -75,6 +77,9 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
     
     @Wire
     private Checkbox bPsicotropico;
+    
+    @Wire
+    private Checkbox bDigemid;
     
     @Wire
     private Textbox txtReceta;
@@ -190,9 +195,11 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         producto.setIdpresentacion(presentacion);
         producto.setIdusuario(usuario);
         producto.setCcodigobarra(txtBarras.getText());
+        producto.setCcodigodiremid(txtDigemid.getValue());
         producto.setCreseta(txtReceta.getText().toUpperCase());
         producto.setBinafecto(bInafecto.isChecked());
         producto.setBpsicotropico(bPsicotropico.isChecked());
+        producto.setBdiremid(bDigemid.isChecked());
         producto.setNmenudeo(nFraccion.getValue());
     }
     
@@ -213,7 +220,9 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         txtBarras.setText(producto.getCcodigobarra());        
         bInafecto.setChecked(producto.getBinafecto());
         bPsicotropico.setChecked(producto.getBpsicotropico());
-        nFraccion.setValue(producto.getNmenudeo());                
+        bDigemid.setChecked(producto.getBdiremid());                
+        nFraccion.setValue(producto.getNmenudeo());     
+        txtDigemid.setValue(producto.getCcodigodiremid());
     }
 
     @Override
@@ -232,8 +241,10 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         cboFamilia.setText("");
         cboPresentacion.setSelectedIndex(-1);
         cboPresentacion.setText("");
+        txtDigemid.setText("");
         bPsicotropico.setChecked(false);
         bInafecto.setChecked(false);
+        bDigemid.setChecked(false);
         nFraccion.setValue(1);
         agregarConstraint();
     }
@@ -292,10 +303,12 @@ public class ManttoProducto extends SelectorComposer implements CrudListener{
         txtReceta.setReadonly(enable);
         bInafecto.setDisabled(enable);
         bPsicotropico.setDisabled(enable);
+        bDigemid.setDisabled(enable);
         cboFamilia.setDisabled(enable);
         cboPresentacion.setDisabled(enable);
         cboSublinea.setDisabled(enable);
         nFraccion.setReadonly(enable);
+        txtDigemid.setReadonly(enable);
     }
 
     @Override

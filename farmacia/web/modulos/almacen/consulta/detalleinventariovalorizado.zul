@@ -50,6 +50,6 @@
         <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Salir" onClick="doCancel()" />
     </toolbar>
 
-    <jasperreport id="rptreporte" visible="false" />
+     
 </window>
 

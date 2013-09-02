@@ -61,8 +61,7 @@ public class AnulaIngresos extends SelectorComposer {
     private Decimalbox nImporte;
     @Wire
     private Textbox txtObservacion;
-    @Wire
-    private Jasperreport rptreporte;
+     
     @WireVariable
     RegistroEntradaService registroEntradaService;
     @WireVariable
@@ -185,6 +184,8 @@ public class AnulaIngresos extends SelectorComposer {
         parametro.put("USUARIO", usuario.getCnomusuario());
 
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winDetalle);
         rptreporte.setSrc("/modulos/almacen/reporte/detalleingreso.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

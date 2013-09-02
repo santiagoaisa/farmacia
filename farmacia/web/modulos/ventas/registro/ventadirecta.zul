@@ -41,14 +41,14 @@
     </grid>
     <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
         <listhead>
-            <listheader label="Descripción" width="30%" sort="auto(producto.cnomart)" />
-            <listheader label="F/" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>                        
-            <listheader label="Unidad" width="4%" align="center" sort="auto(producto.idunimed.cabrev)"/>
+            <listheader label="Descripción" width="30%" sort="auto(existencia.idproducto.cnomart)" />
+            <listheader label="F/" width="4%" align="center" />                        
+            <listheader label="Unidad" width="4%" align="center" />
             <listheader label="Stock" width="6%" align="center" />
             <listheader label="Menudeo" width="6%" align="center" />
             <listheader label="Entero" width="7%" align="center" />
             <listheader label="Fraccion" width="7%" align="center" />
-            <listheader label="Linea" width="18%" sort="auto(producto.idsublinea.idlinea.cnomlinea)"/>
+            <listheader label="Linea" width="18%" sort="auto(existencia.idproducto.idsublinea.idlinea.cnomlinea)"/>
             <listheader label="PVF(/F)" width="5%" align="center" />
             <listheader label="P.V.F" width="5%" align="center" />            
             <listheader label="Importe" width="7%" align="center" />
@@ -68,9 +68,9 @@
                 <intbox id="i1" value="@{detalle.ncanartm}"  ctrlKeys="@c^a#f8"  readonly="@{detalle.bfraccion}"  width="70%" />
             </listcell>
             <listcell label="@{detalle.existencia.idproducto.idsublinea.idlinea}"/>
-            <listcell decimal="@{detalle.npreunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-            <listcell decimal="@{detalle.npreuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-            <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.npreunim}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.npreuni}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
             <listcell>
                 <toolbarbutton id="btnQuitar" image="/img/eliminadetalleingreso.png" width="70%"   />
             </listcell>

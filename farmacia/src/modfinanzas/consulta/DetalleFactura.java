@@ -93,8 +93,7 @@ public class DetalleFactura extends SelectorComposer {
     private Toolbarbutton btnEliminar;
     @Wire
     private Toolbarbutton btnCancelar;
-    @Wire
-    private Jasperreport rptreporte;
+     
     @WireVariable
     CuentaPagarService cuentaPagarService;
     @WireVariable 
@@ -338,6 +337,8 @@ public class DetalleFactura extends SelectorComposer {
         parametro.put("ACUENTA", cpagar.getNacuenta());
         parametro.put("SALDO", cpagar.getNsaldo());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winFactura);
         rptreporte.setSrc("/modulos/finanzas/reporte/facturaproveedor.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

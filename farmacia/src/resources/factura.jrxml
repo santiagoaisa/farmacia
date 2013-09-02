@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="615" pageHeight="464" whenNoDataType="AllSectionsNoDetail" columnWidth="559" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="982bc95b-d371-4e8c-8ef6-badb76ed2a87">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="38"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="CLIENTE" class="java.lang.String"/>
 	<parameter name="DIRECCION" class="java.lang.String"/>
 	<parameter name="RUC" class="java.lang.String"/>
@@ -103,7 +103,7 @@
 	<pageHeader>
 		<band height="54" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="55bdd148-a837-414b-a9c8-4c4fed651295" x="72" y="21" width="196" height="13"/>
+				<reportElement uuid="55bdd148-a837-414b-a9c8-4c4fed651295" x="72" y="21" width="408" height="13"/>
 				<textElement>
 					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>

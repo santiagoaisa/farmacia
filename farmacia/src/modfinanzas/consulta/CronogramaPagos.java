@@ -58,8 +58,7 @@ public class CronogramaPagos extends SelectorComposer {
     private Decimalbox nLetra;
     @Wire
     private Decimalbox nTotal;
-    @Wire
-    private Jasperreport rptreporte;
+     
     @WireVariable
     UsuarioService usuarioService;
     @WireVariable
@@ -169,6 +168,8 @@ public class CronogramaPagos extends SelectorComposer {
         parametro.put("USUARIO", usuario.getCnomusuario());
 
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winCronograma);
         rptreporte.setSrc("/modulos/finanzas/reporte/cronogramapago.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);
@@ -184,6 +185,8 @@ public class CronogramaPagos extends SelectorComposer {
         parametro.put("USUARIO", usuario.getCnomusuario());
 
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listaDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winCronograma);
         rptreporte.setSrc("/modulos/finanzas/reporte/detallecronograma.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

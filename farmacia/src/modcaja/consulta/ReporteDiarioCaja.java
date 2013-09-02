@@ -65,8 +65,7 @@ public class ReporteDiarioCaja extends SelectorComposer {
     private Decimalbox nCredito;
     @Wire
     private Decimalbox nTotal;
-    @Wire
-    private Jasperreport rptreporte;
+     
     @WireVariable
     UsuarioService usuarioService;
     @WireVariable
@@ -172,6 +171,8 @@ public class ReporteDiarioCaja extends SelectorComposer {
         parametro.put("VENDEDOR", user.getCnomusuario());
 
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winCaja);
         rptreporte.setSrc("/modulos/caja/reporte/reportediariocaja.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

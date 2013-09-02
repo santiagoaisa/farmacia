@@ -50,7 +50,7 @@
     </listbox>
     
 
-    <jasperreport id="rptreporte" visible="false" />      
+           
     <toolbar id="tb"  height="30px" align="end" >
             <toolbarbutton id="btnDetalle" image="/img/Imprimir.png" label="Detalle" />
              <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir" />

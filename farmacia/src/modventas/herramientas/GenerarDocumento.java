@@ -353,7 +353,7 @@ public class GenerarDocumento extends SelectorComposer{
             if(regsalida.getIdcondicion().getBcontado()){
                 parametro.put("TIPOPAGO", tpago.getCnomtipo());
             }                        
-            parametro.put(JRParameter.REPORT_LOCALE, Locale.US);
+            parametro.put(JRParameter.REPORT_LOCALE,new Locale("es", "US"));
             parametro.put("USUARIO","Caja: "+ usuario.getCabrev()+" Vend.: "+regsalida.getIdvendedor().getCabrev());
             parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));
             if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.TICKET.getCcodigosunat())){

@@ -60,12 +60,10 @@ public class UtilidadProductoVenta extends SelectorComposer {
     @Wire
     private Button btnProcesar;
     @Wire
-    private Listbox lstDetalle;
-    
+    private Listbox lstDetalle;    
     @Wire
     private Decimalbox nImporte;
-    @Wire
-    private Jasperreport rptreporte;
+    
     @WireVariable
     UsuarioService usuarioService;
     @WireVariable
@@ -180,9 +178,9 @@ public class UtilidadProductoVenta extends SelectorComposer {
         parametro.put("FECINI", dFecini.getValue());
         parametro.put("FECFIN", dFecfin.getValue());
         parametro.put("USUARIO", usuario.getCnomusuario());
-            
-
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winVenta);
         rptreporte.setSrc("/modulos/ventas/reporte/utilidadproductoventa.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

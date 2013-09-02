@@ -29,7 +29,7 @@
                         <listcell label="@{periodo.nmes}"/>
                         <listcell date="@{periodo.dfecinicio}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
                         <listcell date="@{periodo.dfecfin}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
-                        <listcell decimal="@{periodo.nigv}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero" />
+                        <listcell decimal="@{periodo.nigv}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
                     </listitem>
                 </listbox>
     <menu id="mresultado" width="100%"></menu>

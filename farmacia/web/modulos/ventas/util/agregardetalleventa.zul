@@ -52,9 +52,9 @@
                             <intbox id="i1" value="@{detalle.ncanartm}" readonly="@{detalle.bfraccion}"   width="70%" />
                         </listcell>
                         <listcell label="@{detalle.existencia.idproducto.idsublinea.idlinea}"/>
-                        <listcell decimal="@{detalle.npreunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                        <listcell decimal="@{detalle.npreuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                        <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{detalle.npreunim}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{detalle.npreuni}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{detalle.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
                         <listcell label="@{detalle.existencia.cubicacion}"/>
                     </listitem>
                 </listbox>

@@ -67,8 +67,7 @@
                                         <listcell decimal="@{regentrada.ninafecto}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
                                         <listcell decimal="@{regentrada.nigv}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
                                         <listcell decimal="@{regentrada.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
-                                        <listcell label="@{regentrada.idregentrada}"/>
-                                        
+                                        <listcell label="@{regentrada.idregentrada}"/>                                     
                                         
                                     </listitem>
                                 </listbox>
@@ -97,9 +96,9 @@
                                         <listcell label="@{canje.cnrodocu}"/>
                                         <listcell label="@{canje.idmoneda}"/>
 
-                                        <listcell decimal="@{canje.nvalven}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                                        <listcell decimal="@{canje.nigv}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                                        <listcell decimal="@{canje.npreven}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{canje.nvalven}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{canje.nigv}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{canje.npreven}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
                                         
                                         <listcell label="@{canje.idregentrada}"/>
 

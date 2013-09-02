@@ -41,8 +41,7 @@ public class ListadoPrecios extends SelectorComposer {
     private Combobox cboAlmacen;
     @Wire
     private Listbox lstInventario;
-    @Wire
-    private Jasperreport rptreporte;
+     
     @WireVariable
     AlmacenService almacenService;
     @WireVariable
@@ -132,6 +131,8 @@ public class ListadoPrecios extends SelectorComposer {
         parametro.put("ALMACEN", almacen.getCnomalmacen());
         parametro.put("USUARIO", usuario.getCnomusuario());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listadoPrecio(almacen.getIdalmacen(), listaIdlinea));
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winPrecios);
         rptreporte.setSrc("/modulos/compras/reporte/listadoprecios.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);
@@ -157,6 +158,8 @@ public class ListadoPrecios extends SelectorComposer {
         parametro.put("ALMACEN", almacen.getCnomalmacen());
         parametro.put("USUARIO", usuario.getCnomusuario());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listadoPrecio(almacen.getIdalmacen(), listaIdlinea));
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winPrecios);
         rptreporte.setSrc("/modulos/compras/reporte/preciospublico.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

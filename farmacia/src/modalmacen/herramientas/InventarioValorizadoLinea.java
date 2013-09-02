@@ -45,8 +45,6 @@ public class InventarioValorizadoLinea extends SelectorComposer {
     @Wire
     private Listbox lstInventario;
     @Wire
-    private Jasperreport rptreporte;
-    @Wire
     private Decimalbox nCosto;
     @Wire
     private Decimalbox nPcosto;
@@ -153,6 +151,8 @@ public class InventarioValorizadoLinea extends SelectorComposer {
         parametro.put("ALMACEN", almacen.getCnomalmacen());
         parametro.put("USUARIO", usuario.getCnomusuario());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloInventario);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winInventario);
         rptreporte.setSrc("/modulos/almacen/reporte/inventariovalorizado.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

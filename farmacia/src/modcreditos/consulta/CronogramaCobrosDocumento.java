@@ -43,9 +43,7 @@ public class CronogramaCobrosDocumento extends SelectorComposer {
     @Wire
     private Decimalbox nAcuenta;
     @Wire
-    private Decimalbox nSaldo;
-    @Wire
-    private Jasperreport rptreporte;
+    private Decimalbox nSaldo;     
 
     @Listen("onCreate=window#winDocumento")
     public void onCreate() throws NamingException {
@@ -102,6 +100,8 @@ public class CronogramaCobrosDocumento extends SelectorComposer {
         parametro.put("USUARIO", usuario.getCnomusuario());
 
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winDocumento);
         rptreporte.setSrc("/modulos/finanzas/reporte/documentocronogramapago.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

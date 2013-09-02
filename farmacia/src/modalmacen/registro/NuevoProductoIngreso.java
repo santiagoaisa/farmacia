@@ -133,21 +133,14 @@ public class NuevoProductoIngreso extends SelectorComposer {
     }
     
     
-    @Listen("onClick = #btnRegistrar3")
+    @Listen("onClick = #btnRegistrar")
     public void onRegistrar3(Event event) {
         leer();
         grabar();
     }
-     
-      
-    @Listen("onOK = #btnIgnorar3")
-    public void onSalir(Event event) {
-        winProducto.setAttribute("REST",false);
-        winProducto.onClose();
-    }
-    
          
-    @Listen("onOK = #btnActualizar3")
+         
+    @Listen("onOK = #btnActualizar")
     public void onActualizarCombos(Event event) {
         modeloSublinea=new ListModelList(sublineaService.listaGeneral());
         cboSublinea.setModel(modeloSublinea);
@@ -171,6 +164,7 @@ public class NuevoProductoIngreso extends SelectorComposer {
     }    
     
    public void leer() {     
+       agregarConstraint();
         validarDatos();
         Sublinea sublinea=(Sublinea) modeloSublinea.getElementAt(cboSublinea.getSelectedIndex());
         Familia familia=(Familia) modeloFamilia.getElementAt(cboFamilia.getSelectedIndex());
@@ -207,6 +201,7 @@ public class NuevoProductoIngreso extends SelectorComposer {
     }
 
     public void validarDatos() {
+        
         txtNomPro.getValue();
         if(cboFamilia.getSelectedIndex()==-1){
             throw new ExceptionZarcillo("Debe Seleccionar familia...");

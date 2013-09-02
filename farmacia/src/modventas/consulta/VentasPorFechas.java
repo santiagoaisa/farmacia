@@ -73,8 +73,7 @@ public class VentasPorFechas extends SelectorComposer {
     private Decimalbox nValven;
     @Wire
     private Decimalbox nImporte;
-    @Wire
-    private Jasperreport rptreporte;
+     
     @WireVariable
     UsuarioService usuarioService;
     @WireVariable
@@ -231,6 +230,8 @@ public class VentasPorFechas extends SelectorComposer {
         }        
 
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
+        Jasperreport rptreporte=new Jasperreport();
+        rptreporte.setParent(winVenta);
         rptreporte.setSrc("/modulos/ventas/reporte/reportediarioventas.jasper");
         rptreporte.setDatasource(data);
         rptreporte.setParameters(parametro);

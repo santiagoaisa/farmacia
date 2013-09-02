@@ -28,7 +28,7 @@
         </listitem>
     </listbox>
 
-    <jasperreport id="rptreporte" visible="false" />
+     
 
 
         <toolbar id="tb"  height="30px" align="end" >

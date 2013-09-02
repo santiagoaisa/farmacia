@@ -60,9 +60,9 @@
             <listcell label="@{detalle.ncanart}"  />
             <listcell label="@{detalle.ncanartm}"  />            
             <listcell label="@{detalle.existencia.idproducto.idsublinea.idlinea}"/>
-            <listcell decimal="@{detalle.npreunim}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-            <listcell decimal="@{detalle.npreuni}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-            <listcell decimal="@{detalle.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.npreunim}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.npreuni}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{detalle.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
             
         </listitem>
     </listbox>
