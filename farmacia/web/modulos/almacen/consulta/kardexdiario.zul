@@ -115,12 +115,11 @@
         </listfoot>        
     </listbox>
     
-    <jasperreport id="rptinventario" visible="false" />
     <toolbar id="atb"  height="30px" align ="end" >
         <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
         <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir" />
         <toolbarbutton id="btnValorizado" image="/img/Imprimir.png" label="Kardex Valorizado" />
         <toolbarbutton id="btnUtilidad" image="/img/Exportar.png" label="Utilidad" />
-        <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" />
+        <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" />
     </toolbar>
 </window>

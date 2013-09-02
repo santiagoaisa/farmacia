@@ -20,10 +20,12 @@ import java.math.BigDecimal;
 import java.text.DecimalFormatSymbols;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.naming.NamingException;
 import modmantenimiento.util.MenuImpresion;
 import modmantenimiento.util.NumerosLetras;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -265,7 +267,7 @@ public class ConsultaBoleta extends SelectorComposer{
         parametro.put("GLOSA", regsalida.getCglosa());
         parametro.put("USUARIO", "Caja: " + usuario.getCabrev() + " Vend.: " + regsalida.getIdvendedor().getCabrev());
         parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));
-
+        parametro.put(JRParameter.REPORT_LOCALE, Locale.US);
         if (regsalida.getIddocumento().getCcodigosunat().contains(Documento.BOLETA_SUNAT.getCcodigosunat())) {
             reporteFuente = "/resources/boleta.jrxml";
         } else {

@@ -42,7 +42,7 @@ apply="modventas.herramientas.ActualizarNumeracion" width="250px">
 
         <toolbar id="tb"  height="30px"  align="end">
             <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"  />
-            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="doCancel()" />
+            <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" onClick="doCancel()" />
         </toolbar>
 
 

@@ -33,7 +33,8 @@
 
         <toolbar id="tb"  height="30px" align="end" >
             <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir" />
+             <toolbarbutton id="btnPublico" image="/img/Imprimir.png" label="Publico" />
             <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
-            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winPrecios.onClose()" />
+            <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" onClick="winPrecios.onClose()" />
         </toolbar>
 </window>

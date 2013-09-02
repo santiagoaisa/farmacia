@@ -21,11 +21,13 @@ import java.io.InputStream;
 import java.text.DecimalFormatSymbols;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.naming.NamingException;
 import static modmantenimiento.ManttoProveedor.isNumberFloat;
 import modmantenimiento.util.MenuImpresion;
 import modmantenimiento.util.NumerosLetras;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -306,6 +308,7 @@ public class GenerarDocumento extends SelectorComposer{
     }
     
     public void imprimir() throws JRException{
+        UnidadNegocio unidad=(UnidadNegocio) modeloUnidad.getElementAt(cboUnidad.getSelectedIndex());
         TipoPago tpago=(TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
         String reporteFuente;
         DecimalFormatSymbols simbolos=new DecimalFormatSymbols();
@@ -314,6 +317,10 @@ public class GenerarDocumento extends SelectorComposer{
             NumerosLetras numeroletras = new NumerosLetras();
             HashMap parametro = new HashMap();
             parametro.put("UNIDADNEGOCIO", regsalida.getIdunidad().getCnomunidad().trim());
+             parametro.put("EMPRESA",unidad.getIdempresa().getCnomempresa());
+            parametro.put("DIREMPRESA",unidad.getIdempresa().getCdireccion());
+            parametro.put("UBIGEOEMPRESA",unidad.getIdempresa().getIdubigeo().getCubigeo().trim()+" - "+unidad.getIdempresa().getIdubigeo().getCnomprovincia().trim());
+            parametro.put("RUCEMPRESA","RUC: "+unidad.getIdempresa().getCruc());
             
             
             if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.FACTURA_SUNAT.getCcodigosunat())){
@@ -346,16 +353,20 @@ public class GenerarDocumento extends SelectorComposer{
             if(regsalida.getIdcondicion().getBcontado()){
                 parametro.put("TIPOPAGO", tpago.getCnomtipo());
             }                        
-            
+            parametro.put(JRParameter.REPORT_LOCALE, Locale.US);
             parametro.put("USUARIO","Caja: "+ usuario.getCabrev()+" Vend.: "+regsalida.getIdvendedor().getCabrev());
             parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));
-           
-            if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.BOLETA_SUNAT.getCcodigosunat())){
-                 reporteFuente = "/resources/boleta.jrxml";
+            if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.TICKET.getCcodigosunat())){
+                 reporteFuente = "/resources/ticket.jrxml";
             }
-            else
-            {
-                reporteFuente = "/resources/factura.jrxml";
+            else{
+                if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.BOLETA_SUNAT.getCcodigosunat())){
+                     reporteFuente = "/resources/boleta.jrxml";
+                }
+                else
+                {
+                    reporteFuente = "/resources/factura.jrxml";
+                }
             }
             
             InputStream is = this.getClass().getClassLoader().getResourceAsStream(reporteFuente);

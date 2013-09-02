@@ -18,8 +18,10 @@ import com.zarcillo.service.ClienteService;
 import com.zarcillo.service.ColaImpresionService;
 import com.zarcillo.service.ComprobanteEmitidoService;
 import com.zarcillo.service.CondicionVentaService;
+import com.zarcillo.service.DocumentoService;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.PeriodoService;
+import com.zarcillo.service.RegistroSalidaService;
 import com.zarcillo.service.TipoPagoService;
 import com.zarcillo.service.UsuarioService;
 import com.zarcillo.service.VentaService;
@@ -31,11 +33,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
 import modmantenimiento.util.MenuImpresion;
 import modmantenimiento.util.NumerosLetras;
+import modventas.util.ConstraintMaximoStock;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -43,6 +48,7 @@ import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.KeyEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -67,7 +73,7 @@ public class VentaDirecta extends SelectorComposer {
 
     private Usuario usuario;
     private RegistroSalida regsalida = new RegistroSalida();
-    private ComprobanteEmitido comprobante= new ComprobanteEmitido();
+    private ComprobanteEmitido comprobante = new ComprobanteEmitido();
     private ListModelList modeloAlmacen;
     private ListModelList modeloDetalle;
     private ListModelList modeloCondicion;
@@ -75,7 +81,7 @@ public class VentaDirecta extends SelectorComposer {
     private ListModelList modeloVendedor;
     private ListModelList modeloPago;
     private Periodo periodo;
-    private Cliente cliente= new Cliente();
+    private Cliente cliente = new Cliente();
     @Wire
     private Window winVenta;
     @Wire
@@ -95,6 +101,8 @@ public class VentaDirecta extends SelectorComposer {
     @Wire
     private Toolbarbutton btnGrabar;
     @Wire
+    private Toolbarbutton btnIgnorar;
+    @Wire
     private Listbox lstDetalle;
     @Wire
     private Intbox nPlazo;
@@ -109,14 +117,19 @@ public class VentaDirecta extends SelectorComposer {
     @Wire
     private Decimalbox nRedondeo;
     @Wire
-    private Textbox txtCliente;    
+    private Textbox txtCliente;
     @Wire
-    private Textbox txtDocumento;    
+    private Textbox txtDocumento;
     @Wire
     private Textbox txtDireccion;
-    
+    @Wire
+    private Decimalbox nEfectivo;
+    @Wire
+    private Decimalbox nVuelto;
     @Wire
     private Toolbarbutton btnCrear;
+    @Wire
+    private Intbox nOperacion;
     @WireVariable
     UsuarioService usuarioService;
     @WireVariable
@@ -130,7 +143,11 @@ public class VentaDirecta extends SelectorComposer {
     @WireVariable
     ComprobanteEmitidoService comprobanteEmitidoService;
     @WireVariable
+    RegistroSalidaService registroSalidaService;
+    @WireVariable
     TipoPagoService tipoPagoService;
+    @WireVariable
+    DocumentoService documentoService;
     @WireVariable
     ClienteService clienteService;
     @WireVariable
@@ -150,12 +167,17 @@ public class VentaDirecta extends SelectorComposer {
     public void onAgregarNuevo(Event event) {
         agregarDetalle();
     }
+    
+    @Listen("onCancel = #winVenta")
+    public void onLimpiarVentana(Event event) {
+        limpiar();
+    }
 
     @Listen("onClick = #btnGrabar")
     public void onRegistrar(Event event) throws JRException {
         registrar();
     }
-    
+
     @Listen("onSelect= #cboCondicion")
     public void oncargarPlazo(Event event) {
         cargarPlazo();
@@ -166,22 +188,68 @@ public class VentaDirecta extends SelectorComposer {
     public void calcular() {
         cargarPie();
     }
+
+    @Listen("onCtrlKey = #btnAgregar")
+    public void onRecalcula(Event event) {
+        if (((KeyEvent) event).getKeyCode() == 119) {
+            nEfectivo.select();
+        }
+    }
+    
+    @Listen("onCtrlKey = #i0")
+    public void onRecantidad(Event event) {
+        if (((KeyEvent) event).getKeyCode() == 119) {
+            nEfectivo.select();
+        }
+    }
+    
+    @Listen("onCtrlKey = #i1")
+    public void onRemenudeo(Event event) {
+        if (((KeyEvent) event).getKeyCode() == 119) {
+            nEfectivo.select();
+        }
+    }
+
+    @Listen("onCtrlKey = #nEfectivo")
+    public void onGrabar(Event event) throws JRException {
+        if (((KeyEvent) event).getKeyCode() == 119) {
+            registrar();
+        }
+    }
+    
+    @Listen("  onOK = #nEfectivo")
+    public void onGrabarEfectivo() throws JRException {
+        registrar();
+    }
+    
+    @Listen("  onBlur = #nEfectivo ")
+    public void calcularVuelto() {
+        nVuelto.setValue(nEfectivo.getValue().subtract(nImporte.getValue()));
+    }
     
     
-    
+
     @Listen("  onOK = intbox#i0 ")
     public void onFocoMenudeo(Event event) {
         Intbox sub = (Intbox) event.getTarget();
         Listitem item = (Listitem) (sub.getParent().getParent());
         Listcell celda6 = (Listcell) item.getChildren().get(6);
         Intbox cantidad = (Intbox) celda6.getFirstChild();
+        DetalleVenta detven =  (DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
+        sub.setConstraint(new ConstraintMaximoStock(detven.getNstock()));
+        sub.getValue();
         cantidad.focus();
         cantidad.select();
         cargarPie();
     }
-    
-    @Listen("  onOK = intbox#i1 ")    
-    public void onFocoAgregar() {
+
+    @Listen("  onOK = intbox#i1 ")
+    public void onFocoAgregar(Event event) {
+        Intbox sub = (Intbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
+        DetalleVenta detven =  (DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
+        sub.setConstraint(new ConstraintMaximoStock(detven.getNstockfraccion()));
+        sub.getValue();        
         cargarPie();
         btnAgregar.focus();
     }
@@ -192,24 +260,31 @@ public class VentaDirecta extends SelectorComposer {
         Listitem item = (Listitem) (btn.getParent().getParent());
         borrarProducto(item.getIndex());
     }
+
     @Listen("  onOK = textbox#txtDocumento ")
     public void busquedaCliente() {
         buscarCliente();
     }
+
     @Listen("onClick = #btnCrear")
     public void onCrearCliente(Event event) {
         crearCliente();
-    } 
-    
+    }
+
     @Listen("onClick = #btnIgnorar")
     public void onLimpiar(Event event) {
         limpiar();
-    } 
+    }
+
+    @Listen("onClick = #btnImprimir")
+    public void onImprimir(Event event) throws JRException {
+        imprimir();
+    }
 
     public void initComponets() {
         user_login = exec.getUserPrincipal().getName();
         usuario = usuarioService.buscarPorLogin(user_login);
-        modeloAlmacen = new ListModelList(almacenService.listaPorClogin(usuario.getClogin())); 
+        modeloAlmacen = new ListModelList(almacenService.listaPorClogin(usuario.getClogin()));
         cboAlmacen.setModel(modeloAlmacen);
         if (modeloAlmacen.size() > 0) {
             cboAlmacen.onInitRender(new Event("", cboAlmacen));
@@ -238,7 +313,7 @@ public class VentaDirecta extends SelectorComposer {
             cboVendedor.close();
             cboVendedor.setSelectedIndex(0);
         }
-        modeloPago=new ListModelList(tipoPagoService.listaTipoPagoCliente());
+        modeloPago = new ListModelList(tipoPagoService.listaTipoPagoCliente());
         cboPago.setModel(modeloPago);
         if (modeloPago.size() > 0) {
             cboPago.onInitRender(new Event("", cboPago));
@@ -251,9 +326,9 @@ public class VentaDirecta extends SelectorComposer {
         dFecha.setValue(new Date());
         btnAgregar.focus();
     }
-    
-    private void cargarPlazo(){
-        CondicionVenta condicion=(CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
+
+    private void cargarPlazo() {
+        CondicionVenta condicion = (CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
         nPlazo.setValue(condicion.getNplazo());
     }
 
@@ -268,13 +343,9 @@ public class VentaDirecta extends SelectorComposer {
     }
 
     private void agregarDetalle() {
-        if(modeloDetalle.getSize()==8)
-        {
-            throw new  ExceptionZarcillo("Tope de Items");
-        }
         cboCondicion.setDisabled(true);
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
-        CondicionVenta condicion=(CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
+        CondicionVenta condicion = (CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
         Window winbuscaprod = (Window) Executions.createComponents("/modulos/ventas/util/agregardetalleventa.zul", null, null);
         winbuscaprod.setAttribute("ALMACEN", almacen);
         winbuscaprod.setAttribute("CONDICION", condicion);
@@ -291,8 +362,8 @@ public class VentaDirecta extends SelectorComposer {
             btnGrabar.focus();
         }
     }
-    
-    private void focoCantidad(){
+
+    private void focoCantidad() {
         Listitem fila = lstDetalle.getItemAtIndex(modeloDetalle.getSize() - 1);
         Listcell celda5 = (Listcell) fila.getChildren().get(5);
         Intbox cantidad = (Intbox) celda5.getFirstChild();
@@ -323,6 +394,8 @@ public class VentaDirecta extends SelectorComposer {
         nIgv.setValue(regsalida.getNigv());
         nRedondeo.setValue(regsalida.getNredondeo());
         nImporte.setValue(regsalida.getNimporte());
+        nEfectivo.setValue(nImporte.getValue());
+         nVuelto.setValue(nEfectivo.getValue().subtract(nImporte.getValue()));
     }
 
     private List<Movimiento> llenarDetalle() {
@@ -372,59 +445,61 @@ public class VentaDirecta extends SelectorComposer {
         regsalida.setIdusuario(usuario);
         regsalida.setIdunidad(almacen.getIdunidad());
         regsalida.setIdcondicion(condicion);
-        regsalida.setNplazo(nPlazo.getValue());                
+        regsalida.setNplazo(nPlazo.getValue());
         regsalida.setIdmotivo(motivo);
         regsalida.setIdvendedor(vendedor);
         regsalida.setDfecha(dFecha.getValue());
         regsalida.setDfecdig(dFecha.getValue());
         regsalida.setMovimientoCollection(llenarDetalle());
+        regsalida.setIddocumento(documentoService.buscarPorCcodigosunat(Documento.TICKET.getCcodigosunat()));
         int operacion = ventaService.registrar(regsalida, almacen);
-        Messagebox.show("OPERACION: " + operacion, "REGISTRO SATISFACTORIO", Messagebox.OK, Messagebox.INFORMATION);
+        nOperacion.setValue(operacion);
         registrarDocumento();
     }
-    public void registrarDocumento() throws JRException{
-        TipoPago tpago=(TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
+
+    public void registrarDocumento() throws JRException {
+        TipoPago tpago = (TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
         regsalida.setDfecimp(dFecha.getValue());
         regsalida.setCnomcli(txtCliente.getText().toUpperCase());
-        if(txtDocumento.getText().trim().length()==8){
+        if (txtDocumento.getText().trim().length() == 8) {
             regsalida.setCdni(txtDocumento.getText());
-        }       
-        
-        if(cliente.getIdcliente()!=null){
+        }
+
+        if (cliente.getIdcliente() != null) {
             regsalida.setIdcliente(cliente);
-        }        
-        comprobante=colaImpresionService.crearDocumento(regsalida, tpago, usuario);        
-        regsalida=comprobante.getIdregsalida();
-        btnGrabar.setDisabled(true);       
+        }
+        comprobante = colaImpresionService.crearDocumento(regsalida, tpago, usuario);
+        regsalida = comprobante.getIdregsalida();
+        btnGrabar.setDisabled(true);
+        btnAgregar.setDisabled(true);
         int resp2 = 0;
-        resp2 = Messagebox.show("¿Desea imprimir? "+comprobante.getIddocumento().getCabrev()+" "+comprobante.getCserie()+"-"+comprobante.getCnumero(), "Impresion Documento", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
+        resp2 = Messagebox.show("¿Desea imprimir? " + comprobante.getIddocumento().getCabrev() + " " + comprobante.getCserie() + "-" + comprobante.getCnumero(), "REGISTRO SATISFACTORIO", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
         if (resp2 == Messagebox.YES) {
             imprimir();
         }
+        btnIgnorar.focus();
     }
-    private void buscarCliente(){
-        if(isNumberFloat(txtDocumento.getText().trim())){
-            if(txtDocumento.getText().trim().length()==11){
-                cliente=clienteService.buscarPorCruc(txtDocumento.getText());
+
+    private void buscarCliente() {
+        if (isNumberFloat(txtDocumento.getText().trim())) {
+            if (txtDocumento.getText().trim().length() == 11) {
+                cliente = clienteService.buscarPorCruc(txtDocumento.getText());
                 txtCliente.setText(cliente.getCnomcli());
                 txtDireccion.setText(cliente.getCdircli());
                 btnCrear.setDisabled(true);
-            }
-            else if(txtDocumento.getText().trim().length()==8){
-                cliente=clienteService.buscarPorCdni(txtDocumento.getText());
+            } else if (txtDocumento.getText().trim().length() == 8) {
+                cliente = clienteService.buscarPorCdni(txtDocumento.getText());
                 txtCliente.setText(cliente.getCnomcli());
                 txtDireccion.setText(cliente.getCdircli());
                 btnCrear.setDisabled(true);
-            }
-            else{
+            } else {
                 throw new ExceptionZarcillo("RUC/DNI Incorrecto");
             }
-        }
-        else{
+        } else {
             throw new ExceptionZarcillo("RUC/DNI Incorrecto");
         }
-    }    
-    
+    }
+
     public static boolean isNumberFloat(String cadena) {
         try {
             Float.parseFloat(cadena);
@@ -433,100 +508,110 @@ public class VentaDirecta extends SelectorComposer {
             return false;
         }
     }
-    
-    private void crearCliente(){
+
+    private void crearCliente() {
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         cliente.setIdunidad(almacen.getIdunidad());
         cliente.setIdusuario(usuario);
         cliente.setCnomcli(txtCliente.getText().toUpperCase().trim());
         cliente.setCdircli(txtDireccion.getText().toUpperCase().trim());
-        if(isNumberFloat(txtDocumento.getText().trim())){
-            if(txtDocumento.getText().trim().length()==11){
+        if (isNumberFloat(txtDocumento.getText().trim())) {
+            if (txtDocumento.getText().trim().length() == 11) {
                 cliente.setCruc(txtDocumento.getText());
-            }
-            else if(txtDocumento.getText().trim().length()==8){
+            } else if (txtDocumento.getText().trim().length() == 8) {
                 cliente.setCdni(txtDocumento.getText());
-            }
-            else{
+            } else {
                 throw new ExceptionZarcillo("RUC/DNI Incorrecto");
             }
-        }
-        else{
+        } else {
             throw new ExceptionZarcillo("RUC/DNI Incorrecto");
         }
-        cliente=clienteService.registrarClienteVenta(cliente);
+        cliente = clienteService.registrarClienteVenta(cliente);
         regsalida.setIdcliente(cliente);
         btnCrear.setDisabled(true);
         Messagebox.show("Registro Satisfactorio");
     }
-    private void limpiar(){
-        cliente=new Cliente();
-        regsalida=new RegistroSalida();
-        comprobante=new ComprobanteEmitido();
-        modeloDetalle=new ListModelList();
+
+    private void limpiar() {
+        cliente = new Cliente();
+        regsalida = new RegistroSalida();
+        comprobante = new ComprobanteEmitido();
+        modeloDetalle = new ListModelList();
         lstDetalle.setModel(modeloDetalle);
         txtCliente.setText("");
         txtDireccion.setText("");
         txtDocumento.setText("");
+        nOperacion.setValue(0);
+        cargarPie();
+        btnAgregar.setDisabled(false);
+        btnGrabar.setDisabled(false);
+        btnAgregar.focus();
     }
-    public void imprimir() throws JRException{
-        TipoPago tpago=(TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
+
+    public void imprimir() throws JRException {
+        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+        TipoPago tpago = (TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
         String reporteFuente;
-        DecimalFormatSymbols simbolos=new DecimalFormatSymbols();
+        DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
         simbolos.setDecimalSeparator('.');
-        
-            NumerosLetras numeroletras = new NumerosLetras();
-            HashMap parametro = new HashMap();
-            parametro.put("UNIDADNEGOCIO", regsalida.getIdunidad().getCnomunidad().trim());
-            
-            
-            if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.FACTURA_SUNAT.getCcodigosunat())){
-                parametro.put("CLIENTE",cliente.getCnomcli());
-                parametro.put("DIRECCION", cliente.getCdircli());
-                parametro.put("RUC", cliente.getCruc());
-                parametro.put("DNI", "");
-            }
-            else{
-                parametro.put("CLIENTE", txtCliente.getText().toUpperCase());
-                parametro.put("DIRECCION", txtDireccion.getText().toUpperCase());
-                parametro.put("DNI", txtDocumento.getText().toUpperCase());
-            }
-            parametro.put("DISTRITO", regsalida.getIdcliente().getIdubigeo().getCubigeo().trim());
-            parametro.put("PROVINCIA", regsalida.getIdcliente().getIdubigeo().getCnomprovincia().trim());
-            parametro.put("DEPARTAMENTO", regsalida.getIdcliente().getIdubigeo().getCnomdepartamento().trim());
-            parametro.put("FECHA", regsalida.getDfecha());            
-            parametro.put("VENCIMIENTO", comprobante.getDfecven());    
-            parametro.put("VENDEDOR", regsalida.getIdvendedor().getIdvendedor());
-            parametro.put("CONDICION", regsalida.getIdcondicion().getCnomcondicion()+" PLAZO: "+regsalida.getNplazo());
-            parametro.put("HORAIMP", regsalida.getDfecimp());
-            parametro.put("OPERACION", regsalida.getIdregsalida());
-            parametro.put("HORADIG", regsalida.getDfecreg());
-            parametro.put("VALORVENTA", regsalida.getNafecto());
-            parametro.put("IGV", regsalida.getNigv());
-            parametro.put("IMPORTE", regsalida.getNimporte());
-            parametro.put("SERIE", comprobante.getCserie());
-            parametro.put("NUMERO",comprobante.getCnumero());
-            parametro.put("GLOSA", regsalida.getCglosa());
-            if(regsalida.getIdcondicion().getBcontado()){
-                parametro.put("TIPOPAGO", tpago.getCnomtipo());
-            }                        
-            
-            parametro.put("USUARIO","Caja: "+ usuario.getCabrev()+" Vend.: "+regsalida.getIdvendedor().getCabrev());
-            parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));
-           
-            if(regsalida.getIddocumento().getCcodigosunat().contains(Documento.BOLETA_SUNAT.getCcodigosunat())){
-                 reporteFuente = "/resources/boleta.jrxml";
-            }
-            else
-            {
+
+        NumerosLetras numeroletras = new NumerosLetras();
+        HashMap parametro = new HashMap();
+        parametro.put("UNIDADNEGOCIO", regsalida.getIdunidad().getCnomunidad().trim());
+        parametro.put("EMPRESA", almacen.getIdunidad().getIdempresa().getCnomempresa());
+        parametro.put("DIREMPRESA", almacen.getIdunidad().getIdempresa().getCdireccion());
+        parametro.put("UBIGEOEMPRESA", almacen.getIdunidad().getIdempresa().getIdubigeo().getCubigeo().trim() + " - " + almacen.getIdunidad().getIdempresa().getIdubigeo().getCnomprovincia().trim());
+        parametro.put("RUCEMPRESA", "RUC: " + almacen.getIdunidad().getIdempresa().getCruc());
+
+        if (regsalida.getIddocumento().getCcodigosunat().contains(Documento.FACTURA_SUNAT.getCcodigosunat())) {
+            parametro.put("CLIENTE", cliente.getCnomcli());
+            parametro.put("DIRECCION", cliente.getCdircli());
+            parametro.put("RUC", cliente.getCruc());
+            parametro.put("DNI", "");
+        } else {
+            parametro.put("CLIENTE", txtCliente.getText().toUpperCase());
+            parametro.put("DIRECCION", txtDireccion.getText().toUpperCase());
+            parametro.put("DNI", txtDocumento.getText().toUpperCase());
+        }
+        parametro.put("DISTRITO", regsalida.getIdcliente().getIdubigeo().getCubigeo().trim());
+        parametro.put("PROVINCIA", regsalida.getIdcliente().getIdubigeo().getCnomprovincia().trim());
+        parametro.put("DEPARTAMENTO", regsalida.getIdcliente().getIdubigeo().getCnomdepartamento().trim());
+        parametro.put("FECHA", regsalida.getDfecha());
+        parametro.put("VENCIMIENTO", comprobante.getDfecven());
+        parametro.put("VENDEDOR", regsalida.getIdvendedor().getIdvendedor());
+        parametro.put("CONDICION", regsalida.getIdcondicion().getCnomcondicion() + " PLAZO: " + regsalida.getNplazo());
+        parametro.put("HORAIMP", regsalida.getDfecimp());
+        parametro.put("OPERACION", regsalida.getIdregsalida());
+        parametro.put("HORADIG", regsalida.getDfecreg());
+        parametro.put("VALORVENTA", regsalida.getNafecto());
+        parametro.put("IGV", regsalida.getNigv());
+        parametro.put("IMPORTE", regsalida.getNimporte());
+        parametro.put("EFECTIVO", nEfectivo.getValue());
+        parametro.put("VUELTO", nEfectivo.getValue().subtract(regsalida.getNimporte()));
+        parametro.put("SERIE", comprobante.getCserie());
+        parametro.put("NUMERO", comprobante.getCnumero());
+        parametro.put("GLOSA", regsalida.getCglosa());
+        if (regsalida.getIdcondicion().getBcontado()) {
+            parametro.put("TIPOPAGO", tpago.getCnomtipo());
+        }
+        //Probar
+        parametro.put(JRParameter.REPORT_LOCALE, Locale.US);
+        parametro.put("USUARIO", "Caja: " + usuario.getCabrev() + " Vend.: " + regsalida.getIdvendedor().getCabrev());
+        parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));
+
+        if (regsalida.getIddocumento().getCcodigosunat().contains(Documento.TICKET.getCcodigosunat())) {
+            reporteFuente = "/resources/ticket.jrxml";
+        } else {
+            if (regsalida.getIddocumento().getCcodigosunat().contains(Documento.BOLETA_SUNAT.getCcodigosunat())) {
+                reporteFuente = "/resources/boleta.jrxml";
+            } else {
                 reporteFuente = "/resources/factura.jrxml";
             }
-            
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream(reporteFuente);
-            JasperReport reportecompilado = JasperCompileManager.compileReport(is);
-            JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
-            menuimpresion.dialogoImpresion(false);
-            menuimpresion.imprimirReporte(reportecompilado,regsalida.hashCode() , parametro, data);
+        }
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream(reporteFuente);
+        JasperReport reportecompilado = JasperCompileManager.compileReport(is);
+        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(registroSalidaService.listaDetalleSalida(regsalida.getIdregsalida()));
+        menuimpresion.dialogoImpresion(false);
+        menuimpresion.imprimirReporte(reportecompilado, regsalida.hashCode(), parametro, data);
     }
 }
-

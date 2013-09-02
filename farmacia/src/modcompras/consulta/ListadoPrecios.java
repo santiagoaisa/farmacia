@@ -66,6 +66,11 @@ public class ListadoPrecios extends SelectorComposer {
         imprimir();
     }
     
+    @Listen("onClick = #btnPublico")
+    public void onImprimirPublico(Event event) {
+        imprimirPublico();
+    }
+    
     @Listen("onClick = #btnExportar")
     public void onExportar(Event event) throws IOException {
         exportar();
@@ -132,6 +137,32 @@ public class ListadoPrecios extends SelectorComposer {
         rptreporte.setParameters(parametro);
         rptreporte.setType("pdf");        
     }
+    
+    public void imprimirPublico() {
+        validar();
+        validarDetalle();
+        Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
+
+        Set<Listitem> ldatos = lstInventario.getSelectedItems();
+        Linea linea;
+        List<Integer> listaIdlinea = new ArrayList();
+        for (Listitem item : ldatos) {
+            linea = (Linea) modeloInventario.getElementAt(item.getIndex());
+            listaIdlinea.add(linea.getIdlinea());
+        }
+
+        HashMap parametro = new HashMap();
+        parametro.put("EMPRESA", almacen.getIdunidad().getIdempresa().getCnomempresa());
+        parametro.put("UNIDADNEGOCIO", almacen.getIdunidad().getCnomunidad());
+        parametro.put("ALMACEN", almacen.getCnomalmacen());
+        parametro.put("USUARIO", usuario.getCnomusuario());
+        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listadoPrecio(almacen.getIdalmacen(), listaIdlinea));
+        rptreporte.setSrc("/modulos/compras/reporte/preciospublico.jasper");
+        rptreporte.setDatasource(data);
+        rptreporte.setParameters(parametro);
+        rptreporte.setType("pdf");        
+    }
+    
     private void exportar() throws IOException{
         validarDetalle();
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());

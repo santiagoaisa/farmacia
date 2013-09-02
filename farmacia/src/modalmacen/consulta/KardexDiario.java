@@ -81,8 +81,6 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
     private Intbox nVentam;
     @Wire
     private Intbox nSaldom;
-    @Wire
-    private Jasperreport rptinventario;
     
     @WireVariable
     AlmacenService almacenService;
@@ -332,6 +330,7 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
             parametro.put("DESART", producto.getCnomproducto());
             parametro.put("LINEA", producto.getIdsublinea().getIdlinea().getCnomlinea());
             JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloKardex);
+            Jasperreport  rptinventario=new Jasperreport();
             rptinventario.setSrc(ruta);
             rptinventario.setDatasource(data);
             rptinventario.setParameters(parametro);

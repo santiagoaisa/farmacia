@@ -61,7 +61,7 @@
 
 
         <toolbar id="tb"  height="30px" align="end" >
-            <toolbarbutton id="btnEliminar" image="/img/Delete.png" label="Eliminar"  />
+            <toolbarbutton id="btnEliminar" image="/img/Eliminar.png" label="Eliminar"  />
             <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Regresar"	onClick="doCancel()" />
         </toolbar>
 

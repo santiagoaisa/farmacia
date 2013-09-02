@@ -47,6 +47,6 @@
             <toolbarbutton id="btnModificar" image="/img/Setting.png" label="Modificar" />
             <toolbarbutton id="btnRegistrar" image="/img/save.png" label="Registrar" />
             <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar" />
-            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" />
+            <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" />
         </toolbar>             
 </window>

@@ -68,7 +68,7 @@
         <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir" />
         <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
         <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Limpiar"   />
-        <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir"  onClick="doCancel()"  />
+        <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir"  onClick="doCancel()"  />
     </toolbar>
     <zscript>{
         void doCancel() {

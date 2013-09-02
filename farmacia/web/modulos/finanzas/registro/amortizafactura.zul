@@ -64,8 +64,8 @@ mode="overlapped" onCancel="doCancel()" apply="modfinanzas.registro.AmortizaFact
         </rows>
     </grid>
         <toolbar id="tb"  height="30px" align="end" >
-            <toolbarbutton id="btnGrabar"  label="Registra Pago" image="/img/Save.png" disabled="${sec:isNoneGranted('ROLE_ADMINISTRADOR')}"  />
-            <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png" onClick="doCancel()" />
+            <toolbarbutton id="btnGrabar"  label="Registra Pago" image="/img/Amortizar.png" disabled="${sec:isNoneGranted('ROLE_ADMINISTRADOR')}"  />
+            <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Salir.png" onClick="doCancel()" />
 
         </toolbar>
 

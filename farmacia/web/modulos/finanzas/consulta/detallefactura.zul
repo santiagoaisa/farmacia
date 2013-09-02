@@ -111,13 +111,13 @@
     </listbox>
         
     <toolbar id="tb"  height="30px" align="end" >
-        <toolbarbutton id="btnAmortizar" image="/img/Save.png" label="Amortizar"  />
+        <toolbarbutton id="btnAmortizar" image="/img/Amortizar.png" label="Amortizar"  />
         <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar" />
         <toolbarbutton id="btnCancelar" image="/img/Undo.png" label="Cancelar"  />
         <toolbarbutton id="btnModificar" image="/img/Tools.png" label="Modificar" />
-        <toolbarbutton id="btnEliminar" image="/img/Delete.png" label="Eliminar"  />
+        <toolbarbutton id="btnEliminar" image="/img/Eliminar.png" label="Eliminar"  />
         <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir"  />
-        <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" />
+        <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" />
     </toolbar>
     <jasperreport id="rptreporte" visible="false" />
 </window>

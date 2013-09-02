@@ -30,6 +30,6 @@ onCancel="doCancel()"  apply="modmantenimiento.util.GenerarExistencias"   width=
    
     <toolbar id="tb"  height="30px" align="end"	>
         <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar" />
-        <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="doCancel()" />
+        <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" onClick="doCancel()" />
     </toolbar>
 </window>

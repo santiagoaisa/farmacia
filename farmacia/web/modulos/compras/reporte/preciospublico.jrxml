@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="precios" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="530" leftMargin="35" rightMargin="30" topMargin="15" bottomMargin="15" uuid="d484ce19-ab1f-427f-9bfe-8d8d6e0697f3">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="ALMACEN" class="java.lang.String"/>
+	<parameter name="EMPRESA" class="java.lang.String"/>
+	<parameter name="UNIDADNEGOCIO" class="java.lang.String"/>
+	<field name="idproducto.cnomproducto" class="java.lang.String"/>
+	<field name="idproducto.idsublinea.idlinea.cnomlinea" class="java.lang.String"/>
+	<field name="idproducto.idproducto" class="java.lang.String"/>
+	<field name="nstock" class="java.lang.Integer"/>
+	<field name="idproducto.idsublinea.idlinea.idlinea" class="java.lang.Integer"/>
+	<field name="idproducto.idpresentacion.cabrev" class="java.lang.String"/>
+	<field name="nstockm" class="java.lang.Integer"/>
+	<field name="npreuni" class="java.math.BigDecimal"/>
+	<field name="npreunim" class="java.math.BigDecimal"/>
+	<field name="idproducto.nmenudeo" class="java.lang.Integer"/>
+	<group name="LINEAS" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{idproducto.idsublinea.idlinea.idlinea}]]></groupExpression>
+		<groupHeader>
+			<band height="35" splitType="Stretch">
+				<staticText>
+					<reportElement uuid="60d801c7-4029-415d-b268-309f09fad59e" key="staticText-2" x="1" y="18" width="45" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Abadi MT Condensed Light" size="11" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Codigo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="cb832aa7-08ec-4790-912a-fbcb7a22bf89" key="staticText-3" x="146" y="18" width="173" height="14"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Abadi MT Condensed Light" size="11" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Descripcion]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="97e48e62-e969-411a-8188-21f215447c68" key="line-10" x="1" y="33" width="549" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement uuid="01772347-3c42-4b45-86bb-35f1e68864f2" key="staticText-23" x="91" y="18" width="40" height="14"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Abadi MT Condensed Light" size="11" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Fraccion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="92b35248-6169-42da-ba35-027125ca1d03" key="staticText-26" x="444" y="18" width="68" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Abadi MT Condensed Light" size="11" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Precio Menudeo]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="799e9fe7-2a97-4bf8-bcb0-e7160d4f0807" key="line-13" x="1" y="15" width="549" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+				<textField isBlankWhenNull="false">
+					<reportElement uuid="e9ba2ef1-3407-4990-a77e-d0672a925c51" key="textField" x="2" y="1" width="251" height="14"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Abadi MT Condensed Light" size="12" isBold="false" isItalic="true" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[""+$F{idproducto.idsublinea.idlinea.cnomlinea}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="99f311f0-4900-450a-ac61-25b4b4d4c14c" key="staticText-26" x="384" y="18" width="60" height="14"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Abadi MT Condensed Light" size="11" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Precio Unitario]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="78e2c97c-a877-4969-8ce0-74c470c9204b" key="staticText-23" x="46" y="18" width="45" height="14"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Abadi MT Condensed Light" size="11" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[UniMed]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="5" splitType="Stretch">
+				<line>
+					<reportElement uuid="8bb3c532-b065-4643-ac1b-2bf72b4d521c" key="line-17" x="1" y="1" width="549" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement uuid="9d65edc5-9c63-4380-99d7-6c93d6230920" x="2" y="0" width="49" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{EMPRESA}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="yyyy/MM/dd" isBlankWhenNull="false">
+				<reportElement uuid="cde86b0e-c94a-43ce-860e-04d645f85b7a" key="textField-1" x="477" y="0" width="53" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="1b2e3b2d-39c1-4005-9949-2ccb9b8a588f" key="staticText-1" x="196" y="8" width="180" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="15" isBold="true" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[LISTADO DE PRECIOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="78bcf579-a2c1-46f6-b75f-1913ff48770e" key="staticText-24" x="1" y="26" width="55" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Unidad Negocio:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="521833a3-e019-4328-96fe-1d6e604908b6" x="56" y="26" width="75" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{UNIDADNEGOCIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e3c90ace-d595-4196-9d1f-f724adda0c9a" key="staticText-24" x="319" y="26" width="36" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Almacen:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7db248d4-c438-4dbf-9c36-5d287f5906ed" x="355" y="26" width="67" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ALMACEN}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="eab6f037-a700-4b3b-855b-7b222e9d11f1" key="line-13" x="1" y="38" width="549" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="d4078b09-c234-4e57-aa2f-ee5103ffb01a" key="textField" x="131" y="0" width="253" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""+$F{idproducto.cnomproducto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="8fad205b-e934-435b-a97b-58f9c7abd4f7" key="textField" x="3" y="0" width="43" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idproducto.idproducto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="54c7a70e-9f69-4313-82eb-b21d2c446f06" x="444" y="0" width="68" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{npreunim}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a0da581f-fbf5-4bd2-bdf1-ae033315baee" key="textField" x="46" y="0" width="45" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idproducto.idpresentacion.cabrev}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement uuid="fd57d743-fc0d-4f29-82bf-0e3d0351b374" x="384" y="0" width="60" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{npreuni}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7c7f9306-dda8-4ce6-81c7-e94def6c7720" key="textField" x="91" y="0" width="40" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idproducto.nmenudeo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="4" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

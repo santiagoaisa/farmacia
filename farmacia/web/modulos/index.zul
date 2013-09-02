@@ -1,5 +1,5 @@
 <?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
-<window id="index" apply="modprueba.Prueba"  height="100%">        
+<window id="index" apply="modseguridad.Index"  height="100%">        
     <borderlayout   hflex="1" vflex="1" style="background:#c5e6ef;" >
         <north  >
             <toolbar id="btnModulos"  >                            

@@ -46,30 +46,36 @@
                     <tabpanels >
                         <tabpanel id="Facturas" >
                             <hbox width="100%" >
-                                    <listbox id="lstFactura" mold="paging" pageSize="500" width="100%" height="300px" >
+                                    <listbox id="lstFactura" mold="paging" pageSize="500" width="100%" height="270px" >
                                     <listhead>
-                                        <listheader label="F.Ingreso" width="8%" sort="auto(dfecemi)"  />
-                                        <listheader label="Documento" width="15%" sort="auto(iddocumento.cnomdocumento)" />
-                                        <listheader label="Serie" width="7%" sort="auto(cserie)" align="center"/>
+                                        <listheader label="F.Emision" width="8%" sort="auto(dfecemi)"  />
+                                        <listheader label="Plazo" width="4%" sort="auto(nplazo)" />
+                                        <listheader label="F.Vencimiento" width="8%" sort="auto(dfecven)"  />
+                                        <listheader label="F.Cancelacion" width="8%" sort="auto(dfecven)"  />
+                                        <listheader label="Documento" width="5%" sort="auto(iddocumento.cabrev)" />
+                                        <listheader label="Serie" width="5%" sort="auto(cserie)" align="center"/>
                                         <listheader label="Numero." width="10%" sort="auto(cnumero)" align="right" />
-                                        <listheader label="Importe" width="10%" sort="auto(nimporte)" align="right" />
-                                        <listheader label="Acuenta" width="10%" sort="auto(nacuenta)" align="right" />
-                                        <listheader label="N/Credito" width="10%" sort="auto(nnotabo)" align="right" />
-                                        <listheader label="N/Debito" width="10%" sort="auto(nnotcar)" align="right" />
-                                        <listheader label="Saldo" width="10%" sort="auto(nsaldo)" align="right" />
+                                        <listheader label="Importe" width="8%" sort="auto(nimporte)" align="right" />
+                                        <listheader label="Acuenta" width="8%" sort="auto(nacuenta)" align="right" />
+                                        <listheader label="N/Credito" width="8%" sort="auto(nnotabo)" align="right" />
+                                        <listheader label="N/Debito" width="8%" sort="auto(nnotcar)" align="right" />
+                                        <listheader label="Saldo" width="8%" sort="auto(nsaldo)" align="right" />
                                         <listheader label="Operación" width="8%" sort="auto(idregentrada)" align="right"/>
-                                        <listheader label="" width="0%"/>
+                                        <listheader label="" width="2%"/>
                                     </listhead>
                                     <listitem self="@{each=factura}" >
                                         <listcell date="@{factura.dfecemi}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+                                        <listcell label="@{factura.nplazo}"/>
+                                        <listcell date="@{factura.dfecven}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />                                        
+                                        <listcell date="@{factura.dfeccan}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />                                        
                                         <listcell label="@{factura.iddocumento.cabrev}"/>
                                         <listcell label="@{factura.cserie}"/>
                                         <listcell label="@{factura.cnumero}"/>
-                                        <listcell decimal="@{factura.nimporte}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                                        <listcell decimal="@{factura.nacuenta}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                                        <listcell decimal="@{factura.nnotabo}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                                         <listcell decimal="@{factura.nnotcar}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
-                                        <listcell decimal="@{factura.nsaldo}" format="###,###,##0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{factura.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{factura.nacuenta}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{factura.nnotabo}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                         <listcell decimal="@{factura.nnotcar}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+                                        <listcell decimal="@{factura.nsaldo}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
                                         <listcell label="@{factura.idregentrada}"/>
                                         <listcell label="@{factura.nsaldo,converter='modmantenimiento.util.ConvertidorSaldoDocumento'}" visible="false" />
                                         
@@ -80,7 +86,7 @@
 
                         <tabpanel id="Letras" >
                             <hbox width="100%" height="70%">
-                                <listbox id="lstLetra" mold="paging" pageSize="500"  width="100%" height="300px" >
+                                <listbox id="lstLetra" mold="paging" pageSize="500"  width="100%" height="270px" >
                                     
                                 </listbox>
 
@@ -88,7 +94,7 @@
                         </tabpanel>  
                         <tabpanel id="Notabo" >
                             <hbox width="100%" height="70%">
-                                <listbox id="lstNotabo" mold="paging" pageSize="500"  width="100%" height="300px" >
+                                <listbox id="lstNotabo" mold="paging" pageSize="500"  width="100%" height="270px" >
                                     
                                 </listbox>
 
@@ -96,7 +102,7 @@
                         </tabpanel>
                         <tabpanel id="Notcar" >
                             <hbox width="100%" height="70%">
-                                <listbox id="lstNotcar" mold="paging" pageSize="500"  width="100%" height="300px" >
+                                <listbox id="lstNotcar" mold="paging" pageSize="500"  width="100%" height="270px" >
                                     
                                 </listbox>
 

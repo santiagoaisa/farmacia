@@ -96,7 +96,7 @@ apply="modmantenimiento.ManttoLote"  >
   <toolbar id="atb"  height="25px" align ="end"	 >
             <toolbarbutton id="btnNuevo" visible="false" image="/img/File.png" label="Nuevo"   />
             <toolbarbutton id="btnImprimir" visible="true" image="/img/Imprimir.png" label="Imprimir" />
-            <toolbarbutton id="btnSalir" image="/img/Power.png" label="Salir" onClick="winLote.onClose()" />
+            <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" onClick="winLote.onClose()" />
   </toolbar>
     
 </window>
