@@ -39,17 +39,17 @@ public class ProductoDAOImpl implements ProductoDAO {
         String sql = "select max(cast(substring(idproducto, 4,6) as Integer))+1 "
                 + " from producto  p,sublinea s "
                 + " where p.idsublinea=s.idsublinea and s.idlinea=:idlinea  ";
-        BigInteger idproducto = new BigInteger("0");
+        Integer idproducto = new Integer("0");
         try {
-            idproducto = (BigInteger) em.createNativeQuery(sql).setParameter("idlinea", idlinea).getSingleResult();
-        } catch (Exception e) {            
+            idproducto = (Integer) em.createNativeQuery(sql).setParameter("idlinea", idlinea).getSingleResult();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        if(idproducto==null){
-            idproducto = new BigInteger("0");
+
+        if (idproducto == null) {
+            idproducto = new Integer("0");
         }
-        
-        return idproducto.intValue();
+
+        return idproducto;
     }
 }
