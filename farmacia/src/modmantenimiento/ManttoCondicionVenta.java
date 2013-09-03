@@ -13,7 +13,6 @@ import modmantenimiento.util.MenuMantenimiento;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -47,7 +46,7 @@ public class ManttoCondicionVenta extends SelectorComposer implements CrudListen
     private Checkbox bContado;
     
     @Wire
-    private Decimalbox nDescuento;
+    private Decimalbox nIncremento;
     
     @Wire
     private Intbox nPlazo;
@@ -92,7 +91,7 @@ public class ManttoCondicionVenta extends SelectorComposer implements CrudListen
     public void leer() {     
         condicion.setCnomcondicion(txtNombre.getText().toUpperCase());
         condicion.setNplazo(nPlazo.getValue());
-        condicion.setNdescuento(nDescuento.getValue());
+        condicion.setNincremento(nIncremento.getValue());
         condicion.setIdusuario(usuario);
         condicion.setBcontado(bContado.isChecked());
     }
@@ -109,7 +108,7 @@ public class ManttoCondicionVenta extends SelectorComposer implements CrudListen
         quitarConstraint();
         txtNombre.setText(condicion.getCnomcondicion());
         nPlazo.setValue(condicion.getNplazo());        
-        nDescuento.setValue(condicion.getNdescuento());
+        nIncremento.setValue(condicion.getNincremento());
         bContado.setChecked(condicion.getBcontado());
     }
 
@@ -119,7 +118,7 @@ public class ManttoCondicionVenta extends SelectorComposer implements CrudListen
         habilitar(false);
         condicion=new CondicionVenta();
         txtNombre.setText("");
-        nDescuento.setValue(BigDecimal.ZERO);
+        nIncremento.setValue(BigDecimal.ZERO);
         nPlazo.setValue(0);
         bContado.setChecked(false);
         agregarConstraint();
@@ -182,7 +181,7 @@ public class ManttoCondicionVenta extends SelectorComposer implements CrudListen
     public void habilitar(boolean enable) {
         txtNombre.setReadonly(enable);
         nPlazo.setReadonly(enable);
-        nDescuento.setReadonly(enable);
+        nIncremento.setReadonly(enable);
         bContado.setDisabled(enable);
     }
 
