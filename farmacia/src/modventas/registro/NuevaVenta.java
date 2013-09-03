@@ -2,6 +2,7 @@ package modventas.registro;
 
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.CondicionVenta;
+import com.zarcillo.domain.Documento;
 import com.zarcillo.domain.MotivoSalida;
 import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Periodo;
@@ -11,6 +12,7 @@ import com.zarcillo.domain.Vendedor;
 import com.zarcillo.dto.venta.DetalleVenta;
 import com.zarcillo.service.AlmacenService;
 import com.zarcillo.service.CondicionVentaService;
+import com.zarcillo.service.DocumentoService;
 import com.zarcillo.service.ExceptionZarcillo;
 import com.zarcillo.service.PeriodoService;
 import com.zarcillo.service.UsuarioService;
@@ -94,6 +96,8 @@ public class NuevaVenta extends SelectorComposer {
     PeriodoService periodoService;
     @WireVariable
     CondicionVentaService condicionVentaService;
+    @WireVariable
+    DocumentoService documentoService;
     private String user_login;
     final Execution exec = Executions.getCurrent();
 
@@ -313,6 +317,7 @@ public class NuevaVenta extends SelectorComposer {
         regsalida.setIdvendedor(vendedor);
         regsalida.setDfecha(dFecha.getValue());
         regsalida.setDfecdig(dFecha.getValue());
+        regsalida.setIddocumento(documentoService.buscarPorCcodigosunat(Documento.BOLETA_SUNAT.getCcodigosunat()));
         regsalida.setMovimientoCollection(llenarDetalle());
         int operacion = ventaService.registrar(regsalida, almacen);
         Messagebox.show("OPERACION: " + operacion, "REGISTRO SATISFACTORIO", Messagebox.OK, Messagebox.INFORMATION);

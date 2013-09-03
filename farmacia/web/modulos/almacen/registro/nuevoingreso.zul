@@ -53,8 +53,8 @@
         <listhead sizable="true" >
             <listheader label="No" width="2%" align="right"/>
             <listheader label="Codigo" width="5%" sort="auto(idproducto.idproducto)" />
-            <listheader label="F/" width="4%" />
-            <listheader label="Und" width="4%" />
+            <listheader label="F/" width="5%" />
+            <listheader label="Und" width="3%" />
             <listheader label="Descripcion" width="26%" sort="auto(idproducto.cnomart)" />
             <listheader label="Entero" width="5%" />
             <listheader label="Fraccion" width="5%" />
@@ -70,7 +70,7 @@
             <listcell label="@{self.parent.index}" />
             <listcell label="@{detalleIngreso.idproducto.idproducto}" />
             <listcell>
-                <intbox id="i0" value="@{detalleIngreso.idproducto.nmenudeo}"  width="70%" />
+                <intbox id="i0" value="@{detalleIngreso.idproducto.nmenudeo}"  width="90%" />
             </listcell>
             <listcell label="@{detalleIngreso.idproducto.idpresentacion.cabrev}" />
             <listcell label="@{detalleIngreso.idproducto}" />

@@ -118,7 +118,10 @@ public class NuevoIngreso extends SelectorComposer {
     @Listen("onOK = #txtCodigo")
     public void onFocoNombre(Event event) {
         buscarProducto();
-        focoCantidad();
+        if(modeloIngreso.getSize()>0){
+            focoCantidad();
+        }
+        
     }
 
     @Listen("onClick = #btnGrabar")

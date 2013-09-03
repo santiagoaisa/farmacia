@@ -267,7 +267,7 @@ public class ConsultaFactura extends SelectorComposer{
         parametro.put("GLOSA", regsalida.getCglosa());
         parametro.put("USUARIO", "Caja: " + usuario.getCabrev() + " Vend.: " + regsalida.getIdvendedor().getCabrev());
         parametro.put("LETRAS", numeroletras.convertirLetras(regsalida.getNimporte()));
-        parametro.put(JRParameter.REPORT_LOCALE, Locale.US);
+        parametro.put(JRParameter.REPORT_LOCALE,new Locale("es", "US"));
         if (regsalida.getIddocumento().getCcodigosunat().contains(Documento.BOLETA_SUNAT.getCcodigosunat())) {
             reporteFuente = "/resources/boleta.jrxml";
         } else {
