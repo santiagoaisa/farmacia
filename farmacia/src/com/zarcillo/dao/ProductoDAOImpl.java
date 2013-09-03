@@ -42,10 +42,14 @@ public class ProductoDAOImpl implements ProductoDAO {
         BigInteger idproducto = new BigInteger("0");
         try {
             idproducto = (BigInteger) em.createNativeQuery(sql).setParameter("idlinea", idlinea).getSingleResult();
-        } catch (Exception e) {
-            idproducto = new BigInteger("0");
-
+        } catch (Exception e) {            
+            e.printStackTrace();
         }
+        
+        if(idproducto==null){
+            idproducto = new BigInteger("0");
+        }
+        
         return idproducto.intValue();
     }
 }
