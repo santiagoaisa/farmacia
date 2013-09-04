@@ -17,6 +17,7 @@ import java.util.Set;
 import javax.naming.NamingException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.zkoss.zarcillo.ExportarHojaCalculo;
+import org.zkoss.zarcillo.ExportarPdf;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -25,7 +26,6 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zkex.zul.Jasperreport;
 import org.zkoss.zul.*;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -121,13 +121,10 @@ public class ListaInventarioProducto extends SelectorComposer {
         parametro.put("UNIDADNEGOCIO", almacen.getIdunidad().getCnomunidad());
         parametro.put("ALMACEN", almacen.getCnomalmacen());
         parametro.put("USUARIO", usuario.getCnomusuario());
-        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listaInventarioPorIdalmacenPorLineas(almacen.getIdalmacen(), listaIdlinea));
-        Jasperreport rptreporte=new Jasperreport();
-        rptreporte.setParent(winInventario);
-        rptreporte.setSrc("/modulos/almacen/reporte/listainventarioproducto.jasper");
-        rptreporte.setDatasource(data);
-        rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");           
+        JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listaInventarioPorIdalmacenPorLineas(almacen.getIdalmacen(), listaIdlinea));        
+        //rptreporte.setSrc("/modulos/almacen/reporte/listainventarioproducto.jasper");
+        ExportarPdf.exportJasperToPdf("ListaInventarioProducto", data, parametro,"/resources/almacen/listainventarioproducto.jasper");
+        
     }
     private void exportar() throws IOException{
         validarDetalle();

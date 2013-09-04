@@ -2,7 +2,7 @@
 <window id="index" apply="modseguridad.Index"  height="100%">        
     <borderlayout   hflex="1" vflex="1" style="background:#c5e6ef;" >
         <north  >
-            <toolbar id="btnModulos"  >                            
+            <toolbar id="btnModulos" height="60px"  >                            
             </toolbar>           
         </north>
         

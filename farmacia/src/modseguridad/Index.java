@@ -68,12 +68,12 @@ public class Index extends SelectorComposer {
         llenarSesion();
         List<Modulo> listaModulo = moduloService.listaPorIdrol(usuario.getIdrol().getIdrol());
 
-        for (Modulo m : listaModulo) {
+        for (Modulo m : listaModulo) {            
             final Toolbarbutton boton = new Toolbarbutton(m.getCnommodulo(), m.getCimagen());
             boton.setId(m.getIdmodulo() + "");
             boton.setParent(btnModulos);
             boton.setTooltiptext(m.getCnommodulo());
-            boton.setOrient("vertical");
+            boton.setOrient("vertical");            
             btnModulos.appendChild(boton);
 
             boton.addEventListener(Events.ON_CLICK, new EventListener() {
