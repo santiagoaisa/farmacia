@@ -32,6 +32,7 @@ import modmantenimiento.util.PeriodoListener;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.collections.CollectionUtils;
 import org.zkoss.zarcillo.ExportarHojaCalculo;
+import org.zkoss.zarcillo.ExportarPdf;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlMacroComponent;
@@ -41,8 +42,7 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zkex.zul.Jasperreport;
+import org.zkoss.zk.ui.select.annotation.WireVariable; 
 import org.zkoss.zul.*;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -330,11 +330,8 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
             parametro.put("DESART", producto.getCnomproducto());
             parametro.put("LINEA", producto.getIdsublinea().getIdlinea().getCnomlinea());
             JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloKardex);
-            Jasperreport  rptinventario=new Jasperreport();
-            rptinventario.setSrc(ruta);
-            rptinventario.setDatasource(data);
-            rptinventario.setParameters(parametro);
-            rptinventario.setType("pdf");
+            ExportarPdf.exportJasperToPdf("DetalleIngreso", data, parametro,ruta);        
+
         }
         else
             Messagebox.show("No hay datos para mostrar");
@@ -342,10 +339,10 @@ public class KardexDiario extends SelectorComposer implements PeriodoListener {
     }
 
     public void imprimir()  {
-        imprimirdetalle("/modulos/almacen/reporte/consultakardex.jasper");
+        imprimirdetalle("/resources/almacen/consultakardex.jasper");
     }
     public void imprimirValorizado()  {
-        imprimirdetalle("/modulos/almacen/reporte/consultakardexvalorizado.jasper");
+        imprimirdetalle("/resources/almacen/consultakardexvalorizado.jasper");
     }
 
     @Override

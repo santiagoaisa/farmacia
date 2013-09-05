@@ -15,9 +15,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import javax.naming.NamingException;
-import org.zkoss.zkex.zul.Jasperreport;
+ 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.zkoss.zarcillo.ExportarHojaCalculo;
+import org.zkoss.zarcillo.ExportarPdf;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -182,15 +183,9 @@ public class AnulaIngresos extends SelectorComposer {
         parametro.put("TOTAL", rentrada.getNimporte());
         parametro.put("OBSERVACION", rentrada.getCobservacion());
         parametro.put("USUARIO", usuario.getCnomusuario());
-
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
-        Jasperreport rptreporte=new Jasperreport();
-        rptreporte.setParent(winDetalle);
-        rptreporte.setSrc("/modulos/almacen/reporte/detalleingreso.jasper");
-        rptreporte.setDatasource(data);
-        rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");
-
+        ExportarPdf.exportJasperToPdf("Detalleingreso", data, parametro,"/resources/almacen/detalleingreso.jasper");        
+        
     }
     public void exportar(){            
         ExportarHojaCalculo.exportListboxToExcel(lstDetalle, rentrada.getIdregentrada()+"");             

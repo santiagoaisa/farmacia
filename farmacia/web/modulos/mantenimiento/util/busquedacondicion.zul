@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./WinBcondicion"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="WinBcondicion" title="Buscando Condicion..." border="2" width="300px" position="center"
+<window id="WinBcondicion" title="Buscando Condicion..." border="2" width="400px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modmantenimiento.util.BusquedaCondicion" >
     <zscript>{
         void doCancel()
@@ -20,12 +20,12 @@
                     <listhead>
                         <listheader label="Nombre" width="70%" sort="auto(cnomcondicion)"/>
                         <listheader label="Plazo" width="15%"  align="right"  sort="auto(nplazo)"/>
-                        <listheader label="Descuento" width="15%"  align="right"  sort="auto(ndescuento)"/>
+                        <listheader label="Incremento" width="15%"  align="right"  sort="auto(nincremento)"/>
                     </listhead>
                     <listitem self="@{each=condicion}" onDoubleClick="doRegistrar()" onOK="doRegistrar()" >
                         <listcell label="@{condicion.cnomcondicion}"/>
                         <listcell label="@{condicion.nplazo}"/>
-                        <listcell decimal="@{condicion.ndescuento}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+                        <listcell decimal="@{condicion.nincremento}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
                     </listitem>
                 </listbox>
     <menu id="mresultado" width="100%"></menu>

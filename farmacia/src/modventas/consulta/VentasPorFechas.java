@@ -24,6 +24,7 @@ import modventas.util.FiltroPorCondicionVenta;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.collections.CollectionUtils;
 import org.zkoss.zarcillo.ExportarHojaCalculo;
+import org.zkoss.zarcillo.ExportarPdf;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -32,7 +33,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zkex.zul.Jasperreport;
+ 
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
@@ -228,14 +229,8 @@ public class VentasPorFechas extends SelectorComposer {
             CondicionVenta condicion=(CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
             parametro.put("VENDEDOR", condicion.getCnomcondicion());
         }        
-
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
-        Jasperreport rptreporte=new Jasperreport();
-        rptreporte.setParent(winVenta);
-        rptreporte.setSrc("/modulos/ventas/reporte/reportediarioventas.jasper");
-        rptreporte.setDatasource(data);
-        rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");
+        ExportarPdf.exportJasperToPdf("DiarioVentas", data, parametro,"/resources/ventas/reportediarioventas.jasper");        
     }
     
     public void exportar(){    

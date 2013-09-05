@@ -3,7 +3,6 @@ package modmantenimiento;
 import com.zarcillo.domain.Almacen;
 import com.zarcillo.domain.Existencia;
 import com.zarcillo.domain.Lote;
-import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Producto;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.service.AlmacenService;
@@ -17,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.zkoss.zarcillo.ExportarPdf;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -25,7 +25,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zkex.zul.Jasperreport;
+ 
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Intbox;
 import org.zkoss.zul.ListModel;
@@ -80,16 +80,11 @@ public class ManttoLote  extends SelectorComposer  {
     
     @Wire
     private Intbox nStklotm;
-    
     @Wire
     private Toolbarbutton btnNuevo;
-    
     @Wire
     private Toolbarbutton btnImprimir;
-    
-    @Wire
-    private Jasperreport rptinventario;
-    
+        
     @WireVariable
     UsuarioService usuarioService;
     
@@ -296,13 +291,6 @@ public class ManttoLote  extends SelectorComposer  {
         parametro.put("NOMPRODUCTO", existencia.getIdproducto().getCnomproducto());
         parametro.put("USUARIO", usuario.toString());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloLote);
-        try {
-            rptinventario.setSrc("/modulos/mantenimiento/reporte/mantenimientolote.jasper");
-            rptinventario.setDatasource(data);
-            rptinventario.setParameters(parametro);
-            rptinventario.setType("pdf");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ExportarPdf.exportJasperToPdf("Lote", data, parametro,"/resources/almacen/mantenimientolote.jasper");        
     }
 }

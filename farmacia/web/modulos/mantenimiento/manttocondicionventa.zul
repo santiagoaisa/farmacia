@@ -18,7 +18,7 @@
             <row  >
                 <label value="Plazo:" />
                 <intbox id="nPlazo" value="0" width="95%" readonly="true"  />
-                <label value="Descuento:" />
+                <label value="Incremento:" />
                 <decimalbox id="nIncremento" value="0" width="95%" readonly="true" format="###,###,##0.00" />
                 <checkbox id="bContado"  label="Contado" disabled="true" />
             </row>             

@@ -1,31 +1,24 @@
 package modventas.consulta;
 
-import com.zarcillo.domain.ComprobanteEmitido;
-import com.zarcillo.domain.CondicionVenta;
 import com.zarcillo.domain.UnidadNegocio;
 import com.zarcillo.domain.Usuario;
 import com.zarcillo.dto.compra.UtilidadExistencia;
-import com.zarcillo.estadistica.VentaPorDocumento;
 import com.zarcillo.service.ComprobanteEmitidoService;
-import com.zarcillo.service.CondicionVentaService;
 import com.zarcillo.service.ListadoExistenciaService;
-import com.zarcillo.service.ResultadoVentaService;
 import com.zarcillo.service.UnidadNegocioService;
 import com.zarcillo.service.UsuarioService;
 import com.zarcillo.service.VentaService;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
-import modventas.util.FiltroPorCondicionVenta;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.apache.commons.collections.CollectionUtils;
 import org.zkoss.zarcillo.ExportarHojaCalculo;
+import org.zkoss.zarcillo.ExportarPdf;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -34,7 +27,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zkex.zul.Jasperreport;
+ 
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
@@ -179,12 +172,7 @@ public class UtilidadProductoVenta extends SelectorComposer {
         parametro.put("FECFIN", dFecfin.getValue());
         parametro.put("USUARIO", usuario.getCnomusuario());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
-        Jasperreport rptreporte=new Jasperreport();
-        rptreporte.setParent(winVenta);
-        rptreporte.setSrc("/modulos/ventas/reporte/utilidadproductoventa.jasper");
-        rptreporte.setDatasource(data);
-        rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");
+        ExportarPdf.exportJasperToPdf("UtilidadProducto", data, parametro,"/resources/ventas/utilidadproductoventa.jasper");        
     }
     
     public void exportar(){    

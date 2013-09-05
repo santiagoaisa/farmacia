@@ -4,6 +4,8 @@ import com.zarcillo.service.ExceptionZarcillo;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Locale;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -20,6 +22,7 @@ public class ExportarPdf {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             ExportarPdf exportarPdf = new ExportarPdf();
+            parametro.put(JRParameter.REPORT_LOCALE,new Locale("es", "US"));
             InputStream is = exportarPdf.getClass().getClassLoader().getResourceAsStream(ruta);            
             JasperPrint jasperprint = JasperFillManager.fillReport(is, parametro, data);
             JasperExportManager.exportReportToPdfStream(jasperprint, out);

@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.HashMap;
 import javax.naming.NamingException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.zkoss.zkex.zul.Jasperreport;
+import org.zkoss.zarcillo.ExportarPdf;
+ 
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -337,12 +338,7 @@ public class DetalleFactura extends SelectorComposer {
         parametro.put("ACUENTA", cpagar.getNacuenta());
         parametro.put("SALDO", cpagar.getNsaldo());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
-        Jasperreport rptreporte=new Jasperreport();
-        rptreporte.setParent(winFactura);
-        rptreporte.setSrc("/modulos/finanzas/reporte/facturaproveedor.jasper");
-        rptreporte.setDatasource(data);
-        rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");
+        ExportarPdf.exportJasperToPdf("Factura", data, parametro,"/resources/finanzas/facturaproveedor.jasper");        
     }
     
     public void calculaImporte(){

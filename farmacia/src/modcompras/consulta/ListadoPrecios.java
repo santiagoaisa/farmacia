@@ -23,10 +23,11 @@ import java.util.List;
 import javax.naming.NamingException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.zkoss.zarcillo.ExportarHojaCalculo;
+import org.zkoss.zarcillo.ExportarPdf;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zkex.zul.Jasperreport;
+ 
 import org.zkoss.zul.*;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -131,12 +132,8 @@ public class ListadoPrecios extends SelectorComposer {
         parametro.put("ALMACEN", almacen.getCnomalmacen());
         parametro.put("USUARIO", usuario.getCnomusuario());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listadoPrecio(almacen.getIdalmacen(), listaIdlinea));
-        Jasperreport rptreporte=new Jasperreport();
-        rptreporte.setParent(winPrecios);
-        rptreporte.setSrc("/modulos/compras/reporte/listadoprecios.jasper");
-        rptreporte.setDatasource(data);
-        rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");        
+        ExportarPdf.exportJasperToPdf("ListaPrecios", data, parametro,"/resources/compras/listadoprecios.jasper");
+                
     }
     
     public void imprimirPublico() {
@@ -158,12 +155,8 @@ public class ListadoPrecios extends SelectorComposer {
         parametro.put("ALMACEN", almacen.getCnomalmacen());
         parametro.put("USUARIO", usuario.getCnomusuario());
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(listadoExistenciaService.listadoPrecio(almacen.getIdalmacen(), listaIdlinea));
-        Jasperreport rptreporte=new Jasperreport();
-        rptreporte.setParent(winPrecios);
-        rptreporte.setSrc("/modulos/compras/reporte/preciospublico.jasper");
-        rptreporte.setDatasource(data);
-        rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");        
+        ExportarPdf.exportJasperToPdf("PreciosPublico", data, parametro,"/resources/compras/preciospublico.jasper");
+               
     }
     
     private void exportar() throws IOException{

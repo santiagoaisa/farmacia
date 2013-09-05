@@ -18,6 +18,7 @@ import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.zkoss.zarcillo.ExportarHojaCalculo;
+import org.zkoss.zarcillo.ExportarPdf;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -26,7 +27,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zkex.zul.Jasperreport;
+ 
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Datebox;
@@ -154,14 +155,8 @@ public class ReporteMensualCaja extends SelectorComposer {
         parametro.put("FECINI", dFecini.getValue());
         parametro.put("FECFIN", dFecfin.getValue());
         parametro.put("USUARIO", usuario.getCnomusuario());
-
         JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(modeloDetalle);
-        Jasperreport rptreporte=new Jasperreport();
-        rptreporte.setParent(winCaja);
-        rptreporte.setSrc("/modulos/caja/reporte/reportemensualcaja.jasper");
-        rptreporte.setDatasource(data);
-        rptreporte.setParameters(parametro);
-        rptreporte.setType("pdf");
+        ExportarPdf.exportJasperToPdf("MensualCaja", data, parametro,"/resources/caja/reportemensualcaja.jasper");        
     }
     
     public void exportar(){            

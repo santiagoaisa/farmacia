@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listaprecios" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="40" rightMargin="20" topMargin="20" bottomMargin="20" uuid="591bcc1b-f35f-40c0-87ff-b760c44a97d7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="RUTA" class="java.lang.String"/>
+	<parameter name="UNIDADNEGOCIO" class="java.lang.String"/>
+	<parameter name="USUARIO" class="java.lang.String"/>
+	<parameter name="FECINI" class="java.util.Date"/>
+	<parameter name="FECFIN" class="java.util.Date"/>
+	<parameter name="VENDEDOR" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="iddocumento.cnomdocumento" class="java.lang.String"/>
+	<field name="cserie" class="java.lang.String"/>
+	<field name="cnumero" class="java.lang.String"/>
+	<field name="dfecemi" class="java.util.Date"/>
+	<field name="nacuenta" class="java.math.BigDecimal"/>
+	<field name="nsaldo" class="java.math.BigDecimal"/>
+	<field name="nimporte" class="java.math.BigDecimal"/>
+	<field name="idcliente.idcliente" class="java.lang.Integer"/>
+	<field name="idcliente.cnomcli" class="java.lang.String"/>
+	<field name="dfecven" class="java.util.Date"/>
+	<variable name="tacuenta" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{nacuenta}]]></variableExpression>
+	</variable>
+	<variable name="tsaldo" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{nsaldo}]]></variableExpression>
+	</variable>
+	<variable name="timporte" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{nimporte}]]></variableExpression>
+	</variable>
+	<variable name="sacuenta" class="java.math.BigDecimal" resetType="Group" resetGroup="cliente" calculation="Sum">
+		<variableExpression><![CDATA[$F{nacuenta}]]></variableExpression>
+	</variable>
+	<variable name="ssaldo" class="java.math.BigDecimal" resetType="Group" resetGroup="cliente" calculation="Sum">
+		<variableExpression><![CDATA[$F{nsaldo}]]></variableExpression>
+	</variable>
+	<variable name="simporte" class="java.math.BigDecimal" resetType="Group" resetGroup="cliente" calculation="Sum">
+		<variableExpression><![CDATA[$F{nimporte}]]></variableExpression>
+	</variable>
+	<group name="cliente">
+		<groupExpression><![CDATA[$F{idcliente.idcliente}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<textField>
+					<reportElement uuid="c2ef99e9-3ce4-4cc2-a2f8-bfb40be2c537" x="4" y="0" width="236" height="15"/>
+					<textElement>
+						<font fontName="Abadi MT Condensed Light" size="12" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{idcliente.cnomcli}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="18">
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement uuid="0efcb6f5-4668-443e-a442-bb5a77175fbd" x="408" y="5" width="63" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{sacuenta}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement uuid="edd3c7b9-74b0-47d3-8500-c2ad9389184c" x="471" y="5" width="64" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{ssaldo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="f11e6a2f-1d2d-47d8-a7c2-90d5d146599f" x="275" y="5" width="45" height="12"/>
+					<textElement>
+						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Sub-Total]]></text>
+				</staticText>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement uuid="9e4e2bae-4483-49bc-a53f-58f41e701744" x="331" y="5" width="77" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{simporte}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="ca425f69-3c3a-489c-b75b-effa57c42ebd" x="326" y="1" width="209" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5" lineStyle="Dashed"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="118f4011-ef67-4526-a959-54c640f2dadf" key="staticText-1" x="1" y="20" width="534" height="21"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="18" isBold="true" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE CRONOGRAMA COBRANZA]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd" isBlankWhenNull="true">
+				<reportElement uuid="48e27451-1d35-4e91-b687-50d9e2b61da0" x="471" y="0" width="64" height="20"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="103cbcf9-9f72-4de8-97f0-47e177349283" x="0" y="0" width="100" height="27"/>
+				<imageExpression><![CDATA[$P{RUTA}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="f97e0560-faf6-4238-9265-c8db19aa72ca" key="staticText-1" x="225" y="41" width="20" height="21"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="14" isBold="false" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[AL]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="2616a28f-9db9-424f-88b9-3f0c27a5cfd0" x="246" y="41" width="126" height="21"/>
+				<textElement textAlignment="Left">
+					<font fontName="Abadi MT Condensed Light" size="14" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{FECFIN}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="bc121574-ceb4-4e0b-9e73-71cff110cb99" key="staticText-15" x="4" y="0" width="53" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Unidad Negocio  ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a65dfd72-80bc-4ef0-8c8b-dc350f8dc636" x="73" y="0" width="100" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{UNIDADNEGOCIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8671012-f8c8-40f1-9016-409497e7e77b" key="staticText-15" x="60" y="0" width="2" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<line>
+				<reportElement uuid="2a378d9f-67cc-4a3a-a54d-74d75f511f52" x="1" y="0" width="534" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="f8429c6d-bf4b-4677-a1a5-59f148abd13b" x="62" y="1" width="38" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[SERIE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="07582d12-2624-4e2f-82b5-d3f39dddd2ed" x="1" y="1" width="61" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c15fda82-0d72-46d8-8af6-bd8a05efb630" x="161" y="1" width="79" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[FECHA EMISION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6df47db4-e24c-49e3-9375-d6e3dad125b6" x="326" y="1" width="82" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7a289c85-b9d5-4226-af8a-95c468f2aedb" x="471" y="1" width="64" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[SALDO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4707f7ec-06d6-4fdf-b0df-b9b449bf820d" x="408" y="1" width="63" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ACUENTA]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="8d10f37a-1e25-44d2-adc1-2aa3d57dbd4a" x="1" y="13" width="534" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="a01d1da6-aa3c-4be5-8e4f-97852d7ced32" x="100" y="1" width="61" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[NUMERO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b80592f6-8969-4316-a21c-bfb151b90281" x="241" y="1" width="85" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="10" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[FECHA VENCIMIENTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3eab12e8-3aa4-4d2c-9333-ef667a9802a4" x="1" y="1" width="59" height="11"/>
+				<textElement textAlignment="Left">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iddocumento.cnomdocumento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="a3d634d4-8940-476c-a355-a80767858e45" x="161" y="1" width="79" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dfecemi}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="1d79c0b6-0a61-46bd-a476-d1cf904914f8" x="326" y="1" width="82" height="11"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nimporte}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="a244a5ed-388f-4105-ae38-b32bdf75844f" x="471" y="1" width="64" height="11"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nsaldo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="32db75cb-96f0-42ad-a17c-00c5b28cf1bb" x="100" y="1" width="61" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cnumero}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement uuid="a0ff5fde-c426-4750-839b-b5663073c747" x="408" y="1" width="63" height="11"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nacuenta}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="59c1f998-e3cd-4972-b019-ae76bdbd7db3" x="62" y="0" width="38" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cserie}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="cb1b6102-9f74-4304-b081-d431bbbcea52" x="241" y="0" width="85" height="11"/>
+				<textElement textAlignment="Center">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dfecven}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement uuid="77ac1c71-c797-41f1-8bee-4ece954b7364" x="444" y="14" width="52" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="895b48ac-ac1c-4529-a5ed-7ce5e9abb0b5" key="textField" x="36" y="0" width="113" height="14"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USUARIO}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="14ab1072-653f-4a37-ab91-3e4f7214679c" x="496" y="14" width="28" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3aa1a1e3-be69-4416-b4d5-2dfb5dc91c58" key="staticText-18" x="4" y="0" width="32" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="3d7958e9-9edc-45dd-8cfb-9e0baaacdcb7" x="4" y="14" width="53" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement uuid="164ba580-6df0-4a84-a213-9f67fa4290e4" x="57" y="14" width="47" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="438b1b84-d3a1-4997-9ba8-ad84ad8c18c8" x="0" y="0" width="535" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="15" splitType="Immediate">
+			<staticText>
+				<reportElement uuid="06ca784e-3d73-4631-a2d6-327c1171148f" x="275" y="3" width="45" height="12"/>
+				<textElement>
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Total General]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="d15fca2a-3e5a-4cb8-849b-c21c3deb7aca" x="408" y="3" width="63" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tacuenta}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="d702922c-33cb-481c-8737-db18b5c55e3c" x="1" y="0" width="534" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="83400506-cc7e-442b-9f17-336a5e3c93ab" x="331" y="3" width="77" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timporte}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="7387177b-4c41-4072-820a-73c9002c654c" x="471" y="3" width="64" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Abadi MT Condensed Light" size="9" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tsaldo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
