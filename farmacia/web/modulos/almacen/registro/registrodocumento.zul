@@ -34,10 +34,10 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="500px"  >
             <row >
                   <combobox id = "cboDocumento" width="95%" readonly="true"  constraint="no empty:Debe Seleccionar Documento" />
                  <textbox id="txtSerfac"  maxlength="3" width="85%" />
-                 <textbox id="txtNumfac"  maxlength="10" width="85%" />
+                 <textbox id="txtNumfac"  maxlength="8" width="85%" />
                  <label value="Guia:"/>
                  <textbox id="txtSergui"  maxlength="3" width="85%" />
-                 <textbox id="txtNumgui"  maxlength="10" width="85%" />
+                 <textbox id="txtNumgui"  maxlength="8" width="85%" />
                       
             </row>
         </rows>

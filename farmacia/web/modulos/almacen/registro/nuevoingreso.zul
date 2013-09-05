@@ -30,7 +30,7 @@
                 <label value = "Serie:" />
                 <textbox id="txtSerie" width="80%" maxlength="3" constraint="no empty:Debe Ingresar una Serie" />
                 <label value = "Número:" />
-                <textbox id="txtNumero" width="87%" maxlength="10" constraint="no empty:Debe Ingresar un Numero de Documento" />
+                <textbox id="txtNumero" width="87%" maxlength="8" constraint="no empty:Debe Ingresar un Numero de Documento" />
             </row>
 
             <row spans="1,1,1,1,2,2">
