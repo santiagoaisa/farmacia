@@ -38,7 +38,7 @@
                         <listheader width="5%" />
                     </listhead>
 
-                    <listitem self="@{each=existencias}" onDoubleClick="doRegistrar()" onOK="doRegistrar()"  >
+                    <listitem self="@{each=existencias}"  >
                         <listcell label="@{existencias.idproducto.cnomart}" />
                         <listcell label="@{existencias.idproducto.nmenudeo}"/>
                         <listcell label="@{existencias.idproducto.idproducto}"/>

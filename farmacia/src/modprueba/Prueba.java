@@ -1,16 +1,36 @@
 package modprueba;
 
+import com.zarcillo.domain.Almacen;
+import com.zarcillo.domain.Existencia;
+import com.zarcillo.domain.Familia;
+import com.zarcillo.domain.Linea;
 import com.zarcillo.domain.Mapa;
 import com.zarcillo.domain.Modulo;
+import com.zarcillo.domain.Presentacion;
+import com.zarcillo.domain.Producto;
+import com.zarcillo.domain.Sublinea;
 import com.zarcillo.domain.Usuario;
+import com.zarcillo.negocio.Igv;
+import com.zarcillo.service.ExistenciaService;
 import com.zarcillo.service.MapaService;
 import com.zarcillo.service.ModuloService;
+import com.zarcillo.service.ProductoService;
 import com.zarcillo.service.UsuarioService;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.NamingException;
+import jxl.Cell;
+import jxl.NumberCell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
@@ -26,7 +46,9 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zkmax.zul.Nav;
 import org.zkoss.zkmax.zul.Navbar;
 import org.zkoss.zkmax.zul.Navitem;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Div;
+import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Menu;
 import org.zkoss.zul.Menubar;
@@ -44,146 +66,74 @@ public class Prueba extends SelectorComposer {
     //controles
 
     @Wire
-    private Window index;
+    private Window winPrueba;
     @Wire
-    private Div divContenido;
-    @Wire
-    private Label lblSesion;
-    @Wire
-    private Toolbar btnModulos;
-    @Wire
-    private Toolbarbutton btnSalir;
-    @Wire
-    private West menuWest;
-    //wire services
+    private Button btnCargar;
     @WireVariable
-    UsuarioService usuarioService;
+    private ProductoService productoService;
     @WireVariable
-    MapaService mapaService;
-    @WireVariable
-    ModuloService moduloService;
-    //objetos
-    Usuario usuario;
-    final Execution exec = Executions.getCurrent();
-    Navbar sidebar = new Navbar();
+    private ExistenciaService existenciaService;
 
     @Listen("onCreate=window#index")
     public void onCreate() throws NamingException {
-
-
-        usuario = usuarioService.buscarPorLogin("zarcillo");
-
-        llenarSesion();
-        List<Modulo> listaModulo = moduloService.listaPorIdrol(usuario.getIdrol().getIdrol());
-
-        for (Modulo m : listaModulo) {
-            final Toolbarbutton boton = new Toolbarbutton(m.getCnommodulo(), m.getCimagen());
-            boton.setId(m.getIdmodulo() + "");
-            boton.setParent(btnModulos);
-            boton.setTooltiptext(m.getCnommodulo());
-            boton.setOrient("vertical");
-            btnModulos.appendChild(boton);
-
-            boton.addEventListener(Events.ON_CLICK, new EventListener() {
-                public void onEvent(Event event) throws Exception {
-                    llenarMenu(Integer.valueOf(boton.getId()));
-                }
-            });
-        }
-
     }
 
-    @Listen("onClick = Toolbarbutton#btnSalir")
-    public void salirSistema() {
-        index.detach();
-        exec.getDesktop().getSession().invalidate();
-        exec.sendRedirect("/modulos/index.zul");
-    }
-
-    @Listen("onClick = #btnKardex")
-    public void onConsultaKardex(Event event) {
-        Window contactWnd = (Window) Executions.createComponents("/modulos/almacen/consulta/kardexdiario.zul", null, null);
-        contactWnd.doModal();
-    }
-
-    @Listen("onClick = #btnVentas")
-    public void onGenerarVenta(Event event) {
-        Window contactWnd = (Window) Executions.createComponents("/modulos/ventas/registro/nuevaventa.zul", null, null);
-        contactWnd.doModal();
-    }
-
-    @Listen("onClick = #btnDocumento")
-    public void onGenerarDocumento(Event event) {
-        Window contactWnd = (Window) Executions.createComponents("/modulos/ventas/herramientas/generardocumento.zul", null, null);
-        contactWnd.doModal();
-    }
-
-    @Listen("onClick = #btnBoleta")
-    public void onConsultaBoleta(Event event) {
-        Window contactWnd = (Window) Executions.createComponents("/modulos/ventas/consulta/consultaboleta.zul", null, null);
-        contactWnd.doModal();
-    }
-
-    @Listen("onClick = #btnFactura")
+    @Listen("onClick = #btnCargar")
     public void onConsultaFactura(Event event) {
-        Window contactWnd = (Window) Executions.createComponents("/modulos/ventas/consulta/consultafactura.zul", null, null);
-        contactWnd.doModal();
-    }
 
-    @Listen("onClick = #btnClave")
-    public void onCambiarClave(Event event) {
-        Window contactWnd = (Window) Executions.createComponents("/modulos/mantenimiento/util/cambiarclave.zul", null, null);
-        contactWnd.doModal();
-    }
 
-    private void llenarMenu(Integer idmodulo) {
-        sidebar.detach();
-        sidebar = new Navbar();
-        sidebar.setId("sidebar");
-        sidebar.setOrient("vertical");
-        sidebar.setParent(menuWest);
 
-        List<Mapa> listaencabezado = mapaService.listaEncabezado(usuario.getIdrol().getIdrol(), idmodulo);
+        try {
+            Media media = Fileupload.get();
+            Workbook workbook = Workbook.getWorkbook(media.getStreamData());
 
-        for (Mapa m : listaencabezado) {
-            menuWest.setTitle(m.getIdmenu().getIdmodulo().toString());
-            //////
-            Nav menuprincipal = new Nav(m.getIdmenu().getCnommenu());
-            menuprincipal.setIconSclass("z-icon-list-ul");
-            menuprincipal.setDetailed(true);
+            Sheet sheet = workbook.getSheet(0);
+            Producto producto;
+            Existencia existencia;
+            for (int i = 1; i < sheet.getRows(); i++) {
+                Cell celda = sheet.getCell(0, i);
 
-            List<Mapa> listamenus = mapaService.listaMenu(usuario.getIdrol().getIdrol(), m);
-            for (final Mapa mm : listamenus) {
-                Navitem menuopciones = new Navitem();
-                menuopciones.setLabel(mm.getIdmenu().toString());
+                if (celda.getContents().trim().isEmpty()) {
+                    continue;
+                }
 
-                menuopciones.addEventListener(Events.ON_CLICK, new EventListener() {
-                    public void onEvent(Event event) throws Exception {
-                        List listame = divContenido.getChildren();
-                        if (!listame.isEmpty()) {
-                            divContenido.getFirstChild().detach();
-                        }
+                producto = new Producto();
+                producto.setCnomproducto(celda.getContents().trim().toUpperCase());
+                celda = sheet.getCell(3, i);
+                Sublinea sublinea = new Sublinea(new Integer(celda.getContents()));
+                sublinea.setIdlinea(new Linea(new Integer(celda.getContents())));
+                producto.setIdsublinea(sublinea);
+                producto.setIdfamilia(new Familia(0));
+                producto.setIdpresentacion(new Presentacion(21));
+                producto.setIdusuario(new Usuario(2));
 
-                        if (mm.getIdmenu().getBmodal()) {
-                            Window contactWnd = (Window) Executions.createComponents(mm.getIdmenu().getCruta(), null, null);
-                            contactWnd.doModal();
-                        } else {
-                            Window contactWnd = (Window) Executions.createComponents(mm.getIdmenu().getCruta(), divContenido, null);
-                            contactWnd.doEmbedded();
-                        }
+                producto = productoService.registrar(producto);
 
+                existencia = new Existencia(1, producto.getIdproducto());
+                existencia.setIdalmacen(new Almacen(1));
+                existencia.setIdproducto(producto);
+
+                celda = sheet.getCell(2, i);
+                if (!celda.getContents().isEmpty()) {
+                    if (celda.getContents() != null) {
+                        NumberCell nc = (NumberCell) celda;
+                        BigDecimal precio = new BigDecimal(nc.getValue());
+                        existencia.setNvalven(Igv.valorVentaDetalleVenta(precio, false));
                     }
-                });
 
-                menuprincipal.appendChild(menuopciones);
+
+                }
+
+                existenciaService.registrar(existencia);
+
+
+                ///combinadas 2
+
+                //2
             }
-            sidebar.appendChild(menuprincipal);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-    }
 
-    private void llenarSesion() {
-        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.DEFAULT);
-        String fechaInicio = df.format(new Date());
-        lblSesion.setValue("Usuario: " + usuario.getCnomusuario() + " | " + "Inicio Sesion: " + fechaInicio + " | ");
     }
 }

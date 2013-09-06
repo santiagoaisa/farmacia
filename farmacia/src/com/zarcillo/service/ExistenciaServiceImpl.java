@@ -54,6 +54,23 @@ public class ExistenciaServiceImpl implements ExistenciaService {
     }
 
     @Override
+    public Existencia registrar(Existencia existencia) {
+         try {
+            existencia.setDfecreg(new Date());
+            cruddao.registrar(existencia);
+        } catch (Exception e) {
+            if (e.getCause().getMessage().contains("ConstraintViolationException")) {
+                throw new ExceptionZarcillo("La Existencia con codigo:" + existencia.getIdproducto() + "-" + existencia.getIdproducto().getIdproducto() + "\n" + "YA EXISTE ! en el Almacen: " );
+            }
+            throw new ExceptionZarcillo(e.getCause().getMessage());
+        }
+         return existencia;
+    }
+
+    
+    
+    
+    @Override
     @Transactional
     public Existencia actualizar(Existencia existencia) {
         try {

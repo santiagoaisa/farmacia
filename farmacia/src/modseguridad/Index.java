@@ -57,22 +57,23 @@ public class Index extends SelectorComposer {
     Usuario usuario;
     final Execution exec = Executions.getCurrent();
     Navbar sidebar = new Navbar();
+    private String user_login;
 
     @Listen("onCreate=window#index")
     public void onCreate() throws NamingException {
 
-
-        usuario = usuarioService.buscarPorLogin("zarcillo");
+        user_login = exec.getUserPrincipal().getName();
+        usuario = usuarioService.buscarPorLogin(user_login);
 
         llenarSesion();
         List<Modulo> listaModulo = moduloService.listaPorIdrol(usuario.getIdrol().getIdrol());
 
-        for (Modulo m : listaModulo) {            
+        for (Modulo m : listaModulo) {
             final Toolbarbutton boton = new Toolbarbutton(m.getCnommodulo(), m.getCimagen());
             boton.setId(m.getIdmodulo() + "");
             boton.setParent(btnModulos);
             boton.setTooltiptext(m.getCnommodulo());
-            boton.setOrient("vertical");            
+            boton.setOrient("vertical");
             btnModulos.appendChild(boton);
 
             boton.addEventListener(Events.ON_CLICK, new EventListener() {

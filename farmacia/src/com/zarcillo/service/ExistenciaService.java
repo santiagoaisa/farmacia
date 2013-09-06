@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface ExistenciaService {
     public Existencia registrar(Almacen idalmacen,Producto idproducto);
+    public Existencia registrar(Existencia existencia);
     public Existencia actualizar(Existencia existencia);
     public Existencia buscarPorIdalmacenPorIdproducto(Integer idalmacen, String idproducto);
     public Descuento  buscarDescuentoPorIdalmacenPorIdproducto(Integer idalmacen, String idproducto);
