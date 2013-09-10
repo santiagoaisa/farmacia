@@ -67,7 +67,7 @@
             <listcell decimal="@{detalle.npreuni}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
             <listcell decimal="@{detalle.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
             <listcell>
-                <toolbarbutton id="btnQuitar" image="/img/eliminadetalleingreso.png" width="70%"   />
+                <toolbarbutton id="btnQuitar" image="/img/32/cancelar.png" width="70%"   />
             </listcell>
             <listcell label="@{detalle.existencia.idproducto,converter='modmantenimiento.util.ConvertidorPsicotropico'}" visible="false" />
         </listitem>
@@ -105,10 +105,10 @@
         </rows>
     </grid>
 
-    <toolbar id="tb"  height="30px" align="end" >
-        <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"
+    <toolbar id="tb"   align="end" >
+        <toolbarbutton id="btnGrabar" label="Registrar" image="/img/32/grabar.png"
         />
-        <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png"
+        <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/32/ignorar.png"
                            onClick="doCancel()" />
     </toolbar>
 

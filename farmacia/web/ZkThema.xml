@@ -1,7 +1,0 @@
-<language-addon>
-    <addon-name>MyThema</addon-name>
-    <language-name>xul/html</language-name>
-    <stylesheet href="/css/style.css" type="text/css" />
-        
-   
-</language-addon>

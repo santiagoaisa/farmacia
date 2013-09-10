@@ -49,11 +49,11 @@
                     </listitem>
                 </listbox>
     <menu id="mresultado" width="100%"></menu>
-    <toolbar id="tb"  height="30px" align="end">
-        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"
+    <toolbar id="tb"   align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/32/grabar.png" label="Registrar"
                        onClick="doRegistrar()" />
 
-        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+        <toolbarbutton id="btnIgnorar" image="/img/32/ignorar.png" label="Ignorar"
                        onClick="doCancel()" />
     </toolbar>
 </window>

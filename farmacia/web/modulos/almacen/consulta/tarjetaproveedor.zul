@@ -116,11 +116,11 @@
 
     <menu2 id="mresultado" width="100%"></menu2>  
     
-      <toolbar height="30px" align="end">
+      <toolbar align="end">
 
-        <toolbarbutton id="btnBuscar" image="/img/Buscar.png" label="Buscar"    />
+        <toolbarbutton id="btnBuscar" image="/img/32/buscar.png" label="Buscar"    />
         <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar"    />
-        <toolbarbutton id="btnSalir" image="/img/Undo.png" label="Salir"  />
+        <toolbarbutton id="btnSalir" image="/img/32/retorno.png" label="Salir"  />
     </toolbar>
 
 </window>

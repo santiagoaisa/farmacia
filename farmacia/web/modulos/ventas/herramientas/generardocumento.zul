@@ -91,7 +91,7 @@
                 <textbox id="txtDocumento" width="85%"  /> 
                 <label value="Direccion"  />
                 <textbox id="txtDireccion" width="95%"  /> 
-                <toolbarbutton id="btnCrear" image="/img/cliente.png" width="70%"   />
+                <toolbarbutton id="btnCrear" image="/img/32/cliente.png" width="70%"   />
             </row>
 
         </rows>
@@ -99,11 +99,11 @@
     
     <menu id="mimpresion" width="100%"></menu>
 
-    <toolbar id="tb"  height="30px" align="end" >
-        <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png"        />
-        <toolbarbutton id="btnImprimir" label="Imprimir" image="/img/Imprimir.png"        />
-        <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/Undo.png"   />
-        <toolbarbutton id="btnSalir" label="Salir" image="/img/Exit.png"   onClick="doCancel()" />
+    <toolbar id="tb"   align="end" >
+        <toolbarbutton id="btnGrabar" label="Registrar" image="/img/32/grabar.png"        />
+        <toolbarbutton id="btnImprimir" label="Imprimir" image="/img/32/imprimir.png"        />
+        <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/32/ignorar.png"   />
+        <toolbarbutton id="btnSalir" label="Salir" image="/img/32/salir.png"   onClick="doCancel()" />
     </toolbar>
 
 

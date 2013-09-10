@@ -115,11 +115,11 @@
         </listfoot>        
     </listbox>
     
-    <toolbar id="atb"  height="30px" align ="end" >
+    <toolbar id="atb"  align ="end" >
         <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
-        <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir" />
-        <toolbarbutton id="btnValorizado" image="/img/Imprimir.png" label="Kardex Valorizado" />
+        <toolbarbutton id="btnImprimir" image="/img/32/imprimir.png" label="Imprimir" />
+        <toolbarbutton id="btnValorizado" image="/img/32/imprimir.png" label="Kardex Valorizado" />
         <toolbarbutton id="btnUtilidad" image="/img/Exportar.png" label="Utilidad" />
-        <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" />
+        <toolbarbutton id="btnSalir" image="/img/32/salir.png" label="Salir" />
     </toolbar>
 </window>

@@ -1,15 +1,17 @@
 <?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
+
+
 <window id="menumantto" use="modmantenimiento.util.MenuMantenimiento">
 
-    <toolbar id="tb"    align="end">
-        <toolbarbutton id="btnNuevo" image="/img/toolbar/nuevo.png" label="Nuevo" onClick="menumantto.Nuevo()"  />
-        <toolbarbutton id="btnGrabar" visible="false" image="/img/toolbar/registrar.png" label="Grabar" onClick="menumantto.Grabar()"  />
-        <toolbarbutton id="btnModificar" visible="false"  disabled="${sec:isNoneGranted('ROLE_ADMINISTRADOR')}"  image="/img/toolbar/modificar.png" label="Modificar" onClick="menumantto.Modificar()"  />
-        <toolbarbutton id="btnEliminar" visible="false" image="/img/toolbar/eliminar.png" label="Eliminar" onClick="menumantto.Eliminar()" />
-        <toolbarbutton id="btnBuscar" visible="true" image="/img/toolbar/buscar.png" label="Buscar" onClick="menumantto.Buscar();" />
-        <toolbarbutton id="btnIgnorar" visible="false" image="/img/toolbar/ignorar.png"  label="Ignorar" onClick="menumantto.Ignorar();" />
-        <toolbarbutton id="btnImprimir" visible="false"  image="/img/toolbar/imprimir.png" label="Imprimir" onClick="menumantto.Imprimir();" />
-        <toolbarbutton id="btnSalir" image="/img/toolbar/salir.png" label="Salir" onClick="menumantto.Salir()" />
+    <toolbar id="tb"  align="end">
+        <toolbarbutton  id="btnNuevo" image="/img/32/nuevo.png" label="Nuevo" onClick="menumantto.Nuevo()"  />
+        <toolbarbutton  id="btnGrabar" visible="false" image="/img/32/grabar.png" label="Grabar" onClick="menumantto.Grabar()"  />
+        <toolbarbutton  id="btnModificar" visible="false"  disabled="${sec:isNoneGranted('ROLE_ADMINISTRADOR')}"  image="/img/32/modificar.png" label="Modificar" onClick="menumantto.Modificar()"  />
+        <toolbarbutton  id="btnEliminar" visible="false" image="/img/32/eliminar.png" label="Eliminar" onClick="menumantto.Eliminar()" />
+        <toolbarbutton  id="btnBuscar" visible="true" image="/img/32/buscar.png" label="Buscar" onClick="menumantto.Buscar();" />
+        <toolbarbutton  id="btnIgnorar" visible="false" image="/img/32/ignorar.png"  label="Ignorar" onClick="menumantto.Ignorar();" />
+        <toolbarbutton  id="btnImprimir" visible="false"  image="/img/32/imprimir.png" label="Imprimir" onClick="menumantto.Imprimir();" />
+        <toolbarbutton  id="btnSalir" image="/img/32/salir.png" label="Salir" onClick="menumantto.Salir()" />
     </toolbar>
 
 </window>

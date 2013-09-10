@@ -23,9 +23,10 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zkmax.zul.Nav;
 import org.zkoss.zkmax.zul.Navbar;
 import org.zkoss.zkmax.zul.Navitem;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Toolbar;
+import org.zkoss.zul.North;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.West;
 import org.zkoss.zul.Window;
@@ -37,15 +38,17 @@ public class Index extends SelectorComposer {
     @Wire
     private Window index;
     @Wire
+    private Div divModulo;
+    @Wire
     private Div divContenido;
     @Wire
-    private Label lblSesion;
-    @Wire
-    private Toolbar btnModulos;
+    private Label lblSesion;    
     @Wire
     private Toolbarbutton btnSalir;
     @Wire
-    private West menuWest;
+    private West menuWest;    
+    @Wire
+    private North menuNorth;    
     //wire services
     @WireVariable
     UsuarioService usuarioService;
@@ -61,23 +64,25 @@ public class Index extends SelectorComposer {
 
     @Listen("onCreate=window#index")
     public void onCreate() throws NamingException {
-
         user_login = exec.getUserPrincipal().getName();
         usuario = usuarioService.buscarPorLogin(user_login);
-
         llenarSesion();
+        
+        divModulo.detach();
+        divModulo=new Div();
+        divModulo.setParent(menuNorth);
         List<Modulo> listaModulo = moduloService.listaPorIdrol(usuario.getIdrol().getIdrol());
 
         for (Modulo m : listaModulo) {
-            final Toolbarbutton boton = new Toolbarbutton(m.getCnommodulo(), m.getCimagen());
+            final Button boton = new Button(m.getCnommodulo(), m.getCimagen());
             boton.setId(m.getIdmodulo() + "");
-            boton.setParent(btnModulos);
+            boton.setParent(divModulo);
             boton.setTooltiptext(m.getCnommodulo());
             boton.setOrient("vertical");
-            btnModulos.appendChild(boton);
 
             boton.addEventListener(Events.ON_CLICK, new EventListener() {
                 public void onEvent(Event event) throws Exception {
+                    
                     llenarMenu(Integer.valueOf(boton.getId()));
                 }
             });
@@ -131,6 +136,7 @@ public class Index extends SelectorComposer {
     private void llenarMenu(Integer idmodulo) {
         sidebar.detach();
         sidebar = new Navbar();
+        sidebar.setSclass("sidebar");
         sidebar.setId("sidebar");
         sidebar.setOrient("vertical");
         sidebar.setParent(menuWest);
@@ -138,7 +144,7 @@ public class Index extends SelectorComposer {
         List<Mapa> listaencabezado = mapaService.listaEncabezado(usuario.getIdrol().getIdrol(), idmodulo);
 
         for (Mapa m : listaencabezado) {
-            menuWest.setTitle(m.getIdmenu().getIdmodulo().toString());
+            menuWest.setTitle(m.getIdmenu().getIdmodulo().toString());            
             //////
             Nav menuprincipal = new Nav(m.getIdmenu().getCnommenu());
             menuprincipal.setIconSclass("z-icon-list-ul");

@@ -31,10 +31,10 @@
      
 
 
-        <toolbar id="tb"  height="30px" align="end" >
-            <toolbarbutton id="btnImprimir" image="/img/Imprimir.png" label="Imprimir" />
-             <toolbarbutton id="btnPublico" image="/img/Imprimir.png" label="Publico" />
+        <toolbar id="tb"   align="end" >
+            <toolbarbutton id="btnImprimir" image="/img/32/imprimir.png" label="Imprimir" />
+             <toolbarbutton id="btnPublico" image="/img/32/imprimir.png" label="Publico" />
             <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
-            <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" onClick="winPrecios.onClose()" />
+            <toolbarbutton id="btnSalir" image="/img/32/salir.png" label="Salir" onClick="winPrecios.onClose()" />
         </toolbar>
 </window>

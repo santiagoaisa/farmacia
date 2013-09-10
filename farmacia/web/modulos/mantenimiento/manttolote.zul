@@ -93,10 +93,10 @@ apply="modmantenimiento.ManttoLote"  >
   <jasperreport id="rptinventario" visible="false" />
 
     
-  <toolbar id="atb"  height="25px" align ="end"	 >
-            <toolbarbutton id="btnNuevo" visible="false" image="/img/File.png" label="Nuevo"   />
-            <toolbarbutton id="btnImprimir" visible="true" image="/img/Imprimir.png" label="Imprimir" />
-            <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" onClick="winLote.onClose()" />
+  <toolbar id="atb"   align ="end"	 >
+            <toolbarbutton id="btnNuevo" visible="false" image="/img/32/nuevo.png" label="Nuevo"   />
+            <toolbarbutton id="btnImprimir" visible="true" image="/img/32/imprimir.png" label="Imprimir" />
+            <toolbarbutton id="btnSalir" image="/img/32/salir.png" label="Salir" onClick="winLote.onClose()" />
   </toolbar>
     
 </window>

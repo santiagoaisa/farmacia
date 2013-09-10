@@ -102,7 +102,7 @@
                 <textbox id="txtLote" value="@{detalleIngreso.clote}" maxlength="15" width="90%" />
             </listcell>
             <listcell>
-                <toolbarbutton id="btnQuitar" image="/img/eliminadetalleingreso.png" width="70%"   />
+                <toolbarbutton id="btnQuitar" image="/img/32/cancelar.png" width="70%"   />
             </listcell>
         </listitem>
     </listbox>
@@ -156,12 +156,11 @@
         </rows>
     </grid>
 
-    <toolbar height="30px"  align="end">
+    <toolbar   align="end">
 
-        <toolbarbutton id="btnGrabar" image="/img/Save.png" label="Registrar" tooltip="msggrabar"
-        />
+        <toolbarbutton id="btnGrabar" image="/img/32/grabar.png" label="Registrar" />
 
-        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"
+        <toolbarbutton id="btnIgnorar" image="/img/32/ignorar.png" label="Ignorar"
                            onClick="doCancel()" />
     </toolbar>
 

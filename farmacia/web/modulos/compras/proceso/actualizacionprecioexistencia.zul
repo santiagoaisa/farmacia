@@ -55,7 +55,7 @@
                         </listcell>
                         <listcell label="@{existencias.idproducto.idsublinea.idlinea}"/>
                         <listcell>
-                            <toolbarbutton id="btnActualizar" image="/img/actualizar.png" width="70%"   />
+                            <toolbarbutton id="btnActualizar" image="/img/32/grabar.png" width="70%"   />
                         </listcell>
                     </listitem>
                 </listbox>
@@ -65,7 +65,7 @@
 
     <menu id="mresultado" width="100%"></menu>
 
-    <toolbar id="tb"  height="30px" align="end">        
-        <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"  onClick="doCancel()" />
+    <toolbar id="tb"   align="end">        
+        <toolbarbutton id="btnIgnorar" image="/img/32/salir.png" label="Salir"  onClick="doCancel()" />
     </toolbar>
 </window>

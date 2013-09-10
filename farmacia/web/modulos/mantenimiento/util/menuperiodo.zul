@@ -1,5 +1,4 @@
 <window id="menuperiodo" use="modmantenimiento.util.MenuPeriodo" >
-
     <grid>
         <columns>
 		<column width="15%"/>
@@ -10,10 +9,10 @@
 
         <rows>
             <row>
-                 <image id="imganterior" src="/img/Left.png" onClick="menuperiodo.anterior()" style="cursor:pointer" />
+                 <image id="imganterior" src="/img/32/flechaizquierda.png" onClick="menuperiodo.anterior()" style="cursor:pointer" />
                 <label value="Año:"/>
                 <combobox id="cboaño" readonly="true" width="98%"/>
-                <image id="imgsiguiente" src="/img/Right.png" onClick="menuperiodo.siguiente()" style="cursor:pointer" />
+                <image id="imgsiguiente" src="/img/32/flechaderecha.png" onClick="menuperiodo.siguiente()" style="cursor:pointer" />
             </row>
         </rows>
     </grid>

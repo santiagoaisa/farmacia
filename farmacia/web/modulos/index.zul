@@ -1,14 +1,29 @@
 <?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
-<window id="index" apply="modseguridad.Index"  height="100%">        
-    <borderlayout   hflex="1" vflex="1" style="background:#c5e6ef;" >
-        <north  >
-            <toolbar id="btnModulos" height="60px"  >                            
-            </toolbar>           
+
+
+<?link rel="stylesheet" type="text/css" href="/css/grey.css.dsp" ?>
+<?link rel="stylesheet" type="text/css" href="/css/sidebar.css.dsp" ?>
+<?link rel="stylesheet" type="text/css" href="/css/button.css.dsp" ?>
+<?link rel="stylesheet" type="text/css" href="/css/toolbar.css.dsp" ?>
+<?link rel="stylesheet" type="text/css" href="/css/listbox.css.dsp" ?>
+<?link rel="stylesheet" type="text/css" href="/css/decimalbox.css.dsp" ?>
+<?link rel="stylesheet" type="text/css" href="/css/textbox.css.dsp" ?>
+<?link rel="stylesheet" type="text/css" href="/css/datebox.css.dsp" ?>
+<?link rel="stylesheet" type="text/css" href="/css/label.css.dsp" ?>
+<?link rel="stylesheet" type="text/css" href="/css/combobox.css.dsp" ?>
+
+
+
+<window id="index" apply="modseguridad.Index"    height="100%">        
+    <borderlayout   hflex="1" vflex="1"  >
+        <north id="menuNorth" >            
+            <div id="divModulo">                
+            </div>
         </north>
         
         <!-- Sidebar -->	
                 
-        <west id="menuWest" title="MENU"  width="200px"  collapsible="true"   >                                
+        <west id="menuWest" style="background:#444444" title="MENU"  width="220px"  collapsible="true"   >                                
         </west>
         
         <center >
@@ -16,7 +31,7 @@
                 <!-- BARRA DE HERRAMIENTAS-->                            
                 <div align="left" id="divBarra">                       
                     <hbox width="100%" widths="85%,15%">                                
-                        <toolbar id="tb"  style="background:#f7f7f7 repeat-x 0 0;padding-top:7px"  >
+                        <toolbar id="tb" >
                             <hbox spacing="0">
                                 <toolbarbutton id="btnVentas" image="/img/barra/Ventas.png"    tooltiptext="Venta..."/>                                            
                                 <toolbarbutton id="btnKardex" image="/img/barra/Kardex.png"   tooltiptext="Consulta Kardex..."/>  
@@ -26,7 +41,7 @@
                             </hbox>
                         </toolbar>                               
                                 
-                        <toolbar id="tb2"  style="background:#f7f7f7 repeat-x 0 0;padding-top:7px"  align="end">
+                        <toolbar id="tb2"    align="end">
                             <hbox spacing="0"> 
                                 <toolbarbutton id="btnClave" image="/img/barra/Cambiarclave.png" tooltiptext="Permite cambiar clave" />                                           
                                 <toolbarbutton id="btnSalir" image="/img/barra/Salir.png" tooltiptext="Permite salir del Sistema" />
@@ -35,7 +50,7 @@
                     </hbox>
                 </div>
                 
-                <div id="divContenido">
+                <div id="divContenido" sclass="content">
                     <!-- Seccion Principal
                     Aqui se debe mostrar todos las pagina del sistema
                     -->
@@ -54,6 +69,3 @@
         </south>
     </borderlayout>
 </window>
- 
- 
-  

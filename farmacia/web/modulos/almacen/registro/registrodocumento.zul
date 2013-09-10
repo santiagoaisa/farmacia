@@ -135,8 +135,8 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="500px"  >
     
 
 
-        <toolbar id="tb"  height="30px" align="end" >
-            <toolbarbutton id="btnGrabar" label="Registrar" image="/img/Save.png" />      
+        <toolbar id="tb"  align="end" >
+            <toolbarbutton id="btnGrabar" label="Registrar" image="/img/32/grabar.png" />      
         </toolbar>
 
 

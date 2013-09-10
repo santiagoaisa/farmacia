@@ -99,9 +99,9 @@
         </rows>
     </grid>
 
-    <toolbar id="tb"  height="30px" align="end" >
-        <toolbarbutton id="btnImprimir" label="Imprimir" image="/img/Imprimir.png" />
-        <toolbarbutton id="btnSalir" label="Salir" image="/img/Exit.png"   onClick="doCancel()" />
+    <toolbar id="tb"   align="end" >
+        <toolbarbutton id="btnImprimir" label="Imprimir" image="/img/32/imprimir.png" />
+        <toolbarbutton id="btnSalir" label="Salir" image="/img/32/salir.png"   onClick="doCancel()" />
     </toolbar>
 
 

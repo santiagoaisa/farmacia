@@ -54,10 +54,10 @@ border="0"  apply="modventas.herramientas.CorregirOperacion" mode="overlapped">
         </rows>
     </grid>
     
-    <toolbar id="tb"  height="30px" align="end">
-            <toolbarbutton  id="btnGrabar" image="/img/Save.png" label="Registrar"   />
-            <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Ignorar"  />
-            <toolbarbutton id="btnSalir" image="/img/Salir.png" label="Salir" onClick="doCancel()"  />
+    <toolbar id="tb"   align="end">
+            <toolbarbutton  id="btnGrabar" image="/img/32/grabar.png" label="Registrar"   />
+            <toolbarbutton id="btnIgnorar" image="/img/32/ignorar.png" label="Ignorar"  />
+            <toolbarbutton id="btnSalir" image="/img/32/salir.png" label="Salir" onClick="doCancel()"  />
 	</toolbar>
 
 </window>

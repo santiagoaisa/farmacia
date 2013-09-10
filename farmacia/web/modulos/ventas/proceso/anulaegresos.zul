@@ -60,9 +60,9 @@
     </grid>
 
 
-        <toolbar id="tb"  height="30px" align="end" >
-            <toolbarbutton id="btnEliminar" image="/img/Eliminar.png" label="Eliminar"  />
-            <toolbarbutton id="btnIgnorar" image="/img/Undo.png" label="Regresar"	onClick="doCancel()" />
+        <toolbar id="tb"  align="end" >
+            <toolbarbutton id="btnEliminar" image="/img/32/eliminar.png" label="Eliminar"  />
+            <toolbarbutton id="btnIgnorar" image="/img/32/retorno.png" label="Regresar"	onClick="doCancel()" />
         </toolbar>
 
 

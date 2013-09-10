@@ -18,9 +18,11 @@ Copyright (C) 2006 Potix Corporation. All Rights Reserved.
     <!--                Zkoss configuration file                -->
     <!--         Custom components are declared here            -->
     <!-- ====================================================== -->
+     <!--
     <language-config>
         <addon-uri>/ZkThema.xml</addon-uri>
     </language-config>
+    -->
     
     <library-property>
         <name>org.zkoss.theme.preferred</name>

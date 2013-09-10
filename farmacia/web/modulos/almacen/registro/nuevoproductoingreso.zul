@@ -47,9 +47,9 @@
                   
         </rows>
     </grid>  
-    <toolbar id="tb"  height="30px"	 align="end">
-        <toolbarbutton id="btnRegistrar" image="/img/Save.png" label="Registrar"    />
+    <toolbar id="tb"  align="end">
+        <toolbarbutton id="btnRegistrar" image="/img/32/grabar.png" label="Registrar"    />
         <toolbarbutton id="btnActualizar" image="/img/Actualizacion.png" label="Actualizar"  />
-        <toolbarbutton id="btnSalir" image="/img/Salir.png" onClick="doCancel()" label="Ignorar" />
+        <toolbarbutton id="btnSalir" image="/img/32/ignorar.png" onClick="doCancel()" label="Ignorar" />
     </toolbar>                   
 </window>
