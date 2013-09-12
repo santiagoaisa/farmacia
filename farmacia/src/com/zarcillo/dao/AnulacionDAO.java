@@ -11,5 +11,8 @@ import java.util.List;
 public interface AnulacionDAO {
     
     List<Anulacion> listaPorFechas(Date dfecha1, Date dfecha2) ;
+    List<String> listaSeriesPorIdunidadPorIddocumentoPorFechas(Integer idunidad,Integer iddocumento, Date fecha1, Date fecha2);
+    String  minimoPorIddocumentoPorCserie(Integer iddocumento,String cserie, Date fecha1,Date fecha2);
+    String  maximoPorIddocumentoPorCserie(Integer iddocumento,String cserie, Date fecha1,Date fecha2);    
     
 }

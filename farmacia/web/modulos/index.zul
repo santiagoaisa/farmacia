@@ -9,7 +9,7 @@
 <?link rel="stylesheet" type="text/css" href="/css/datebox.css.dsp" ?>
 <?link rel="stylesheet" type="text/css" href="/css/label.css.dsp" ?>
 <?link rel="stylesheet" type="text/css" href="/css/combobox.css.dsp" ?>
-
+<?link rel="stylesheet" type="text/css" href="/css/loading.css.dsp" ?>
 
 
 <window id="index" apply="modseguridad.Index"    height="100%">        
