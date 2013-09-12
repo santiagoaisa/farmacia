@@ -1,5 +1,5 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winFactura"?>
-<window id="winFactura" mode="overlapped" title="Registro de Proveedores..." border="2" width="600px"
+<window id="winFactura" mode="overlapped" title="Registro de Proveedores..." border="2" width="700px"
           apply="modfinanzas.consulta.DetalleFactura" >
     <grid fixedLayout="true"  >
         <columns >
@@ -78,6 +78,11 @@
             <row>
                 <label value="Precio Venta:" />
                 <decimalbox id="nImporte" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+                <label value="Percepcion:" />
+                <decimalbox id="nPercepcion" value="0" width="95%" readonly="true" format="###,###,##0.00" />
+            </row>
+            <row  spans="2,1,1">
+                <label />
                 <label value="Saldo:" />
                 <decimalbox id="nSaldo" value="0" width="95%" readonly="true" format="###,###,##0.00" />
             </row>

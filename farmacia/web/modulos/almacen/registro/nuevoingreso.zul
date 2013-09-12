@@ -48,7 +48,7 @@
 
     <listbox id="lstIngreso" mold="paging"    pageSize="500" height="300px" >
         <auxhead>
-            <auxheader label="Detalle de Ingreso" colspan="12"/>
+            <auxheader label="Detalle de Ingreso" colspan="14"/>
         </auxhead>
         <listhead sizable="true" >
             <listheader label="No" width="2%" align="right"/>

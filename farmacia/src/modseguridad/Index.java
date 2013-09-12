@@ -105,7 +105,7 @@ public class Index extends SelectorComposer {
 
     @Listen("onClick = #btnVentas")
     public void onGenerarVenta(Event event) {
-        Window contactWnd = (Window) Executions.createComponents("/modulos/ventas/registro/nuevaventa.zul", null, null);
+        Window contactWnd = (Window) Executions.createComponents("/modulos/ventas/registro/ventadirecta.zul", null, null);
         contactWnd.doModal();
     }
 

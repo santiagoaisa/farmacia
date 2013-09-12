@@ -1,6 +1,6 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winExistencia"?>
 <?component name="menu" macro-uri="/modulos/mantenimiento/util/menuresultado.zul"?>
-<window id="winExistencia" title="Buscando Productos..." border="0" width="900px" position="center"
+<window id="winExistencia" title="Buscando Productos..." border="0" width="950px" position="center"
         onCancel="doCancel()" mode="overlapped"  apply="modcompras.proceso.ActualizacionPrecioExistencia" >
     <zscript>{
         void doCancel() {
@@ -48,10 +48,10 @@
                         
                         <listcell decimal="@{existencias.ncospre}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
                         <listcell>
-                            <decimalbox id="d4" value="@{existencias.npreuni}"  format="0.0000"  width="80%" />
+                            <decimalbox id="d4" value="@{existencias.npreuni}"  format="0.00"  width="80%" />
                         </listcell>
                         <listcell>
-                            <decimalbox id="d5" value="@{existencias.nutilidad}"  format="0.0000"  width="80%" />
+                            <decimalbox id="d5" value="@{existencias.nutilidad}"  format="0.00"  width="80%" />
                         </listcell>
                         <listcell label="@{existencias.idproducto.idsublinea.idlinea}"/>
                         <listcell>

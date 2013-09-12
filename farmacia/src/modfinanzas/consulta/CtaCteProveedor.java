@@ -392,6 +392,7 @@ public class CtaCteProveedor extends SelectorComposer implements PeriodoListener
         CuentaPagar factura = (CuentaPagar) modeloFacturas.getElementAt(lstFactura.getSelectedIndex());
         win.setAttribute("CUENTAPAGAR", factura);
         win.doModal();
+        habilitarPendientes();
     }
 
     public void mostrarLetras() {

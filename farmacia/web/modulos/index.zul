@@ -1,8 +1,6 @@
 <?taglib uri="http://www.zkoss.org/zkspring/security" prefix="sec"?>
 
 
-<?link rel="stylesheet" type="text/css" href="/css/grey.css.dsp" ?>
-<?link rel="stylesheet" type="text/css" href="/css/sidebar.css.dsp" ?>
 <?link rel="stylesheet" type="text/css" href="/css/button.css.dsp" ?>
 <?link rel="stylesheet" type="text/css" href="/css/toolbar.css.dsp" ?>
 <?link rel="stylesheet" type="text/css" href="/css/listbox.css.dsp" ?>

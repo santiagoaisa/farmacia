@@ -399,7 +399,7 @@ public class CuentaPagar implements Serializable {
 
     public void calcula(BigDecimal nmontoigv) {
         this.setNigv(Igv.Igv(nmontoigv, this.nafecto));
-        this.setNimporte(this.nafecto.add(this.ninafecto.add(this.nigv)).add(this.npercepcion));
+        this.setNimporte(this.nafecto.add(this.ninafecto.add(this.nigv)));
 
         if (!Numero.isCero(this.getNingreso())) {
             this.setNreclamodevolucion(this.nimporte.subtract(this.getNingreso()));

@@ -24,7 +24,7 @@
             </row>
         </rows>
     </grid>
-    <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="300px" >
+    <listbox  id="lstDetalle" mold="paging" pageSize="500"  height="380px" >
         <listhead>
             <listheader label="Doc" width="10%" align="center" />
             <listheader label="Serie" width="8%" align="center" />
@@ -35,7 +35,8 @@
             <listheader label="Val.Ven" width="10%" align="right" />
             <listheader label="IGV" width="10%" align="right" />
             <listheader label="Importe" width="10%" align="right" />
-            <listheader label="Operacion" width="10%" align="right" />
+            <listheader label="Operacion" width="8%" align="right" />
+            <listheader  width="2%"  />
         </listhead>
         <listitem self="@{each=detalle}"   >
             <listcell label="@{detalle.iddocumento.cabrev}" />

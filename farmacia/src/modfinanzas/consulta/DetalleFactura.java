@@ -79,6 +79,8 @@ public class DetalleFactura extends SelectorComposer {
     @Wire
     private Decimalbox nNotcar;
     @Wire
+    private Decimalbox nPercepcion;
+    @Wire
     private Decimalbox nSaldo;
     @Wire
     private Listbox lstDetalle;    
@@ -132,7 +134,7 @@ public class DetalleFactura extends SelectorComposer {
     public void onCambioVencimiento(Event event) {
         cargarPlazo();
     }
-    
+        
     @Listen("onClick = #btnAmortizar")
     public void onAmortizar(Event event) {
         amortizar();
@@ -213,6 +215,7 @@ public class DetalleFactura extends SelectorComposer {
         nNotabo.setValue(cpagar.getNnotabo());
         nNotcar.setValue(cpagar.getNnotcar());
         nSaldo.setValue(cpagar.getNsaldo());
+        nPercepcion.setValue(cpagar.getNpercepcion());
         modeloDetalle=new ListModelList(cuentaPagarService.listaAmortizaciones(cpagar.getIdcuenta()));
         lstDetalle.setModel(modeloDetalle);
     }
@@ -260,7 +263,9 @@ public class DetalleFactura extends SelectorComposer {
         cpagar.setNnotcar(nNotcar.getValue());
         cpagar.setNsaldo(nSaldo.getValue());
         cpagar.setNimporte(nImporte.getValue());
+        cpagar.setNpercepcion(nPercepcion.getValue());
         cpagar=cuentaPagarService.actualizar(cpagar);
+        llenarDatos();
     }
     private void cancelar() {
         llenarDatos();
@@ -301,6 +306,7 @@ public class DetalleFactura extends SelectorComposer {
         nAfecto.setReadonly(enable);
         nInafecto.setReadonly(enable);
         nIgv.setReadonly(enable);
+        nPercepcion.setReadonly(enable);
         nImporte.setReadonly(enable);
         nPlazo.setReadonly(enable);
         dFecemi.setDisabled(enable);
@@ -345,12 +351,12 @@ public class DetalleFactura extends SelectorComposer {
         periodo = periodoService.buscarPorDfecha(new Date());
         cpagar.setNafecto(nAfecto.getValue());
         cpagar.setNinafecto(nInafecto.getValue());
+        cpagar.setNpercepcion(nPercepcion.getValue());
         cpagar.calcula(periodo.getNigv());
         nAfecto.setValue(cpagar.getNafecto());
         nInafecto.setValue(cpagar.getNinafecto());
         nIgv.setValue(cpagar.getNigv());
         nImporte.setValue(cpagar.getNimporte());
-    }  
-
-    
+        nSaldo.setValue(cpagar.getNsaldo());
+    }      
 }
