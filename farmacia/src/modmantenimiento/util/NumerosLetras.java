@@ -1,6 +1,7 @@
 package modmantenimiento.util;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 public class NumerosLetras {
 
@@ -15,6 +16,8 @@ public class NumerosLetras {
     private String num_letracm;
     private String num_letramm;
     private String num_letradmm;
+    
+    private DecimalFormat formato = new DecimalFormat("00");
 
     private String unidad(int numero) {
 
@@ -309,7 +312,7 @@ public class NumerosLetras {
         Integer centavos = decimal.multiply(new BigDecimal("100")).intValue();
 
         num_letra = decmillon(numero);
-        num_letras=num_letra.concat(" Y " + centavos + "/100 NUEVOS SOLES");
+        num_letras=num_letra.concat(" Y " + formato.format(centavos) + "/100 NUEVOS SOLES");
         return num_letras.toUpperCase();
     }
 }
