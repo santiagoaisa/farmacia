@@ -141,7 +141,7 @@ public class RegistroSalida implements Serializable {
         nfleven = new BigDecimal("0");
         ntipocambio = new BigDecimal("1");
         banulado = false;
-        bimpreso=false;
+        bimpreso = false;
 
     }
 
@@ -417,7 +417,7 @@ public class RegistroSalida implements Serializable {
                         cantidadsalida = new BigDecimal(m.getNcantidadm());
                     }
                 }
-                
+
                 tcosto = tcosto.add(m.getNcosuni().multiply(cantidadsalida));
                 //Acumulo los totales
                 if (m.getIdproducto().getBinafecto()) {
@@ -440,11 +440,13 @@ public class RegistroSalida implements Serializable {
         //Importe total=(valorventa*igv)+valorsinigv
         this.nimporte = Igv.Importe(nmontoigv, tvalorventa).add(tvalornogra);
         //calculo el redondeo
-        BigDecimal preciofinal = this.nimporte.divide(Numero.diez, 2, BigDecimal.ROUND_HALF_UP);
-        preciofinal = preciofinal.multiply(Numero.diez);
-        this.nredondeo = preciofinal.subtract(this.nimporte);
-        //fin de redondeo
-        this.nimporte = preciofinal;
+        if (!this.getIdcliente().getBnoredondeo()) {
+            BigDecimal preciofinal = this.nimporte.divide(Numero.diez, 2, BigDecimal.ROUND_HALF_UP);
+            preciofinal = preciofinal.multiply(Numero.diez);
+            this.nredondeo = preciofinal.subtract(this.nimporte);
+            //fin de redondeo
+            this.nimporte = preciofinal;
+        }
     }
 
     public Moneda getIdmoneda() {

@@ -42,13 +42,13 @@ public class Index extends SelectorComposer {
     @Wire
     private Div divContenido;
     @Wire
-    private Label lblSesion;    
+    private Label lblSesion;
     @Wire
     private Toolbarbutton btnSalir;
     @Wire
-    private West menuWest;    
+    private West menuWest;
     @Wire
-    private North menuNorth;    
+    private North menuNorth;
     //wire services
     @WireVariable
     UsuarioService usuarioService;
@@ -67,9 +67,9 @@ public class Index extends SelectorComposer {
         user_login = exec.getUserPrincipal().getName();
         usuario = usuarioService.buscarPorLogin(user_login);
         llenarSesion();
-        
+
         divModulo.detach();
-        divModulo=new Div();
+        divModulo = new Div();
         divModulo.setParent(menuNorth);
         List<Modulo> listaModulo = moduloService.listaPorIdrol(usuario.getIdrol().getIdrol());
 
@@ -79,10 +79,11 @@ public class Index extends SelectorComposer {
             boton.setParent(divModulo);
             boton.setTooltiptext(m.getCnommodulo());
             boton.setOrient("vertical");
+            boton.setHeight("68px");
 
             boton.addEventListener(Events.ON_CLICK, new EventListener() {
                 public void onEvent(Event event) throws Exception {
-                    
+
                     llenarMenu(Integer.valueOf(boton.getId()));
                 }
             });
@@ -144,7 +145,7 @@ public class Index extends SelectorComposer {
         List<Mapa> listaencabezado = mapaService.listaEncabezado(usuario.getIdrol().getIdrol(), idmodulo);
 
         for (Mapa m : listaencabezado) {
-            menuWest.setTitle(m.getIdmenu().getIdmodulo().toString());            
+            menuWest.setTitle(m.getIdmenu().getIdmodulo().toString());
             //////
             Nav menuprincipal = new Nav(m.getIdmenu().getCnommenu());
             menuprincipal.setIconSclass("z-icon-list-ul");

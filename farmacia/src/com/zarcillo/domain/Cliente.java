@@ -82,11 +82,15 @@ public class Cliente implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private TipoPersona idtipo;
     
+     @Column(name = "bnoredondeo")
+    private Boolean bnoredondeo;
+    
     public static Cliente TRANSFERENCIA=new Cliente(0);
     public static Cliente BOLETA=new Cliente(1);
     
 
     public Cliente() {
+        bnoredondeo=false;
         bagenteretencion = false;
         bbloqueado = false;
     }
@@ -238,6 +242,17 @@ public class Cliente implements Serializable {
     public void setIdtipo(TipoPersona idtipo) {
         this.idtipo = idtipo;
     }
+
+    public Boolean getBnoredondeo() {
+        return bnoredondeo;
+    }
+
+    public void setBnoredondeo(Boolean bnoredondeo) {
+        this.bnoredondeo = bnoredondeo;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {
