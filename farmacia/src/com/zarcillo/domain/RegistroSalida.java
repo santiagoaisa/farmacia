@@ -440,13 +440,13 @@ public class RegistroSalida implements Serializable {
         //Importe total=(valorventa*igv)+valorsinigv
         this.nimporte = Igv.Importe(nmontoigv, tvalorventa).add(tvalornogra);
         //calculo el redondeo
-        if (!this.getIdcliente().getBnoredondeo()) {
-            BigDecimal preciofinal = this.nimporte.divide(Numero.diez, 2, BigDecimal.ROUND_HALF_UP);
-            preciofinal = preciofinal.multiply(Numero.diez);
-            this.nredondeo = preciofinal.subtract(this.nimporte);
-            //fin de redondeo
-            this.nimporte = preciofinal;
-        }
+
+        BigDecimal preciofinal = this.nimporte.divide(Numero.diez, 2, BigDecimal.ROUND_HALF_UP);
+        preciofinal = preciofinal.multiply(Numero.diez);
+        this.nredondeo = preciofinal.subtract(this.nimporte);
+        //fin de redondeo
+        this.nimporte = preciofinal;
+
     }
 
     public Moneda getIdmoneda() {
