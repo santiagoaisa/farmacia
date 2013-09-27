@@ -87,6 +87,8 @@ public class ManttoCliente extends SelectorComposer implements CrudListener{
     
     @Wire
     private Checkbox bRetencion;
+    @Wire
+    private Checkbox bNoredondeo;
     
     @Wire
     private Textbox txtObservacion;
@@ -219,6 +221,7 @@ public class ManttoCliente extends SelectorComposer implements CrudListener{
         cliente.setCmovil(txtMovil.getText().toUpperCase());
         cliente.setIdusuario(usuario);
         cliente.setBagenteretencion(bRetencion.isChecked());
+        cliente.setBnoredondeo(bNoredondeo.isChecked());
         cliente.setCcorreo(txtCorreo.getText());
         cliente.setCreferencia(txtObservacion.getText().toUpperCase());
     }
@@ -268,6 +271,7 @@ public class ManttoCliente extends SelectorComposer implements CrudListener{
             cboDistrito.setModel(modeloDistrito);
         }
         bRetencion.setChecked(cliente.getBagenteretencion());
+        bNoredondeo.setChecked(cliente.getBnoredondeo());
     }
 
     @Override
@@ -275,6 +279,8 @@ public class ManttoCliente extends SelectorComposer implements CrudListener{
         quitarConstraint();
         habilitar(false);
         cliente=new Cliente();
+        bRetencion.setChecked(false);
+        bNoredondeo.setChecked(false);                
         txtDireccion.setText("");
         txtFax.setText("");
         txtMovil.setText("");
@@ -356,6 +362,7 @@ public class ManttoCliente extends SelectorComposer implements CrudListener{
         txtUrl.setReadonly(enable);
         txtObservacion.setReadonly(enable);
         bRetencion.setDisabled(enable);
+        bNoredondeo.setDisabled(enable);
         cboDepartamento.setDisabled(enable);
         cboProvincia.setDisabled(enable);
         cboDistrito.setDisabled(enable);
