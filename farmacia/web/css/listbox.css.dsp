@@ -6,7 +6,8 @@
     font-size:11px;    
 }
 
-
-.z-listheader{
-    font-size:8px;    
+.z-list-header-content
+, .z-listheader-content{
+	font-size : 11px;
+        font-weight: bold;
 }

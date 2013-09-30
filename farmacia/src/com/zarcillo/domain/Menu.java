@@ -53,6 +53,9 @@ public class Menu implements Serializable {
     @Column(name = "bmodal")
     private Boolean bmodal;
     
+     @Column(name = "cimagen")
+    private String cimagen;
+    
     
     @JoinColumn(name = "idmodulo", referencedColumnName = "idmodulo")
     @ManyToOne(fetch = FetchType.EAGER)
@@ -166,6 +169,14 @@ public class Menu implements Serializable {
 
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
+    }
+
+    public String getCimagen() {
+        return cimagen;
+    }
+
+    public void setCimagen(String cimagen) {
+        this.cimagen = cimagen;
     }
 
     
