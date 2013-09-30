@@ -49,6 +49,7 @@
             <listcell decimal="@{detalle.nigv}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell label="@{detalle.idregsalida}"  />
+            <listcell  />
         </listitem>
         <listfoot>
             <listfooter />           
@@ -68,6 +69,7 @@
             <listfooter >
                 <decimalbox id="nImporte" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
             </listfooter>
+            <listfooter />
             <listfooter />
         </listfoot>  
     </listbox>
