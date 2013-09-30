@@ -2,6 +2,7 @@
 
 <zk xmlns="http://www.zkoss.org/2005/zul">
     
+    <div style="background-image: url(img/fondo.jpg); height: 100%; width: 100%;">
     <window id="loginfallido" apply="modseguridad.LoginFallido" title="Error en el Login..." 
             mode="overlapped" width="250px"  border="0" position="center" >
         <groupbox mold="3d" width="100%">	     
@@ -17,6 +18,5 @@
             </hbox>
         </groupbox>
     </window>
-    
-    
+    </div>
 </zk>

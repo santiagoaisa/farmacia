@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<zk xmlns="http://www.zkoss.org/2005/zul">
+<zk xmlns:h="xhtml" xmlns:zk="zk">
+    
+    <div style="background-image: url(img/fondo.jpg); height: 100%; width: 100%;">
+    
+    
+    <window id="login" width="250px" title="Sistema Farmacia [Zarcillo Soluciones]"
+          apply="modseguridad.Login" mode="overlapped" border="0" position="center">
 
-    <window id="login" width="360px" title="Sistema Farmacia [Zarcillo Soluciones]"
-            apply="modseguridad.Login" mode="overlapped" border="0" position="center">
-
-        <grid >
-                <columns>
-                    <column width="40%"/>
-                    <column width="60%"/>
-                </columns>
-                <rows  >
-                    <row >
-                        <image  height="75px" />
-                        <image src="/img/Vidfarma.png" height="75px"/>
-                    </row>
-                </rows>
-        </grid>
-        
         <groupbox >
             <caption>Inicio de Sesión...</caption>
             
             <grid style="border-style:none;">
-                <columns>
-                    <column width="30%"/>
-                    <column width="70%"/>
+                <columns>                    
+                    <column width="15%"/>
+                    <column width="85%"/>
                 </columns>
                 <rows  >
-                    <row style="border-style:none;">
-                        <label value="Usuario" style="font-size:13px;"/>
+                    <row style="border-style:none;">                        
+                        <h:i class="z-icon-user"></h:i> 
                         <textbox id="txtUsuario" style="font-size:13px;" width="95%" />
                     </row>
 
-                    <row style="border-style:none;">
-                        <label value="Password:" style="font-size:13px;"/>
+                    <row style="border-style:none;">                        
+                        <h:i class="z-icon-lock"></h:i> 
                         <textbox id="txtClave"  type="password"  style="font-size:13px;" width="95%" />
                     </row>
 
-                    <row style="border-style:none;">                        
-                        <button id="btnLogin" label="Login" />
-                        <button id="btnBorrar" label="Borrar" />
+                    <row style="border-style:none;background:#f7f7f7 repeat-x 0 0;border-color: #cfcfcf;">                        
+                        <separator />
+                        <hbox width="100%" >
+                            <button id="btnLogin" label="Iniciar Sesión" style="font-weight: bold;" />                        
+                            <button id="btnBorrar" label="Borrar" style="font-weight: bold;"/>
+                        </hbox>
                     </row>
                     
                      
@@ -49,5 +42,7 @@
 
         </groupbox>
     </window>
+    
+    </div>
     
 </zk>

@@ -40,7 +40,7 @@ public class Login extends SelectorComposer {
 
     @Listen("onClick = button#btnLogin")
     public void onLogin2(Event event) {
-        validar();
+        validar();        
     }
 
     private void validar() {
@@ -71,5 +71,6 @@ public class Login extends SelectorComposer {
     @Listen("onClick = button#btnBorrar")
     public void onBorrar(Event event) {
         txtClave.setText("");
+        txtClave.focus();
     }
 }
