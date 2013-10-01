@@ -179,6 +179,7 @@ public class ManttoLote  extends SelectorComposer  {
 
     public void llenarExistencia() {
         habilitar(true);
+        producto=existencia.getIdproducto();
         txtCodigo.setText(existencia.getIdproducto().getIdproducto());
         txtNombre.setText(existencia.getIdproducto().getCnomproducto());
         txtUnimed.setText(existencia.getIdproducto().getIdpresentacion().getCabrev());
