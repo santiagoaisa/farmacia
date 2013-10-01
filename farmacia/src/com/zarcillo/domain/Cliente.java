@@ -81,22 +81,22 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "idtipo", referencedColumnName = "idtipo")
     @ManyToOne(fetch = FetchType.EAGER)
     private TipoPersona idtipo;
-    
-     @Column(name = "bnoredondeo")
+    @Column(name = "bnoredondeo")
     private Boolean bnoredondeo;
-    
-    public static Cliente TRANSFERENCIA=new Cliente(0);
-    public static Cliente BOLETA=new Cliente(1);
-    
+    public static Cliente TRANSFERENCIA = new Cliente(0);
+    public static Cliente BOLETA = new Cliente(1);
 
     public Cliente() {
-        bnoredondeo=false;
+        bnoredondeo = false;
         bagenteretencion = false;
         bbloqueado = false;
     }
 
     public Cliente(Integer idcliente) {
         this.idcliente = idcliente;
+        bnoredondeo = false;
+        bagenteretencion = false;
+        bbloqueado = false;
     }
 
     public Integer getIdcliente() {
@@ -250,9 +250,6 @@ public class Cliente implements Serializable {
     public void setBnoredondeo(Boolean bnoredondeo) {
         this.bnoredondeo = bnoredondeo;
     }
-    
-    
-    
 
     @Override
     public int hashCode() {
