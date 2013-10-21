@@ -72,12 +72,6 @@ public class Salida extends DescargaLote {
             regsalida.setIdsituacion(SituacionPedido.DIGITADO);
             regsalida.setCglosa(regsalida.getIdcondicion().getCmensaje());
             //////// SITUACION PEDIDO
-            if (regsalida.getIdcliente().getBnoredondeo()) {
-                regsalida.setNimporte(regsalida.getNimporte().add(regsalida.getNredondeo()));
-                regsalida.setNredondeo(Numero.cero);
-                
-            }
-            
             cruddao.registrar(regsalida);
 
             List<OrdenLinea> listaOrdenLinea = ordenlineadao.listaPorIdunidad(regsalida.getIdunidad().getIdunidad());

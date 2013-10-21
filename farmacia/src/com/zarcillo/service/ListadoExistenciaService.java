@@ -19,6 +19,8 @@ public interface ListadoExistenciaService {
     public List<Inventario> listaInventarioPorIdalmacenPorLineas(Integer idalmacen,List<Integer> lista);
     public List<InventarioLote> listaInventarioLotePorIdalmacenPorLineas(Integer idalmacen,List<Integer> lista);
     public List<InventarioValorizado> listaInventarioValorizadoPorIdalmacen(Integer idalmacen);
+    public List<InventarioValorizado> listaInventarioValorizadoPorIdalmacenPorIdperiodo(Integer idalmacen,Integer idperiodo);    
+    
     public List<ExistenciaValorizada> listaExistenciaValorizadaPorIdalmacenPorIdlinea(Integer idalmacen,Integer idlinea);
     public List<ActualizarExistencia> listaActualizarPrecioPorDescripcion(Integer idalmacen,String criterio);
     public void actualizarPrecio(ActualizarExistencia actualizar);

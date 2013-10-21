@@ -4,16 +4,19 @@ import com.zarcillo.dto.compra.ActualizarExistencia;
 import com.zarcillo.dto.compra.ExistenciaValorizada;
 import com.zarcillo.dao.CrudDAO;
 import com.zarcillo.dao.ExistenciaDAO;
+import com.zarcillo.dao.HistoricoExistenciaDAO;
 import com.zarcillo.dao.LineaDAO;
 import com.zarcillo.dao.ListadoExistenciaDAO;
 import com.zarcillo.dao.LoteDAO;
 import com.zarcillo.dao.MovimientoDAO;
 import com.zarcillo.dao.PeriodoDAO;
 import com.zarcillo.domain.Existencia;
+import com.zarcillo.domain.HistoricoExistencia;
 import com.zarcillo.domain.Linea;
 import com.zarcillo.domain.Movimiento;
 import com.zarcillo.domain.Periodo;
 import com.zarcillo.domain.Producto;
+import com.zarcillo.dto.almacen.DetalleInventarioValorizado;
 import com.zarcillo.dto.almacen.Inventario;
 import com.zarcillo.dto.almacen.InventarioLote;
 import com.zarcillo.dto.almacen.InventarioValorizado;
@@ -55,6 +58,8 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
     private LineaDAO lineadao;
     @Autowired
     private MovimientoDAO movimientodao;
+    @Autowired
+    private HistoricoExistenciaDAO historicoexistenciadao;
 
     @Override
     public List<ListadoPrecio> listadoPrecio(Integer idalmacen, List<Integer> lista) {
@@ -163,6 +168,34 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
 
     }
 
+    @Override
+    public List<InventarioValorizado> listaInventarioValorizadoPorIdalmacenPorIdperiodo(Integer idalmacen, Integer idperiodo) {
+        List<Linea> listaLinea = lineadao.listaConStock(idalmacen);
+
+        List<InventarioValorizado> listaRetorno = new ArrayList<>();
+
+        BigDecimal ntotal = new BigDecimal("0");
+
+        InventarioValorizado inventario;
+        for (Linea l : listaLinea) {
+            inventario = costoPorIdperiodoPorIdalmacenPorIdlinea(idperiodo, idalmacen, l);
+            listaRetorno.add(inventario);
+            ntotal = ntotal.add(inventario.getNcosto());
+        }
+        BigDecimal nparticipacion;
+        for (InventarioValorizado i : listaRetorno) {
+            if (!Numero.isCero(i.getNcosto())) {
+                nparticipacion = i.getNcosto().divide(ntotal, 4, BigDecimal.ROUND_HALF_UP);
+            } else {
+                nparticipacion = Numero.cero;
+            }
+            nparticipacion = nparticipacion.multiply(Numero.cien);
+            i.setNporcentaje(nparticipacion);
+        }
+
+        return listaRetorno;
+    }
+
     private InventarioValorizado costoPorIdalmacenPorIdlinea(Integer idalmacen, Linea linea) {
 
         List<Existencia> listaExistencia = existenciadao.listaPorIdalmacenPorIdlinea(idalmacen, linea.getIdlinea());
@@ -176,7 +209,6 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
         BigDecimal nstocfraccion;
         BigDecimal nstocktotalactual;
         for (Existencia e : listaExistencia) {
-            ncosuni = new BigDecimal("0");
             nstockentero = new BigDecimal(e.getNstock());
             nstocfraccion = new BigDecimal(e.getNstockm()).divide(new BigDecimal(e.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
             nstocktotalactual = nstockentero.add(nstocfraccion);
@@ -193,6 +225,86 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
 
         return inventario;
 
+    }
+
+    private InventarioValorizado costoPorIdperiodoPorIdalmacenPorIdlinea(Integer idperiodo, Integer idalmacen, Linea linea) {
+        List<DetalleInventarioValorizado> listaDetalle = new ArrayList<>();
+        Periodo periodo = periododao.buscarPorFecha(new Date());
+        InventarioValorizado inventario = new InventarioValorizado();
+
+        BigDecimal ncosuni;
+        BigDecimal ncosto = new BigDecimal("0");
+        BigDecimal nprecos = new BigDecimal("0");
+
+        BigDecimal nstockentero;
+        BigDecimal nstocfraccion;
+        BigDecimal nstocktotalactual;
+        if (periodo.getIdperiodo().equals(periodo.getIdperiodo())) {
+            List<Existencia> listaExistencia = existenciadao.listaPorIdalmacenPorIdlinea(idalmacen, linea.getIdlinea());
+
+            DetalleInventarioValorizado detalle;
+            for (Existencia h : listaExistencia) {
+
+                detalle = new DetalleInventarioValorizado();
+                detalle.setIdalmacen(h.getIdalmacen());
+                detalle.setIdproducto(h.getIdproducto());
+                detalle.setNcosuni(h.getNcosuni());
+                detalle.setNminimo(h.getNminimo());
+                detalle.setNstock(h.getNstock());
+                detalle.setNultcos(h.getNultcos());
+                detalle.setNvalven(h.getNvalven());
+                detalle.setBactivo(h.getBactivo());
+
+
+                nstockentero = new BigDecimal(h.getNstock());
+                nstocfraccion = new BigDecimal(h.getNstockm()).divide(new BigDecimal(h.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
+                nstocktotalactual = nstockentero.add(nstocfraccion);
+                ncosuni = (h.getNcosuni().multiply(nstocktotalactual));
+
+                detalle.setNsubcos(ncosuni);
+                detalle.setNsubpre(Igv.importeDetalleVenta(ncosuni, h.getIdproducto().getBinafecto()));
+
+                ncosto = ncosto.add(ncosuni);
+                nprecos = nprecos.add(Igv.importeDetalleVenta(ncosuni, h.getIdproducto().getBinafecto()));
+
+                listaDetalle.add(detalle);
+
+            }
+        } else {
+            List<HistoricoExistencia> listaHistorico = historicoexistenciadao.listaPorIdperiodoPorIdalmacenPorIdlinea(idperiodo, idalmacen, linea.getIdlinea());
+
+            DetalleInventarioValorizado detalle;
+            for (HistoricoExistencia h : listaHistorico) {
+                detalle = new DetalleInventarioValorizado();
+                detalle.setIdalmacen(h.getIdalmacen());
+                detalle.setIdproducto(h.getIdproducto());
+                detalle.setNcosuni(h.getNcosuni());
+                detalle.setNminimo(h.getNminimo());
+                detalle.setNstock(h.getNstock());
+                detalle.setNultcos(h.getNultcos());
+                detalle.setNvalven(h.getNvalven());
+                detalle.setBactivo(h.getBactivo());
+
+                nstockentero = new BigDecimal(h.getNstock());
+                nstocfraccion = new BigDecimal(h.getNstockm()).divide(new BigDecimal(h.getIdproducto().getNmenudeo()), 2, BigDecimal.ROUND_HALF_UP);
+                nstocktotalactual = nstockentero.add(nstocfraccion);
+                ncosuni = (h.getNcosuni().multiply(nstocktotalactual));
+
+                detalle.setNsubcos(ncosuni);
+                detalle.setNsubpre(Igv.importeDetalleVenta(ncosuni, h.getIdproducto().getBinafecto()));
+
+                ncosto = ncosto.add(ncosuni);
+                nprecos = nprecos.add(Igv.importeDetalleVenta(ncosuni, h.getIdproducto().getBinafecto()));
+
+                listaDetalle.add(detalle);
+            }
+        }
+
+        inventario.setIdlinea(linea);
+        inventario.setNcosto(ncosto.setScale(2, BigDecimal.ROUND_HALF_EVEN));
+        inventario.setPcosto(nprecos);
+        inventario.setDetalleInventarioCollection(listaDetalle);
+        return inventario;
     }
 
     @Override
@@ -297,7 +409,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
         UtilidadExistencia utilidad;
         for (Date d : listaFecha) {
             listaFiltro = (List<Movimiento>) CollectionUtils.select(listaMovimiento, new FiltroPorDfechaMovimiento(d));
-            
+
             for (Producto p : listaProducto) {
                 listaFiltroMovimiento = (List<Movimiento>) CollectionUtils.select(listaMovimiento, new FiltroPorIdproductoPorDfechaMovimiento(d, p.getIdproducto()));
                 utilidad = new UtilidadExistencia();
@@ -309,10 +421,10 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
                 BigDecimal nsubcos = new BigDecimal("0");
                 BigDecimal nsubtot = new BigDecimal("0");
 
-                if(listaFiltroMovimiento.isEmpty()){
+                if (listaFiltroMovimiento.isEmpty()) {
                     continue;
                 }
-                
+
                 for (Movimiento mo : listaFiltroMovimiento) {
                     nentero = nentero + mo.getNcantidad();
                     nfraccion = nfraccion + mo.getNcantidadm();

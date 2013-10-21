@@ -65,6 +65,11 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
             if (r.getBimpreso()) {
                 throw new ExceptionZarcillo("La Operacion ya fue Impresa");
             }
+            
+            if (regsalida.getIdcliente().getBnoredondeo()) {
+                regsalida.setNimporte(regsalida.getNimporte().add(regsalida.getNredondeo()));
+                regsalida.setNredondeo(Numero.cero);
+            }
 
             Periodo periodo = periododao.buscarPorFecha(new Date());
             regsalida.setIdsituacion(SituacionPedido.IMPRESO);
@@ -132,6 +137,8 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
             // fin se establece el periodo
             //fin de periodo
             regsalida.setDfecven(comprobante.getDfecven());
+            
+            
             cruddao.actualizar(regsalida);
 
             cruddao.registrar(comprobante);

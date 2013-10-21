@@ -3,32 +3,23 @@ package com.zarcillo.dto.almacen;
 import com.zarcillo.domain.Linea;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
-@Table(name = "util.inventariovalorizado")
 public class InventarioValorizado implements Serializable {
 
-    @Id
     private BigDecimal id;
-    @JoinColumn(name = "idlinea", referencedColumnName = "idlinea")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Linea idlinea;    
+    private Linea idlinea;
     private BigDecimal ncosto;
     private BigDecimal pcosto;
     private BigDecimal nporcentaje;
+    private List<DetalleInventarioValorizado> detalleInventarioCollection;
 
-    
-    
-    public InventarioValorizado() {        
+    public InventarioValorizado() {
         ncosto = new BigDecimal("0");
         pcosto = new BigDecimal("0");
         nporcentaje = new BigDecimal("0");
+        detalleInventarioCollection = new ArrayList<>();
     }
 
     public BigDecimal getId() {
@@ -38,8 +29,6 @@ public class InventarioValorizado implements Serializable {
     public void setId(BigDecimal id) {
         this.id = id;
     }
-    
-    
 
     public BigDecimal getNporcentaje() {
         return nporcentaje;
@@ -73,8 +62,11 @@ public class InventarioValorizado implements Serializable {
         this.pcosto = pcosto;
     }
 
-    
-    
-    
-    
+    public List<DetalleInventarioValorizado> getDetalleInventarioCollection() {
+        return detalleInventarioCollection;
+    }
+
+    public void setDetalleInventarioCollection(List<DetalleInventarioValorizado> detalleInventarioCollection) {
+        this.detalleInventarioCollection = detalleInventarioCollection;
+    }
 }
