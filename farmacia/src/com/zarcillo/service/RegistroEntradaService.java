@@ -19,4 +19,5 @@ public interface RegistroEntradaService {
     public List<DetalleIngreso> listaDetalleIngreso(Integer idregentrada);    
     public List<RegistroEntrada> listaPorFechas(Integer idalmacen,Date dfecha1,Date dfecha2);
     public List<RegistroEntrada> listaPorIdalmacenPorIdproveedorPorNano(Integer idalmacen,Integer idproveedor,Integer nano);
+    public List<RegistroEntrada> listaPorIdalmacenPorMotivoPorFechas(Integer idalmacen,Integer idmotivo,Date dfecha1,Date dfecha2);
 }

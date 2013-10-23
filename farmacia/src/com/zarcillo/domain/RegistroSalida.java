@@ -31,6 +31,7 @@ import javax.persistence.TemporalType;
 @Table(name = "registro_salida")
 @NamedQueries({
     @NamedQuery(name = "RegistroSalida.findAll", query = "SELECT r FROM RegistroSalida r"),
+    @NamedQuery(name = "RegistroSalida.findByIdunidadByIdmotivoByFechas", query = "SELECT r FROM RegistroSalida r WHERE r.idunidad.idunidad=:idunidad and r.idmotivo.idmotivo=:idmotivo and r.dfecha BETWEEN :dfecha1 and :dfecha2 ORDER BY r.dfecreg "),
     @NamedQuery(name = "RegistroSalida.findByIdregsalida", query = "SELECT r FROM RegistroSalida r WHERE r.idregsalida=:idregsalida"),
     @NamedQuery(name = "RegistroSalida.findByIdunidadByIdregsalida", query = "SELECT r FROM RegistroSalida r WHERE r.idunidad.idunidad=:idunidad and r.idregsalida=:idregsalida")
 })

@@ -13,6 +13,7 @@ import com.zarcillo.negocio.Igv;
 import com.zarcillo.negocio.Salida;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -36,24 +37,22 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
     private MovimientoDAO movimientodao;
     @Autowired
     private ComprobanteEmitidoDAO comprobantedao;
-   
+    DecimalFormat formato = new DecimalFormat("000000");
 
-     DecimalFormat formato = new DecimalFormat("000000");
-    
     @Override
     @Transactional
     public void reemplazarNumeracion(Integer idregsalida, String cserie, String cnumero) {
         try {
             String cformato = formato.format(Integer.parseInt(cnumero.trim()));
-            ComprobanteEmitido comprobante=comprobantedao.buscarPorIdregsalida(idregsalida);
-            comprobante.setCserie(cserie);                        
+            ComprobanteEmitido comprobante = comprobantedao.buscarPorIdregsalida(idregsalida);
+            comprobante.setCserie(cserie);
             comprobante.setCnumero(cformato);
             cruddao.actualizar(comprobante);
-            
-            RegistroSalida regsalida=registrosalidadao.buscarPorIdregsalida(idregsalida);
+
+            RegistroSalida regsalida = registrosalidadao.buscarPorIdregsalida(idregsalida);
             regsalida.setCserie(cserie);
             regsalida.setCnumero(cformato);
-            cruddao.actualizar(regsalida);            
+            cruddao.actualizar(regsalida);
         } catch (Exception e) {
             e.printStackTrace();
             throw new ExceptionZarcillo(e.getMessage());
@@ -81,30 +80,30 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
 
             d.setNcantidad(m.getNcantidad());
             d.setNcanartm(m.getNcantidadm());
-            d.setNcosuni(m.getNcosuni());            
-            d.setNcosunim(m.getNcosuni());            
+            d.setNcosuni(m.getNcosuni());
+            d.setNcosunim(m.getNcosuni());
             d.setNdesfin(m.getNdesfin());
             d.setNdesbon(m.getNdesbon());
             d.setNdeslab(m.getNdeslab());
             d.setBinafec(m.getBinafecto());
-            d.setNvaluni(m.getNvaluni());      
-            d.setNvalunim(m.getNvaluni());      
+            d.setNvaluni(m.getNvaluni());
+            d.setNvalunim(m.getNvaluni());
             d.setNpreuni(Igv.importeDetalleVenta(m.getNvaluni(), m.getIdproducto().getBinafecto()));
-            d.setNimporte(Igv.importeDetalleVenta(m.getNsubtot(),m.getIdproducto().getBinafecto()));
+            d.setNimporte(Igv.importeDetalleVenta(m.getNsubtot(), m.getIdproducto().getBinafecto()));
             d.setNsubtot(m.getNsubtot());
             d.setClote(m.getClote());
             d.setCfecven(m.getCfecven());
-            
-            if(m.getNcantidad()>0){
+
+            if (m.getNcantidad() > 0) {
                 d.setBfraccion(false);
-            }else{
-                if(m.getNcantidadm()>0){
+            } else {
+                if (m.getNcantidadm() > 0) {
                     d.setBfraccion(true);
                 }
             }
-            
-            
-            
+
+
+
             listaDetalle.add(d);
         }
 
@@ -134,5 +133,10 @@ public class RegistroSalidaServiceImpl extends Salida implements RegistroSalidaS
         }
 
         return regsalida;
+    }
+
+    @Override
+    public List<RegistroSalida> listaPorIdunidadPorMotivoPorFechas(Integer idunidad, Integer idmotivo, Date dfecha1, Date dfecha2) {
+        return registrosalidadao.listaPorIdunidadPorIdmotivoPorFechas(idunidad, idmotivo, dfecha1, dfecha2);
     }
 }

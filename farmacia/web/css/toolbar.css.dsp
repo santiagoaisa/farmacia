@@ -2,7 +2,7 @@
 
 .z-toolbar {    
     height:42px;
-    background:#f7f7f7 repeat-x 0 0;    
+    background:#b3b3b3 repeat-x 0 0;    
     border-style: solid;
     border-width: 1px;
     border-color: #cfcfcf;

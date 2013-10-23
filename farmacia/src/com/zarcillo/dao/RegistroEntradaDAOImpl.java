@@ -38,7 +38,10 @@ public class RegistroEntradaDAOImpl implements RegistroEntradaDAO{
         return em.createNamedQuery("RegistroEntrada.findByIdalmacenByIdproveedorByNano").setParameter("idalmacen", idalmacen).setParameter("idproveedor", idproveedor).setParameter("nano", nano).getResultList();
     }
     
-    
+    @Override
+    public List<RegistroEntrada> listaPorIdalmacenPorMotivoPorFechas(Integer idalmacen, Integer idmotivo, Date dfecha1, Date dfecha2) {
+        return em.createNamedQuery("RegistroEntrada.findByIdalmacenByIdmotivoByFechas").setParameter("idalmacen", idalmacen).setParameter("idmotivo", idmotivo).setParameter("dfecha1", dfecha1).setParameter("dfecha2", dfecha2).getResultList();
+    }
     
     
 }

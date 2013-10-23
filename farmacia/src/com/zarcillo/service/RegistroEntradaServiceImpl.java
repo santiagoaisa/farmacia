@@ -142,7 +142,10 @@ public class RegistroEntradaServiceImpl extends Entrada implements RegistroEntra
     }
 
    
-    
+      @Override
+    public List<RegistroEntrada> listaPorIdalmacenPorMotivoPorFechas(Integer idalmacen, Integer idmotivo, Date dfecha1, Date dfecha2) {
+        return registroentradadao.listaPorIdalmacenPorMotivoPorFechas(idalmacen, idmotivo, dfecha1, dfecha2);
+    }
     
     
     

@@ -30,6 +30,7 @@ import javax.persistence.TemporalType;
 @Table(name = "registro_entrada")
 @NamedQueries({
     @NamedQuery(name = "RegistroEntrada.findAll", query = "SELECT r FROM RegistroEntrada r"),
+    @NamedQuery(name = "RegistroEntrada.findByIdalmacenByIdmotivoByFechas", query = "SELECT r FROM RegistroEntrada r WHERE r.idalmacen.idalmacen=:idalmacen and r.idmotivo.idmotivo=:idmotivo and r.dfecha BETWEEN :dfecha1 and :dfecha2 ORDER BY r.dfecreg "),
     @NamedQuery(name = "RegistroEntrada.findByIdalmacenByIdregentrada", query = "SELECT r FROM RegistroEntrada r WHERE r.idalmacen.idalmacen=:idalmacen and r.idregentrada=:idregentrada"),
     @NamedQuery(name = "RegistroEntrada.findByIdregentrada", query = "SELECT r FROM RegistroEntrada r WHERE r.idregentrada=:idregentrada"),
     @NamedQuery(name = "RegistroEntrada.findByIdalmacenByIdproveedorByNano", query = "SELECT r FROM RegistroEntrada r WHERE r.idalmacen.idalmacen=:idalmacen and r.idproveedor.idproveedor=:idproveedor and r.idperiodo.nano=:nano ORDER BY r.dfecha DESC "),

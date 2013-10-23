@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "motivo_entrada")
 @NamedQueries({
-    @NamedQuery(name = "MotivoEntrada.findAll", query = "SELECT m FROM MotivoEntrada m ORDER BY m.cnommotivo"),
+    @NamedQuery(name = "MotivoEntrada.findAll", query = "SELECT m FROM MotivoEntrada m ORDER BY m.norden"),
     @NamedQuery(name = "MotivoEntrada.findByIdmotivo", query = "SELECT m FROM MotivoEntrada m WHERE m.idmotivo=:idmotivo")
 })
 public class MotivoEntrada implements Serializable {
@@ -48,20 +48,33 @@ public class MotivoEntrada implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
     
+     @Column(name = "bcompra")
+    private Boolean bcompra;
+    
+     @Column(name = "norden")
+    private Integer norden;
+    
     public static MotivoEntrada TRANSFERENCIA=new MotivoEntrada(0,false);
     public static MotivoEntrada ANULACION=new MotivoEntrada(2,false);
 
     public MotivoEntrada() {
         bcosteo=false;        
+        bcompra=false;
+        norden=0;
     }
 
     public MotivoEntrada(Integer idmotivo) {
         this.idmotivo = idmotivo;
+        bcosteo=false;        
+        bcompra=false;
+        norden=0;
     }
 
     public MotivoEntrada(Integer idmotivo, Boolean bcosteo) {
         this.idmotivo = idmotivo;
         this.bcosteo = bcosteo;
+        bcompra=false;
+        norden=0;
     }
 
     
@@ -110,6 +123,25 @@ public class MotivoEntrada implements Serializable {
         this.idusuario = idusuario;
     }
 
+    public Boolean getBcompra() {
+        return bcompra;
+    }
+
+    public void setBcompra(Boolean bcompra) {
+        this.bcompra = bcompra;
+    }
+
+    public Integer getNorden() {
+        return norden;
+    }
+
+    public void setNorden(Integer norden) {
+        this.norden = norden;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

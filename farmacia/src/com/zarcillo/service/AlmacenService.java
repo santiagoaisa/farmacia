@@ -2,7 +2,6 @@ package com.zarcillo.service;
 
 import com.zarcillo.domain.Almacen;
 import java.util.List;
-import org.hibernate.StatelessSession;
 
 /**
  *

@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "motivo_salida")
 @NamedQueries({
-    @NamedQuery(name = "MotivoSalida.findAll", query = "SELECT m FROM MotivoSalida m ORDER BY m.cnommotivo"),
+    @NamedQuery(name = "MotivoSalida.findAll", query = "SELECT m FROM MotivoSalida m ORDER BY m.norden"),
         @NamedQuery(name = "MotivoSalida.findByVenta", query = "SELECT m FROM MotivoSalida m WHERE m.bventa=true ORDER BY m.cnommotivo"),
     @NamedQuery(name = "MotivoSalida.findByIdmotivo", query = "SELECT m FROM MotivoSalida m WHERE m.idmotivo=:idmotivo")
 })
@@ -48,14 +48,19 @@ public class MotivoSalida implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Usuario idusuario;
 
+      @Column(name = "norden")
+    private Integer norden;
+    
     public static MotivoSalida TRANSFERENCIA=new MotivoSalida(0);
     
     public MotivoSalida() {
         bventa=false;
+        norden=0;
     }
 
     public MotivoSalida(Integer idmotivo) {
         this.idmotivo = idmotivo;
+        norden=0;
     }
 
     public Integer getIdmotivo() {
@@ -99,6 +104,17 @@ public class MotivoSalida implements Serializable {
     public void setIdusuario(Usuario idusuario) {
         this.idusuario = idusuario;
     }
+
+    public Integer getNorden() {
+        return norden;
+    }
+
+    public void setNorden(Integer norden) {
+        this.norden = norden;
+    }
+    
+    
+    
 
     @Override
     public int hashCode() {
