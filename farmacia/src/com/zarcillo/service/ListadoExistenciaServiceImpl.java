@@ -239,7 +239,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
         BigDecimal nstockentero;
         BigDecimal nstocfraccion;
         BigDecimal nstocktotalactual;
-        if (periodo.getIdperiodo().equals(periodo.getIdperiodo())) {
+        if (periodo.getIdperiodo().equals(idperiodo)) {
             List<Existencia> listaExistencia = existenciadao.listaPorIdalmacenPorIdlinea(idalmacen, linea.getIdlinea());
 
             DetalleInventarioValorizado detalle;
