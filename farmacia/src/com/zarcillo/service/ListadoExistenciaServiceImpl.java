@@ -251,6 +251,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
                 detalle.setNcosuni(h.getNcosuni());
                 detalle.setNminimo(h.getNminimo());
                 detalle.setNstock(h.getNstock());
+                detalle.setNstockm(h.getNstockm());
                 detalle.setNultcos(h.getNultcos());
                 detalle.setNvalven(h.getNvalven());
                 detalle.setBactivo(h.getBactivo());
@@ -281,6 +282,7 @@ public class ListadoExistenciaServiceImpl implements ListadoExistenciaService {
                 detalle.setNcosuni(h.getNcosuni());
                 detalle.setNminimo(h.getNminimo());
                 detalle.setNstock(h.getNstock());
+                detalle.setNstockm(h.getNstockm());
                 detalle.setNultcos(h.getNultcos());
                 detalle.setNvalven(h.getNvalven());
                 detalle.setBactivo(h.getBactivo());
