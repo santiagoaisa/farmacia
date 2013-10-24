@@ -96,7 +96,7 @@ public class NuevoIngreso extends SelectorComposer {
     @Wire
     private Textbox txtObservacion;
     @Wire
-    private Toolbarbutton btnGrabar;
+    private Toolbarbutton btnRegistrar;
     @WireVariable
     MotivoEntradaService motivoEntradaService;
     @WireVariable
@@ -124,7 +124,7 @@ public class NuevoIngreso extends SelectorComposer {
         
     }
 
-    @Listen("onClick = #btnGrabar")
+    @Listen("onClick = #btnRegistrar")
     public void onGrabar(Event event) {
         grabar();
     }
@@ -265,7 +265,7 @@ public class NuevoIngreso extends SelectorComposer {
                     modeloIngreso.add(dingreso);
                     lstIngreso.onInitRender();
                     txtCodigo.setValue("");
-                    btnGrabar.setVisible(true);
+                    btnRegistrar.setVisible(true);
                     focoCantidad();
                 }
                 else{
@@ -290,7 +290,7 @@ public class NuevoIngreso extends SelectorComposer {
                     modeloIngreso.add(dingreso);
                     lstIngreso.onInitRender();
                     txtCodigo.setValue("");
-                    btnGrabar.setVisible(true);
+                    btnRegistrar.setVisible(true);
                     
                 }
         } else {
@@ -299,7 +299,7 @@ public class NuevoIngreso extends SelectorComposer {
             dingreso.setIdproducto(producto);
             modeloIngreso.add(dingreso);
             txtCodigo.setValue("");
-            btnGrabar.setVisible(true);
+            btnRegistrar.setVisible(true);
             lstIngreso.onInitRender();
             
         }

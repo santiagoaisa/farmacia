@@ -5,7 +5,7 @@
 
     <toolbar id="tb"  align="end">
         <toolbarbutton  id="btnNuevo" image="/img/32/nuevo.png" label="Nuevo" onClick="menumantto.Nuevo()"  />
-        <toolbarbutton  id="btnGrabar" visible="false" image="/img/32/grabar.png" label="Grabar" onClick="menumantto.Grabar()"  />
+        <toolbarbutton  id="btnRegistrar" visible="false" image="/img/32/grabar.png" label="Grabar" onClick="menumantto.Grabar()"  />
         <toolbarbutton  id="btnModificar" visible="false"  disabled="${sec:isNoneGranted('ROLE_ADMINISTRADOR')}"  image="/img/32/modificar.png" label="Modificar" onClick="menumantto.Modificar()"  />
         <toolbarbutton  id="btnEliminar" visible="false" image="/img/32/eliminar.png" label="Eliminar" onClick="menumantto.Eliminar()" />
         <toolbarbutton  id="btnBuscar" visible="true" image="/img/32/buscar.png" label="Buscar" onClick="menumantto.Buscar();" />

@@ -83,7 +83,7 @@ public class CreaLote extends SelectorComposer{
         bloquear();
     }  
     
-    @Listen("onClick = #btnGrabar")
+    @Listen("onClick = #btnRegistrar")
     public void onAgregarImprimir(Event event) {
         registrar();
     } 

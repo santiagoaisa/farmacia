@@ -99,7 +99,7 @@ public class VentaDirecta extends SelectorComposer {
     @Wire
     private Button btnAgregar;
     @Wire
-    private Toolbarbutton btnGrabar;
+    private Toolbarbutton btnRegistrar;
     @Wire
     private Toolbarbutton btnIgnorar;
     @Wire
@@ -173,7 +173,7 @@ public class VentaDirecta extends SelectorComposer {
         limpiar();
     }
 
-    @Listen("onClick = #btnGrabar")
+    @Listen("onClick = #btnRegistrar")
     public void onRegistrar(Event event) throws JRException {
         registrar();
     }
@@ -359,7 +359,7 @@ public class VentaDirecta extends SelectorComposer {
             focoCantidad();
             cargarPie();
         } else {
-            btnGrabar.focus();
+            btnRegistrar.focus();
         }
     }
 
@@ -470,7 +470,7 @@ public class VentaDirecta extends SelectorComposer {
         }
         comprobante = colaImpresionService.crearDocumento(regsalida, tpago, usuario);
         regsalida = comprobante.getIdregsalida();
-        btnGrabar.setDisabled(true);
+        btnRegistrar.setDisabled(true);
         btnAgregar.setDisabled(true);
         int resp2 = 0;
         resp2 = Messagebox.show("¿Desea imprimir? " + comprobante.getIddocumento().getCabrev() + " " + comprobante.getCserie() + "-" + comprobante.getCnumero(), "REGISTRO SATISFACTORIO", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
@@ -544,7 +544,7 @@ public class VentaDirecta extends SelectorComposer {
         nOperacion.setValue(0);
         cargarPie();
         btnAgregar.setDisabled(false);
-        btnGrabar.setDisabled(false);
+        btnRegistrar.setDisabled(false);
         btnAgregar.focus();
     }
 

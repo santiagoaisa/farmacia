@@ -8,7 +8,7 @@ public class MenuMantenimiento extends Window {
 
     private String accion = new String();
     Toolbarbutton btnNuevo;
-    Toolbarbutton btnGrabar;
+    Toolbarbutton btnRegistrar;
     Toolbarbutton btnModificar;
     Toolbarbutton btnEliminar;
     Toolbarbutton btnBuscar;
@@ -28,7 +28,7 @@ public class MenuMantenimiento extends Window {
 
     void initcomponentes() {
         btnNuevo = (Toolbarbutton) getFellow("btnNuevo");
-        btnGrabar = (Toolbarbutton) getFellow("btnGrabar");
+        btnRegistrar = (Toolbarbutton) getFellow("btnRegistrar");
         btnModificar = (Toolbarbutton) getFellow("btnModificar");
         btnEliminar = (Toolbarbutton) getFellow("btnEliminar");
         btnBuscar = (Toolbarbutton) getFellow("btnBuscar");
@@ -52,7 +52,7 @@ public class MenuMantenimiento extends Window {
 
     private void habilitar(boolean enable) {
         btnNuevo.setVisible(enable);
-        btnGrabar.setVisible(!enable);
+        btnRegistrar.setVisible(!enable);
         btnModificar.setVisible(enable);
         btnEliminar.setVisible(enable);
         btnBuscar.setVisible(enable);

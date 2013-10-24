@@ -100,7 +100,7 @@
     <menu id="mimpresion" width="100%"></menu>
 
     <toolbar id="tb"   align="end" >
-        <toolbarbutton id="btnGrabar" label="Registrar" image="/img/32/grabar.png"        />
+        <toolbarbutton id="btnRegistrar" label="Registrar" image="/img/32/grabar.png"        />
         <toolbarbutton id="btnImprimir" label="Imprimir" image="/img/32/imprimir.png"        />
         <toolbarbutton id="btnIgnorar" label="Ignorar" image="/img/32/ignorar.png"   />
         <toolbarbutton id="btnSalir" label="Salir" image="/img/32/salir.png"   onClick="doCancel()" />

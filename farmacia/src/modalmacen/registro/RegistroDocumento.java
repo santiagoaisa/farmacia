@@ -99,7 +99,7 @@ public class RegistroDocumento extends SelectorComposer {
         cargarVencimiento();
     }
     
-    @Listen("onClick = #btnGrabar")
+    @Listen("onClick = #btnRegistrar")
     public void onGrabar(Event event) {
         registrar();
     }

@@ -136,7 +136,7 @@ apply="modalmacen.registro.RegistroDocumento" border="0" width="500px"  >
 
 
         <toolbar id="tb"  align="end" >
-            <toolbarbutton id="btnGrabar" label="Registrar" image="/img/32/grabar.png" />      
+            <toolbarbutton id="btnRegistrar" label="Registrar" image="/img/32/grabar.png" />      
         </toolbar>
 
 

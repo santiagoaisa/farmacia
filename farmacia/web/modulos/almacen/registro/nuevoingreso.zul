@@ -158,7 +158,7 @@
 
     <toolbar   align="end">
 
-        <toolbarbutton id="btnGrabar" image="/img/32/grabar.png" label="Registrar" />
+        <toolbarbutton id="btnRegistrar" image="/img/32/grabar.png" label="Registrar" />
 
         <toolbarbutton id="btnIgnorar" image="/img/32/ignorar.png" label="Ignorar"
                            onClick="doCancel()" />

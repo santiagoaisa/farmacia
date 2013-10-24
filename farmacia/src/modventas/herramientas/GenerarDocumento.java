@@ -108,7 +108,7 @@ public class GenerarDocumento extends SelectorComposer{
     private Toolbarbutton btnCrear;
     
     @Wire
-    private Toolbarbutton btnGrabar;
+    private Toolbarbutton btnRegistrar;
     
     @Wire
     private Toolbarbutton btnImprimir;
@@ -169,7 +169,7 @@ public class GenerarDocumento extends SelectorComposer{
          imprimir();
     }
     
-    @Listen("onClick = #btnGrabar")
+    @Listen("onClick = #btnRegistrar")
     public void onRegistrar(Event event) throws JRException {
         registrar();
     } 
@@ -204,7 +204,7 @@ public class GenerarDocumento extends SelectorComposer{
         modeloDetalle=new ListModelList();
         lstDetalle.setModel(modeloDetalle);
         dFecha.setValue(new Date());
-        btnGrabar.setDisabled(true);
+        btnRegistrar.setDisabled(true);
         btnImprimir.setDisabled(true);
         nOperacion.focus();
     } 
@@ -276,11 +276,11 @@ public class GenerarDocumento extends SelectorComposer{
         if(regsalida.getBimpreso()){
             comprobante=comprobanteEmitidoService.buscarPorIdregsalida(regsalida.getIdregsalida());
             cliente=regsalida.getIdcliente();
-            btnGrabar.setDisabled(true);
+            btnRegistrar.setDisabled(true);
             btnImprimir.setDisabled(false);
         }
         else{
-            btnGrabar.setDisabled(false);
+            btnRegistrar.setDisabled(false);
         }
         
         cargarPie();
@@ -391,7 +391,7 @@ public class GenerarDocumento extends SelectorComposer{
         }        
         comprobante=colaImpresionService.crearDocumento(regsalida, tpago, usuario);        
         regsalida=comprobante.getIdregsalida();
-        btnGrabar.setDisabled(true);
+        btnRegistrar.setDisabled(true);
         btnImprimir.setDisabled(false);           
         int resp2 = 0;
         resp2 = Messagebox.show("¿Desea imprimir? "+comprobante.getIddocumento().getCabrev()+" "+comprobante.getCserie()+"-"+comprobante.getCnumero(), "Impresion Documento", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);

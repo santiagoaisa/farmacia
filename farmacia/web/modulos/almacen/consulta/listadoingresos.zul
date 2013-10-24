@@ -1,0 +1,110 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winIngreso"?>
+<window id="winIngreso" title="Ingresos por Fechas..."  width="900px"  border="0"
+        apply="modalmacen.consulta.ListadoIngresos" >
+
+    <grid>
+        <columns>
+            <column width="9%" />
+            <column width="13%" />
+            <column width="9%" />
+            <column width="13%" />
+            <column width="9%" />
+            <column width="15%" />
+            <column width="9%" />
+            <column width="15%" />
+            <column width="10%"  align="center" />
+        </columns>
+        <rows>
+            <row >
+                <label value="Almacen:"/>
+                <combobox id="cboAlmacen" readonly="true" width="98%"/>
+                <label value="Motivo:"/>
+                <combobox id="cboMotivo" readonly="true" width="98%"/>
+                <label value="Desde:"/>
+                <datebox id="dFecini" width="95%" readonly="true" format="yyyy-MM-dd" />
+                <label value="Hasta:"/>
+                <datebox id="dFecfin" width="95%" readonly="true" format="yyyy-MM-dd" />
+                <button id="btnProcesar" label="Procesar"  />           
+            </row>
+        </rows>
+    </grid>
+    <listbox  id="lstDetalle" mold="paging" pageSize="5000"  height="300px" >
+        <listhead>
+            <listheader label="F.Ingreso" width="8%" sort="auto(dfecha)"  />
+            <listheader label="Proveedor" width="30%" sort="auto(idproveedor.cnomproveedor)"/>
+            <listheader label="Documento" width="7%" sort="auto(iddocumento.cnomdocumento)" />
+            <listheader label="Serie" width="7%" sort="auto(cserie)" align="center"/>
+            <listheader label="Numero." width="10%" sort="auto(cnumero)" align="right" />
+            <listheader label="V.Inafecto" width="10%" sort="auto(nvalven)" align="right" />
+            <listheader label="V.Afecto" width="10%" sort="auto(nvalven)" align="right" />
+            <listheader label="IGV" width="8%" sort="auto(nigv)" align="right" />
+            <listheader label="Importe" width="10%" sort="auto(npreven)" align="right" />
+            <listheader label="Operación" width="8%" sort="auto(idregentrada)" align="right"/>
+                                        
+        </listhead>
+        <listitem self="@{each=regentrada}" >
+            <listcell date="@{regentrada.dfecha}" format="yyyy.MM.dd" use="modmantenimiento.util.ListcellFecha" />
+            <listcell label="@{regentrada.idproveedor.cnomproveedor}" />
+            <listcell label="@{regentrada.iddocumento.cabrev}"/>
+            <listcell label="@{regentrada.cserie}"/>
+            <listcell label="@{regentrada.cnumero}"/>
+            <listcell decimal="@{regentrada.ninafecto}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{regentrada.nafecto}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{regentrada.nigv}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell decimal="@{regentrada.nimporte}" format="0.00" use="modmantenimiento.util.ListcellNumero"  />
+            <listcell label="@{regentrada.idregentrada}"/>                                     
+                                        
+        </listitem>
+        <listfoot>
+            <listfooter />           
+            <listfooter />
+            <listfooter />           
+            <listfooter />  
+            <listfooter />
+            <listfooter >
+                <decimalbox id="nInafecto" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nValven" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nIgv" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter >
+                <decimalbox id="nImporte" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+            </listfooter>
+            <listfooter />
+            <listfooter />
+        </listfoot>  
+    </listbox>
+    
+    <grid>
+        <columns>
+            <column width="10%" />
+            <column width="20%" />
+            <column width="70%" />
+        </columns>
+        <rows>
+            <row >
+                <label value="Proveedor:"/>
+                <combobox id="cboProveedor" readonly="true" disabled="true" width="98%"/>
+                <label />      
+            </row>
+        </rows>
+    </grid>
+    
+
+    <toolbar id="tb"   align="end" >
+        <toolbarbutton id="btnImprimir" image="/img/32/imprimir.png" label="Imprimir" />
+        <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
+        <toolbarbutton id="btnIgnorar" image="/img/32/ignorar.png" label="Limpiar"   />
+        <toolbarbutton id="btnSalir" image="/img/32/salir.png" label="Salir"  onClick="doCancel()"  />
+    </toolbar>
+    <zscript>{
+        void doCancel() {
+        winIngreso.setAttribute("REST",false);
+        winIngreso.onClose();
+        }
+        }
+    </zscript>
+</window>

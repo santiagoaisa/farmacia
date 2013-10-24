@@ -1,13 +1,13 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDetalle"?>
 <window id="winDetalle" title="Detalle Inventario Valorizado" border="0" width="800px"
-        onCancel="doCancel()" mode="overlapped" apply="modalmacen.consulta.DetalleInventarioValorizado">
+        onCancel="doCancel()" mode="overlapped" apply="modalmacen.consulta.DetaInventarioValorizado">
     <zscript>{
         void doCancel() {
         winDetalle.onClose();}
         }</zscript>
 
     
-    <listbox id="lstDetalle"  fixedLayout="true" multiple="true" height="300px"  >
+    <listbox id="lstDetalle"  fixedLayout="true" multiple="true" height="480px"  >
         <listhead>
             <listheader label="Codigo" width="7%" />           
             <listheader label="Unid" width="4%" />
@@ -26,7 +26,7 @@
             <listcell label="@{detalle.nstockm}"/>
             <listcell decimal="@{detalle.ncosuni}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.nsubcos}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
-            <listcell decimal="@{detalle.nprecos}" format="0.00" use="modmantenimiento.util.ListcellNumero" />            
+            <listcell decimal="@{detalle.nsubpre}" format="0.00" use="modmantenimiento.util.ListcellNumero" />            
         </listitem>
         <listfoot>
             <listfooter />           

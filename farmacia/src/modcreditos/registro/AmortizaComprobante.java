@@ -45,7 +45,7 @@ public class AmortizaComprobante extends SelectorComposer {
     @Wire
     private Textbox txtObservacion;
     @Wire
-    private Toolbarbutton btnGrabar;
+    private Toolbarbutton btnRegistrar;
     
     @WireVariable 
     MonedaService monedaService;
@@ -57,7 +57,7 @@ public class AmortizaComprobante extends SelectorComposer {
         initComponets();
     }    
     
-    @Listen("onClick = #btnGrabar")
+    @Listen("onClick = #btnRegistrar")
     public void onImprimir(Event event) {
         registrar();
     }
@@ -65,7 +65,7 @@ public class AmortizaComprobante extends SelectorComposer {
     
     @Listen("onOK = #nImporte")
     public void onFocoGrabar(Event event) {
-        btnGrabar.focus();
+        btnRegistrar.focus();
     }
     
 

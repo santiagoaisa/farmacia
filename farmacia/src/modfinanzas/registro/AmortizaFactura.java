@@ -64,7 +64,7 @@ public class AmortizaFactura extends SelectorComposer {
     @Wire
     private Textbox txtObservacion;
     @Wire
-    private Toolbarbutton btnGrabar;
+    private Toolbarbutton btnRegistrar;
     
     @WireVariable
     CuentaPagarService cuentaPagarService;
@@ -80,7 +80,7 @@ public class AmortizaFactura extends SelectorComposer {
         initComponets();
     }    
     
-    @Listen("onClick = #btnGrabar")
+    @Listen("onClick = #btnRegistrar")
     public void onImprimir(Event event) {
         registrar();
     }
@@ -115,7 +115,7 @@ public class AmortizaFactura extends SelectorComposer {
         txtNumero.setText(cpagar.getCnumero());
         nImporte.setValue(cpagar.getNsaldo());        
         cboMoneda.setSelectedIndex(modeloMoneda.indexOf(cpagar.getIdmoneda()));
-        btnGrabar.focus();
+        btnRegistrar.focus();
     }
     private void habilitarBanco(boolean enable){
         lblBanco.setVisible(enable);

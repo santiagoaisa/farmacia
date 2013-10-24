@@ -1,5 +1,7 @@
 <?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winInventario"?>
-<window id="winInventario" border="0" width="550px"  title="Inventario Valorizado..."
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuperiodo.zul"?>
+
+<window id="winInventario" border="0" width="600px"  title="Inventario Valorizado..."
  apply="modalmacen.herramientas.InventarioValorizadoLinea"   mode="overlapped" >
 
     <zscript>{
@@ -11,41 +13,48 @@
     </zscript>
     <grid width="99%">
         <columns>
+            <column width="12%"/>
             <column width="18%"/>
-            <column width="60%"/>
-            <column width="22%"/>
+            <column width="50%"/>
+            <column width="20%"/>
         </columns>
         <rows>
             <row>
                 <label value="Almacen:" />
                 <combobox id="cboAlmacen" constraint="no empty:Debe Seleccionar un Almacen" width="95%" readonly="true"/>
+                <menu id="mperiodo" width="100%"></menu>
                 <button id="btnProcesar"  label="Procesar"  />
             </row>
         </rows>
     </grid>
 
-    <listbox id="lstInventario"  height="400px" mold="paging" pageSize="500"  >
+    <listbox id="lstInventario"  height="400px" mold="paging" pageSize="500"   checkmark="true" multiple="true"  >
         <listhead menupopup="auto">
-            <listheader label="Nombre Linea" width="55%" sort="auto(idlinea.cnomlinea)"/>
+            <listheader width="10%" align="center" />
+            <listheader label="Nombre Linea" width="44%" sort="auto(idlinea.cnomlinea)"/>
             <listheader label="valor Costo" width="15%" sort="auto(ncosto)"   align="right"  />
             <listheader label="Precio Costo" width="15%" sort="auto(pcosto)"  align="right"  />
-            <listheader label="Participacion(%)" width="15%" sort="auto(nporcentaje)"  align="right"  />
-            
+            <listheader label="Participacion(%)" width="12%" sort="auto(nporcentaje)"  align="right"  />            
+            <listheader width="4%" />
         </listhead>
         <listitem self="@{each=detalle}">
+            <listcell />
             <listcell label="@{detalle.idlinea.cnomlinea}"/>
             <listcell decimal="@{detalle.ncosto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
             <listcell decimal="@{detalle.pcosto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />                       
             <listcell decimal="@{detalle.nporcentaje}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell />
         </listitem>
         <listfoot>
+            <listfooter />  
             <listfooter />           
             <listfooter >
-                <decimalbox id="nCosto" width="95%" value="0" format="###,###,##0.00" readonly="true"/>
+                <decimalbox id="nCosto" width="98%" value="0" format="###,###,##0.00" readonly="true"/>
             </listfooter>
             <listfooter >
-                <decimalbox id="nPcosto" width="95%" value="0"  format="###,###,##0.00" readonly="true"/>
+                <decimalbox id="nPcosto" width="98%" value="0"  format="###,###,##0.00" readonly="true"/>
             </listfooter>
+            <listfooter />  
             <listfooter />  
         </listfoot>  
     </listbox>
@@ -53,6 +62,7 @@
      
 
         <toolbar id="tb"   align="end" >
+            <toolbarbutton id="btnDetalle" image="/img/32/imprimir.png" label="Detalle" />            
             <toolbarbutton id="btnImprimir" image="/img/32/imprimir.png" label="Imprimir" />
             <toolbarbutton id="btnExportar" image="/img/Exportar.png" label="Exportar" />
             <toolbarbutton id="btnSalir" image="/img/32/salir.png" label="Salir" onClick="doCancel()" />

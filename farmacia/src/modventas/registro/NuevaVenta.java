@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import javax.naming.NamingException;
 import modmantenimiento.util.ConstraintCamposObligatorios;
+import modventas.util.ConstraintMaximoStock;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -71,7 +72,7 @@ public class NuevaVenta extends SelectorComposer {
     @Wire
     private Button btnAgregar;
     @Wire
-    private Toolbarbutton btnGrabar;
+    private Toolbarbutton btnRegistrar;
     @Wire
     private Listbox lstDetalle;
     @Wire
@@ -111,7 +112,7 @@ public class NuevaVenta extends SelectorComposer {
         agregarDetalle();
     }
 
-    @Listen("onClick = #btnGrabar")
+    @Listen("onClick = #btnRegistrar")
     public void onAgregarImprimir(Event event) {
         registrar();
     }
@@ -133,6 +134,9 @@ public class NuevaVenta extends SelectorComposer {
     public void onFocoMenudeo(Event event) {
         Intbox sub = (Intbox) event.getTarget();
         Listitem item = (Listitem) (sub.getParent().getParent());
+        DetalleVenta detven =  (DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
+        sub.setConstraint(new ConstraintMaximoStock(detven.getNstock()));
+        sub.getValue();
         Listcell celda6 = (Listcell) item.getChildren().get(6);
         Intbox cantidad = (Intbox) celda6.getFirstChild();
         cantidad.focus();
@@ -141,7 +145,15 @@ public class NuevaVenta extends SelectorComposer {
     }
     
     @Listen("  onOK = intbox#i1 ")    
-    public void onFocoAgregar() {
+    public void onFocoAgregar(Event event) {
+        Intbox sub = (Intbox) event.getTarget();
+        Listitem item = (Listitem) (sub.getParent().getParent());
+        DetalleVenta detven =  (DetalleVenta) modeloDetalle.getElementAt(item.getIndex());
+        sub.setConstraint(new ConstraintMaximoStock(detven.getNstockfraccion()));
+        sub.getValue();
+        if(detven.getNcanart()>0&&detven.getNcanartm()>0){
+                throw new ExceptionZarcillo("No se puede vender en unidades y menudeo...");
+         }
         cargarPie();
         btnAgregar.focus();
     }
@@ -151,6 +163,7 @@ public class NuevaVenta extends SelectorComposer {
         Toolbarbutton btn = (Toolbarbutton) event.getTarget();
         Listitem item = (Listitem) (btn.getParent().getParent());
         borrarProducto(item.getIndex());
+        btnAgregar.focus();
     }
 
     public void initComponets() {
@@ -228,7 +241,7 @@ public class NuevaVenta extends SelectorComposer {
             focoCantidad();
             cargarPie();
         } else {
-            btnGrabar.focus();
+            btnRegistrar.focus();
         }
     }
     
