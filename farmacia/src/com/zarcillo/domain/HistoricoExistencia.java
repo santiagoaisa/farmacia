@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
 @Table(name = "historico.historico_existencia")
 @NamedQueries({
     @NamedQuery(name = "HistoricoExistencia.findAll", query = "SELECT h FROM HistoricoExistencia h"),
-    @NamedQuery(name = "HistoricoExistencia.findByIdperiodoByIdalmacenByIdlinea", query = "SELECT h FROM HistoricoExistencia h WHERE h.idperiodo.idperiodo=:idperiodo and h.idalmacen.idalmacen=:idalmacen and h.idproducto.idsublinea.idlinea.idlinea=:idlinea ORDER BY h.idproducto.idproducto ")
+    @NamedQuery(name = "HistoricoExistencia.findByIdperiodoByIdalmacenByIdlinea", query = "SELECT h FROM HistoricoExistencia h WHERE h.idperiodo.idperiodo=:idperiodo and h.idalmacen.idalmacen=:idalmacen and h.idproducto.idsublinea.idlinea.idlinea=:idlinea ORDER BY h.idproducto.idsublinea.idlinea.cnomlinea, h.idproducto.idproducto ")
 })
 public class HistoricoExistencia implements Serializable {
 
