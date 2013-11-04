@@ -1,5 +1,6 @@
 package com.zarcillo.domain;
 
+import com.zarcillo.negocio.Mes;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -167,7 +168,7 @@ public class Periodo implements Serializable {
     @Override
     public String toString() {
         if (nmes > 0) {
-            return nano + "-" + nmes;
+            return nano + "" + Mes.getMes(nmes);
         } else {
             return nano + "";
         }
