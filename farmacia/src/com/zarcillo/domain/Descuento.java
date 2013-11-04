@@ -1,5 +1,6 @@
 package com.zarcillo.domain;
 
+import com.zarcillo.negocio.Igv;
 import com.zarcillo.negocio.Numero;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -189,7 +190,16 @@ public class Descuento implements Serializable {
         this.ndesc4 = ndesc4;
     }
 
-    public BigDecimal getDescuento() {        
+      public BigDecimal escala(BigDecimal nvalven, BigDecimal nprecio,BigDecimal ndesfin){        
+        BigDecimal nvalvensinigv=Igv.valorVentaDetalleVenta(nprecio,this.existencia.getIdproducto().getBinafecto());
+        BigDecimal nvalorventaorigen=nvalvensinigv.divide(Numero.uno.subtract(ndesfin.divide(Numero.cien) ),4,BigDecimal.ROUND_HALF_EVEN  );        
+        
+        BigDecimal ndivision=Numero.uno.subtract(nvalorventaorigen.divide(nvalvensinigv,4,BigDecimal.ROUND_HALF_EVEN )) ;
+        
+        return ndivision.multiply(Numero.cien);
+    }
+
+    public BigDecimal getDescuento() {
         BigDecimal ndescuento = new BigDecimal("0");
 
         if (nbon1.equals(0) && nbon2.equals(0)) {
@@ -201,10 +211,10 @@ public class Descuento implements Serializable {
 
         return ndescuento.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
-    
-     public BigDecimal getMayorDescuento() {        
+
+    public BigDecimal getMayorDescuento() {
         BigDecimal ndescuento = new BigDecimal("0");
-        
+
         if (!Numero.isCero(this.ndesc1)) {
             ndescuento = this.getNdesc1();
         }
@@ -223,7 +233,7 @@ public class Descuento implements Serializable {
 
         return ndescuento;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

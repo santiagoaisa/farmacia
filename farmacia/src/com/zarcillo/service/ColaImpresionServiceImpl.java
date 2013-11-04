@@ -67,7 +67,7 @@ public class ColaImpresionServiceImpl implements ColaImpresionService {
             }
             
             if (regsalida.getIdcliente().getBnoredondeo()) {
-                regsalida.setNimporte(regsalida.getNimporte().add(regsalida.getNredondeo()));
+                regsalida.setNimporte(regsalida.getNimporte().subtract(regsalida.getNredondeo()));
                 regsalida.setNredondeo(Numero.cero);
             }
 
