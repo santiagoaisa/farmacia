@@ -80,6 +80,7 @@ public class VentaDirecta extends SelectorComposer {
     private ListModelList modeloMotivo;
     private ListModelList modeloVendedor;
     private ListModelList modeloPago;
+    private ListModelList modeloDocumento;
     private Periodo periodo;
     private Cliente cliente = new Cliente();
     @Wire
@@ -123,9 +124,7 @@ public class VentaDirecta extends SelectorComposer {
     @Wire
     private Textbox txtDireccion;
     @Wire
-    private Decimalbox nEfectivo;
-    @Wire
-    private Decimalbox nVuelto;
+    private Combobox cboDocumento;
     @Wire
     private Toolbarbutton btnCrear;
     @Wire
@@ -189,45 +188,7 @@ public class VentaDirecta extends SelectorComposer {
         cargarPie();
     }
 
-    @Listen("onCtrlKey = #btnAgregar")
-    public void onRecalcula(Event event) {
-        if (((KeyEvent) event).getKeyCode() == 119) {
-            nEfectivo.select();
-        }
-    }
-    
-    @Listen("onCtrlKey = #i0")
-    public void onRecantidad(Event event) {
-        if (((KeyEvent) event).getKeyCode() == 119) {
-            nEfectivo.select();
-        }
-    }
-    
-    @Listen("onCtrlKey = #i1")
-    public void onRemenudeo(Event event) {
-        if (((KeyEvent) event).getKeyCode() == 119) {
-            nEfectivo.select();
-        }
-    }
-
-    @Listen("onCtrlKey = #nEfectivo")
-    public void onGrabar(Event event) throws JRException {
-        if (((KeyEvent) event).getKeyCode() == 119) {
-            registrar();
-        }
-    }
-    
-    @Listen("  onOK = #nEfectivo")
-    public void onGrabarEfectivo() throws JRException {
-        registrar();
-    }
-    
-    @Listen("  onBlur = #nEfectivo ")
-    public void calcularVuelto() {
-        nVuelto.setValue(nEfectivo.getValue().subtract(nImporte.getValue()));
-    }
-    
-    
+        
 
     @Listen("  onOK = intbox#i0 ")
     public void onFocoMenudeo(Event event) {
@@ -306,6 +267,13 @@ public class VentaDirecta extends SelectorComposer {
             cboMotivo.close();
             cboMotivo.setSelectedIndex(0);
         }
+        modeloDocumento= new ListModelList(documentoService.listaDocumentoVenta());
+        cboDocumento.setModel(modeloDocumento);
+        if (modeloDocumento.size() > 0) {
+            cboDocumento.onInitRender(new Event("", cboDocumento));
+            cboDocumento.close();
+            cboDocumento.setSelectedIndex(modeloDocumento.indexOf(documentoService.buscarPorCcodigosunat(Documento.TICKET.getCcodigosunat())));
+        }
         modeloVendedor = new ListModelList(ventaService.listaVendedorPorIdusuario(usuario.getIdusuario()));
         cboVendedor.setModel(modeloVendedor);
         if (modeloVendedor.size() > 0) {
@@ -324,6 +292,7 @@ public class VentaDirecta extends SelectorComposer {
         lstDetalle.setModel(modeloDetalle);
         periodo = periodoService.buscarPorDfecha(new Date());
         dFecha.setValue(new Date());
+        dFecha.setDisabled(true);
         btnAgregar.focus();
     }
 
@@ -394,8 +363,6 @@ public class VentaDirecta extends SelectorComposer {
         nIgv.setValue(regsalida.getNigv());
         nRedondeo.setValue(regsalida.getNredondeo());
         nImporte.setValue(regsalida.getNimporte());
-        nEfectivo.setValue(nImporte.getValue());
-         nVuelto.setValue(nEfectivo.getValue().subtract(nImporte.getValue()));
     }
 
     private List<Movimiento> llenarDetalle() {
@@ -442,6 +409,7 @@ public class VentaDirecta extends SelectorComposer {
         CondicionVenta condicion = (CondicionVenta) modeloCondicion.getElementAt(cboCondicion.getSelectedIndex());
         MotivoSalida motivo = (MotivoSalida) modeloMotivo.getElementAt(cboMotivo.getSelectedIndex());
         Vendedor vendedor = (Vendedor) modeloVendedor.getElementAt(cboVendedor.getSelectedIndex());
+        Documento documento=(Documento) modeloDocumento.getElementAt(cboDocumento.getSelectedIndex());
         regsalida.setIdusuario(usuario);
         regsalida.setIdunidad(almacen.getIdunidad());
         regsalida.setIdcondicion(condicion);
@@ -451,7 +419,7 @@ public class VentaDirecta extends SelectorComposer {
         regsalida.setDfecha(dFecha.getValue());
         regsalida.setDfecdig(dFecha.getValue());
         regsalida.setMovimientoCollection(llenarDetalle());
-        regsalida.setIddocumento(documentoService.buscarPorCcodigosunat(Documento.TICKET.getCcodigosunat()));
+        regsalida.setIddocumento(documento);
         int operacion = ventaService.registrar(regsalida, almacen);
         nOperacion.setValue(operacion);
         registrarDocumento();
@@ -472,11 +440,14 @@ public class VentaDirecta extends SelectorComposer {
         regsalida = comprobante.getIdregsalida();
         btnRegistrar.setDisabled(true);
         btnAgregar.setDisabled(true);
-        int resp2 = 0;
-        resp2 = Messagebox.show("¿Desea imprimir? " + comprobante.getIddocumento().getCabrev() + " " + comprobante.getCserie() + "-" + comprobante.getCnumero(), "REGISTRO SATISFACTORIO", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
-        if (resp2 == Messagebox.YES) {
-            imprimir();
+        if(comprobante.getIddocumento().getCcodigosunat().contains(Documento.TICKET.getCcodigosunat())){
+            imprimir();            
         }
+        else{
+            Messagebox.show("OP: "+regsalida.getIdregsalida()+" " + comprobante.getIddocumento().getCabrev() + "-" + comprobante.getCserie() + "-" + comprobante.getCnumero());            
+            imprimir(); 
+        }
+        
         btnIgnorar.focus();
     }
 
@@ -552,6 +523,7 @@ public class VentaDirecta extends SelectorComposer {
         Almacen almacen = (Almacen) modeloAlmacen.getElementAt(cboAlmacen.getSelectedIndex());
         TipoPago tpago = (TipoPago) modeloPago.getElementAt(cboPago.getSelectedIndex());
         String reporteFuente;
+        
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
         simbolos.setDecimalSeparator('.');
 
@@ -586,11 +558,10 @@ public class VentaDirecta extends SelectorComposer {
         parametro.put("VALORVENTA", regsalida.getNafecto());
         parametro.put("IGV", regsalida.getNigv());
         parametro.put("IMPORTE", regsalida.getNimporte());
-        parametro.put("EFECTIVO", nEfectivo.getValue());
-        parametro.put("VUELTO", nEfectivo.getValue().subtract(regsalida.getNimporte()));
         parametro.put("SERIE", comprobante.getCserie());
-        parametro.put("NUMERO", comprobante.getCnumero());
+        parametro.put("NUMERO", "00"+comprobante.getCnumero());
         parametro.put("GLOSA", regsalida.getCglosa());
+        parametro.put("SERIEMAQUINA","N° de Serie: PSIFIKA12050165");
         if (regsalida.getIdcondicion().getBcontado()) {
             parametro.put("TIPOPAGO", tpago.getCnomtipo());
         }

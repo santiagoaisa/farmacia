@@ -62,7 +62,7 @@
 				<textFieldExpression><![CDATA[$P{HORADIG}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="798c6694-20de-47d1-aec6-02d92debb7cb" x="57" y="97" width="319" height="11"/>
+				<reportElement uuid="798c6694-20de-47d1-aec6-02d92debb7cb" x="271" y="97" width="105" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8" pdfFontName="ABALC.TTF" isPdfEmbedded="true"/>
 				</textElement>
@@ -89,6 +89,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{SERIE}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement uuid="f0639709-e384-4d9f-934c-9416fb1919d1" x="51" y="97" width="220" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[DIRECCION:  AV. INDEPENDENCIA 532 AREQUIPA]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>

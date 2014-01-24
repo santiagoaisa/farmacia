@@ -1,0 +1,58 @@
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winDigemid"?>
+<?component name="menu" macro-uri="/modulos/mantenimiento/util/menuperiodo.zul"?>
+
+<window id="winDigemid" border="0" width="600px"  title="Envio Precios Digemid..."
+ apply="modcompras.proceso.EnvioPreciosDigemid"   mode="overlapped" >
+
+    <zscript>{
+        void doCancel() {
+        winDigemid.setAttribute("REST",false);
+        winDigemid.onClose();
+        }
+        }
+    </zscript>
+    <grid width="99%">
+        <columns>
+            <column width="12%"/>
+            <column width="18%"/>
+            <column width="50%"/>
+            <column width="20%"/>
+        </columns>
+        <rows>
+            <row>
+                <label value="Almacen:" />
+                <combobox id="cboAlmacen" constraint="no empty:Debe Seleccionar un Almacen" width="95%" readonly="true"/>
+                <menu id="mperiodo" width="100%"></menu>
+                <button id="btnProcesar"  label="Procesar"  />
+            </row>
+        </rows>
+    </grid>
+
+    <listbox id="lstDetalle"  height="400px" mold="paging" pageSize="500"   checkmark="true" multiple="true"  >
+        <listhead menupopup="auto">
+            <listheader width="10%" align="center" />
+            <listheader label="Producto" width="50%" sort="auto(idlinea.cnomlinea)"/>
+            <listheader label="Precio Anterior" width="18%" sort="auto(ncosto)"   align="right"  />
+            <listheader label="Precio Actual" width="18%" sort="auto(pcosto)"  align="right"  />
+            <listheader width="4%" />
+        </listhead>
+        <listitem self="@{each=detalle}">
+            <listcell />
+            <listcell label="@{detalle.idlinea.cnomlinea}"/>
+            <listcell decimal="@{detalle.ncosto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />
+            <listcell decimal="@{detalle.pcosto}" format="0.00" use="modmantenimiento.util.ListcellNumero" />                       
+            <listcell />
+        </listitem>
+        
+    </listbox>
+
+     
+
+        <toolbar id="tb"   align="end" >
+            <toolbarbutton id="btnDetalle" image="/img/32/Exportar.png" label="DIGEMID" />            
+            <toolbarbutton id="btnImprimir" image="/img/32/imprimir.png" label="Imprimir" />
+            <toolbarbutton id="btnExportar" image="/img/32/Exportar.png" label="Exportar" />
+            <toolbarbutton id="btnSalir" image="/img/32/salir.png" label="Salir" onClick="doCancel()" />
+        </toolbar>
+</window>
+
